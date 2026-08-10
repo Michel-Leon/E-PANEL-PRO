@@ -8,6 +8,7 @@ Public ResultadoENV As String
 Public ResultadoENVP As String
 Public ResultadoENVL As String
 Public ResultadoENVPS As String
+Public ResultadoDPS As String
 '============== Mover Bloque ===================
 Sub MoverBloque(ref As String, BD As String)
     Dim origen As Range
@@ -32,23 +33,7 @@ Sub MoverBloque(ref As String, BD As String)
 
 End Sub
 '======================================================================================================
-Public Sub Seleccion_Menu_Envolventes()
-    Dim shp As Shape
-    Dim groupname As String
-    groupname = "Menu Envolventes"
-    
-    On Error Resume Next
-    Set shp = ActiveSheet.Shapes(groupname)
-    On Error GoTo 0
-    
-    If Not shp Is Nothing Then
-        ' Alterna la visibilidad del grupo seleccionado
-        shp.Visible = Not shp.Visible
-        ' Oculta los dem s grupos
-        'ActiveSheet.Shapes("Complementos de dibujo").Visible = False
-        
-    End If
-End Sub
+
 Sub Vista_puerta(ByVal resEnvP As String)
 
     WITH ThisWorkbook.Sheets("Vista Puerta").Range("BX44:IX144")

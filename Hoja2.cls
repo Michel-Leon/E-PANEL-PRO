@@ -2,21 +2,19 @@
 Public valordimensiones As String
 
 Private Sub Worksheet_Activate()
-    On Error GoTo errHandler
     extraerDatos
     With Me.OLEObjects("Dimensiones").Object
         .Clear
         .AddItem valordimensiones
     End With
-    Exit Sub
-errHandler:
-    MsgBox "Error " & Err.Number & " en Worksheet_Activate (Vista Puerta): " & Err.Description, vbCritical
+
     With Me.OleObjects("FabricanteDPS").Object
         .Clear
         .AddItem "Ciprotec"
         .AddItem "HWA"
         .AddItem "Phoenix Contac"
         .AddItem "Citel"
+        .AddItem "Schneider Electric"
     End With
     With Me.OleObjects("EquipoDPS").Object
         .Clear
@@ -48,7 +46,7 @@ Sub extraerDatos()
 
     valordimensiones = partes(0) & "X" & partes(1)   ' ahora sí queda "900X520"
 End Sub
-Public sub Envolventes ()
+Public sub Envolventes()
     On Error GoTo errHandler
     With ThisWorkbook.Sheets("Vista FM").Range("BX44:IX144")
         .Clear
@@ -93,6 +91,31 @@ Public sub Envolventes ()
 errHandler:
     MsgBox "Error " & Err.Number & " en Envolventes: " & Err.Description, vbCritical
 End Sub
+Public Sub DPS_Buscar()
+    '========================
+        celda = "JT107"
+        thisWorkbook.Sheets("Vista FM").Range("JT107:NO182").Clear
+        Set wsActual = thisWorkbook.Sheets("Vista FM")
+    '========================
+    dim Fabricante as string
+    select case Me.oleobjects("FabricanteDPS").Object.Value
+        case "Ciprotec":Fabricante = "CP"
+        case "HWA":Fabricante = "HW"
+        case "Phoenix Contac":Fabricante = "PC"
+        case "Citel":Fabricante = "CT"
+        case "Schneider Electric":Fabricante = "SH"
+    end select
+    dim Equipo as string
+    select case Me.oleobjects("EquipoDPS").Object.Value
+        case "CVS":Equipo = "CVS"
+        case "EZC":Equipo = "EZC"
+        case "MINI":Equipo = "MB"
+        case "NSX":Equipo = "NSX"
+    end select
+    ResultadoDPS= "DPS_" & Fabricante & "X" & Equipo & "X" & "720X4"
+    MoverBloque ResultadoDPS,"BD_DPS"
+End Sub
+
 
 
 
