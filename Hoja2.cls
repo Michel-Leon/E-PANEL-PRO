@@ -1,13 +1,47 @@
 '============== vista columna ===================
 Public valordimensiones As String
+'======= CONDICIONES DE SELECCION =======
+'BARRAJE
+    Private sub TipoBRR_Change()
+        dim dato as string
+        dato = Me.OleObjects("TipoBRR").Object.Value
+        ' CAMBIA CNTENIDO DE UNA CUADRO DE TEXTO  concepto_dato3 DEPENDIENDO DE LA SELECCION DEL COMBOBOX
+        Select case dato
+            case "Tierra/Neutro"
+                ActiveSheet.Shapes("concepto_dato3").TextFrame2.TextRange.Text = "Medida:"
+            case "BusBar"
+                IF Me.OleObjects("OrientacionBRR").Object.Value = "Horizontal" Then
+                    ActiveSheet.Shapes("concepto_dato3").TextFrame2.TextRange.Text = "Medida:"
+                ElseIF Me.OleObjects("OrientacionBRR").Object.Value = "Vertical" Then
+                    ActiveSheet.Shapes("concepto_dato3").TextFrame2.TextRange.Text = "Interruptor:"
+                End If
+        end select
+        with Me.oleobjects("DATO3BRR").Object
+            .Clear
+            Select case dato
+                case "Tierra/Neutro"
+                    .AddItem "720"
+                    .AddItem "400"
+                case "BusBar"
+                IF Me.OleObjects("OrientacionBRR").Object.Value = "Vertical" Then
+                    .AddItem "EZC400"
+                    .AddItem "CVS400"
+                    .AddItem "NSX400"
+                ELSEIF Me.OleObjects("OrientacionBRR").Object.Value = "Horizontal" Then
+                    .AddItem "720"
+                End If    
+            end select
+        end with
+    End sub
 
 Private Sub Worksheet_Activate()
     extraerDatos
+    '============== vista columna ===================
     With Me.OLEObjects("Dimensiones").Object
         .Clear
         .AddItem valordimensiones
     End With
-
+    '============== DPS ===================
     With Me.OleObjects("FabricanteDPS").Object
         .Clear
         .AddItem "Ciprotec"
@@ -23,7 +57,50 @@ Private Sub Worksheet_Activate()
         .AddItem "MINI"
         .AddItem "NSX"
     End With
-
+    '============== Servicios ===================
+    With Me.OleObjects("Clase_servicio").Object
+        .Clear
+        .AddItem "Iluminacion"
+        .AddItem "Cambio_Tension"
+        .AddItem "Switch"
+        .AddItem "GateWay"
+        .AddItem "Toma_Corriente"
+        .AddItem "Batery.ST"
+        .AddItem "Pont_IO"
+        .AddItem "A_UnitBB"
+    End With 
+    '============== Barraje ===================
+    With Me.OleObjects("OrientacionBRR").Object
+        .Clear
+        .AddItem "Horizontal"
+        .AddItem "Vertical"
+    End With
+    with Me.OleObjects("TipoBRR").Object
+        .Clear
+        .AddItem "Tierra/Neutro"
+        .AddItem "BusBar"
+    End With
+    '============== Lisas ===================
+    with Me.oleobjects("MedidaLSS").Object
+        .Clear
+        .AddItem "720"
+        .AddItem "400"
+    End With
+    with Me.oleobjects("UnidadLSS").Object
+        .Clear
+        .AddItem "1"
+        .AddItem "2"
+        .AddItem "3"
+        .AddItem "4"
+        .AddItem "5"
+        .AddItem "6"
+    End With
+    '============== Unidades Funcionales ===================
+    with Me.oleobjects("MedidaUF").Object
+        .Clear
+        .AddItem "720"
+        .AddItem "400"
+    End With
 End Sub
 
 Sub extraerDatos()
@@ -70,7 +147,7 @@ Public sub Envolventes()
 
     ResultadoENV = "EFM_" & Linea & "X" & dato
     'MSGBOX ResultadoENV
-    MoverBloque ResultadoENV,"ENVOLVENTES_FM"
+    MoverBloque ResultadoENV,"ENVOLVENTES_FM", wsActual, celda
     '===== ARMAR LAS DEMAS VISTAS =====
     Dim datoH As String, datoW As String, datoD As String
     '------------------------------------------
@@ -88,8 +165,8 @@ Public sub Envolventes()
     '------------------------------------------
     'MSGBOX ResultadoENVL & "/" & ResultadoENVP
     Exit Sub
-errHandler:
-    MsgBox "Error " & Err.Number & " en Envolventes: " & Err.Description, vbCritical
+    errHandler:
+        MsgBox "Error " & Err.Number & " en Envolventes: " & Err.Description, vbCritical
 End Sub
 Public Sub DPS_Buscar()
     '========================
@@ -113,9 +190,63 @@ Public Sub DPS_Buscar()
         case "NSX":Equipo = "NSX"
     end select
     ResultadoDPS= "DPS_" & Fabricante & "X" & Equipo & "X" & "720X4"
-    MoverBloque ResultadoDPS,"BD_DPS"
+    MoverBloque ResultadoDPS,"BD_DPS", wsActual, celda
 End Sub
+Public sub Servicios()
+    '========================
+        celda = "JT107"
+        thisWorkbook.Sheets("Vista FM").Range("JT107:NO182").Clear
+        Set wsActual = thisWorkbook.Sheets("Vista FM")
+    '========================
+    dim servicio as string
+    servicio = Me.oleobjects("Clase_servicio").Object.Value
+    ResultadoSERV= servicio
+    MoverBloque ResultadoSERV,"SERVICIOS", wsActual, celda
+End Sub
+Public Sub Barraje()
+    Dim wsActual As Worksheet
+    Dim celda As String
+    Dim dato1 As String, dato2 As String, dato3 As String
+    Dim ResultadoBRR As String
+    '========================
+    celda = "JT95"
+    Set wsActual = ThisWorkbook.Sheets("Vista FM")
+    wsActual.Range("JT95:NO182").Clear
+    '========================
+    dato1 = Trim$(Me.OLEObjects("OrientacionBRR").Object.Value)
+    dato2 = Trim$(Me.OLEObjects("TipoBRR").Object.Value)
+    dato3 = Trim$(Me.OLEObjects("DATO3BRR").Object.Value)
 
+    If dato1 = "" Or dato2 = "" Or dato3 = "" Then
+        MsgBox "Completa las tres selecciones antes de generar el barraje.", vbExclamation
+        Exit Sub
+    End If
 
+    Select Case dato1
+        Case "Horizontal": dato1 = "H"
+        Case "Vertical":   dato1 = "V"
+    End Select
+
+    Select Case dato2
+        Case "Tierra/Neutro": dato2 = "TN"
+        Case "BusBar":        dato2 = "BB"
+    End Select
+
+    ResultadoBRR = dato1 & dato2 & "X" & dato3
+
+    MoverBloque ResultadoBRR, "BD_BARRAJE", wsActual, celda
+End Sub
+Public sub Unidades_lisas()
+    '========================
+        celda = "JT107"
+        thisWorkbook.Sheets("Vista FM").Range("JT107:NO182").Clear
+        Set wsActual = thisWorkbook.Sheets("Vista FM")
+    '========================
+    dim dato1 as string, dato2 as string
+    dato1 = Me.oleobjects("MedidaLSS").Object.Value
+    dato2 = Me.oleobjects("UnidadLSS").Object.Value
+    ResultadoLSS= "LX" & dato1 & "X" & dato2
+    MoverBloque ResultadoLSS,"UF_LISAS", wsActual, celda
+End Sub
 
 

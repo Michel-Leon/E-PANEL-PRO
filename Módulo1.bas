@@ -9,29 +9,49 @@ Public ResultadoENVP As String
 Public ResultadoENVL As String
 Public ResultadoENVPS As String
 Public ResultadoDPS As String
+public ResultadoSERV As String
+Public ResultadoBRR As String
 '============== Mover Bloque ===================
-Sub MoverBloque(ref As String, BD As String)
-    Dim origen As Range
-    Dim destino As Range
-    Dim wsDatos As Worksheet
-    
+Public Sub MoverBloque(ByVal ref As String, ByVal BD As String, _
+                       ByVal wsDestino As Worksheet, ByVal celdaDestino As String)
 
-    Set wsDatos = ThisWorkbook.Sheets(BD)
-    
+    Dim origen As Range, destino As Range, wsDatos As Worksheet
 
     On Error GoTo errHandler
+
+    Set wsDatos = ThisWorkbook.Sheets(BD)
     Set origen = wsDatos.Range(ref)
-    Set destino = wsActual.Range(Celda)
+    Set destino = wsDestino.Range(celdaDestino)
 
     origen.Copy Destination:=destino
-
-    'wsActual.Range(destino, destino.Offset(origen.Rows.Count - 1, origen.Columns.Count - 1)).Select
     Exit Sub
 
-    errHandler:
-            MsgBox "Referencia no encontrada " & ref, vbCritical
-
+errHandler:
+    MsgBox "Fallo al mover el bloque." & vbCrLf & _
+           "Ref: " & ref & vbCrLf & _
+           "BD: " & BD & vbCrLf & _
+           "Destino: " & celdaDestino & vbCrLf & vbCrLf & _
+           "Error " & Err.Number & ": " & Err.Description, vbCritical
 End Sub
+Private Function ResolverBloque(ByVal nombre As String) As Range
+    Dim n As Name
+    On Error Resume Next
+
+    ' 1) Nombre global
+    Set ResolverBloque = ThisWorkbook.Names(nombre).RefersToRange
+    If Not ResolverBloque Is Nothing Then Exit Function
+    Err.Clear
+
+    ' 2) Nombre local en cualquier hoja
+    Dim ws As Worksheet
+    For Each ws In ThisWorkbook.Worksheets
+        Set ResolverBloque = ws.Names(nombre).RefersToRange
+        If Not ResolverBloque Is Nothing Then Exit Function
+        Err.Clear
+    Next ws
+
+    On Error GoTo 0
+End Function
 '======================================================================================================
 
 Sub Vista_puerta(ByVal resEnvP As String)
@@ -49,7 +69,7 @@ Sub Vista_puerta(ByVal resEnvP As String)
         Case "110":Celda = "BX57"
     End select 
     'MsgBox resEnvP
-    MoverBloque resEnvP, "ENVOLVENTES_PUERTA"
+    MoverBloque resEnvP, "ENVOLVENTES_PUERTA", wsActual, celda
 End Sub
 sub Vista_lateral(ByVal resEnvL As String)
     With ThisWorkbook.Sheets("Vista Lateral").Range("CG49:IR145")
@@ -65,7 +85,7 @@ sub Vista_lateral(ByVal resEnvL As String)
         Case "110":Celda = "CH58"
     End select    
     'MsgBox resEnvL
-    MoverBloque resEnvL, "ENVOLVENTES L-Post"
+    MoverBloque resEnvL, "ENVOLVENTES L-Post", wsActual, celda
 End Sub
 Sub Vista_Posterior(ByVal resEnvPS As String)
     With ThisWorkbook.Sheets("Vista Posterior").Range("CH49:IX144")
@@ -81,6 +101,6 @@ Sub Vista_Posterior(ByVal resEnvPS As String)
         Case "110":Celda = "BX57"
     End select    
     'MsgBox resEnvPS
-    MoverBloque resEnvPS, "ENVOLVENTES L-Post"
+    MoverBloque resEnvPS, "ENVOLVENTES L-Post", wsActual, celda
 End Sub
 
