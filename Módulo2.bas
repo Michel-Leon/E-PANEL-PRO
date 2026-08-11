@@ -15,7 +15,10 @@ Public Sub Seleccion_Menu_Envolventes()
         ActiveSheet.Shapes("Menu DPS").Visible = False
         ActiveSheet.Shapes("Menu_Servicios").Visible = False
         ActiveSheet.Shapes("Menu_BARRAS").Visible = False
-        ActiveSheet.Shapes("Menu_Lisas").ZOrder msoBringToFront
+        ActiveSheet.Shapes("Menu_Lisas").Visible = False
+        ActiveSheet.Shapes("Menu Unidades").Visible = False
+        ActiveSheet.Shapes("Menu Contactores").Visible = False
+        ActiveSheet.Shapes("Menu Control").Visible = False
         
     End If
 End Sub
@@ -35,7 +38,10 @@ Public Sub Seleccion_Menu_DPS()
         ActiveSheet.Shapes("Menu Envolventes").Visible = False
         ActiveSheet.Shapes("Menu_Servicios").Visible = False
         ActiveSheet.Shapes("Menu_BARRAS").Visible = False
-        ActiveSheet.Shapes("Menu_Lisas").ZOrder msoBringToFront
+        ActiveSheet.Shapes("Menu_Lisas").VIsible = False
+        ActiveSheet.Shapes("Menu Unidades").Visible = False
+        ActiveSheet.Shapes("Menu Contactores").Visible = False
+        ActiveSheet.Shapes("Menu Control").Visible = False
     End If
 End Sub
 public Sub Seleccion_Menu_Servicios()
@@ -54,7 +60,10 @@ public Sub Seleccion_Menu_Servicios()
         ActiveSheet.Shapes("Menu Envolventes").Visible = False
         ActiveSheet.Shapes("Menu DPS").Visible = False
         ActiveSheet.Shapes("Menu_BARRAS").Visible = False
-        ActiveSheet.Shapes("Menu_Lisas").ZOrder msoBringToFront
+        ActiveSheet.Shapes("Menu_Lisas").Visible = False
+        ActiveSheet.Shapes("Menu Unidades").Visible = False
+        ActiveSheet.Shapes("Menu Contactores").Visible = False
+        ActiveSheet.Shapes("Menu Control").Visible = False
     End If
 End Sub
 Public Sub Seleccion_Menu_BARRAS()
@@ -73,7 +82,10 @@ Public Sub Seleccion_Menu_BARRAS()
         ActiveSheet.Shapes("Menu Envolventes").Visible = False
         ActiveSheet.Shapes("Menu DPS").Visible = False
         ActiveSheet.Shapes("Menu_Servicios").Visible = False
-        ActiveSheet.Shapes("Menu_Lisas").ZOrder msoBringToFront
+        ActiveSheet.Shapes("Menu_Lisas").visible = False
+        ActiveSheet.Shapes("Menu Unidades").Visible = False
+        ActiveSheet.Shapes("Menu Contactores").Visible = False
+        ActiveSheet.Shapes("Menu Control").Visible = False
     End If
 End Sub
 Public Sub Seleccion_Menu_Lisas()
@@ -92,6 +104,75 @@ Public Sub Seleccion_Menu_Lisas()
         ActiveSheet.Shapes("Menu Envolventes").Visible = False
         ActiveSheet.Shapes("Menu DPS").Visible = False
         ActiveSheet.Shapes("Menu_Servicios").Visible = False
-        ActiveSheet.Shapes("Menu_BARRAS").ZOrder msoBringToFront
+        ActiveSheet.Shapes("Menu_BARRAS").visible = False
+        ActiveSheet.Shapes("Menu Unidades").Visible = False
+        ActiveSheet.Shapes("Menu Contactores").Visible = False
+        ActiveSheet.Shapes("Menu Control").Visible = False
+    End If
+End Sub
+Public Sub Seleccion_Menu_Unidades()
+    Dim shp As Shape
+    Dim groupname As String
+    groupname = "Menu Unidades"
+    
+    On Error Resume Next
+    Set shp = ActiveSheet.Shapes(groupname)
+    On Error GoTo 0
+    
+    If Not shp Is Nothing Then
+        ' Alterna la visibilidad del grupo seleccionado
+        shp.Visible = Not shp.Visible
+        ' Oculta los dem s grupos
+        ActiveSheet.Shapes("Menu Envolventes").Visible = False
+        ActiveSheet.Shapes("Menu DPS").Visible = False
+        ActiveSheet.Shapes("Menu_Servicios").Visible = False
+        ActiveSheet.Shapes("Menu_BARRAS").visible = False
+        ActiveSheet.Shapes("Menu_Lisas").Visible = False
+        ActiveSheet.Shapes("Menu Contactores").Visible = False
+        ActiveSheet.Shapes("Menu Control").Visible = False
+    End If
+End Sub
+public Sub Seleccion_Menu_Contactores()
+    Dim shp As Shape
+    Dim groupname As String
+    groupname = "Menu Contactores"
+    
+    On Error Resume Next
+        Set shp = ActiveSheet.Shapes(groupname)
+    On Error GoTo 0
+    
+    If Not shp Is Nothing Then
+        ' Alterna la visibilidad del grupo seleccionado
+        shp.Visible = Not shp.Visible
+        ' Oculta los dem s grupos
+        ActiveSheet.Shapes("Menu Envolventes").Visible = False
+        ActiveSheet.Shapes("Menu DPS").Visible = False
+        ActiveSheet.Shapes("Menu_Servicios").Visible = False
+        ActiveSheet.Shapes("Menu_BARRAS").visible = False
+        ActiveSheet.Shapes("Menu_Lisas").Visible = False
+        ActiveSheet.Shapes("Menu Unidades").Visible = False
+        ActiveSheet.Shapes("Menu Control").Visible = False
+    End If
+End Sub
+Public Sub Seleccion_Menu_Control()
+    Dim shp As Shape
+    Dim groupname As String
+    groupname = "Menu Control"
+    
+    On Error Resume Next
+    Set shp = ActiveSheet.Shapes(groupname)
+    On Error GoTo 0
+    
+    If Not shp Is Nothing Then
+        ' Alterna la visibilidad del grupo seleccionado
+        shp.Visible = Not shp.Visible
+        ' Oculta los dem s grupos
+        ActiveSheet.Shapes("Menu Envolventes").Visible = False
+        ActiveSheet.Shapes("Menu DPS").Visible = False
+        ActiveSheet.Shapes("Menu_Servicios").Visible = False
+        ActiveSheet.Shapes("Menu_BARRAS").visible = False
+        ActiveSheet.Shapes("Menu_Lisas").Visible = False
+        ActiveSheet.Shapes("Menu Unidades").Visible = False
+        ActiveSheet.Shapes("Menu Contactores").Visible = False
     End If
 End Sub
