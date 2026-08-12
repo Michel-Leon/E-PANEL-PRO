@@ -150,7 +150,42 @@ Public valordimensiones As String
             End Select
         End With
     end sub
-
+'ACESORIOS DE CONTROL
+Private sub elemaCTR_Change()
+    Dim dato As String
+    dato = Me.OleObjects("elemaCTR").Object.Value
+    with Me.oleobjects("VistaCTR").Object   
+        .Clear
+        select case dato
+            case "Clavija Roja", "Clavija Azul"
+                .AddItem "Frontal"
+                .AddItem "Derecha_Abierta"
+                .AddItem "Derecha_Cerrada"
+                .AddItem "Izquierda_Abierta"
+                .AddItem "Izquierda_Cerrada"
+            case else
+                .AddItem "NA"
+        end select
+    End With
+end sub 
+' MTO DE TRANSFERENCIA
+Private sub TipoTransferencia_change()
+    dim dato as string
+    Dim texto As String
+    dato = Me.OleObjects("TipoTransferencia").Object.Value
+    Select Case  dato
+        Case "Tranf. EZC250 Vertical entrada superior | Tipo I"
+            texto = "+N1| | | | | | H: 1100 / W: 720 / D: 400 | Seccion de Envolvente frente muerto | |" & vbCrLf
+            texto = texto & "+C1 | Liso | | | | | W: 720/ U:  3 | Unidad Funcional  Lisa / SFI - Frontal Interno | |" & vbCrLf
+            texto = texto & "+C2 | Liso | | | | | W: 720 / U:  4 | Unidad Funcional  Lisa / SFI - Frontal Interno | |" & vbCrLf
+            texto = texto & "+C3 | Equipada | A-Unit | | | | W:400 | Unidad preensamble Batery.ST / SFI - Frontal Interno | |" & vbCrLf
+            texto = texto & "+C4 | Equipada | EZC250 | 3 | Vertical | EZC250N| W: 720 / U: 7 | SFI - Frontal Interno / Vertical/ Cant.equipos: 2 | Superior |" & vbCrLf
+        Case else
+            texto = "no hay texto"    
+    End Select
+           
+    Me.OleObjects("Descripcion").Object.value = texto  
+end sub        
 Private Sub Worksheet_Activate()
     extraerDatos
     '============== vista columna ===================
@@ -242,6 +277,52 @@ Private Sub Worksheet_Activate()
         .AddItem "400"
         .AddItem "720"
     End With
+    '============== ACCESORIOS DE CONTROL ===================
+    With Me.OleObjects("elemaCTR").Object
+        .Clear
+        .AddItem "Clavija Roja"
+        .AddItem "Clavija Azul"
+        .AddItem "Pilotos"
+        .AddItem "Parada Emergencia"
+        .AddItem "Conmutador"
+        .AddItem "Selector 1"
+        .AddItem "Selector 2"
+        .AddItem "Pulsador"
+        .AddItem "Piloto verde"
+        .AddItem "Piloto rojo"
+        .AddItem "Piloto amarillo"
+        .AddItem "Piloto azul"
+        .AddItem "Piloto gris"
+        .AddItem "Piloto gris x3"
+    end With 
+    '============== EQUIPOS INDIVIDUALES ===================
+    With Me.OleObjects("EquipoEI").Object
+        .Clear
+        .AddItem "MiniBreaker (3P)"
+        .AddItem "MiniBreaker (2P)"
+        .AddItem "MiniBreaker (1P)"
+        .AddItem "EZC100 (3P)"
+        .AddItem "EZC100 (2P)"
+        .AddItem "Bloque de distribuccion"
+        .AddItem "Contactor (Talla 1-2)"
+        .AddItem "Contactor (Talla 3)"
+        .AddItem "Transformador"
+    end With
+    '============== MTO TRANSFERENCIAS ===================
+    With Me.OleObjects("TipoTransferencia").Object
+        .Clear
+        .AddItem "Tranf. EZC250 Vertical entrada superior | Tipo I" '1100x720
+        .AddItem "Tranf. EZC250 Vertical entrada superior | Tipo II"'900x720
+        .AddItem "Tranf. EZC250 Vertical entrada inferior"
+        .AddItem "Tranf. EZC100 Vertical entrada superior | Tipo I"'1100x720
+        .AddItem "Tranf. EZC100 Vertical entrada superior | Tipo II"'900x720
+        .AddItem "Tranf. EZC100 Vertical entrada inferior"
+        .AddItem "Tranf. CVS250 Vertical entrada superior | Tipo I"'1100x720
+        .AddItem "Tranf. CVS250 Vertical entrada superior | Tipo II"'900x720
+        .AddItem "Tranf. CVS250 Vertical entrada inferior"
+        .AddItem "Tranf. NSX250 Vertical entrada superior | Tipo I"'1100x720
+        .AddItem "Tranf. NSX250 Vertical entrada superior | Tipo II"'900x720
+    end With
 End Sub
 
 Sub extraerDatos()
@@ -483,5 +564,58 @@ Public sub Unidad_control()
     ResultadoUC=  dato1 & "_" & dato2
     MoverBloque ResultadoUC,"Control", wsActual, celda
 End sub
-
-
+Public sub Accesorios_Control()
+    '========================
+        celda = "JT107"
+        thisWorkbook.Sheets("Vista FM").Range("JT107:NO182").Clear
+        Set wsActual = thisWorkbook.Sheets("Vista FM")
+    '========================
+    dim dato1 as string, dato2 as string
+    Select case Me.OleObjects("elemaCTR").Object.Value
+        Case "Clavija Roja":dato1 = "ClavijaRoja"
+        Case "Clavija Azul":dato1 = "ClavijaAzul"
+        Case "Pilotos":dato1 = "Pilotos"
+        Case "Parada Emergencia":dato1 = "Parada_Emergencia"
+        Case "Conmutador":dato1 = "Conmutador"
+        Case "Selector 1":dato1 = "Selector1"
+        Case "Selector 2":dato1 = "Selector2"
+        Case "Pulsador":dato1 = "Pulsador"
+        Case "Piloto verde":dato1 = "Piloto_Verde"
+        Case "Piloto rojo":dato1 = "Piloto_Rojo"
+        Case "Piloto amarillo":dato1 = "Piloto_Amarillo"
+        Case "Piloto azul":dato1 = "Piloto_Azul"
+        Case "Piloto gris":dato1 = "Piloto_gris"
+        Case "Piloto gris x3":dato1 = "Piloto_grisx3"
+    End Select
+    Select case Me.OleObjects("VistaCTR").Object.Value
+        case "Frontal": dato2 = "Frontal"
+        case "Derecha_Abierta": dato2 = "DA"
+        case "Derecha_Cerrada": dato2 = "DC"
+        case "Izquierda_Abierta": dato2 = "IA"
+        case "Izquierda_Cerrada": dato2 = "IC"
+        case "NA": dato2 = "NA"
+    End Select
+    ResultadoACC= "AC_" & dato1 & "_" & dato2
+    MoverBloque ResultadoACC,"Control", wsActual, celda
+End sub
+Public sub Equipos_individuales()
+    '========================
+        celda = "JT107"
+        thisWorkbook.Sheets("Vista FM").Range("JT107:NO182").Clear
+        Set wsActual = thisWorkbook.Sheets("Vista FM")
+    '========================
+    Dim dato1 As String
+    select case  Me.OleObjects("EquipoEI").Object.Value
+        Case "MiniBreaker (3P)":dato1 = "MBX3P"
+        Case "MiniBreaker (2P)":dato1 = "MBX2P"
+        Case "MiniBreaker (1P)":dato1 = "MBX1P"
+        Case "EZC100 (3P)":dato1 = "EZC100X3P"
+        Case "EZC100 (2P)":dato1 = "EZC100X2P"
+        Case "Bloque de distribuccion":dato1 = "BD"
+        Case "Contactor (Talla 1-2)":dato1 = "ContactorT1_2"
+        Case "Contactor (Talla 3)":dato1 = "ContactorT3"
+        Case "Transformador":dato1 = "Transformador"
+    end select
+    ResultadoACC = "EQ_" & dato1
+    MoverBloque ResultadoACC, "Control", wsActual, celda
+End sub
