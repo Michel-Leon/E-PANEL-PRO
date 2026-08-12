@@ -178,10 +178,73 @@ Private sub TipoTransferencia_change()
             texto = "+N1| | | | | | H: 1100 / W: 720 / D: 400 | Seccion de Envolvente frente muerto | |" & vbCrLf
             texto = texto & "+C1 | Liso | | | | | W: 720/ U:  3 | Unidad Funcional  Lisa / SFI - Frontal Interno | |" & vbCrLf
             texto = texto & "+C2 | Liso | | | | | W: 720 / U:  4 | Unidad Funcional  Lisa / SFI - Frontal Interno | |" & vbCrLf
-            texto = texto & "+C3 | Equipada | A-Unit | | | | W:400 | Unidad preensamble Batery.ST / SFI - Frontal Interno | |" & vbCrLf
-            texto = texto & "+C4 | Equipada | EZC250 | 3 | Vertical | EZC250N| W: 720 / U: 7 | SFI - Frontal Interno / Vertical/ Cant.equipos: 2 | Superior |" & vbCrLf
+            texto = texto & "+C3 | Equipada | EZC250 | 3 | Vertical | EZC250N| W: 720 / U: 7 | SFI - Frontal Interno / Vertical/ Cant.equipos: 2 | Superior |" & vbCrLf
+            texto = texto & "+C4 | Liso | | | | | W: 720 / U:  4 | Unidad Funcional  Lisa / SFI - Frontal Interno | |" & vbCrLf
+        Case "Tranf. EZC250 Vertical entrada superior | Tipo II"
+            texto = "+N1| | | | | | H: 900 / W: 720 / D: 400 | Seccion de Envolvente frente muerto | |" & vbCrLf
+            texto = texto & "+C1 | Liso | | | | | W: 720/ U:  3 | Unidad Funcional  Lisa / SFI - Frontal Interno | |" & vbCrLf
+            texto = texto & "+C2 | Equipada | EZC250 | 3 | Vertical | EZC250N| W: 720 / U: 7 | SFI - Frontal Interno / Vertical/ Cant.equipos: 2 | Superior |" & vbCrLf
+            texto = texto & "+C3 | Liso | | | | | W: 720 / U:  4 | Unidad Funcional  Lisa / SFI - Frontal Interno | |" & vbCrLf
+        
+        Case "Tranf. EZC250 Vertical entrada inferior"
+            texto = "+N1| | | | | | H: 1100 / W: 720 / D: 400 | Seccion de Envolvente frente muerto | |" & vbCrLf
+            texto = texto & "+C1 | Liso | | | | | W: 720/ U:  3 | Unidad Funcional  Lisa / SFI - Frontal Interno | |" & vbCrLf
+            texto = texto & "+C2 | Liso | | | | | W: 720 / U:  4 | Unidad Funcional  Lisa / SFI - Frontal Interno | |" & vbCrLf
+            texto = texto & "+C3 | Equipada | EZC250 | 3 | Vertical | EZC250N| W: 720 / U: 7 | SFI - Frontal Interno / Vertical/ Cant.equipos: 2 | Inferior |" & vbCrLf
+            texto = texto & "+C4 | Liso | | | | | W: 720 / U:  4 | Unidad Funcional  Lisa / SFI - Frontal Interno | |" & vbCrLf
+        Case "Tranf. EZC100 Vertical entrada superior | Tipo I"
+            texto = "+N1| | | | | | H: 1100 / W: 720 / D: 400 | Seccion de Envolvente frente muerto | |" & vbCrLf
+            texto = texto & "+C1 | Liso | | | | | W: 720/ U:  3 | Unidad Funcional  Lisa / SFI - Frontal Interno | |" & vbCrLf
+            texto = texto & "+C2 | Liso | | | | | W: 720 / U:  4 | Unidad Funcional  Lisa / SFI - Frontal Interno | |" & vbCrLf
+            texto = texto & "+C2 | Liso | | | | | W: 720 / U:  4 | Unidad Funcional  Lisa / SFI - Frontal Interno | |" & vbCrLf
+            texto = texto & "+C4 | Equipada | EZC100 | 3 | Vertical | EZC100N| W: 720 / U: 7 | SFI - Frontal Interno / Vertical/ Cant.equipos: 2 | Superior |" & vbCrLf
+        case "Tranf. EZC100 Vertical entrada superior | Tipo II"
+            texto = "+N1| | | | | | H: 900 / W: 720 / D: 400 | Seccion de Envolvente frente muerto | |" & vbCrLf
+            texto = texto & "+C1 | Liso | | | | | W: 720/ U:  3 | Unidad Funcional  Lisa / SFI - Frontal Interno | |" & vbCrLf
+            texto = texto & "+C2 | Equipada | EZC100 | 3 | Vertical | EZC100N| W: 720 / U: 7 | SFI - Frontal Interno / Vertical/ Cant.equipos: 2 | Superior |" & vbCrLf
+            texto = texto & "+C3 | Liso | | | | | W: 720 / U:  4 | Unidad Funcional  Lisa / SFI - Frontal Interno | |" & vbCrLf
+        case "Tranf. EZC100 Vertical entrada inferior"
+            texto = "+N1| | | | | | H: 1100 / W: 720 / D: 400 | Seccion de Envolvente frente muerto | |" & vbCrLf
+            texto = texto & "+C1 | Liso | | | | | W: 720/ U:  3 | Unidad Funcional  Lisa / SFI - Frontal Interno | |" & vbCrLf
+            texto = texto & "+C2 | Liso | | | | | W: 720 / U:  4 | Unidad Funcional  Lisa / SFI - Frontal Interno | |" & vbCrLf
+             texto = texto & "+C3 | Equipada | EZC100 | 3 | Vertical | EZC100N| W: 720 / U: 7 | SFI - Frontal Interno / Vertical/ Cant.equipos: 2 | Inferior |" & vbCrLf
+            texto = texto & "+C4 | Liso | | | | | W: 720 / U:  4 | Unidad Funcional  Lisa / SFI - Frontal Interno | |" & vbCrLf
+        case "Tranf. CVS250 Vertical entrada superior | Tipo I"
+            texto = "+N1| | | | | | H: 1100 / W: 720 / D: 400 | Seccion de Envolvente frente muerto | |" & vbCrLf
+            texto = texto & "+C1 | Liso | | | | | W: 720/ U:  3 | Unidad Funcional  Lisa / SFI - Frontal Interno | |" & vbCrLf
+            texto = texto & "+C2 | Liso | | | | | W: 720 / U:  4 | Unidad Funcional  Lisa / SFI - Frontal Interno | |" & vbCrLf
+            texto = texto & "+C3 | Equipada | CVS250 | 3 | Vertical | CVS250N| W: 720 / U: 7 | SFI - Frontal Interno / Vertical/ Cant.equipos: 2 | Superior |" & vbCrLf
+            texto = texto & "+C4 | Liso | | | | | W: 720 / U:  4 | Unidad Funcional  Lisa / SFI - Frontal Interno | |" & vbCrLf 
+        case "Tranf. CVS250 Vertical entrada superior | Tipo II"
+            texto = "+N1| | | | | | H: 900 / W: 720 / D: 400 | Seccion de Envolvente frente muerto | |" & vbCrLf
+            texto = texto & "+C1 | Liso | | | | | W: 720/ U:  3 | Unidad Funcional  Lisa / SFI - Frontal Interno | |" & vbCrLf
+            texto = texto & "+C2 | Equipada | CVS250 | 3 | Vertical | CVS250N| W: 720 / U: 7 | SFI - Frontal Interno / Vertical/ Cant.equipos: 2 | Superior |" & vbCrLf
+            texto = texto & "+C3 | Liso | | | | | W: 720 / U:  4 | Unidad Funcional  Lisa / SFI - Frontal Interno | |" & vbCrLf
+        case "Tranf. CVS250 Vertical entrada inferior"
+            texto = "+N1| | | | | | H: 1100 / W: 720 / D: 400 | Seccion de Envolvente frente muerto | |" & vbCrLf
+            texto = texto & "+C1 | Liso | | | | | W: 720/ U:  3 | Unidad Funcional  Lisa / SFI - Frontal Interno | |" & vbCrLf
+            texto = texto & "+C2 | Liso | | | | | W: 720 / U:  4 | Unidad Funcional  Lisa / SFI - Frontal Interno | |" & vbCrLf
+            texto = texto & "+C3 | Equipada | CVS250 | 3 | Vertical | CVS250N| W: 720 / U: 7 | SFI - Frontal Interno / Vertical/ Cant.equipos: 2 | Inferior |" & vbCrLf
+            texto = texto & "+C4 | Liso | | | | | W: 720 / U:  4 | Unidad Funcional  Lisa / SFI - Frontal Interno | |" & vbCrLf 
+        case "Tranf. NSX250 Vertical entrada superior | Tipo I"
+            texto = "+N1| | | | | | H: 1100 / W: 720 / D: 400 | Seccion de Envolvente frente muerto | |" & vbCrLf
+            texto = texto & "+C1 | Liso | | | | | W: 720/ U:  3 | Unidad Funcional  Lisa / SFI - Frontal Interno | |" & vbCrLf
+            texto = texto & "+C2 | Liso | | | | | W: 720 / U:  4 | Unidad Funcional  Lisa / SFI - Frontal Interno | |" & vbCrLf
+            texto = texto & "+C3 | Equipada | NSX250 | 3 | Vertical | NSX250N| W: 720 / U: 7 | SFI - Frontal Interno / Vertical/ Cant.equipos: 2 | Superior |" & vbCrLf
+            texto = texto & "+C4 | Liso | | | | | W: 720 / U:  4 | Unidad Funcional  Lisa / SFI - Frontal Interno | |" & vbCrLf 
+        case "Tranf. NSX250 Vertical entrada superior | Tipo II"
+            texto = "+N1| | | | | | H: 900 / W: 720 / D: 400 | Seccion de Envolvente frente muerto | |" & vbCrLf
+            texto = texto & "+C1 | Liso | | | | | W: 720/ U:  3 | Unidad Funcional  Lisa / SFI - Frontal Interno | |" & vbCrLf
+            texto = texto & "+C2 | Equipada | NSX250 | 3 | Vertical | NSX250N| W: 720 / U: 7 | SFI - Frontal Interno / Vertical/ Cant.equipos: 2 | Superior |" & vbCrLf
+            texto = texto & "+C3 | Liso | | | | | W: 720 / U:  4 | Unidad Funcional  Lisa / SFI - Frontal Interno | |" & vbCrLf
+        case "Tranf. NSX250 Vertical entrada inferior"
+            texto = "+N1| | | | | | H: 1100 / W: 720 / D: 400 | Seccion de Envolvente frente muerto | |" & vbCrLf
+            texto = texto & "+C1 | Liso | | | | | W: 720/ U:  3 | Unidad Funcional  Lisa / SFI - Frontal Interno | |" & vbCrLf
+            texto = texto & "+C2 | Liso | | | | | W: 720 / U:  4 | Unidad Funcional  Lisa / SFI - Frontal Interno | |" & vbCrLf
+            texto = texto & "+C3 | Equipada | NSX250 | 3 | Vertical | NSX250N| W: 720 / U: 7 | SFI - Frontal Interno / Vertical/ Cant.equipos: 2 | Inferior |" & vbCrLf
+            texto = texto & "+C4 | Liso | | | | | W: 720 / U:  4 | Unidad Funcional  Lisa / SFI - Frontal Interno | |" & vbCrLf   
         Case else
-            texto = "no hay texto"    
+            texto = "Seleccion no existente"    
     End Select
            
     Me.OleObjects("Descripcion").Object.value = texto  
