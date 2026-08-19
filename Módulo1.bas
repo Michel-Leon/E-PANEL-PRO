@@ -12,7 +12,7 @@ public ResultadoSERV As String
 Public ResultadoBRR As String
 Public ResultadoUF As String
 Public ResultadoCT As String
-Public ResultadoUC As String
+Public ResultadoEQ As String
 Public ResultadoACC As String
 
 '============== Mover Bloque ===================

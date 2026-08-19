@@ -132,7 +132,16 @@ Public IP as string
                 case "SFA - Fijo Atornillado"
                     .AddItem "2u" 
                     .AddItem "3u"
-                    .AddItem "4u"   
+                    .AddItem "4u"  
+                case "SIC - Placa de Control"
+                    .AddItem "5u"     
+                    .AddItem "6u"
+                    .AddItem "7u"
+                    .AddItem "8u"
+                    .AddItem "9u"
+                    .AddItem "10u"
+                    .AddItem "11u"
+                    .AddItem "12u"
             end select
         end with
     end sub 
@@ -162,7 +171,7 @@ Public IP as string
         End With
     end sub
 'DPS
-Private sub FabriUNDPS_Change() 
+    Private sub FabriUNDPS_Change() 
     Dim dato As String
     dato = Me.OleObjects("FabriUNDPS").Object.Value
     With Me.OleObjects("EquipoDPS").Object   
@@ -189,7 +198,25 @@ Private sub FabriUNDPS_Change()
                 .AddItem "720"
         End Select
     End With 
-End Sub    
+    End Sub  
+' Accesorios de control  
+    Private sub ElementoCTR_Change()
+        Dim dato As String
+        dato = Me.OleObjects("ElementoCTR").Object.Value
+        With Me.OleObjects("vistaACCCTR").Object
+            .Clear
+            select case dato
+                case "ClavijaRoja", "ClavijaAzul"
+                    .AddItem "Frontal"
+                    .AddItem "Derecha_Abierta"
+                    .AddItem "Derecha_Cerrada"
+                    .AddItem "Izquierda_Abierta"
+                    .AddItem "Izquierda_Cerrada"
+                case else
+                    .AddItem "NA"
+            end select
+        End With
+    End Sub
 Private Sub Worksheet_Activate()
     Extraer_datos
     Me.OleObjects("Carga").Object.Value = false
@@ -223,6 +250,7 @@ Private Sub Worksheet_Activate()
         .AddItem "SFI - Frontal Interno"
         .AddItem "SIA - Integral Abatible"
         .AddItem "SFA - Fijo Atornillado"
+        .AddItem "SIC - Placa de Control"
     End With
     With  Me.OleObjects("AnchoLSS").Object
         .Clear
@@ -249,7 +277,55 @@ Private Sub Worksheet_Activate()
         .AddItem "Schneider Electric"
         .AddItem "Phoenix Contac"
     End With
-    
+    '============== Unidades Funcionales de Control ===================
+    Me.OleObjects("TipoCTR").Object.Value = "SFI - Frontal Interno"
+    With Me.OleObjects("EquipoCTR").Object
+        .Clear
+        .AddItem "PM"
+        .AddItem "HMI"
+        .AddItem "InteliATS_STD"
+        .AddItem "ATL600"
+        .AddItem "AGC150"
+        .AddItem "AGC4"
+        .AddItem "DCRL5"
+        .AddItem "EASYGEN"
+        .AddItem "DSE8610"
+        .AddItem "Rapidus"
+        .AddItem "Sincronoscopio"
+    End With
+    with Me.OleObjects("MedidasCTR").Object
+        .Clear    
+        .AddItem "400"
+        .AddItem "720"
+    End With
+    '============== ACCESORIOS DE CONTROL ===================
+    With Me.OleObjects("ElementoCTR").Object
+        .Clear
+       .AddItem "ClavijaRoja"
+       .AddItem "ClavijaAzul"
+       .AddItem "Pilotos"
+       .AddItem "Parada_Emergencia"
+       .AddItem "Selector1"
+       .AddItem "Selector2"
+       .AddItem "Pulsador"
+       .AddItem "Piloto_Verde"
+       .AddItem "Piloto_Azul"
+       .AddItem "Piloto_Rojo"
+       .AddItem "Piloto_Amarillo"
+       .AddItem "Piloto_gris"
+       .AddItem "Piloto_grisX3"
+    End With
+    '============== EQUIPOS INDIVIDUALES ===================
+    With Me.OleObjects("EquipoIND").Object
+        .Clear
+        .AddItem "Contactor"
+        .AddItem "Medio_Contactor"
+        .AddItem "Amperimetro"
+        .AddItem "Voltimetro"
+        .AddItem "TH110"
+        .AddItem "Transformador"
+    End With
+
 END Sub
 
 Public sub Extraer_datos()
@@ -313,11 +389,12 @@ Public sub Unidades_funcionales_lisas()
     select case dato1
         case "SFI - Frontal Interno": dato1 = "L_"
         Case "SIA - Integral Abatible", "SFA - Fijo Atornillado": dato1 = "LA_"
+        case "SIC - Placa de Control": dato1 = "SIC_"
     End select
     dato3 = Me.OleObjects("UnidadesLSS").Object.Value
     dato2 = Me.OleObjects("AnchoLSS").Object.Value
     ResultadoLSS= dato1 & dato2 & "X" & dato3
-    MoverBloque ResultadoLSS,"Lisas", wsActual, celda
+    MoverBloque ResultadoLSS,"LISAS", wsActual, celda
 End sub
 Public Sub Contactores()
     '========================
@@ -375,4 +452,46 @@ Public sub DPS()
 
     ResultadoDPS= dato1 & dato2 & "X" & dato3 & "_" & dato4
     MoverBloque ResultadoDPS,"DPS", wsActual, celda
+End sub
+Public sub Equipos_Control()
+    '========================
+        celda = "NS132"
+        thisWorkbook.Sheets("DISENO").Range("NS132:QJ182").Clear
+        Set wsActual = thisWorkbook.Sheets("DISENO")
+    '========================
+    dim dato1 as string, dato2 as string
+    dato1 = Me.OleObjects("EquipoCTR").Object.Value
+    dato2 = Me.OleObjects("MedidasCTR").Object.Value
+    ResultadoCT = dato1 & "_" & dato2
+    MoverBloque ResultadoCT,"UCONTROL", wsActual, celda
+End sub
+Public sub Accesorios_CTR()
+    '========================
+        celda = "NS132"
+        thisWorkbook.Sheets("DISENO").Range("NS132:QJ182").Clear
+        Set wsActual = thisWorkbook.Sheets("DISENO")
+    '========================
+    dim dato1 as string, dato2 as string
+    dato1 = Me.OleObjects("ElementoCTR").Object.Value
+    dato2 = Me.OleObjects("vistaACCCTR").Object.Value
+    Select case dato2
+        case "Derecha_Abierta": dato2 = "DA"
+        case "Derecha_Cerrada": dato2 = "DC"
+        case "Izquierda_Abierta": dato2 = "IA"
+        case "Izquierda_Cerrada": dato2 = "IC"
+    End Select
+
+    ResultadoACC = "AC_" & dato1 & "_" & dato2
+    MoverBloque ResultadoACC,"UCONTROL", wsActual, celda
+End sub
+Public sub Equipo_Individual()
+    '========================
+        celda = "NS132" 
+        thisWorkbook.Sheets("DISENO").Range("NS132:QJ182").Clear
+        Set wsActual = thisWorkbook.Sheets("DISENO")
+    '========================
+    dim dato1 as string
+    dato1 = Me.OleObjects("EquipoIND").Object.Value
+    ResultadoEQ = "EQ_" & dato1
+    MoverBloque ResultadoEQ,"UCONTROL", wsActual, celda
 End sub
