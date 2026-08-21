@@ -285,74 +285,242 @@ Public IP as string
         end with 
     end sub   
 'Placas de Control
-Private sub VistaPC_Change()
-    Dim dato1 As String, dato2 As String
-    dato1 = Me.OleObjects("VistaPC").Object.Value
-    dato2 = Me.OleObjects("TamanoPC").Object.Value
-    With Me.OleObjects("EquipoPC").Object
-        .Clear
-        select case dato2
-            case "Pequeña" 
-                if dato1 = "Lateral" then
-                    .AddItem "Liso" 
-                elseif dato1 = "Frontal" then
-                    .AddItem "Liso"
-                    .AddItem "PM"
-                    .AddItem "ATS PREMIUM"
-                    .AddItem "ATS ESTANDAR"
-                    .AddItem "ATS BASICA"
-                end if 
-            case "Grande"  
-                if dato1 = "Lateral" then
-                    .AddItem "Liso" 
-                elseif dato1 = "Frontal" then  
-                    .AddItem "Liso"
-                    .AddItem "ATS PREMIUM"
-                    .AddItem "ATS ESTANDAR"
-                    .AddItem "ATS BASICA"
-                end if
-            Case "Mediana"
-                if dato1 = "Lateral" then   
-                    .AddItem "Liso" 
-                elseif dato1 = "Frontal" then  
-                    .AddItem "Liso" 
-                    .AddItem "ATL600"
-                    .AddItem "DCRL5"
-                    .AddItem "Rapidus"
-                end if 
-        end select
-    end with
-End sub 
-private sub  EquipoPC_Change() 
-    Dim dato As String
-    dato = Me.OleObjects("EquipoPC").Object.Value 
-    with Me.oleobjects("DisponibilidadPC").Object
-        .clear
+    Private sub VistaPC_Change()
+        Dim dato1 As String, dato2 As String
+        dato1 = Me.OleObjects("VistaPC").Object.Value
+        dato2 = Me.OleObjects("TamanoPC").Object.Value
+        With Me.OleObjects("EquipoPC").Object
+            .Clear
+            select case dato2
+                case "Pequeña" 
+                    if dato1 = "Lateral" then
+                        .AddItem "Liso" 
+                    elseif dato1 = "Frontal" then
+                        .AddItem "Liso"
+                        .AddItem "PM"
+                        .AddItem "ATS PREMIUM"
+                        .AddItem "ATS ESTANDAR"
+                        .AddItem "ATS BASICA"
+                    end if 
+                case "Grande"  
+                    if dato1 = "Lateral" then
+                        .AddItem "Liso" 
+                    elseif dato1 = "Frontal" then  
+                        .AddItem "Liso"
+                        .AddItem "ATS PREMIUM"
+                        .AddItem "ATS ESTANDAR"
+                        .AddItem "ATS BASICA"
+                    end if
+                Case "Mediana"
+                    if dato1 = "Lateral" then   
+                        .AddItem "Liso" 
+                    elseif dato1 = "Frontal" then  
+                        .AddItem "Liso" 
+                        .AddItem "ATL600"
+                        .AddItem "DCRL5"
+                        .AddItem "Rapidus"
+                    end if 
+            end select
+        end with
+    End sub 
+    private sub  EquipoPC_Change() 
+        Dim dato As String, dato2 As String
+        dato = Me.OleObjects("EquipoPC").Object.Value 
+        with Me.oleobjects("DisponibilidadPC").Object
+            .clear
+            select case dato
+                case "Liso","PM"
+                    .AddItem "NA"
+                case "ATS PREMIUM","ATS ESTANDAR","ATS BASICA"
+                    IF dato2 = "Pequeña" then
+                        .AddItem "Interna"
+                    elseif dato2 = "Grande" then
+                        .AddItem "Externa"
+                    end if
+                case "DCRL5"
+                    .AddItem "5 Pasos" 
+                case "ATL600","Rapidus"
+                    .AddItem "6 Pasos"
+                    .AddItem "7 Pasos"
+                    .AddItem "8 Pasos"
+                    .AddItem "9 Pasos"
+                    .AddItem "10 Pasos"
+                    .AddItem "11 Pasos"
+                    .AddItem "12 Pasos"
+                    .AddItem "13 Pasos"
+                    .AddItem "14 Pasos"
+            end select
+        end with
+    end sub    
+'Compensacion
+    Private sub PresentacionCOM_Change()
+        dim dato as string
+        dato = Me.OleObjects("PresentacionCOM").Object.Value
+        with Me.OleObjects("EquipoCOM").Object
+            .Clear
+            select case dato
+                case "Cubiculo"
+                    .AddItem "EZC100_Contactor"
+                    .AddItem "CVS250_Contactor"
+                    .AddItem "NSX250_Contactor"
+                    .AddItem "GoPact250_Contactor"
+                    .AddItem "GoPack100_Contactor"
+                    .additem "Botellas_Grandes"
+                    .additem "Botellas_Medianas"
+                    .additem "Botellas_Pequenas"
+                case "Columna" 
+                    .AddItem "EZC630"
+                    .AddItem "CVS630"
+                    .AddItem "NSX630"
+                end select
+        end with
+    end sub
+    Private sub EquipoCOM_Change()
+        Dim dato As String
+        dato = Me.OleObjects("EquipoCOM").Object.Value
+        With Me.OleObjects("MedidaCOM").Object 
+            .Clear
+            select case dato   
+                case "Botellas_Grandes","Botellas_Medianas","Botellas_Pequenas"
+                    .AddItem "720" 
+                    .AddItem "400"
+                case "GoPact250_Contactor","GoPack100_Contactor","NSX250_Contactor","CVS250_Contactor","EZC100_Contactor"
+                    .AddItem "720" 
+                case "EZC630" ,"CVS630","NSX630"
+                    .AddItem "1800"  
+                    .AddItem "2000" 
+            end select
+        end with
+    end sub
+    private sub MedidaCOM_Change()   
+        Dim dato As String, dato2 As String
+        dato = Me.OleObjects("MedidaCOM").Object.Value
+        dato2 = Me.OleObjects("EquipoCOM").Object.Value 
+        with Me.OleObjects("UnidadCOM").Object
+            .Clear
+            select case dato
+                case "720"
+                    Select case dato2 
+                        case"Botellas_Grandes" 
+                            .AddItem "12"
+                        case "Botellas_Medianas","CVS250_Contactor","EZC100_Contactor" ,"GoPact250_Contactor","GoPack100_Contactor","NSX250_Contactor"
+                            .AddItem "10"   
+                        case "Botellas_Pequenas" 
+                            .AddItem "8"
+                    end select 
+                case "400"     
+                    Select case dato2 
+                        case"Botellas_Grandes" 
+                            .AddItem "12"
+                        case "Botellas_Medianas"
+                            .AddItem "10"   
+                        case "Botellas_Pequenas" 
+                            .AddItem "8"
+                    end select  
+                Case "1800","2000"
+                    .AddItem "400"  
+            end select
+        end with
+    end sub  
+' BARRAJE
+    Private sub OrientacionBRR_Change()
+        Dim dato As String
+        dato = Me.OleObjects("OrientacionBRR").Object.Value
+        With Me.OleObjects("TipoBRR").Object
+            .Clear
+            select case dato
+                case "Vertical"
+                    .AddItem "BusBar"
+                case "Horizontal"
+                    .AddItem "BusBar"
+                    .AddItem "Tierra Neutro" 
+            end select
+        end with
+        With Me.OleObjects("MedidaBRR").Object
+            .Clear
+            select case dato
+                case "Vertical"
+                    .AddItem "1600"
+                    .AddItem "1800"
+                    .AddItem "2000"
+                case "Horizontal"   
+                    .AddItem "400" 
+                    .AddItem "720"
+            end select
+        end with
+    end sub 
+    Private sub TipoBRR_Change()
+        Dim dato As String,dato2 As String
+        dato = Me.OleObjects("OrientacionBRR").Object.Value
+        dato2 = Me.OleObjects("TipoBRR").Object.Value
+        With Me.OleObjects("AmperajeBRR").Object
+            .Clear
+            select case dato2
+                case "BusBar"
+                    if dato = "Vertical" then  
+                        .AddItem "1250A"
+                    elseif dato = "Horizontal" then
+                        .AddItem "400A"
+                        .AddItem "400X1250A"
+                    end if
+                case "Tierra Neutro"
+                    .AddItem "NA"
+            end select
+        end with
+    end sub
+'TRANFERENCIAS
+    Private sub OrientacionTRF_Change()
+        Tranferencia_activo
+        dim dato as string
+        dato = Me.OleObjects("OrientacionTRF").Object.Value
+        With Me.OleObjects("EquipoTRF").Object
+            .Clear
+            select case dato
+                case "Vertical"
+                    .AddItem "Trf. EZC250 Vertical entraada Superior"
+                    .AddItem "Trf. EZC250 Vertical entraada Inferior"
+                    .AddItem "Trf. EZC630 Vertical entraada Superior"
+                    .AddItem "Trf. EZC630 Vertical entraada Inferior"
+                    .AddItem "Trf. CVS250 Vertical entraada Superior"
+                    .AddItem "Trf. CVS250 Vertical entraada Inferior"
+                    .AddItem "Trf. CVS630 Vertical entraada Superior"
+                    .AddItem "Trf. CVS630 Vertical entraada Inferior"
+                    .AddItem "Trf. NSX250 Vertical entraada Superior"
+                    .AddItem "Trf. NSX250 Vertical entraada Inferior"
+                    .AddItem "Trf. NSX630 Vertical entraada Superior"
+                    .AddItem "Trf. NSX630 Vertical entraada Inferior"
+                case "Horizontal", "Horizontal Abatible"
+                    .AddItem "EZC250X2"
+                    .AddItem "CVS250X2"
+                    .AddItem "NSX250X2"
+            end select
+        end with
+    end sub
+    Private sub EquipoTRF_Change()
+        Dim dato As String
+        dato = Me.OleObjects("EquipoTRF").Object.Value
+        Dim texto As String
+        Select Case  dato
+        Case "Trf. EZC250 Vertical entraada Superior"
+            texto =  "+C1 | Liso | | | | | W: 720/ U:4 | Unidad Funcional  Lisa / SFI - Frontal Interno | |" & vbCrLf
+            texto = texto & "+C2 | Equipada | EZC250 | 3 | Vertical | EZC250N| W: 720 / U: 7 | SFI - Frontal Interno / Vertical/ Cant.equipos: 2 | Superior |" & vbCrLf
+            texto = texto & "+C4 | Liso | | | | | W: 720 / U:  4 | Unidad Funcional  Lisa / SFI - Frontal Interno | |" & vbCrLf
+        
+
+
+
+    Public sub Tranferencia_activo()
+        Dim dato As String
+        dato = Me.OleObjects("OrientacionTRF").Object.Value
         select case dato
-            case "Liso","PM"
-                .AddItem "NA"
-            case "ATS PREMIUM","ATS ESTANDAR","ATS BASICA"
-                .AddItem "Externa"  
-                .AddItem "Interna"
-            case "DCRL5"
-                .AddItem "5 Pasos" 
-            case "ATL600","Rapidus"
-                .AddItem "6 Pasos"
-                .AddItem "7 Pasos"
-                .AddItem "8 Pasos"
-                .AddItem "9 Pasos"
-                .AddItem "10 Pasos"
-                .AddItem "11 Pasos"
-                .AddItem "12 Pasos"
-                .AddItem "13 Pasos"
-                .AddItem "14 Pasos"
+            case "Vertical"
+                Me.OleObjects("EquipoTRF").Object.Enabled = false
+            case "Horizontal", "Horizontal Abatible"
+                Me.OleObjects("EquipoTRF").Object.Enabled = True
         end select
-    end with
-end sub    
+    end sub
 
-
-
-
+        
 Public Sub Worksheet_Activate()
     Extraer_datos
     Me.OleObjects("Carga").Object.Value = false
@@ -468,17 +636,39 @@ Public Sub Worksheet_Activate()
         .AddItem "Cubiculo"
     End With
     '============== PLACAS DE CONTROL ===================  
-    With Me.OleObjects("TamanoPC").Object
+        With Me.OleObjects("TamanoPC").Object
+            .Clear
+            .AddItem "Pequeña"
+            .AddItem "Mediana"
+            .AddItem "Grande"
+        End With
+        With Me.OleObjects("VistaPC").Object  
+            .Clear
+            .AddItem "Frontal"
+            .AddItem "Lateral"
+        End With
+    '============== COMPENSACION ==========================    
+    Me.OleObjects("TipoCOM").Object.Value = "SFI - Frontal Interno"
+    With Me.OleObjects("PresentacionCOM").Object
         .Clear
-        .AddItem "Pequeña"
-        .AddItem "Mediana"
-        .AddItem "Grande"
+        .AddItem "Cubiculo"
+        .AddItem "Columna"
     End With
-    With Me.OleObjects("VistaPC").Object  
+    '============== BARRAJE =============================
+    with Me.OleObjects("OrientacionBRR").Object
         .Clear
-        .AddItem "Frontal"
-        .AddItem "Lateral"
+        .AddItem "Horizontal"
+        .AddItem "Vertical"
     End With
+    '============== TRANSFERENCIA =============================
+    with Me.OleObjects("OrientacionTRF").Object
+        .Clear
+        .AddItem "Horizontal"
+        .AddItem "Horizontal Abatible"
+        .AddItem "Vertical"
+    End With
+    
+
 END Sub
 
 Public sub Extraer_datos()
@@ -674,4 +864,81 @@ Public sub Servicios_Auxiliares()
         ResultadoSV= dato1 & dato2 & "X" & dato3 & "_" & dato4
     END IF    
     MoverBloque ResultadoSV,"SERVICIOS", wsActual, celda 
+End sub
+Public sub Placas_Control()
+    '========================
+        celda = "NS132"
+        thisWorkbook.Sheets("DISENO").Range("NS132:QJ182").Clear
+        Set wsActual = thisWorkbook.Sheets("DISENO")
+    '========================
+    dim dato1 as string, dato2 as string, dato3 as string, dato4 as string
+    dato1 = Me.OleObjects("TamanoPC").Object.Value
+    select case dato1 
+        case "Pequeña": dato1 = "PQ"
+        case "Grande": dato1 = "GD"
+        case "Mediana": dato1 = "MD"
+    end select
+    dato2 = Me.OleObjects("VistaPC").Object.Value  
+    select case dato2
+        case "Frontal": dato2 = "FR"  
+        case "Lateral": dato2 = "LT"
+    end select
+    dato3 = Me.OleObjects("EquipoPC").Object.Value   
+    Select case dato3
+        case "ATS PREMIUM": dato3 = "ATSPREMIUM" 
+        case "ATS ESTANDAR": dato3 = "ATSESTANDAR"
+        case "ATS BASICA": dato3 = "ATSBASICA"
+    End Select
+    dato4 = Me.OleObjects("DisponibilidadPC").Object.Value
+    select case dato4
+        case "Externa":  dato4 = "EXT"
+        case "Interna":  dato4 = "INT"
+        case "5 Pasos":  dato4 = "5P"
+        case "6 Pasos":  dato4 = "6P"
+        case "7 Pasos":  dato4 = "7P"
+        case "8 Pasos":  dato4 = "8P"
+        case "9 Pasos":  dato4 = "9P"
+        case "10 Pasos": dato4 = "10P"
+        case "11 Pasos": dato4 = "11P"
+        case "12 Pasos": dato4 = "12P"
+        casE "13 Pasos": dato4 = "13P"
+        case "14 Pasos": dato4 = "14P"
+    End select    
+    ResultadoPC= "PCTR_X" & dato1 & "X" & dato2 & "_" & dato3 & "X" & dato4    
+    MoverBloque ResultadoPC,"SERVICIOS", wsActual, celda
+End sub
+Public sub Compensacion()
+    '========================
+        celda = "NU107"
+        thisWorkbook.Sheets("DISENO").Range("NU107:QJ182").Clear
+        Set wsActual = thisWorkbook.Sheets("DISENO")
+    '========================
+    Dim dato1 As String, dato2 As String, dato3 As String
+    dato1 = Me.OleObjects("EquipoCOM").Object.Value
+    dato2 = Me.OleObjects("MedidaCOM").Object.Value
+    dato3 = Me.OleObjects("UnidadCOM").Object.Value
+    ResultadoCOM = "UNC_" & dato1 & "X" & dato2 & "X" & dato3
+    MoverBloque ResultadoCOM,"COMPENSACION", wsActual, celda
+End sub
+Public sub BARRAS()
+    '========================
+        celda = "NS104"
+        thisWorkbook.Sheets("DISENO").Range("NS104:QJ182").Clear
+        Set wsActual = thisWorkbook.Sheets("DISENO")
+    '========================
+    Dim dato1 As String, dato2 As String, dato3 As String, dato4 As String
+    dato1 = Me.OleObjects("OrientacionBRR").Object.Value
+    Select case dato1
+        case "Horizontal": dato1 = "H"
+        case "Vertical": dato1 = "V"
+    End Select
+    dato2 = Me.OleObjects("TipoBRR").Object.Value
+    Select case dato2
+        case "BusBar": dato2 = "BB"
+        case "Tierra Neutro": dato2 = "TN"
+    End Select
+    dato3 = Me.OleObjects("AmperajeBRR").Object.Value
+    dato4 = Me.OleObjects("MedidaBRR").Object.Value
+    ResultadoBAR = "UN_" & dato1 &  dato2 & "X" & dato4 & "_" & dato3
+    MoverBloque ResultadoBAR,"BARRAJE", wsActual, celda
 End sub

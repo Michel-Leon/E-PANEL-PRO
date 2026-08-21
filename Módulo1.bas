@@ -14,7 +14,8 @@ Public ResultadoUF As String
 Public ResultadoCT As String
 Public ResultadoEQ As String
 Public ResultadoACC As String
-
+Public ResultadoPC As String
+Public ResultadoCOM As String
 '============== Mover Bloque ===================
 Public Sub MoverBloque(ByVal ref As String, ByVal BD As String, _
                        ByVal wsDestino As Worksheet, ByVal celdaDestino As String)

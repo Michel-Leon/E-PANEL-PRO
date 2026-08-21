@@ -18,9 +18,12 @@ Public Sub Seleccion_Menu_Envolventes()
         ActiveSheet.Shapes("Menu DPS").Visible = False
         ActiveSheet.Shapes("Menu Equipo CTR").Visible = False
         ActiveSheet.Shapes("Menu ACCESORIOS CTR").Visible = False
-        ActiveSheet.Shapes("Menu Equipos IND").Visible = False
+        ActiveSheet.Shapes("Menu Equipos").Visible = False
         ActiveSheet.Shapes("Menu Equipos").Visible = False
         ActiveSheet.Shapes("Menu Servicios").Visible = False
+        ActiveSheet.Shapes("Menu Placas de control").Visible = False
+        ActiveSheet.Shapes("Menu Compensacion").Visible = False
+        ActiveSheet.Shapes("Menu Barraje").Visible = False
     end If
 End Sub  
 Public sub Seleccion_Menu_UnidadesFuncionales()
@@ -42,9 +45,12 @@ Public sub Seleccion_Menu_UnidadesFuncionales()
         ActiveSheet.Shapes("Menu DPS").Visible = False
         ActiveSheet.Shapes("Menu Equipo CTR").Visible = False
         ActiveSheet.Shapes("Menu ACCESORIOS CTR").Visible = False
-        ActiveSheet.Shapes("Menu Equipos IND").Visible = False
+        ActiveSheet.Shapes("Menu Equipos").Visible = False
         ActiveSheet.Shapes("Menu Equipos").Visible = False
         ActiveSheet.Shapes("Menu Servicios").Visible = False
+        ActiveSheet.Shapes("Menu Placas de control").Visible = False
+        ActiveSheet.Shapes("Menu Compensacion").Visible = False
+        ActiveSheet.Shapes("Menu Barraje").Visible = False
     end If
 End Sub  
 Public sub Seleccion_Menu_Lisas()
@@ -68,6 +74,10 @@ Public sub Seleccion_Menu_Lisas()
         ActiveSheet.Shapes("Menu ACCESORIOS CTR").Visible = False
         ActiveSheet.Shapes("Menu Equipos").Visible = False
         ActiveSheet.Shapes("Menu Servicios").Visible = False
+        ActiveSheet.Shapes("Menu Placas de control").Visible = False
+        ActiveSheet.Shapes("Menu Compensacion").Visible = False
+        ActiveSheet.Shapes("Menu Barraje").Visible = False
+
     end If
 End Sub
 Public sub Seleccion_Menu_Contactores()
@@ -91,6 +101,9 @@ Public sub Seleccion_Menu_Contactores()
         ActiveSheet.Shapes("Menu ACCESORIOS CTR").Visible = False
         ActiveSheet.Shapes("Menu Equipos").Visible = False
         ActiveSheet.Shapes("Menu Servicios").Visible = False
+        ActiveSheet.Shapes("Menu Placas de control").Visible = False
+        ActiveSheet.Shapes("Menu Compensacion").Visible = False
+        ActiveSheet.Shapes("Menu Barraje").Visible = False
     end If
 End Sub
 Public sub seleccion_menu_dps()
@@ -114,6 +127,9 @@ Public sub seleccion_menu_dps()
         ActiveSheet.Shapes("Menu ACCESORIOS CTR").Visible = False
         ActiveSheet.Shapes("Menu Equipos").Visible = False
         ActiveSheet.Shapes("Menu Servicios").Visible = False
+        ActiveSheet.Shapes("Menu Placas de control").Visible = False
+        ActiveSheet.Shapes("Menu Compensacion").Visible = False
+        ActiveSheet.Shapes("Menu Barraje").Visible = False
     end If
 End Sub
 Public sub Seleccion_Menu_EquipoCTR()
@@ -137,6 +153,9 @@ Public sub Seleccion_Menu_EquipoCTR()
         ActiveSheet.Shapes("Menu ACCESORIOS CTR").Visible = False
         ActiveSheet.Shapes("Menu Equipos").Visible = False
         ActiveSheet.Shapes("Menu Servicios").Visible = False
+        ActiveSheet.Shapes("Menu Placas de control").Visible = False
+        ActiveSheet.Shapes("Menu Compensacion").Visible = False
+        ActiveSheet.Shapes("Menu Barraje").Visible = False
     end If
 End Sub
 public sub Seleccion_Menu_AccesoriosCTR()
@@ -160,6 +179,9 @@ public sub Seleccion_Menu_AccesoriosCTR()
         ActiveSheet.Shapes("Menu Equipo CTR").Visible = False
         ActiveSheet.Shapes("Menu Equipos").Visible = False
         ActiveSheet.Shapes("Menu Servicios").Visible = False
+        ActiveSheet.Shapes("Menu Placas de control").Visible = False
+        ActiveSheet.Shapes("Menu Compensacion").Visible = False
+        ActiveSheet.Shapes("Menu Barraje").Visible = False
     end If
 End Sub
 Public sub Seleccion_Menu_EquiposIND()
@@ -183,6 +205,9 @@ Public sub Seleccion_Menu_EquiposIND()
         ActiveSheet.Shapes("Menu Equipo CTR").Visible = False
         ActiveSheet.Shapes("Menu ACCESORIOS CTR").Visible = False
         ActiveSheet.Shapes("Menu Servicios").Visible = False
+        ActiveSheet.Shapes("Menu Placas de control").Visible = False
+        ActiveSheet.Shapes("Menu Compensacion").Visible = False
+        ActiveSheet.Shapes("Menu Barraje").Visible = False
     end If
 End Sub
 Public sub Seleccion_Servicios()
@@ -206,5 +231,86 @@ Public sub Seleccion_Servicios()
         ActiveSheet.Shapes("Menu Equipo CTR").Visible = False
         ActiveSheet.Shapes("Menu ACCESORIOS CTR").Visible = False
         ActiveSheet.Shapes("Menu Equipos").Visible = False
+        ActiveSheet.Shapes("Menu Placas de control").Visible = False
+        ActiveSheet.Shapes("Menu Compensacion").Visible = False
+        ActiveSheet.Shapes("Menu Barraje").Visible = False
+    end If
+End Sub
+public sub Seleccion_Placas_Control()
+    Dim shp As Shape
+    Dim groupname As String
+    groupname = "Menu Placas de control"
+    
+    On Error Resume Next
+    Set shp = ActiveSheet.Shapes(groupname)
+    On Error GoTo 0
+    
+    If Not shp Is Nothing Then
+        ' Alterna la visibilidad del grupo seleccionado
+        shp.Visible = Not shp.Visible
+        ' Oculta los dem s grupos
+        ActiveSheet.Shapes("Menu Envolventes").Visible = False
+        ActiveSheet.Shapes("Menu UnidadFuncional").Visible = False
+        ActiveSheet.Shapes("Menu Lisas").Visible = False
+        ActiveSheet.Shapes("Menu Contactores").Visible = False
+        ActiveSheet.Shapes("Menu DPS").Visible = False
+        ActiveSheet.Shapes("Menu Equipo CTR").Visible = False
+        ActiveSheet.Shapes("Menu ACCESORIOS CTR").Visible = False
+        ActiveSheet.Shapes("Menu Equipos").Visible = False
+        ActiveSheet.Shapes("Menu Servicios").Visible = False
+        ActiveSheet.Shapes("Menu Compensacion").Visible = False
+        ActiveSheet.Shapes("Menu Barraje").Visible = False
+    end If
+End Sub
+Public sub Seleccion_Menu_Compensacion()
+    Dim shp As Shape
+    Dim groupname As String
+    groupname = "Menu Compensacion"
+    
+    On Error Resume Next
+    Set shp = ActiveSheet.Shapes(groupname)
+    On Error GoTo 0
+    
+    If Not shp Is Nothing Then
+        ' Alterna la visibilidad del grupo seleccionado
+        shp.Visible = Not shp.Visible
+        ' Oculta los dem s grupos
+        ActiveSheet.Shapes("Menu Envolventes").Visible = False
+        ActiveSheet.Shapes("Menu UnidadFuncional").Visible = False
+        ActiveSheet.Shapes("Menu Lisas").Visible = False
+        ActiveSheet.Shapes("Menu Contactores").Visible = False
+        ActiveSheet.Shapes("Menu DPS").Visible = False
+        ActiveSheet.Shapes("Menu Equipo CTR").Visible = False
+        ActiveSheet.Shapes("Menu ACCESORIOS CTR").Visible = False
+        ActiveSheet.Shapes("Menu Equipos").Visible = False
+        ActiveSheet.Shapes("Menu Servicios").Visible = False
+        ActiveSheet.Shapes("Menu Placas de control").Visible = False
+        ActiveSheet.Shapes("Menu Barraje").Visible = False
+    end If
+End Sub
+Public sub Seleccion_Menu_Barraje()
+    Dim shp As Shape
+    Dim groupname As String
+    groupname = "Menu Barraje"
+    
+    On Error Resume Next
+    Set shp = ActiveSheet.Shapes(groupname)
+    On Error GoTo 0
+    
+    If Not shp Is Nothing Then
+        ' Alterna la visibilidad del grupo seleccionado
+        shp.Visible = Not shp.Visible
+        ' Oculta los dem s grupos
+        ActiveSheet.Shapes("Menu Envolventes").Visible = False
+        ActiveSheet.Shapes("Menu UnidadFuncional").Visible = False
+        ActiveSheet.Shapes("Menu Lisas").Visible = False
+        ActiveSheet.Shapes("Menu Contactores").Visible = False
+        ActiveSheet.Shapes("Menu DPS").Visible = False
+        ActiveSheet.Shapes("Menu Equipo CTR").Visible = False
+        ActiveSheet.Shapes("Menu ACCESORIOS CTR").Visible = False
+        ActiveSheet.Shapes("Menu Equipos").Visible = False
+        ActiveSheet.Shapes("Menu Servicios").Visible = False
+        ActiveSheet.Shapes("Menu Placas de control").Visible = False
+        ActiveSheet.Shapes("Menu Compensacion").Visible = False
     end If
 End Sub
