@@ -477,18 +477,18 @@ Public IP as string
             .Clear
             select case dato
                 case "Vertical"
-                    .AddItem "Trf. EZC250 Vertical entraada Superior"
-                    .AddItem "Trf. EZC250 Vertical entraada Inferior"
-                    .AddItem "Trf. EZC630 Vertical entraada Superior"
-                    .AddItem "Trf. EZC630 Vertical entraada Inferior"
-                    .AddItem "Trf. CVS250 Vertical entraada Superior"
-                    .AddItem "Trf. CVS250 Vertical entraada Inferior"
-                    .AddItem "Trf. CVS630 Vertical entraada Superior"
-                    .AddItem "Trf. CVS630 Vertical entraada Inferior"
-                    .AddItem "Trf. NSX250 Vertical entraada Superior"
-                    .AddItem "Trf. NSX250 Vertical entraada Inferior"
-                    .AddItem "Trf. NSX630 Vertical entraada Superior"
-                    .AddItem "Trf. NSX630 Vertical entraada Inferior"
+                    .AddItem "Trf. EZC250 Vertical entrada Superior"
+                    .AddItem "Trf. EZC250 Vertical entrada Inferior"
+                    .AddItem "Trf. EZC630 Vertical entrada Superior"
+                    .AddItem "Trf. EZC630 Vertical entrada Inferior"
+                    .AddItem "Trf. CVS250 Vertical entrada Superior"
+                    .AddItem "Trf. CVS250 Vertical entrada Inferior"
+                    .AddItem "Trf. CVS630 Vertical entrada Superior"
+                    .AddItem "Trf. CVS630 Vertical entrada Inferior"
+                    .AddItem "Trf. NSX250 Vertical entrada Superior"
+                    .AddItem "Trf. NSX250 Vertical entrada Inferior"
+                    .AddItem "Trf. NSX630 Vertical entrada Superior"
+                    .AddItem "Trf. NSX630 Vertical entrada Inferior"
                 case "Horizontal", "Horizontal Abatible"
                     .AddItem "EZC250X2"
                     .AddItem "CVS250X2"
@@ -501,140 +501,381 @@ Public IP as string
         dato = Me.OleObjects("EquipoTRF").Object.Value
         Dim texto As String
         Select Case  dato
-        Case "Trf. EZC250 Vertical entraada Superior"
-            texto =  "+C1 | Liso | | | | | W: 720/ U:4 | Unidad Funcional  Lisa / SFI - Frontal Interno | |" & vbCrLf
-            texto = texto & "+C2 | Equipada | EZC250 | 3 | Vertical | EZC250N| W: 720 / U: 7 | SFI - Frontal Interno / Vertical/ Cant.equipos: 2 | Superior |" & vbCrLf
-            texto = texto & "+C4 | Liso | | | | | W: 720 / U:  4 | Unidad Funcional  Lisa / SFI - Frontal Interno | |" & vbCrLf
-        
-
-
-
+            Case "Trf. EZC250 Vertical entrada Superior"
+                texto =  "+C1 | Liso | | | | | W: 720/ U:4 | Unidad Funcional  Lisa / SFI - Frontal Interno | |" & vbCrLf
+                texto = texto & "+C2 | Equipada | EZC250 | 3 | Vertical | EZC250N| W: 720 / U: 7 | SFI - Frontal Interno / Vertical/ Cant.equipos: 2 | Superior |" & vbCrLf
+                texto = texto & "+C3 | Liso | | | | | W: 720 / U:  4 | Unidad Funcional  Lisa / SFI - Frontal Interno | |" & vbCrLf
+            Case "Trf. EZC250 Vertical entrada Inferior"
+                texto =  "+C1 | Liso | | | | | W: 720/ U:4 | Unidad Funcional  Lisa / SFI - Frontal Interno | |" & vbCrLf
+                texto = texto & "+C2 | Liso | | | | | W: 720 / U:  4 | Unidad Funcional  Lisa / SFI - Frontal Interno | |" & vbCrLf
+                texto = texto & "+C3 | Equipada | EZC250 | 3 | Vertical | EZC250N| W: 720 / U: 7 | SFI - Frontal Interno / Vertical/ Cant.equipos: 2 | Inferior |" & vbCrLf
+                texto = texto & "+C4 | Liso | | | | | W: 720 / U:  4 | Unidad Funcional  Lisa / SFI - Frontal Interno | |" & vbCrLf
+            case "Trf. EZC630 Vertical entrada Superior"    
+                texto =  "+C1 | Liso | | | | | W: 720/ U:4 | Unidad Funcional  Lisa / SFI - Frontal Interno | |" & vbCrLf
+                texto = texto & "+C2 | Equipada | EZC630 | 3 | Vertical | EZC630N| W: 720 / U: 7 | SFI - Frontal Interno / Vertical/ Cant.equipos: 2 | Superior |" & vbCrLf
+                texto = texto & "+C3 | Liso | | | | | W: 720 / U:  4 | Unidad Funcional  Lisa / SFI - Frontal Interno | |" & vbCrLf
+            case "Trf. EZC630 Vertical entrada Inferior"
+                texto =  "+C1 | Liso | | | | | W: 720/ U:4 | Unidad Funcional  Lisa / SFI - Frontal Interno | |" & vbCrLf
+                texto = texto & "+C2 | Liso | | | | | W: 720 / U:  4 | Unidad Funcional  Lisa / SFI - Frontal Interno | |" & vbCrLf
+                texto = texto & "+C3 | Equipada | EZC630 | 3 | Vertical | EZC630N| W: 720 / U: 7 | SFI - Frontal Interno / Vertical/ Cant.equipos: 2 | Inferior |" & vbCrLf
+                texto = texto & "+C4 | Liso | | | | | W: 720 / U:  4 | Unidad Funcional  Lisa / SFI - Frontal Interno | |" & vbCrLf
+            Case "Trf. CVS250 Vertical entrada Superior"
+                Texto = "+C1 | Liso | | | | | W: 720/ U:4 | Unidad Funcional  Lisa / SFI - Frontal Interno | |" & vbCrLf
+                Texto = Texto & "+C2 | Equipada | CVS250 | 3 | Vertical | CVS250N| W: 720 / U: 7 | SFI - Frontal Interno / Vertical/ Cant.equipos: 2 | Superior |" & vbCrLf
+                Texto = Texto & "+C3 | Liso | | | | | W: 720 / U:  4 | Unidad Funcional  Lisa / SFI - Frontal Interno | |" & vbCrLf
+            Case "Trf. CVS250 Vertical entrada Inferior"
+                Texto = "+C1 | Liso | | | | | W: 720/ U:4 | Unidad Funcional  Lisa / SFI - Frontal Interno | |" & vbCrLf
+                Texto = Texto & "+C2 | Liso | | | | | W: 720 / U:  4 | Unidad Funcional  Lisa / SFI - Frontal Interno | |" & vbCrLf
+                Texto = Texto & "+C3 | Equipada | CVS250 | 3 | Vertical | CVS250N| W: 720 / U: 7 | SFI - Frontal Interno / Vertical/ Cant.equipos: 2 | Inferior |" & vbCrLf
+                Texto = Texto & "+C4 | Liso | | | | | W: 720 / U:  4 | Unidad Funcional  Lisa / SFI - Frontal Interno | |" & vbCrLf
+            case "Trf. CVS630 Vertical entrada Superior"
+                Texto = "+C1 | Liso | | | | | W: 720/ U:4 | Unidad Funcional  Lisa / SFI - Frontal Interno | |" & vbCrLf
+                Texto = Texto & "+C2 | Equipada | CVS630 | 3 | Vertical | CVS630N| W: 720 / U: 7 | SFI - Frontal Interno / Vertical/ Cant.equipos: 2 | Superior |" & vbCrLf
+                Texto = Texto & "+C3 | Liso | | | | | W: 720 / U:  4 | Unidad Funcional  Lisa / SFI - Frontal Interno | |" & vbCrLf
+            case "Trf. CVS630 Vertical entrada Inferior"
+                Texto = "+C1 | Liso | | | | | W: 720/ U:4 | Unidad Funcional  Lisa / SFI - Frontal Interno | |" & vbCrLf
+                Texto = Texto & "+C2 | Liso | | | | | W: 720 / U:  4 | Unidad Funcional  Lisa / SFI - Frontal Interno | |" & vbCrLf
+                Texto = Texto & "+C3 | Equipada | CVS630 | 3 | Vertical | CVS630N| W: 720 / U: 7 | SFI - Frontal Interno / Vertical/ Cant.equipos: 2 | Inferior |" & vbCrLf
+                Texto = Texto & "+C4 | Liso | | | | | W: 720 / U:  4 | Unidad Funcional  Lisa / SFI - Frontal Interno | |" & vbCrLf
+            case "Trf. NSX250 Vertical entrada Superior"  
+                Texto = "+C1 | Liso | | | | | W: 720/ U:4 | Unidad Funcional  Lisa / SFI - Frontal Interno | |" & vbCrLf
+                Texto = Texto & "+C2 | Equipada | NSX250 | 3 | Vertical | NSX250N| W: 720 / U: 7 | SFI - Frontal Interno / Vertical/ Cant.equipos: 2 | Superior |" & vbCrLf
+                Texto = Texto & "+C3 | Liso | | | | | W: 720 / U:  4 | Unidad Funcional  Lisa / SFI - Frontal Interno | |" & vbCrLf  
+            Case "Trf. NSX250 Vertical entrada Inferior"
+                Texto = "+C1 | Liso | | | | | W: 720/ U:4 | Unidad Funcional  Lisa / SFI - Frontal Interno | |" & vbCrLf
+                Texto = Texto & "+C2 | Liso | | | | | W: 720 / U:  4 | Unidad Funcional  Lisa / SFI - Frontal Interno | |" & vbCrLf
+                Texto = Texto & "+C3 | Equipada | NSX250 | 3 | Vertical | NSX250N| W: 720 / U: 7 | SFI - Frontal Interno / Vertical/ Cant.equipos: 2 | Inferior |" & vbCrLf
+                Texto = Texto & "+C4 | Liso | | | | | W: 720 / U:  4 | Unidad Funcional  Lisa / SFI - Frontal Interno | |" & vbCrLf
+            case "Trf. NSX630 Vertical entrada Superior"
+                Texto = "+C1 | Liso | | | | | W: 720/ U:4 | Unidad Funcional  Lisa / SFI - Frontal Interno | |" & vbCrLf
+                Texto = Texto & "+C2 | Equipada | NSX630 | 3 | Vertical | NSX630N| W: 720 / U: 7 | SFI - Frontal Interno / Vertical/ Cant.equipos: 2 | Superior |" & vbCrLf
+                Texto = Texto & "+C3 | Liso | | | | | W: 720 / U:  4 | Unidad Funcional  Lisa / SFI - Frontal Interno | |" & vbCrLf
+            case "Trf. NSX630 Vertical entrada Inferior"
+                Texto = "+C1 | Liso | | | | | W: 720/ U:4 | Unidad Funcional  Lisa / SFI - Frontal Interno | |" & vbCrLf
+                Texto = Texto & "+C2 | Liso | | | | | W: 720 / U:  4 | Unidad Funcional  Lisa / SFI - Frontal Interno | |" & vbCrLf
+                Texto = Texto & "+C3 | Equipada | NSX630 | 3 | Vertical | NSX630N| W: 720 / U: 7 | SFI - Frontal Interno / Vertical/ Cant.equipos: 2 | Inferior |" & vbCrLf
+                Texto = Texto & "+C4 | Liso | | | | | W: 720 / U:  4 | Unidad Funcional  Lisa / SFI - Frontal Interno | |" & vbCrLf    
+            case else 
+             texto = "Seleccion no existente"   
+        end select
+         Me.OleObjects("Descripcion").Object.value = texto  
+    end sub
     Public sub Tranferencia_activo()
         Dim dato As String
         dato = Me.OleObjects("OrientacionTRF").Object.Value
         select case dato
             case "Vertical"
-                Me.OleObjects("EquipoTRF").Object.Enabled = false
+                Me.OleObjects("Descripcion").Object.Enabled = true
             case "Horizontal", "Horizontal Abatible"
-                Me.OleObjects("EquipoTRF").Object.Enabled = True
+                Me.OleObjects("Descripcion").Object.Enabled = False
         end select
     end sub
+' Accesorio MTM
+    Private sub TipoACC_Change()
+        Dim dato As String
+        dato = Me.OleObjects("TipoACC").Object.Value
+        with Me.OleObjects("MedidaACC").Object
+            .Clear
+            select case dato
+                case "Techo_Frontal","Hablador_Frontal"
+                    .AddItem "200"
+                    .AddItem "400"
+                    .AddItem "720"
+                case "Techo Lateral"    
+                    .AddItem "400"
+                    .AddItem "600"
+                case "Cancamo_Frontal", "Cancamo_Lateral","Celosidas_Grande","Celosidas_Pequeña", _
+                        "Chapa_Antivandalica","Hablador_Lateral","Angulo_Frontal","Angulo Lateral", _
+                        "Cubierta Frontal"
+                    .AddItem "NA" 
+                case else
+                    .AddItem "No se reconoce"  
+                end select
+        end with
+    end sub      
+'ETIQUETAS
+    Private Sub ClaseETQ_Change()  
+        Clase_etiqueta
+        Dim dato As String
+        dato = Me.OleObjects("ClaseETQ").Object.Value
+        with Me.OleObjects("TipoETQ").Object  
+            .Clear
+            select case dato
+                case "Etiqueta" 
+                    .AddItem "Codigo_QR"   
+                    .AddItem "Placa_GR"   
+                    .AddItem "Riesgo_electrico1" 
+                    .AddItem "Ventilación"
+                    .AddItem "Descarga"
+                    .AddItem "Riesgo_electrico2"
+                    .AddItem "Advertencia_choque_electrico"
+                    .AddItem "Riesgo_electricoV1"
+                    .AddItem "Riesgo_electricoV2"
+                    .AddItem "Riesgo_electricoV3"
+                    .AddItem "Choque_electrico_1"
+                    .AddItem "Choque_electrico_2"
+                    .AddItem "Prohibido_paso"
+                    .AddItem "Prohibido_acceso"
+                    .AddItem "Respaldo"
+                    .AddItem "Peligro_advertencia"
+                    .AddItem "Voltaje_peligroso"
+                    .AddItem "Voltaje_208"
+                    .AddItem "Voltaje_220"
+                    .AddItem "Voltaje_440"
+                    .AddItem "Voltaje_460"
+                    .AddItem "Voltaje_480"
+                    .AddItem "Aviso_acometidas"
+                    .AddItem "Programador_horario_MedidaACC" 
+                    .AddItem "Equipo_medida"
+                    .AddItem "Ajuste_higrostato"
+                    .AddItem "Inspeccion_DPS"
+                    .AddItem "No_manipular_Guaya"
+                    .AddItem "Ajuste_corriente"
+                    .AddItem "Ajuste_tension"
+                    .AddItem "Mantenimiento_filtros"
+                    .additem "Senales_extrernas_transferencia"
+                    .additem "Parametrizacion_medidor"
+                    .additem "Control_produccion"
+                    .additem "Incumplimiento_instrucciones"
+                    .additem "Mantenimiento"
+                    .additem "Cableado"
+                    .additem "Superficie_caliente"
+                    .additem "Linea"
+                    .additem "Generador"
+                    .additem "Red"
+                    .additem "Transformador"
+                    .additem "UPS"
+                    .additem "Blindobarra"
+                    .additem "Blindobarra_Transformador"
+                    .additem "Blindobarra_Generador"
+                case "Linea de Producto"
+                    .AddItem "B_Rack"
+                    .AddItem "C_Rack"
+                    .AddItem "C_Box"
+                    .AddItem "D_Critical"
+                    .additem "E_Center"
+                    .additem "G_Flex"
+                    .additem "I_MCC"
+                    .additem "L_Meter"
+                    .additem "M_Board"
+                    .additem "P_Ats"
+                    .additem "Q_Bank"
+                    .additem "S_Energy"
+                    .additem "T_Meter"
+                    .additem "T_Power"
+                    .additem "V_Drive"
+                    .additem "X_Proof"
+                case "Logo de clientes"    
+                    .AddItem "Schneider_Electric"
+                    .AddItem "Ecopetrol"
+                    .AddItem "SierraCol"
+                    .AddItem "Geopark"
+                    .AddItem "Tryenergy"
+                    .AddItem "Copower"
+                    .AddItem "Terpel"
+                    .AddItem "La_Fazenda"
+                    .AddItem "Canaveral"
+                    .AddItem "Parque_Arauco"
+                    .AddItem "Parque_Caracoli"
+                    .AddItem "Babaria"
+                    .AddItem "Higuera_Escalante"
+                    .AddItem "ESSA"
+                    .AddItem "Postobon"
+                    .AddItem "Lycon"
+                    .AddItem "Alfrio"
+                    .AddItem "ANI"
+                    .AddItem "Cool"
+                    .AddItem "Delta"
+                    .AddItem "Devimar"
+                    .AddItem "Energymed"
+                    .AddItem "Gecolsa"
+                    .AddItem "JE_Jaimes"
+                    .AddItem "PQS_Energy"
+                    .AddItem "Ruta_Cacao"
+                    .AddItem "Telefonica"
+                    .AddItem "UTS"
+                    .AddItem "UIS"
+                    .AddItem "Friocol"
+                    .AddItem "2Kinse"
+                    .AddItem "EnerteK"
+                    .AddItem "Hacer_Ingenieria"
+                    .AddItem "MSS_Ingenieria"
+                    .AddItem "Kluger"
+                    .AddItem "Bimbo"
+            end select
+        End With
+    End Sub  
+    public sub Clase_etiqueta()
+        dim dato as string
+        dato = Me.OleObjects("ClaseETQ").Object.Value
+        select case dato
+            case "Etiqueta"
+                ActiveSheet.Shapes("Dato3titulo").TextFrame2.TextRange.Text = "Tamaño:"
+                Me.OleObjects("Dato3ETQ").Object.Enabled = true
+            case "Linea de Producto"  
+                ActiveSheet.Shapes("Dato3titulo").TextFrame2.TextRange.Text = "Color:"
+                Me.OleObjects("Dato3ETQ").Object.Enabled = true
+            case "Logo de clientes" 
+                ActiveSheet.Shapes("Dato3titulo").TextFrame2.TextRange.Text = "......"
+                Me.OleObjects("Dato3ETQ").Object.Enabled = false
+        end select
+    end sub   
 
-        
+
+    Private sub TipoETQ_Change()
+        Dim dato As String, dato2 As String
+        dato2 = Me.OleObjects("ClaseETQ").Object.Value
+        dato = Me.OleObjects("TipoETQ").Object.Value
+        with Me.OleObjects("Dato3ETQ").Object
+            .clear
+            select case dato
+                case "Codigo_QR", "Riesgo_electrico1", "Ventilación", "Descarga", "Riesgo_electrico2", _
+                     "Voltaje_peligroso", "Voltaje_208", "Voltaje_220", "Voltaje_440", _
+                     "Voltaje_460", "Voltaje_480", "Aviso_acometidas", "Programador_horario", "Equipo_medida", _
+                     "Ajuste_higrostato", "Inspeccion_DPS", "No_manipular_Guaya", "Ajuste_corriente", "Mantenimiento_filtros", _
+                     "Senales_extrernas_transferencia", "Parametrizacion_medidor", "Control_produccion", "Incumplimiento_instrucciones", _
+                     "Mantenimiento", "Cableado", "Superficie caliente"
+                    .AddItem "Pequeno" 
+                case "Ventilación", "Descarga", "Riesgo_electrico2"
+                    .AddItem "Pequeno"
+                    .AddItem "Mediano"  
+                    .AddItem "Grande"
+                case "Placa_GR", "Ventilación", "Descarga", "Riesgo_electrico2", "Riesgo_electricoV1", "Riesgo_electricoV2", _
+                     "Riesgo_electricoV3", "Choque_electrico_1", "Choque_electrico_2", "Prohibido_paso", "Prohibido_acceso", "Respaldo", _
+                     "Generador", "Red", "Transformador", "UPS"  
+                    .AddItem "Mediano" 
+                case "Advertencia_choque_electrico"
+                    .AddItem "Grande" 
+                case "Voltaje_peligroso"   
+                    .AddItem "Pequeno"
+                    .AddItem "Mediano" 
+                case "Blindobarra","Blindobarra_Generador","Blindobarra_Transformador"
+                    .AddItem "NA"      
+            end select 
+            Select case dato2
+                case "Linea de Producto"
+                    .AddItem "Gris"
+                    .AddItem "Azul"
+            end select        
+        end with
+
+    end sub       
+
 Public Sub Worksheet_Activate()
     Extraer_datos
     Me.OleObjects("Carga").Object.Value = false
     Me.OleObjects("Totalizador").Object.Value = false
-    With  Me.OleObjects("AlturaENV").Object
-        .AddItem Altura
-    End With
-    With  Me.OleObjects("AnchoENV").Object
-        .clear
-        .AddItem "200"
-        .Additem "400"
-        .Additem "720"
-    End With  
+    '============== Envolventes ===================
+        With  Me.OleObjects("AlturaENV").Object
+            .AddItem Altura
+        End With
+        With  Me.OleObjects("AnchoENV").Object
+            .clear
+            .AddItem "200"
+            .Additem "400"
+            .Additem "720"
+        End With  
     '============== Unidades Funcionales ===================
-    With  Me.OleObjects("TipoUF").Object
-        .Clear
-        select case IP
-            Case "30"
+        With  Me.OleObjects("TipoUF").Object
+            .Clear
+            select case IP
+                Case "30"
+                .AddItem "SFI - Frontal Interno"
+                .AddItem "SIA - Integral Abatible"
+                .AddItem "SFC - Frontal Compacto"
+                
+            case else
+                .AddItem "SFI - Frontal Interno"
+                .AddItem "SIA - Integral Abatible" 
+            end select  
+        End With
+    '============== Unidades Funcionales Lisas ===================
+        With  Me.OleObjects("TipoLSS").Object
+            .Clear
             .AddItem "SFI - Frontal Interno"
             .AddItem "SIA - Integral Abatible"
-            .AddItem "SFC - Frontal Compacto"
-            
-        case else
-            .AddItem "SFI - Frontal Interno"
-            .AddItem "SIA - Integral Abatible" 
-        end select  
-    End With
-    '============== Unidades Funcionales Lisas ===================
-    With  Me.OleObjects("TipoLSS").Object
-        .Clear
-        .AddItem "SFI - Frontal Interno"
-        .AddItem "SIA - Integral Abatible"
-        .AddItem "SFA - Fijo Atornillado"
-        .AddItem "SIC - Placa de Control"
-    End With
-    With  Me.OleObjects("AnchoLSS").Object
-        .Clear
-        .AddItem "400"
-        .AddItem "720"
-    End With
+            .AddItem "SFA - Fijo Atornillado"
+            .AddItem "SIC - Placa de Control"
+        End With
+        With  Me.OleObjects("AnchoLSS").Object
+            .Clear
+            .AddItem "400"
+            .AddItem "720"
+        End With
     '============== Contactores ===================
-    with Me.OleObjects("EquipoCT").Object
-        .Clear
-        '.AddItem "A-Unit (Barra + Mini)"
-        .AddItem "Contactores"
-    End With
+        with Me.OleObjects("EquipoCT").Object
+            .Clear
+            '.AddItem "A-Unit (Barra + Mini)"
+            .AddItem "Contactores"
+        End With
     '============== DPS ===================
-    With Me.OleObjects("TipoUNDPS").Object
-        .Clear
-        .AddItem "SFI - Frontal Interno"
-        .AddItem "SIA - Integral Abatible"
-    End With
-    With Me.OleObjects("FabriUNDPS").Object
-        .Clear
-        .AddItem "Citel"
-        .AddItem "HWA"
-        .AddItem "Ciprotec"
-        .AddItem "Schneider Electric"
-        .AddItem "Phoenix Contac"
-    End With
+        With Me.OleObjects("TipoUNDPS").Object
+            .Clear
+            .AddItem "SFI - Frontal Interno"
+            .AddItem "SIA - Integral Abatible"
+        End With
+        With Me.OleObjects("FabriUNDPS").Object
+            .Clear
+            .AddItem "Citel"
+            .AddItem "HWA"
+            .AddItem "Ciprotec"
+            .AddItem "Schneider Electric"
+            .AddItem "Phoenix Contac"
+        End With
     '============== Unidades Funcionales de Control ===================
-    Me.OleObjects("TipoCTR").Object.Value = "SFI - Frontal Interno"
-    With Me.OleObjects("EquipoCTR").Object
-        .Clear
-        .AddItem "PM"
-        .AddItem "HMI"
-        .AddItem "InteliATS_STD"
-        .AddItem "ATL600"
-        .AddItem "AGC150"
-        .AddItem "AGC4"
-        .AddItem "DCRL5"
-        .AddItem "EASYGEN"
-        .AddItem "DSE8610"
-        .AddItem "Rapidus"
-        .AddItem "Sincronoscopio"
-    End With
-    with Me.OleObjects("MedidasCTR").Object
-        .Clear    
-        .AddItem "400"
-        .AddItem "720"
-    End With
+        Me.OleObjects("TipoCTR").Object.Value = "SFI - Frontal Interno"
+        With Me.OleObjects("EquipoCTR").Object
+            .Clear
+            .AddItem "PM"
+            .AddItem "HMI"
+            .AddItem "InteliATS_STD"
+            .AddItem "ATL600"
+            .AddItem "AGC150"
+            .AddItem "AGC4"
+            .AddItem "DCRL5"
+            .AddItem "EASYGEN"
+            .AddItem "DSE8610"
+            .AddItem "Rapidus"
+            .AddItem "Sincronoscopio"
+        End With
+        with Me.OleObjects("MedidasCTR").Object
+            .Clear    
+            .AddItem "400"
+            .AddItem "720"
+        End With
     '============== ACCESORIOS DE CONTROL ===================
-    With Me.OleObjects("ElementoCTR").Object
-        .Clear
-       .AddItem "ClavijaRoja"
-       .AddItem "ClavijaAzul"
-       .AddItem "Pilotos"
-       .AddItem "Parada_Emergencia"
-       .AddItem "Selector1"
-       .AddItem "Selector2"
-       .AddItem "Pulsador"
-       .AddItem "Piloto_Verde"
-       .AddItem "Piloto_Azul"
-       .AddItem "Piloto_Rojo"
-       .AddItem "Piloto_Amarillo"
-       .AddItem "Piloto_gris"
-       .AddItem "Piloto_grisX3"
-    End With
+        With Me.OleObjects("ElementoCTR").Object
+            .Clear
+        .AddItem "ClavijaRoja"
+        .AddItem "ClavijaAzul"
+        .AddItem "Pilotos"
+        .AddItem "Parada_Emergencia"
+        .AddItem "Selector1"
+        .AddItem "Selector2"
+        .AddItem "Pulsador"
+        .AddItem "Piloto_Verde"
+        .AddItem "Piloto_Azul"
+        .AddItem "Piloto_Rojo"
+        .AddItem "Piloto_Amarillo"
+        .AddItem "Piloto_gris"
+        .AddItem "Piloto_grisX3"
+        End With
     '============== EQUIPOS INDIVIDUALES ===================
-    With Me.OleObjects("EquipoIND").Object
-        .Clear
-        .AddItem "Contactor"
-        .AddItem "Medio_Contactor"
-        .AddItem "Amperimetro"
-        .AddItem "Voltimetro"
-        .AddItem "TH110"
-        .AddItem "Transformador"
-    End With
+        With Me.OleObjects("EquipoIND").Object
+            .Clear
+            .AddItem "Contactor"
+            .AddItem "Medio_Contactor"
+            .AddItem "Amperimetro"
+            .AddItem "Voltimetro"
+            .AddItem "TH110"
+            .AddItem "Transformador"
+        End With
     '============== SERVICIOS AUXILIARES ===================
-    With Me.OleObjects("MontajeSV").Object
-        .Clear
-        .AddItem "A-Unit"
-        .AddItem "Cubiculo"
-    End With
+        With Me.OleObjects("MontajeSV").Object
+            .Clear
+            .AddItem "A-Unit"
+            .AddItem "Cubiculo"
+        End With
     '============== PLACAS DE CONTROL ===================  
         With Me.OleObjects("TamanoPC").Object
             .Clear
@@ -648,26 +889,52 @@ Public Sub Worksheet_Activate()
             .AddItem "Lateral"
         End With
     '============== COMPENSACION ==========================    
-    Me.OleObjects("TipoCOM").Object.Value = "SFI - Frontal Interno"
-    With Me.OleObjects("PresentacionCOM").Object
-        .Clear
-        .AddItem "Cubiculo"
-        .AddItem "Columna"
-    End With
+        Me.OleObjects("TipoCOM").Object.Value = "SFI - Frontal Interno"
+        With Me.OleObjects("PresentacionCOM").Object
+            .Clear
+            .AddItem "Cubiculo"
+            .AddItem "Columna"
+        End With
     '============== BARRAJE =============================
-    with Me.OleObjects("OrientacionBRR").Object
-        .Clear
-        .AddItem "Horizontal"
-        .AddItem "Vertical"
-    End With
+        with Me.OleObjects("OrientacionBRR").Object
+            .Clear
+            .AddItem "Horizontal"
+            .AddItem "Vertical"
+        End With
     '============== TRANSFERENCIA =============================
-    with Me.OleObjects("OrientacionTRF").Object
-        .Clear
-        .AddItem "Horizontal"
-        .AddItem "Horizontal Abatible"
-        .AddItem "Vertical"
-    End With
-    
+        with Me.OleObjects("OrientacionTRF").Object
+            .Clear
+            .AddItem "Horizontal"
+            .AddItem "Horizontal Abatible"
+            .AddItem "Vertical"
+        End With
+    '============== Accesorios MTM  =============================
+        with Me.OleObjects("TipoACC").Object
+            .Clear
+            .AddItem "Techo_Frontal"
+            .AddItem "Techo_Laterial"
+            .AddItem "Cancamo_Frontal"
+            .AddItem "Cancamo_Lateral"
+            .AddItem "Hablador_Frontal"
+            .AddItem "Hablador_Lateral"
+            .AddItem "Angulo_Frontal"
+            .AddItem "Angulo_Lateral"
+            .AddItem "Cubierta_Frontal"
+            .AddItem "Cubierta_Lateral"
+            .AddItem "Ventilador_Frontal"
+            .AddItem "Ventilador_Superior"
+            .AddItem "Ventilador_Lateral"
+            .AddItem "Celosidas_Pequeña"
+            .AddItem "Celosidas_Grande"
+            .AddItem "Chapa_Antivandalica"
+        End With
+    '============== ETIQUETA  =============================    
+        With Me.OleObjects("ClaseETQ").Object
+            .Clear
+            .AddItem "Etiqueta"
+            .AddItem "Linea de Producto"
+            .AddItem "Logo de clientes"
+        End With
 
 END Sub
 
@@ -942,3 +1209,81 @@ Public sub BARRAS()
     ResultadoBAR = "UN_" & dato1 &  dato2 & "X" & dato4 & "_" & dato3
     MoverBloque ResultadoBAR,"BARRAJE", wsActual, celda
 End sub
+Public sub Transferencia()
+    '========================
+        celda = "NU107"
+        thisWorkbook.Sheets("DISENO").Range("NU107:QJ182").Clear
+        Set wsActual = thisWorkbook.Sheets("DISENO")
+    '========================
+    Dim dato1 As String, dato2 As String
+    dato1 = Me.OleObjects("EquipoTRF").Object.Value
+    select case dato1
+        case "Trf. EZC250 Vertical entrada Superior": dato1 = "EZC250XVX720XSUP"
+        case "Trf. EZC250 Vertical entrada Inferior": dato1 = "EZC250XVX720XINF"
+        case "Trf. EZC630 Vertical entrada Superior": dato1 = "EZC630XVX720XSUP"
+        case "Trf. EZC630 Vertical entrada Inferior": dato1 = "EZC630XVX720XINF"
+        case "Trf. CVS250 Vertical entrada Superior": dato1 = "CVS250XVX720XSUP"
+        case "Trf. CVS250 Vertical entrada Inferior": dato1 = "CVS250XVX720XINF"
+        case "Trf. CVS630 Vertical entrada Superior": dato1 = "CVS630XVX720XSUP"
+        case "Trf. CVS630 Vertical entrada Inferior": dato1 = "CVS630XVX720XINF"
+        case "Trf. NSX250 Vertical entrada Superior": dato1 = "NSX250XVX720XSUP"
+        case "Trf. NSX250 Vertical entrada Inferior": dato1 = "NSX250XVX720XINF"
+        case "Trf. NSX630 Vertical entrada Superior": dato1 = "NSX630XVX720XSUP"
+        case "Trf. NSX630 Vertical entrada Inferior": dato1 = "NSX630XVX720XINF"
+    end select
+    dato2 = Me.OleObjects("OrientacionTRF").Object.Value
+    select case dato2
+        case "Vertical"
+        ResultadoTRF = "UT_" &  dato1
+        case "Horizontal"
+            dato2 = "H"
+            ResultadoTRF = "UT_" & dato1 & "X" & dato2 & "X720"
+        case "Horizontal Abatible"
+            dato2 = "HA"
+            ResultadoTRF = "UT_" & dato1 & "X" & dato2 & "X720"
+    end select
+    MoverBloque ResultadoTRF,"U_TRANSFERENCIA", wsActual, celda
+
+End sub
+Public sub ACESORIOS_MTM()
+    '========================
+        celda = "NS104"
+        thisWorkbook.Sheets("DISENO").Range("NS104:QJ182").Clear
+        Set wsActual = thisWorkbook.Sheets("DISENO")
+    '========================
+    Dim dato1 As String, dato2 As String
+    dato1 = Me.OleObjects("TipoACC").Object.Value
+    dato2 = Me.OleObjects("MedidaACC").Object.Value
+    ResultadoACM = "ACC_" & dato1 & "X" & dato2
+    MoverBloque ResultadoACM,"ACCESOSRIOS MTM", wsActual, celda
+End sub
+Public sub  ETIQUETAS()
+    '========================
+        celda = "NS104"
+        thisWorkbook.Sheets("DISENO").Range("NS104:QJ182").Clear
+        Set wsActual = thisWorkbook.Sheets("DISENO")
+    '========================
+    Dim dato1 As String, dato2 As String, dato3 As String
+    dato2 = Me.OleObjects("Dato3ETQ").Object.Value
+    select case dato2
+        case "Pequeno": dato2 = "1"
+        case "Mediano": dato2 = "2"
+        case "Grande": dato2 = "3"
+    end select
+    dato1 = Me.OleObjects("ClaseETQ").Object.Value
+    dato3 = Me.OleObjects("TipoETQ").Object.Value
+    Select case dato1
+        case "Etiqueta"
+            dato1 = "E_"
+            ResultadoETQ = dato1 & dato3 & "X" & dato2
+
+        case "Linea de Producto"
+            dato1 = "L_"
+            ResultadoETQ = dato1 & dato3 & "X" & dato2
+
+        case "Logo de clientes": dato1 = "LC_"
+            ResultadoETQ = dato1 & "X" & dato3
+    End Select
+    MoverBloque ResultadoETQ,"ETIQUETAS", wsActual, celda
+End sub
+
