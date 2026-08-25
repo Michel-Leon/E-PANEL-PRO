@@ -2,7 +2,7 @@
 Public Altura as string
 Public Ancho as string
 Public Profundidad as string
-Public IP as string
+Public IP as string, Color as string
 
 'UNIDADES FUNCIONALES
     Private bloqueado As Boolean
@@ -720,8 +720,6 @@ Public IP as string
                 Me.OleObjects("Dato3ETQ").Object.Enabled = false
         end select
     end sub   
-
-
     Private sub TipoETQ_Change()
         Dim dato As String, dato2 As String
         dato2 = Me.OleObjects("ClaseETQ").Object.Value
@@ -760,7 +758,6 @@ Public IP as string
         end with
 
     end sub       
-
 Public Sub Worksheet_Activate()
     Extraer_datos
     Me.OleObjects("Carga").Object.Value = false
@@ -935,15 +932,46 @@ Public Sub Worksheet_Activate()
             .AddItem "Linea de Producto"
             .AddItem "Logo de clientes"
         End With
-
+    '============== COTAS  =============================
+        With Me.OleObjects("CotasDIBUJO").Object
+            .Clear
+            .AddItem "Ancho: 200mm"
+            .AddItem "Ancho: 230mm"
+            .AddItem "Ancho: 400mm"
+            .AddItem "Ancho: 430mm"
+            .AddItem "Ancho: 720mm"
+            .AddItem "Ancho: 750mm"
+            .AddItem "Ancho: 980mm"
+            .AddItem "Ancho: 1180mm"
+            .AddItem "Ancho: 1380mm"
+            .AddItem "Altura: 1600mm"
+            .AddItem "Altura: 1800mm"
+            .AddItem "Altura: 2000mm"
+            .AddItem "Division Tabelero"
+            .AddItem "Corte Tren"
+            .AddItem "Continuacion Tren"
+        End With
+    '============== COLORES  =============================   
+        Me.oleObjects("ColorPTD").Object.Value = Color
+        With Me.OLEObjects("ColorConf").Object
+            .Clear
+            .AddItem ""
+            .AddItem "RAL 7035"
+            .AddItem "RAL 7032"
+            .AddItem "RAL 9003"
+            .AddItem "RAL 9004"
+            .AddItem "Naranja"
+            .AddItem "Amarillo"
+        End With
 END Sub
-
 Public sub Extraer_datos()
     'ESTRAER DATOS DE DIMENSIONES
-    Altura = Range("A1").Value
-    Ancho = Range("A2").Value
-    IP = Range("A4").Value
-    Profundidad = Range("A3").Value
+        Altura = Range("A1").Value
+        Ancho = Range("A2").Value
+        Profundidad = Range("A3").Value
+        IP = Range("A4").Value
+        Color = Range("A5").Value
+    
 End Sub
 
 Public sub Envolventes()
@@ -1279,11 +1307,121 @@ Public sub  ETIQUETAS()
 
         case "Linea de Producto"
             dato1 = "L_"
-            ResultadoETQ = dato1 & dato3 & "X" & dato2
+            ResultadoETQ = dato1 & dato3 & "X" & dato2 
 
         case "Logo de clientes": dato1 = "LC_"
-            ResultadoETQ = dato1 & "X" & dato3
+            ResultadoETQ = dato1  & dato3
     End Select
     MoverBloque ResultadoETQ,"ETIQUETAS", wsActual, celda
 End sub
+public sub COTAS()
+    '========================
+        celda = "NS104"
+        thisWorkbook.Sheets("DISENO").Range("NS104:QJ182").Clear
+        Set wsActual = thisWorkbook.Sheets("DISENO")
+    '========================
+    Dim dato1 As String
+    dato1 = Me.OleObjects("CotasDIBUJO").Object.Value
+    Select case dato1
+        case "Ancho: 200mm": dato1 = "C_200"
+        case "Ancho: 230mm": dato1 = "C_230"
+        case "Ancho: 400mm": dato1 = "C_400"
+        case "Ancho: 430mm": dato1 = "C_430"
+        case "Ancho: 720mm": dato1 = "C_720"
+        case "Ancho: 750mm": dato1 = "C_750"
+        case "Ancho: 980mm": dato1 = "C_980"
+        case "Ancho: 1180mm": dato1 = "C_1180"
+        case "Ancho: 1380mm": dato1 = "C_1380"
+        case "Altura: 1600mm": dato1 = "C_1600"
+        case "Altura: 1800mm": dato1 = "C_1800"
+        case "Altura: 2000mm": dato1 = "C_2000"
+        case "Division Tabelero": dato1 = "Division"
+        case "Corte Tren": dato1 = "Corte_Tren"
+        case "Continuacion Tren": dato1 = "Continuidad_Tren"
+    end select
+    ResultadoCOT = dato1
+    MoverBloque ResultadoCOT,"COTAS", wsActual, celda
+End sub
 
+Public Sub Cambiodecolor() 'Vista frontal
+    Dim ws As Worksheet
+    Dim celda As Range
+    Dim valorColor As String
+    Dim colorDestino As Long
+    
+    ' Obtener el valor del color desde la portada
+    valorColor = Me.OLEObjects("Colorselec").Object.Value
+    Set ws = ThisWorkbook.Sheets("Vista frontal")
+    ' Definir color destino según el valor
+    Select Case valorColor
+        Case "RAL 7035": colorDestino = RGB(197, 199, 196)
+        Case "RAL 7032": colorDestino = RGB(181, 176, 161)
+        Case "RAL 9003": colorDestino = RGB(236, 236, 231)
+        Case "RAL 9004": colorDestino = RGB(43, 43, 44)
+        Case "Naranja" : colorDestino= RGB(201,133,12)
+        Case "Amarillo": colorDestino =RGB(235,198,21)
+    End Select
+    
+    ' Recorrer el rango y cambiar solo los colores específicos
+    For Each celda In ws.Range("BZ38:MX155")
+        Select Case valorColor
+            Case "RAL 7035"
+                If celda.Interior.Color = RGB(181, 176, 161) Or _
+                   celda.Interior.Color = RGB(43, 43, 44) Or _
+                   celda.Interior.Color = RGB(201, 133, 12) Or _
+                   celda.Interior.Color = RGB(235, 198, 21) Or _
+                   celda.Interior.Color = RGB(181, 184, 177) Or _
+                   celda.Interior.Color = RGB(244, 244, 244) Or _
+                   celda.Interior.Color = RGB(236, 236, 231) Then
+                    celda.Interior.Color = RGB(197, 199, 196)
+                End If
+            Case "RAL 7032"
+                If celda.Interior.Color = RGB(197, 199, 196) Or _
+                   celda.Interior.Color = RGB(43, 43, 44) Or _
+                   celda.Interior.Color = RGB(201, 133, 12) Or _
+                   celda.Interior.Color = RGB(235, 198, 21) Or _
+                   celda.Interior.Color = RGB(244, 244, 244) Or _
+                   celda.Interior.Color = RGB(236, 236, 231) Then
+                    celda.Interior.Color = RGB(181, 176, 161)
+                End If
+            Case "RAL 9003"
+                If celda.Interior.Color = RGB(197, 199, 196) Or _
+                   celda.Interior.Color = RGB(181, 176, 161) Or _
+                   celda.Interior.Color = RGB(43, 43, 44) Or _
+                   celda.Interior.Color = RGB(201, 133, 12) Or _
+                   celda.Interior.Color = RGB(235, 198, 21) Or _
+                   celda.Interior.Color = RGB(244, 244, 244) Then
+                    celda.Interior.Color = RGB(236, 236, 231)
+                End If
+            Case "RAL 9004"
+                If celda.Interior.Color = RGB(197, 199, 196) Or _
+                   celda.Interior.Color = RGB(181, 176, 161) Or _
+                   celda.Interior.Color = RGB(201, 133, 12) Or _
+                   celda.Interior.Color = RGB(235, 198, 21) Or _
+                   celda.Interior.Color = RGB(244, 244, 244) Or _
+                   celda.Interior.Color = RGB(236, 236, 231) Then
+                    celda.Interior.Color = RGB(43, 43, 44)
+                End If
+            Case "Naranja"
+                If celda.Interior.Color = RGB(197, 199, 196) Or _
+                   celda.Interior.Color = RGB(181, 176, 161) Or _
+                   celda.Interior.Color = RGB(43, 43, 44) Or _
+                   celda.Interior.Color = RGB(235, 198, 21) Or _
+                   celda.Interior.Color = RGB(244, 244, 244) Or _
+                   celda.Interior.Color = RGB(236, 236, 231) Then
+                    celda.Interior.Color = RGB(201, 133, 12)
+                End If
+            Case "Amarillo"
+                If celda.Interior.Color = RGB(197, 199, 196) Or _
+                   celda.Interior.Color = RGB(181, 176, 161) Or _
+                   celda.Interior.Color = RGB(43, 43, 44) Or _
+                   celda.Interior.Color = RGB(201, 133, 12) Or _
+                   celda.Interior.Color = RGB(244, 244, 244) Or _
+                   celda.Interior.Color = RGB(236, 236, 231) Then
+                    celda.Interior.Color = RGB(235, 198, 21)
+                End If
+        End Select
+    Next celda
+    
+    MSGBox "Proceso Finalizado con Exito", vbInformation, "Cambio de Color"
+End Sub
