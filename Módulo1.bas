@@ -141,11 +141,17 @@ Sub abrir_formulario()
     Set wsUsuarios = ThisWorkbook.Sheets("USUARIOS")
     Set wsConfig = ThisWorkbook.Sheets("DISENO")
 
+    ' Verificar que la estructura del libro no esté protegida
+    If ThisWorkbook.ProtectStructure Then
+        MsgBox "La estructura del libro está protegida." & vbNewLine & _
+               "Desprotéjala en Revisar > Proteger libro.", vbCritical, "Error"
+        Exit Sub
+    End If
+
     ' Leer usuario y clave ingresados
     usuarioIngresado = Trim(wsLogin.Range("HX83").Value)
     claveIngresada = Trim(wsLogin.Range("HX98").Value)
 
-    ' Validar que no estén vacíos
     If usuarioIngresado = "" Or claveIngresada = "" Then
         MsgBox "Debe ingresar usuario y contraseña.", vbExclamation, "Login"
         Exit Sub
@@ -157,7 +163,6 @@ Sub abrir_formulario()
 
     For i = 1 To ultimaFila
         If Trim(wsUsuarios.Cells(i, "E").Value) = usuarioIngresado Then
-            ' Usuario encontrado, ahora validar clave
             If Trim(wsUsuarios.Cells(i, "F").Value) = claveIngresada Then
                 encontrado = True
                 nombreUsuario = Trim(wsUsuarios.Cells(i, "D").Value)
@@ -167,14 +172,28 @@ Sub abrir_formulario()
     Next i
 
     If encontrado Then
-        ' Escribir el nombre en M-Configurator, celda JO4
+
+        Application.ScreenUpdating = False
+
+        ' 1) PRIMERO mostrar y activar la hoja destino
+        wsConfig.Visible = xlSheetVisible
+        wsConfig.Activate
+
+        ' 2) Escribir el nombre del usuario
         wsConfig.Range("NM4").Value = nombreUsuario
 
-        ' Ocultar Login y Mostrar M-Configurator
-        wsLogin.Visible = False
-        wsConfig.Visible = True
+        ' 3) DESPUÉS ocultar el login (ya hay otra hoja visible)
+        wsLogin.Visible = xlSheetVeryHidden
+
+        ' Limpiar los campos del login por seguridad
+        wsLogin.Range("HX83").Value = ""
+        wsLogin.Range("HX98").Value = ""
+
+        Application.ScreenUpdating = True
+
     Else
         MsgBox "Usuario o contraseña incorrectos.", vbCritical, "Login"
+        wsLogin.Range("HX98").Value = ""
     End If
 
 End Sub
