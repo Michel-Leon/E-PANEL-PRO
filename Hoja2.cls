@@ -3,111 +3,75 @@ Public Altura As String
 Public Ancho As String
 Public Profundidad As String
 Public IP As String, Color As String
-
-'UNIDADES FUNCIONALES
-    Private bloqueado As Boolean
-
-    ' --- helpers -------------------------------------------------
-    Private Sub LimpiarCombo(cbo As Object)
-        cbo.Clear
-        On Error Resume Next          ' seg�n el Style, uno de los dos aplica
-        cbo.ListIndex = -1
-        cbo.Text = ""
-        On Error GoTo 0
-    End Sub
-
-    Private Sub Llenar(cbo As Object, items As String)
-        Dim s As Variant
-        For Each s In Split(items, "|")
-            cbo.AddItem s
-        Next
-    End Sub
-
-    Private Function Combo(nombre As String) As Object
-        Set Combo = Me.OLEObjects(nombre).Object
-    End Function
-
-    ' --- eventos -------------------------------------------------
-    Private Sub TipoUF_Change()
-        CargarOrientacion
-        Me.OLEObjects("Carga").Object.Value = False
-        Me.OLEObjects("Totalizador").Object.Value = False
-    End Sub
-    Private Sub Totalizador_Click()
-        CargarOrientacion
-    End Sub
-    Private Sub Carga_Click()
-        CargarOrientacion
-    End Sub
-    Private Sub OrientacionUF_Change()
-        If bloqueado Then Exit Sub
-        bloqueado = True
-        CargarEquipoYConexion
-        bloqueado = False
-    End Sub
-    ' --- l�gica --------------------------------------------------
-    Public Sub CargarOrientacion()
-        Dim dato As String
-        dato = Me.OLEObjects("TipoUF").Object.Value
-        If bloqueado Then Exit Sub
-        bloqueado = True
-
-        With Combo("OrientacionUF")
-            LimpiarCombo Combo("OrientacionUF")
-            Select Case dato
-                Case "SFI - Frontal Interno", "SFC - Frontal Compacto": Llenar Combo("OrientacionUF"), "Horizontal|Horizontal Compuesta"
-                Case "SIA - Integral Abatible": Llenar Combo("OrientacionUF"), "Horizontal Abatible|Horizontal Compuesta Abatible"
-            End Select
-            If Me.Carga.Value Then
-                Select Case dato
-                    Case "SFI - Frontal Interno", "SFC - Frontal Compacto": Llenar Combo("OrientacionUF"), "Vertical|Vertical Compacta"
-                    Case "SIA - Integral Abatible": Llenar Combo("OrientacionUF"), "Vertical Compacta Abatible"
-                End Select
-            End If
+Public Linea As String
+Private bloqueado As Boolean
+'Envolentes
+    Public sub AlturaENV_Change()
+        With Me.OLEObjects("AnchoENV").Object
+            .Clear
+            select case Linea
+                case "Heavy"
+                    .AddItem "200"
+                    .AddItem "400"
+                    .AddItem "720"
+                    .AddItem "1120"
+                case "Modular"
+                    .AddItem "200"
+                    .AddItem "400"
+                    .AddItem "720"
+                    .AddItem "800"
+            end select            
         End With
-
-        LimpiarCombo Combo("EquipoUF")
-        LimpiarCombo Combo("ConexionUF")
-
-        bloqueado = False
-    End Sub
-
-    Private Sub CargarEquipoYConexion()
-        Dim dato As String
-        dato = CStr(Combo("OrientacionUF").Value & "")
-
-        LimpiarCombo Combo("EquipoUF")
-        LimpiarCombo Combo("ConexionUF")
-
-        If Not Me.Totalizador.Value And Not Me.Carga.Value Then Exit Sub
-        If Len(dato) = 0 Then Exit Sub
-
-        ' Equipo
-        Select Case dato
-            Case "Horizontal", "Horizontal Abatible"
-                Llenar Combo("EquipoUF"), "GoPact100|GoPact250|EZC100|EZC250|EZC630|CVS250|CVS630|NSX250|NSX630"
-            Case "Horizontal Compuesta", "Horizontal Compuesta Abatible"
-                Llenar Combo("EquipoUF"), "GoPact100|GoPact250|EZC100|EZC250|EZC630|CVS250|CVS630|NSX250|NSX630"
-            Case "Vertical"
-                Llenar Combo("EquipoUF"), "Guardamotor"
-            Case "Vertical Compacta"
-                Llenar Combo("EquipoUF"), "MiniBreaker|GoPact100|EZC100"
-            Case "Vertical Compacta Abatible"
-                Llenar Combo("EquipoUF"), "GoPact100|EZC100"
-        End Select
-
-        ' Conexi�n
-        If Me.Totalizador.Value Then
-            Llenar Combo("ConexionUF"), "Derecha"
-        Else
+    end sub    
+'UNIDADES FUNCIONALES
+Private Sub TipoUF_Change()
+    dim dato As String
+    dato = Me.OLEObjects("TipoUF").Object.Value
+    With Me.OLEObjects("OrientacionUF").Object
+        .Clear
+        If Me.Totalizador.Value Then 
             Select Case dato
-                Case "Horizontal", "Horizontal Compuesta", "Horizontal Abatible", "Horizontal Compuesta Abatible"
-                    Llenar Combo("ConexionUF"), "Izquierda|Derecha"
-                Case "Vertical", "Vertical Compacta", "Vertical Compacta Abatible"
-                    Llenar Combo("ConexionUF"), "NA"
+            case "SFI - Frontal Interno", "SFA - Fijo Atornillado"
+                .AddItem "Horizontal"
+                .AddItem "H. Compuesta"
+            case "SIA - Integral Abatible"
+                .AddItem "Horizontal Abatible"    
+                .AddItem "H. Compuesta Abatible"
             End Select
-        End If
-    End Sub
+        Elseif Not Me.Totalizador.Value Then
+            Select Case dato
+            case "SFI - Frontal Interno", "SFA - Fijo Atornillado" 
+                .AddItem "Horizontal"
+                .AddItem "H. Compuesta" 
+                .AddItem "Vertical"  
+                .AddItem "V. Compuesta"
+            case "SIA - Integral Abatible"
+                .AddItem "Horizontal Abatible"    
+                .AddItem "H. Compuesta Abatible"
+                .AddItem "Vertical Abatible"    
+                .AddItem "V. Compuesta Abatible"
+            End Select
+    end with
+end sub
+Private sub OrientacionUF_Change()
+    dim dato As String
+    dato = Me.OLEObjects("OrientacionUF").Object.Value
+    With Me.OLEObjects("EquipoUF").Object
+        .Clear
+        Select Case dato
+            Case "Horizontal", "Horizontal Abatible", "H. Compuesta", "H. Compuesta Abatible"
+                .AddItem "GoPact100"
+                .AddItem "GoPact250"
+                .AddItem "EZC100"
+                .AddItem "EZC250"
+                .AddItem "EZC630"
+                .AddItem "CVS250"
+                .AddItem "CVS630"
+                .AddItem "NSX250"
+                .AddItem "NSX630"
+                .AddItem "NS800"
+                .AddItem "NS1250"
+end sub
 'UNIDADES FUNCIONALES LISAS
     Private Sub TipoLSS_Change()
         Dim dato As String
@@ -764,26 +728,16 @@ Public Sub Worksheet_Activate()
     Me.OLEObjects("Totalizador").Object.Value = False
     '============== Envolventes ===================
         With Me.OLEObjects("AlturaENV").Object
+            .Clear
             .AddItem Altura
         End With
-        With Me.OLEObjects("AnchoENV").Object
-            .Clear
-            .AddItem "200"
-            .AddItem "400"
-            .AddItem "720"
-        End With
+        
     '============== Unidades Funcionales ===================
         With Me.OLEObjects("TipoUF").Object
             .Clear
-            Select Case IP
-                Case "30"
-                .AddItem "SFI - Frontal Interno"
-                .AddItem "SIA - Integral Abatible"
-                .AddItem "SFC - Frontal Compacto"
-                
-            Case Else
-                .AddItem "SFI - Frontal Interno"
-                .AddItem "SIA - Integral Abatible"
+            .AddItem "SFI - Frontal Interno"
+            .AddItem "SIA - Integral Abatible"
+            .AddItem "SFA - Fijo Atornillado"
             End Select
         End With
     '============== Unidades Funcionales Lisas ===================
@@ -843,19 +797,19 @@ Public Sub Worksheet_Activate()
     '============== ACCESORIOS DE CONTROL ===================
         With Me.OLEObjects("ElementoCTR").Object
             .Clear
-        .AddItem "ClavijaRoja"
-        .AddItem "ClavijaAzul"
-        .AddItem "Pilotos"
-        .AddItem "Parada_Emergencia"
-        .AddItem "Selector1"
-        .AddItem "Selector2"
-        .AddItem "Pulsador"
-        .AddItem "Piloto_Verde"
-        .AddItem "Piloto_Azul"
-        .AddItem "Piloto_Rojo"
-        .AddItem "Piloto_Amarillo"
-        .AddItem "Piloto_gris"
-        .AddItem "Piloto_grisX3"
+            .AddItem "ClavijaRoja"
+            .AddItem "ClavijaAzul"
+            .AddItem "Pilotos"
+            .AddItem "Parada_Emergencia"
+            .AddItem "Selector1"
+            .AddItem "Selector2"
+            .AddItem "Pulsador"
+            .AddItem "Piloto_Verde"
+            .AddItem "Piloto_Azul"
+            .AddItem "Piloto_Rojo"
+            .AddItem "Piloto_Amarillo"
+            .AddItem "Piloto_gris"
+            .AddItem "Piloto_grisX3"
         End With
     '============== EQUIPOS INDIVIDUALES ===================
         With Me.OLEObjects("EquipoIND").Object
@@ -971,6 +925,7 @@ Public Sub Extraer_datos()
         Profundidad = Range("A3").Value
         IP = Range("A4").Value
         Color = Range("A5").Value
+        Linea = Range("A6").Value
     
 End Sub
 
@@ -992,7 +947,7 @@ Public Sub Unidades_funcionales()
         ThisWorkbook.Sheets("DISENO").Range("NS115:QJ182").Clear
         Set wsActual = ThisWorkbook.Sheets("DISENO")
     '========================
-    Dim dato1 As String, dato2 As String, dato3 As String, dato4 As String
+    Dim dato1 As String, dato2 As String, dato3 As String, dato4 As String,dato5 As String
     dato1 = Me.OLEObjects("TipoUF").Object.Value
     Select Case dato1
         Case "SFI - Frontal Interno", "SFC - Frontal Compacto": dato1 = "U"
@@ -1012,8 +967,13 @@ Public Sub Unidades_funcionales()
         Case "Derecha": dato4 = "_DR"
         Case "NA": dato4 = "_NA"
     End Select
-  
-    ResultadoUF = dato1 & dato3 & "X720" & dato2 & dato4
+    dato5 = Me.OLEObjects("MedidaUF").Object.Value
+    Select case dato5
+        Case "720"
+            ResultadoUF = dato1 & dato3 & "X720" & dato2 & dato4
+        case "400"    
+            ResultadoUF = dato1 & dato3 & "X" & dato5 & dato2 
+    end select        
     MoverBloque ResultadoUF, "Ufuncionales", wsActual, Celda
 End Sub
 Public Sub Unidades_funcionales_lisas()
@@ -1342,7 +1302,6 @@ Public Sub COTAS()
     ResultadoCOT = dato1
     MoverBloque ResultadoCOT, "COTAS", wsActual, Celda
 End Sub
-
 Public Sub Cambiodecolor() 'Vista frontal
     Dim ws As Worksheet
     Dim Celda As Range
