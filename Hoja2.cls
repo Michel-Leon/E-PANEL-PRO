@@ -25,6 +25,11 @@ Private bloqueado As Boolean
     end sub    
 'UNIDADES FUNCIONALES
 Private Sub TipoUF_Change()
+        CargarOrientacion
+        Me.OLEObjects("Carga").Object.Value = False
+        Me.OLEObjects("Totalizador").Object.Value = False
+End Sub
+Public Sub CargarOrientacion()
     dim dato As String
     dato = Me.OLEObjects("TipoUF").Object.Value
     With Me.OLEObjects("OrientacionUF").Object
@@ -51,15 +56,22 @@ Private Sub TipoUF_Change()
                 .AddItem "Vertical Abatible"    
                 .AddItem "V. Compuesta Abatible"
             End Select
+        end if
     end with
 end sub
+Private Sub Totalizador_Click() 
+    CargarOrientacion
+End Sub
+Private Sub Carga_Click()
+    CargarOrientacion
+End Sub
 Private sub OrientacionUF_Change()
     dim dato As String
     dato = Me.OLEObjects("OrientacionUF").Object.Value
     With Me.OLEObjects("EquipoUF").Object
         .Clear
         Select Case dato
-            Case "Horizontal", "Horizontal Abatible", "H. Compuesta", "H. Compuesta Abatible"
+            Case "Horizontal", "Horizontal Abatible"
                 .AddItem "GoPact100"
                 .AddItem "GoPact250"
                 .AddItem "EZC100"
@@ -71,7 +83,90 @@ Private sub OrientacionUF_Change()
                 .AddItem "NSX630"
                 .AddItem "NS800"
                 .AddItem "NS1250"
+                .AddItem "NS_Motorizado"
+            Case "H. Compuesta", "H. Compuesta Abatible"
+                .AddItem "GoPact100"   
+                .AddItem "GoPact250" 
+                .AddItem "EZC100"
+                .AddItem "EZC250"
+                .AddItem "EZC630"
+                .AddItem "NSX250"
+                .AddItem "NSX630"
+            case "Vertical"  
+                .AddItem "CVS630"
+                .AddItem "EZC630"
+                .AddItem "Guardamotor"
+                .AddItem "GoPact800"   
+                .AddItem "NSX250"
+                .AddItem "NSX630"
+                .AddItem "NS"
+                .AddItem "NS_Motorizado"
+                .AddItem "NW_Fijo"
+                .AddItem "NW_Extraible"
+                .AddItem "MTZ_Fijo"
+                .AddItem "MTZ_Extraible"
+            case "Vertical Abatible"   
+                .AddItem "GoPact800" 
+                .AddItem "EZC630"
+                .AddItem "CVS250"
+                .AddItem "NSX250"
+                .AddItem "NSX630"
+                .AddItem "NS800"
+                .AddItem "NS_Motorizado"
+                .AddItem "NW_Fijo"
+                .AddItem "NW_Extraible"
+                .AddItem "MTZ_Fijo"
+                .AddItem "MTZ_Extraible"
+            case "V. Compuesta"   
+                .AddItem "MiniBreaker"
+                .AddItem "GoPact100"
+                .AddItem "GoPact400"
+                .AddItem "EZC100"
+                .AddItem "EZC250"
+                .AddItem "CVS100"
+            case "V. Compuesta Abatible"   
+                .AddItem "GoPact100"
+                .AddItem "GoPact250"
+                .AddItem "GoPact400" 
+                .AddItem "EZC100"
+                .AddItem "EZC250"
+        end select
+    end with   
+    with Me.OLEObjects("ConexionUF").Object 
+        .Clear
+        If Me.Totalizador.Value Then 
+            if dato= "Horizontal" or dato = "Horizontal Abatible" or dato = "H. Compuesta" or dato = "H. Compuesta Abatible" then
+                .AddItem "Derecha"
+            end if
+        Elseif Not Me.Totalizador.Value Then
+            if dato= "Horizontal" or dato = "Horizontal Abatible" or dato = "H. Compuesta"or dato = "H. Compuesta Abatible"  then
+                .AddItem "Derecha"
+                .AddItem "Izquierda"
+            elseif dato= "Vertical" or dato = "Vertical Abatible" or dato = "V. Compuesta"or dato = "V. Compuesta Abatible" then
+                .AddItem "NA"    
+            end if  
+        end if
+    end with
 end sub
+Private sub EquipoUF_Change()
+    Dim dato As String
+    dato = Me.OLEObjects("EquipoUF").Object.Value
+    With Me.OLEObjects("MedidaUF").Object
+        .Clear
+        Select case dato
+            case "EZC250", "EZC630", "CVS250", "CVS630", "NSX250", _
+                "NSX630", "NS800", "NS", "GoPact400", "GoPact800", "CVS100"
+                    .AddItem "400mm"
+            case "MiniBreaker", "GoPact100", "GoPact250", "EZC100", "EZC250", "EZC630", "CVS250", _
+                "CVS630", "NSX250", "NSX630", "NS800", "NS1250", "NS_Motorizado", _
+                "NS", "NW_Fijo", "NW_Extraible", "MTZ_Fijo", "MTZ_Extraible", "NS Motorizado", "NW_EXT", "MTZ_Fijo", "MTZ_Extraible"
+                    .AddItem "720mm"  
+            case "GoPact100", "EZC250", "EZC630", "CVS250", "CVS630", "NSX250", "NSX630", "NS800", "NS"
+                    .AddItem "400mm"   
+                    .AddItem "720mm"    
+        end select
+    end with
+end sub                   
 'UNIDADES FUNCIONALES LISAS
     Private Sub TipoLSS_Change()
         Dim dato As String
@@ -731,14 +826,12 @@ Public Sub Worksheet_Activate()
             .Clear
             .AddItem Altura
         End With
-        
     '============== Unidades Funcionales ===================
         With Me.OLEObjects("TipoUF").Object
             .Clear
             .AddItem "SFI - Frontal Interno"
             .AddItem "SIA - Integral Abatible"
             .AddItem "SFA - Fijo Atornillado"
-            End Select
         End With
     '============== Unidades Funcionales Lisas ===================
         With Me.OLEObjects("TipoLSS").Object
@@ -928,7 +1021,6 @@ Public Sub Extraer_datos()
         Linea = Range("A6").Value
     
 End Sub
-
 Public Sub Envolventes()
     '========================
         Celda = "NS98"
@@ -1302,12 +1394,11 @@ Public Sub COTAS()
     ResultadoCOT = dato1
     MoverBloque ResultadoCOT, "COTAS", wsActual, Celda
 End Sub
-Public Sub Cambiodecolor() 'Vista frontal
+Public Sub Cambiodecolor() 
     Dim ws As Worksheet
     Dim Celda As Range
     Dim valorColor As String
     Dim colorDestino As Long
-    
     ' Obtener el valor del color desde la portada
     valorColor = Me.OLEObjects("Colorselec").Object.Value
     Set ws = ThisWorkbook.Sheets("Vista frontal")
@@ -1320,7 +1411,6 @@ Public Sub Cambiodecolor() 'Vista frontal
         Case "Naranja": colorDestino = RGB(201, 133, 12)
         Case "Amarillo": colorDestino = RGB(235, 198, 21)
     End Select
-    
     ' Recorrer el rango y cambiar solo los colores espec�ficos
     For Each Celda In ws.Range("BZ38:MX155")
         Select Case valorColor
@@ -1381,7 +1471,6 @@ Public Sub Cambiodecolor() 'Vista frontal
                 End If
         End Select
     Next Celda
-    
     MsgBox "Proceso Finalizado con Exito", vbInformation, "Cambio de Color"
 End Sub
 
