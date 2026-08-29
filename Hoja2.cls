@@ -154,16 +154,17 @@ Private sub EquipoUF_Change()
     With Me.OLEObjects("MedidaUF").Object
         .Clear
         Select case dato
-            case "EZC250", "EZC630", "CVS250", "CVS630", "NSX250", _
-                "NSX630", "NS800", "NS", "GoPact400", "GoPact800", "CVS100"
+            case "CVS250", "NS800", "GoPact400", "GoPact800", "CVS100"
                     .AddItem "400mm"
-            case "MiniBreaker", "GoPact100", "GoPact250", "EZC100", "EZC250", "EZC630", "CVS250", _
-                "CVS630", "NSX250", "NSX630", "NS800", "NS1250", "NS_Motorizado", _
-                "NS", "NW_Fijo", "NW_Extraible", "MTZ_Fijo", "MTZ_Extraible", "NS Motorizado", "NW_EXT", "MTZ_Fijo", "MTZ_Extraible"
+            case "MiniBreaker", "EZC100", "CVS250", _
+                "CVS630", "NS1250", "NS_Motorizado","NS Motorizado","NS1250"
                     .AddItem "720mm"  
-            case "GoPact100", "EZC250", "EZC630", "CVS250", "CVS630", "NSX250", "NSX630", "NS800", "NS"
+            case "GoPact100", "EZC250", "EZC630", "CVS250", "NSX250", "NSX630", "NS800", "NS", "GoPact250"
                     .AddItem "400mm"   
-                    .AddItem "720mm"    
+                    .AddItem "720mm" 
+            Case"MTZ_Extraible", "MTZ_Fijo", "NW_Extraible","NW_Fijo"
+                    .AddItem "720mm" 
+                    .AddItem "1120mm"           
         end select
     end with
 end sub                   
