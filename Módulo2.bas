@@ -528,9 +528,21 @@ Public sub Seleccion_Menu_Color()
         activeSheet.Shapes("Menu Acotar").Visible = false
     end If
 End sub
-public sub Limpiar_area_trabajo()
-    thisWorkbook.Sheets("DISENO").Range("BZ38:MX155").Clear
-end sub   
+Public Sub Limpiar_area_trabajo()
+    With ThisWorkbook.Sheets("DISENO")
+        .Range("BZ38:MX155").Clear
+
+        With .Range("A1:A4")
+            .NumberFormat = "General"
+            .ClearContents          ' borra el texto viejo que quedó como cadena
+        End With
+
+        .Range("A1").FormulaLocal = "=INICIO!DK89"
+        .Range("A2").FormulaLocal = "=INICIO!DK97"
+        .Range("A3").FormulaLocal = "=INICIO!DK105"
+        .Range("A4").FormulaLocal = "=SI(ESNUMERO(HALLAR("",30,"";"",""&INICIO!DK113&"",""));""30"";"""")"
+    End With
+End Sub
 Public sub Liampiar_area_trabajo2() 
     thisWorkbook.Sheets("DISENO").Range("NP98:QJ182").Clear
 end sub

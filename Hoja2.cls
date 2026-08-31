@@ -6,7 +6,6 @@ Public IP as string, Color as string
 
 'UNIDADES FUNCIONALES
     Private bloqueado As Boolean
-
     ' --- helpers -------------------------------------------------
     Private Sub LimpiarCombo(cbo As Object)
         cbo.Clear
@@ -15,18 +14,15 @@ Public IP as string, Color as string
         cbo.Text = ""
         On Error GoTo 0
     End Sub
-
     Private Sub Llenar(cbo As Object, items As String)
         Dim s As Variant
         For Each s In Split(items, "|")
             cbo.AddItem s
         Next
     End Sub
-
     Private Function Combo(nombre As String) As Object
         Set Combo = Me.OLEObjects(nombre).Object
     End Function
-
     ' --- eventos -------------------------------------------------
     private sub TipoUF_Change()
         CargarOrientacion
@@ -71,7 +67,6 @@ Public IP as string, Color as string
 
         bloqueado = False
     End Sub
-
     Private Sub CargarEquipoYConexion()
         Dim dato As String
         dato = CStr(Combo("OrientacionUF").Value & "")
@@ -172,32 +167,32 @@ Public IP as string, Color as string
     end sub
 'DPS
     Private sub FabriUNDPS_Change() 
-    Dim dato As String
-    dato = Me.OleObjects("FabriUNDPS").Object.Value
-    With Me.OleObjects("EquipoDPS").Object   
-    .Clear
-    select case dato
-        case "HWA"
-            .AddItem "NSX100"
-            .AddItem "EZC100"
-            .AddItem "CVS100"
-        case else    
-            .AddItem "MiniBreaker"
-            .AddItem "NSX100"
-            .AddItem "EZC100"
-            .AddItem "CVS100"
-        end select
-    End With
-    With Me.OleObjects("AnchoDPS").Object
+        Dim dato As String
+        dato = Me.OleObjects("FabriUNDPS").Object.Value
+        With Me.OleObjects("EquipoDPS").Object   
         .Clear
-        Select Case dato
-            Case "HWA"
-                .AddItem "720"
-            case else
-                .AddItem "400"   
-                .AddItem "720"
-        End Select
-    End With 
+        select case dato
+            case "HWA"
+                .AddItem "NSX100"
+                .AddItem "EZC100"
+                .AddItem "CVS100"
+            case else    
+                .AddItem "MiniBreaker"
+                .AddItem "NSX100"
+                .AddItem "EZC100"
+                .AddItem "CVS100"
+            end select
+        End With
+        With Me.OleObjects("AnchoDPS").Object
+            .Clear
+            Select Case dato
+                Case "HWA"
+                    .AddItem "720"
+                case else
+                    .AddItem "400"   
+                    .AddItem "720"
+            End Select
+        End With 
     End Sub  
 ' Accesorios de control  
     Private sub ElementoCTR_Change()
@@ -763,15 +758,7 @@ Public Sub Worksheet_Activate()
     Me.OleObjects("Carga").Object.Value = false
     Me.OleObjects("Totalizador").Object.Value = false
     '============== Envolventes ===================
-        With  Me.OleObjects("AlturaENV").Object
-            .AddItem Altura
-        End With
-        With  Me.OleObjects("AnchoENV").Object
-            .clear
-            .AddItem "200"
-            .Additem "400"
-            .Additem "720"
-        End With  
+        
     '============== Unidades Funcionales ===================
         With  Me.OleObjects("TipoUF").Object
             .Clear
@@ -952,7 +939,7 @@ Public Sub Worksheet_Activate()
             .AddItem "Continuacion Tren"
         End With
     '============== COLORES  =============================   
-        Me.oleObjects("ColorPTD").Object.Value = Color
+        'Me.oleObjects("ColorPTD").Object.Value = Color
         With Me.OLEObjects("ColorConf").Object
             .Clear
             .AddItem ""
@@ -964,13 +951,31 @@ Public Sub Worksheet_Activate()
             .AddItem "Amarillo"
         End With
 END Sub
+'--- Llena un ComboBox ActiveX a partir de una cadena separada por comas
+Private Sub LlenarCombo(cbo As Object, ByVal datos As String)
+    Dim partes() As String
+    Dim i As Long
+    Dim item As String
+
+    cbo.Clear
+
+    If Len(Trim$(datos)) = 0 Then Exit Sub
+
+    partes = Split(datos, ",")
+    For i = LBound(partes) To UBound(partes)
+        item = Trim$(partes(i))
+        If Len(item) > 0 Then cbo.AddItem item
+    Next i
+
+    If cbo.ListCount = 1 Then cbo.ListIndex = 0   ' si hay uno solo, lo selecciona
+End Sub
 Public sub Extraer_datos()
-    'ESTRAER DATOS DE DIMENSIONES
-        Altura = Range("A1").Value
-        Ancho = Range("A2").Value
-        Profundidad = Range("A3").Value
-        IP = Range("A4").Value
-        Color = Range("A5").Value
+    ' EXTRAER DATOS DE DIMENSIONES
+    Altura = CStr(Me.Range("A1").Value)
+    Ancho = CStr(Me.Range("A2").Value)
+
+    LlenarCombo Me.OLEObjects("AlturaENV").Object, Altura
+    LlenarCombo Me.OLEObjects("AnchoENV").Object, Ancho
     
 End Sub
 
@@ -1342,7 +1347,6 @@ public sub COTAS()
     ResultadoCOT = dato1
     MoverBloque ResultadoCOT,"COTAS", wsActual, celda
 End sub
-
 Public Sub Cambiodecolor() 'Vista frontal
     Dim ws As Worksheet
     Dim celda As Range

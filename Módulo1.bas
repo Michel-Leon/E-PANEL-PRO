@@ -89,7 +89,7 @@ Sub MostrarTodasLasHojas()
     Dim intentos As Integer
 
     Const USUARIO_VALIDO As String = "ADMIN"
-    Const CLAVE_VALIDA As String = "ADMIN"
+    Const CLAVE_VALIDA As String = "ADMIN0715"
     Const MAX_INTENTOS As Integer = 3
 
     Do
@@ -139,7 +139,7 @@ Sub abrir_formulario()
     ' Referencias a las hojas
     Set wsLogin = ThisWorkbook.Sheets("LOGIN")
     Set wsUsuarios = ThisWorkbook.Sheets("USUARIOS")
-    Set wsConfig = ThisWorkbook.Sheets("DISENO")
+    Set wsConfig = ThisWorkbook.Sheets("INICIO")
 
     ' Verificar que la estructura del libro no esté protegida
     If ThisWorkbook.ProtectStructure Then
@@ -180,10 +180,10 @@ Sub abrir_formulario()
         wsConfig.Activate
 
         ' 2) Escribir el nombre del usuario
-        wsConfig.Range("NM4").Value = nombreUsuario
+        wsConfig.Range("K193").Value = nombreUsuario
 
         ' 3) DESPUÉS ocultar el login (ya hay otra hoja visible)
-        wsLogin.Visible = xlSheetVeryHidden
+        'wsLogin.Visible = xlSheetVeryHidden
 
         ' Limpiar los campos del login por seguridad
         wsLogin.Range("HX83").Value = ""
@@ -195,6 +195,44 @@ Sub abrir_formulario()
         MsgBox "Usuario o contraseña incorrectos.", vbCritical, "Login"
         wsLogin.Range("HX98").Value = ""
     End If
+
+End Sub
+Public Sub Cerrar_seccion()
+
+    Dim wsLogin As Worksheet
+    Dim wsConfig As Worksheet
+
+    ' Referencias a las hojas
+    Set wsLogin = ThisWorkbook.Sheets("LOGIN")
+    Set wsConfig = ThisWorkbook.Sheets("INICIO")
+
+    ' Verificar que la estructura del libro no esté protegida
+    If ThisWorkbook.ProtectStructure Then
+        MsgBox "La estructura del libro está protegida." & vbNewLine & _
+               "Desprotéjala en Revisar > Proteger libro.", vbCritical, "Error"
+        Exit Sub
+    End If
+
+    Application.ScreenUpdating = False
+
+    ' 1) PRIMERO mostrar y activar la hoja destino
+    wsLogin.Visible = xlSheetVisible
+    wsLogin.Activate
+
+    ' 2) Limpiar los campos del login
+    wsLogin.Range("HX83").Value = ""
+    wsLogin.Range("HX98").Value = ""
+
+    ' 3) Borrar el usuario de la sesión
+    wsConfig.Range("K193").ClearContents
+
+    ' 4) DESPUÉS ocultar INICIO (ya hay otra hoja visible)
+    wsConfig.Visible = xlSheetVeryHidden
+
+    ' Dejar el cursor en el campo de usuario
+    wsLogin.Range("HX83").Select
+
+    Application.ScreenUpdating = True
 
 End Sub
 Sub CambiarZoomEnTodasLasHojas()
