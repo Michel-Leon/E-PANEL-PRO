@@ -781,11 +781,11 @@ Public Sub Worksheet_Activate()
             .AddItem "SFA - Fijo Atornillado"
             .AddItem "SIC - Placa de Control"
         End With
-        With  Me.OleObjects("AnchoLSS").Object
-            .Clear
-            .AddItem "400"
-            .AddItem "720"
-        End With
+       ' With  Me.OleObjects("AnchoLSS").Object
+          '  .Clear
+            '.AddItem "400"
+           ' .AddItem "720"
+        'End With
     '============== Contactores ===================
         with Me.OleObjects("EquipoCT").Object
             .Clear
@@ -976,13 +976,13 @@ Public sub Extraer_datos()
 
     LlenarCombo Me.OLEObjects("AlturaENV").Object, Altura
     LlenarCombo Me.OLEObjects("AnchoENV").Object, Ancho
+    LlenarCombo Me.OLEObjects("AnchoLSS").Object, Ancho
     
 End Sub
-
 Public sub Envolventes()
     '========================
-        celda = "NS98"
-        thisWorkbook.Sheets("DISENO").Range("NS98:QJ182").Clear
+        celda = "NS82"
+        thisWorkbook.Sheets("DISENO").Range("NS82:QJ182").Clear
         Set wsActual = thisWorkbook.Sheets("DISENO")
     '========================
     dim dato1 as string, dato2 as string

@@ -1,10 +1,10 @@
 '===================
 Public Sub Worksheet_Activate()
-
-    Activesheet.shapes("Diseño").Visible = false
     dim wsActual As Worksheet
      set  wsActual = thisWorkbook.Sheets("INICIO")
+
     With wsActual
+        .Range("A1").value = ""
         .Range("DK89").value =""
         .Range("DK97").value =""
         .Range("DK105").value =""
