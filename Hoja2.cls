@@ -758,7 +758,6 @@ Public Sub Worksheet_Activate()
     Me.OleObjects("Carga").Object.Value = false
     Me.OleObjects("Totalizador").Object.Value = false
     '============== Envolventes ===================
-        
     '============== Unidades Funcionales ===================
         With  Me.OleObjects("TipoUF").Object
             .Clear
