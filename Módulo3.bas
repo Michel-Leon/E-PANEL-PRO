@@ -15,7 +15,7 @@ Public sub Escribir_caracteristicas_TB()
         .Range("DK134").value ="630"
         .Range("DK142").value ="25"
     end with
-  Menu2Unidades = "Menu UnidadFuncional"
+  Menu2Unidades = "Opcion1"
 End sub   
 Public sub Escribir_caracteristicas_TC()
     dim wsActual As Worksheet
@@ -29,12 +29,12 @@ Public sub Escribir_caracteristicas_TC()
         .Range("DK134").value ="1250"
         .Range("DK142").value ="25-40"
     end with
-    Menu2Unidades = "Menu UnidadFuncional"
+    Menu2Unidades = "Opcion1"
 End sub  
 Public sub Escribir_caracteristicas_TM()
     dim wsActual As Worksheet
      set  wsActual = thisWorkbook.Sheets("INICIO")
-    With wsActual
+    With wsActual 
         .Range("A1").value = "true"
         .Range("DK89").value ="1800,2000,2200"
         .Range("DK97").value ="200,400,720,800"
@@ -43,7 +43,7 @@ Public sub Escribir_caracteristicas_TM()
         .Range("DK134").value ="<=4000"
         .Range("DK142").value ="40-65"
     end with
-    Menu2Unidades = "Menu UnidadFuncional_2"
+    Menu2Unidades = "Opcion2"
 End sub  
 Public sub Escribir_caracteristicas_TH()
     dim wsActual As Worksheet
@@ -57,5 +57,5 @@ Public sub Escribir_caracteristicas_TH()
         .Range("DK134").value =">4000"
         .Range("DK142").value ="40-85"
     end with
-    Menu2Unidades = "Menu UnidadFuncional_2"
+    Menu2Unidades = "Opcion2"
 End sub  

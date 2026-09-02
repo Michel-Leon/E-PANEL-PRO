@@ -103,6 +103,151 @@ Public IP as string, Color as string
             End Select
         End If
     End Sub  
+'UNIDADES FUNCIONALES MENU 2 TM-TH
+Private Sub TipoUF2_Change()
+        CargarOrientacion
+        Me.OLEObjects("Carga2").Object.Value = False
+        Me.OLEObjects("Totalizador2").Object.Value = False
+End Sub
+Public Sub CargarOrientacion2()
+    dim dato As String
+    dato = Me.OLEObjects("TipoUF2").Object.Value
+    With Me.OLEObjects("OrientacionUF2").Object
+        .Clear
+        If Me.Totalizador2.Value Then 
+            Select Case dato
+            case "SFI - Frontal Interno", "SFA - Fijo Atornillado"
+                .AddItem "Horizontal"
+                .AddItem "H. Compuesta"
+            case "SIA - Integral Abatible"
+                .AddItem "Horizontal Abatible"    
+                .AddItem "H. Compuesta Abatible"
+            End Select
+        Elseif Not Me.Totalizador2.Value Then
+            Select Case dato
+            case "SFI - Frontal Interno", "SFA - Fijo Atornillado" 
+                .AddItem "Horizontal"
+                .AddItem "H. Compuesta" 
+                .AddItem "Vertical"  
+                .AddItem "V. Compuesta"
+            case "SIA - Integral Abatible"
+                .AddItem "Horizontal Abatible"    
+                .AddItem "H. Compuesta Abatible"
+                .AddItem "Vertical Abatible"    
+                .AddItem "V. Compuesta Abatible"
+            End Select
+        end if
+    end with
+end sub
+Private Sub Totalizador2_Click() 
+    CargarOrientacion2
+End Sub
+Private Sub Carga2_Click()
+    CargarOrientacion2
+End Sub
+Private sub OrientacionUF2_Change()
+    dim dato As String
+    dato = Me.OLEObjects("OrientacionUF2").Object.Value
+    With Me.OLEObjects("EquipoUF2").Object
+        .Clear
+        Select Case dato
+            Case "Horizontal", "Horizontal Abatible"
+                .AddItem "GoPact100"
+                .AddItem "GoPact250"
+                .AddItem "EZC100"
+                .AddItem "EZC250"
+                .AddItem "EZC630"
+                .AddItem "CVS250"
+                .AddItem "CVS630"
+                .AddItem "NSX250"
+                .AddItem "NSX630"
+                .AddItem "NS800"
+                .AddItem "NS1250"
+                .AddItem "NS_Motorizado"
+            Case "H. Compuesta", "H. Compuesta Abatible"
+                .AddItem "GoPact100"   
+                .AddItem "GoPact250" 
+                .AddItem "EZC100"
+                .AddItem "EZC250"
+                .AddItem "EZC630"
+                .AddItem "NSX250"
+                .AddItem "NSX630"
+            case "Vertical"  
+                .AddItem "CVS630"
+                .AddItem "EZC630"
+                .AddItem "Guardamotor"
+                .AddItem "GoPact800"   
+                .AddItem "NSX250"
+                .AddItem "NSX630"
+                .AddItem "NS"
+                .AddItem "NS_Motorizado"
+                .AddItem "NW_Fijo"
+                .AddItem "NW_Extraible"
+                .AddItem "MTZ_Fijo"
+                .AddItem "MTZ_Extraible"
+            case "Vertical Abatible"   
+                .AddItem "GoPact800" 
+                .AddItem "EZC630"
+                .AddItem "CVS250"
+                .AddItem "NSX250"
+                .AddItem "NSX630"
+                .AddItem "NS800"
+                .AddItem "NS_Motorizado"
+                .AddItem "NW_Fijo"
+                .AddItem "NW_Extraible"
+                .AddItem "MTZ_Fijo"
+                .AddItem "MTZ_Extraible"
+            case "V. Compuesta"   
+                .AddItem "MiniBreaker"
+                .AddItem "GoPact100"
+                .AddItem "GoPact400"
+                .AddItem "EZC100"
+                .AddItem "EZC250"
+                .AddItem "CVS100"
+            case "V. Compuesta Abatible"   
+                .AddItem "GoPact100"
+                .AddItem "GoPact250"
+                .AddItem "GoPact400" 
+                .AddItem "EZC100"
+                .AddItem "EZC250"
+        end select
+    end with   
+    with Me.OLEObjects("ConexionUF2").Object 
+        .Clear
+        If Me.Totalizador2.Value Then 
+            if dato= "Horizontal" or dato = "Horizontal Abatible" or dato = "H. Compuesta" or dato = "H. Compuesta Abatible" then
+                .AddItem "Derecha"
+            end if
+        Elseif Not Me.Totalizador2.Value Then
+            if dato= "Horizontal" or dato = "Horizontal Abatible" or dato = "H. Compuesta"or dato = "H. Compuesta Abatible"  then
+                .AddItem "Derecha"
+                .AddItem "Izquierda"
+            elseif dato= "Vertical" or dato = "Vertical Abatible" or dato = "V. Compuesta"or dato = "V. Compuesta Abatible" then
+                .AddItem "NA"    
+            end if  
+        end if
+    end with
+end sub
+Private sub EquipoUF2_Change()
+    Dim dato As String
+    dato = Me.OLEObjects("EquipoUF2").Object.Value
+    With Me.OLEObjects("MedidaUF2").Object
+        .Clear
+        Select case dato
+            case "CVS250", "NS800", "GoPact400", "GoPact800", "CVS100"
+                    .AddItem "400mm"
+            case "MiniBreaker", "EZC100", "CVS250", _
+                "CVS630", "NS1250", "NS_Motorizado","NS Motorizado","NS1250"
+                    .AddItem "720mm"  
+            case "GoPact100", "EZC250", "EZC630", "CVS250", "NSX250", "NSX630", "NS800", "NS", "GoPact250"
+                    .AddItem "400mm"   
+                    .AddItem "720mm" 
+            Case"MTZ_Extraible", "MTZ_Fijo", "NW_Extraible","NW_Fijo"
+                    .AddItem "720mm" 
+                    .AddItem "1120mm"           
+        end select
+    end with
+end sub            
 'UNIDADES FUNCIONALES LISAS
     Private sub TipoLSS_Change()
         dim dato As String
@@ -755,9 +900,16 @@ Public IP as string, Color as string
     end sub       
 Public Sub Worksheet_Activate()
     Extraer_datos
+    if Menu2Unidades = "Opcion1" then
+        ActiveSheet.Shapes("Opcion1").Visible = True
+        ActiveSheet.Shapes("Opcion2").Visible = False
+    elseif Menu2Unidades = "Opcion2" then
+        ActiveSheet.Shapes("Opcion1").Visible = False
+        ActiveSheet.Shapes("Opcion2").Visible = True 
+    end if
     Me.OleObjects("Carga").Object.Value = false
     Me.OleObjects("Totalizador").Object.Value = false
-    '============== Envolventes ===================
+    '============== Envolventes ============================
     '============== Unidades Funcionales ===================
         With  Me.OleObjects("TipoUF").Object
             .Clear
@@ -771,6 +923,11 @@ Public Sub Worksheet_Activate()
                 .AddItem "SFI - Frontal Interno"
                 .AddItem "SIA - Integral Abatible" 
             end select  
+        End With
+        With  Me.OleObjects("TipoUF2").Object
+            .Clear
+            .AddItem "SFI - Frontal Interno"
+            .AddItem "SIA - Integral Abatible"
         End With
     '============== Unidades Funcionales Lisas ===================
         With  Me.OleObjects("TipoLSS").Object
@@ -1020,6 +1177,41 @@ Public sub Unidades_funcionales()
     ResultadoUF= dato1  & dato3 & "X720" & dato2 & dato4
     MoverBloque ResultadoUF,"Ufuncionales", wsActual, celda
 End sub
+Public Sub Unidades_funcionales_MENU2()
+    '========================
+        Celda = "NS115"
+        ThisWorkbook.Sheets("DISENO").Range("NS115:QJ182").Clear
+        Set wsActual = ThisWorkbook.Sheets("DISENO")
+    '========================
+    Dim dato1 As String, dato2 As String, dato3 As String, dato4 As String,dato5 As String
+    dato1 = Me.OLEObjects("TipoUF2").Object.Value
+    Select Case dato1
+        Case "SFI - Frontal Interno", "SFC - Frontal Compacto": dato1 = "U"
+        Case "SIA - Integral Abatible": dato1 = "USIA_"
+    End Select
+    dato2 = Me.OLEObjects("OrientacionUF2").Object.Value
+    Select Case dato2
+        Case "Horizontal", "Horizontal Abatible": dato2 = "H"
+        Case "Vertical": dato2 = "V"
+        Case "Horizontal Compuesta", "Horizontal Compuesta Abatible": dato2 = "HC"
+        Case "Vertical Compacta", "Vertical Compacta Abatible": dato2 = "VC"
+    End Select
+    dato3 = Me.OLEObjects("EquipoUF2").Object.Value
+    dato4 = Me.OLEObjects("ConexionUF2").Object.Value
+    Select Case dato4
+        Case "Izquierda": dato4 = "_IZ"
+        Case "Derecha": dato4 = "_DR"
+        Case "NA": dato4 = "_NA"
+    End Select
+    dato5 = Me.OLEObjects("MedidaUF2").Object.Value
+    Select case dato5
+        Case "720"
+            ResultadoUF = dato1 & dato3 & "X720" & dato2 & dato4
+        case "400"    
+            ResultadoUF = dato1 & dato3 & "X" & dato5 & dato2 
+    end select        
+    MoverBloque ResultadoUF, "Ufuncionales", wsActual, Celda
+End Sub
 Public sub Unidades_funcionales_lisas()
     '========================
         celda = "NS132"

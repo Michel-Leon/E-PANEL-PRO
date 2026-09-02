@@ -6,7 +6,7 @@ Public Sub Worksheet_Activate()
     With wsActual
         .Range("A1").value = ""
         .Range("DK89").value =""
-        .Range("DK97").value =""
+        .Range("DK97").value ="" 
         .Range("DK105").value =""
         .Range("DK113").value =""
         .Range("DK134").value =""
