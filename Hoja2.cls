@@ -52,12 +52,12 @@ Public IP as string, Color as string
             LimpiarCombo Combo("OrientacionUF")
             select case dato
                 case "SFI - Frontal Interno","SFC - Frontal Compacto": Llenar Combo("OrientacionUF"), "Horizontal|Horizontal Compuesta"
-                case "SIA - Integral Abatible": Llenar Combo("OrientacionUF"), "Horizontal Abatible|Horizontal Compuesta Abatible"
+                case "SIA - Integral Abatible": Llenar Combo("OrientacionUF"), "Horizontal Abatible"
             end select
             If Me.Carga.Value Then
                 select case dato
-                    case "SFI - Frontal Interno","SFC - Frontal Compacto": Llenar Combo("OrientacionUF"), "Vertical|Vertical Compacta"
-                    case "SIA - Integral Abatible": Llenar Combo("OrientacionUF"), "Vertical Compacta Abatible"
+                    case "SFI - Frontal Interno","SFC - Frontal Compacto": Llenar Combo("OrientacionUF"), "Vertical|Vertical Compacta|Vertical Extendida"
+                    case "SIA - Integral Abatible": Llenar Combo("OrientacionUF"), "Vertical Extendida Abatible"
                 end select
             End If
         End With
@@ -76,178 +76,182 @@ Public IP as string, Color as string
 
         If Not Me.Totalizador.Value And Not Me.Carga.Value Then Exit Sub
         If Len(dato) = 0 Then Exit Sub
-
         ' Equipo
         Select Case dato
-            Case "Horizontal", "Horizontal Abatible"
-                Llenar Combo("EquipoUF"), "GoPact100|GoPact250|EZC100|EZC250|EZC630|CVS250|CVS630|NSX250|NSX630"
-            Case "Horizontal Compuesta", "Horizontal Compuesta Abatible"
-                Llenar Combo("EquipoUF"), "GoPact100|GoPact250|EZC100|EZC250|EZC630|CVS250|CVS630|NSX250|NSX630"
+            Case "Horizontal"
+                Llenar Combo("EquipoUF"),"GoPact100|GoPact200|GoPact250|GoPact400|GoPact800|EZC100|EZC250|EZC630|CVS250|CVS630|NSX250|NSX630|NS800_1200"
+            Case "Horizontal Abatible"
+                Llenar Combo("EquipoUF"),"GoPact100|GoPact250|EZC100|EZC250|EZC630|CVS250|CVS630|NSX250|NSX630|NS800_1200"
+            Case "Horizontal Compuesta"
+                Llenar Combo("EquipoUF"),"GoPact100|GoPact200|GoPact250|GoPact400|EZC100|EZC250|EZC630|CVS250|CVS630|NSX250|NSX630"
             Case "Vertical"
-                Llenar Combo("EquipoUF"), "Guardamotor"
+                Llenar Combo("EquipoUF"),"Guardamotor"
+            case "Vertical Extendida Abatible"
+                Llenar Combo("EquipoUF"),"CVS630|NSX630"    
             Case "Vertical Compacta"
-                Llenar Combo("EquipoUF"), "MiniBreaker|GoPact100|EZC100"
-            Case "Vertical Compacta Abatible"    
-                Llenar Combo("EquipoUF"), "GoPact100|EZC100"
+                Llenar Combo("EquipoUF"), "MiniBreaker|GoPact100|EZC100|NSX100"
+            Case "Vertical Extendida"
+                Llenar Combo("EquipoUF"), "GoPact200|GoPact250|EZC250|CVS250|CVS630|NSX250|NSX630"
         End Select
-
         ' Conexión
         If Me.Totalizador.Value Then
             Llenar Combo("ConexionUF"), "Derecha"
         Else
             Select Case dato
-                Case "Horizontal", "Horizontal Compuesta", "Horizontal Abatible", "Horizontal Compuesta Abatible"
+                Case "Horizontal", "Horizontal Abatible"
                     Llenar Combo("ConexionUF"), "Izquierda|Derecha"
-                Case "Vertical", "Vertical Compacta", "Vertical Compacta Abatible"
+                case  "Horizontal Compuesta"  
+                    Llenar Combo("ConexionUF"), "Derecha"  
+                Case "Vertical", "Vertical Compacta", "Vertical Extendida", "Vertical Extendida Abatible"
                     Llenar Combo("ConexionUF"), "NA"
             End Select
         End If
     End Sub  
 'UNIDADES FUNCIONALES MENU 2 TM-TH
-Private Sub TipoUF2_Change()
-        CargarOrientacion
-        Me.OLEObjects("Carga2").Object.Value = False
-        Me.OLEObjects("Totalizador2").Object.Value = False
-End Sub
-Public Sub CargarOrientacion2()
-    dim dato As String
-    dato = Me.OLEObjects("TipoUF2").Object.Value
-    With Me.OLEObjects("OrientacionUF2").Object
-        .Clear
-        If Me.Totalizador2.Value Then 
-            Select Case dato
-            case "SFI - Frontal Interno", "SFA - Fijo Atornillado"
-                .AddItem "Horizontal"
-                .AddItem "H. Compuesta"
-            case "SIA - Integral Abatible"
-                .AddItem "Horizontal Abatible"    
-                .AddItem "H. Compuesta Abatible"
-            End Select
-        Elseif Not Me.Totalizador2.Value Then
-            Select Case dato
-            case "SFI - Frontal Interno", "SFA - Fijo Atornillado" 
-                .AddItem "Horizontal"
-                .AddItem "H. Compuesta" 
-                .AddItem "Vertical"  
-                .AddItem "V. Compuesta"
-            case "SIA - Integral Abatible"
-                .AddItem "Horizontal Abatible"    
-                .AddItem "H. Compuesta Abatible"
-                .AddItem "Vertical Abatible"    
-                .AddItem "V. Compuesta Abatible"
-            End Select
-        end if
-    end with
-end sub
-Private Sub Totalizador2_Click() 
-    CargarOrientacion2
-End Sub
-Private Sub Carga2_Click()
-    CargarOrientacion2
-End Sub
-Private sub OrientacionUF2_Change()
-    dim dato As String
-    dato = Me.OLEObjects("OrientacionUF2").Object.Value
-    With Me.OLEObjects("EquipoUF2").Object
-        .Clear
-        Select Case dato
-            Case "Horizontal", "Horizontal Abatible"
-                .AddItem "GoPact100"
-                .AddItem "GoPact250"
-                .AddItem "EZC100"
-                .AddItem "EZC250"
-                .AddItem "EZC630"
-                .AddItem "CVS250"
-                .AddItem "CVS630"
-                .AddItem "NSX250"
-                .AddItem "NSX630"
-                .AddItem "NS800"
-                .AddItem "NS1250"
-                .AddItem "NS_Motorizado"
-            Case "H. Compuesta", "H. Compuesta Abatible"
-                .AddItem "GoPact100"   
-                .AddItem "GoPact250" 
-                .AddItem "EZC100"
-                .AddItem "EZC250"
-                .AddItem "EZC630"
-                .AddItem "NSX250"
-                .AddItem "NSX630"
-            case "Vertical"  
-                .AddItem "CVS630"
-                .AddItem "EZC630"
-                .AddItem "Guardamotor"
-                .AddItem "GoPact800"   
-                .AddItem "NSX250"
-                .AddItem "NSX630"
-                .AddItem "NS"
-                .AddItem "NS_Motorizado"
-                .AddItem "NW_Fijo"
-                .AddItem "NW_Extraible"
-                .AddItem "MTZ_Fijo"
-                .AddItem "MTZ_Extraible"
-            case "Vertical Abatible"   
-                .AddItem "GoPact800" 
-                .AddItem "EZC630"
-                .AddItem "CVS250"
-                .AddItem "NSX250"
-                .AddItem "NSX630"
-                .AddItem "NS800"
-                .AddItem "NS_Motorizado"
-                .AddItem "NW_Fijo"
-                .AddItem "NW_Extraible"
-                .AddItem "MTZ_Fijo"
-                .AddItem "MTZ_Extraible"
-            case "V. Compuesta"   
-                .AddItem "MiniBreaker"
-                .AddItem "GoPact100"
-                .AddItem "GoPact400"
-                .AddItem "EZC100"
-                .AddItem "EZC250"
-                .AddItem "CVS100"
-            case "V. Compuesta Abatible"   
-                .AddItem "GoPact100"
-                .AddItem "GoPact250"
-                .AddItem "GoPact400" 
-                .AddItem "EZC100"
-                .AddItem "EZC250"
-        end select
-    end with   
-    with Me.OLEObjects("ConexionUF2").Object 
-        .Clear
-        If Me.Totalizador2.Value Then 
-            if dato= "Horizontal" or dato = "Horizontal Abatible" or dato = "H. Compuesta" or dato = "H. Compuesta Abatible" then
-                .AddItem "Derecha"
+    Private Sub TipoUF2_Change()
+            CargarOrientacion
+            Me.OLEObjects("Carga2").Object.Value = False
+            Me.OLEObjects("Totalizador2").Object.Value = False
+    End Sub
+    Public Sub CargarOrientacion2()
+        dim dato As String
+        dato = Me.OLEObjects("TipoUF2").Object.Value
+        With Me.OLEObjects("OrientacionUF2").Object
+            .Clear
+            If Me.Totalizador2.Value Then 
+                Select Case dato
+                case "SFI - Frontal Interno", "SFA - Fijo Atornillado"
+                    .AddItem "Horizontal"
+                    .AddItem "H. Compuesta"
+                case "SIA - Integral Abatible"
+                    .AddItem "Horizontal Abatible"    
+                    .AddItem "H. Compuesta Abatible"
+                End Select
+            Elseif Not Me.Totalizador2.Value Then
+                Select Case dato
+                case "SFI - Frontal Interno", "SFA - Fijo Atornillado" 
+                    .AddItem "Horizontal"
+                    .AddItem "H. Compuesta" 
+                    .AddItem "Vertical"  
+                    .AddItem "V. Compuesta"
+                case "SIA - Integral Abatible"
+                    .AddItem "Horizontal Abatible"    
+                    .AddItem "H. Compuesta Abatible"
+                    .AddItem "Vertical Abatible"    
+                    .AddItem "V. Compuesta Abatible"
+                End Select
             end if
-        Elseif Not Me.Totalizador2.Value Then
-            if dato= "Horizontal" or dato = "Horizontal Abatible" or dato = "H. Compuesta"or dato = "H. Compuesta Abatible"  then
-                .AddItem "Derecha"
-                .AddItem "Izquierda"
-            elseif dato= "Vertical" or dato = "Vertical Abatible" or dato = "V. Compuesta"or dato = "V. Compuesta Abatible" then
-                .AddItem "NA"    
-            end if  
-        end if
-    end with
-end sub
-Private sub EquipoUF2_Change()
-    Dim dato As String
-    dato = Me.OLEObjects("EquipoUF2").Object.Value
-    With Me.OLEObjects("MedidaUF2").Object
-        .Clear
-        Select case dato
-            case "CVS250", "NS800", "GoPact400", "GoPact800", "CVS100"
-                    .AddItem "400mm"
-            case "MiniBreaker", "EZC100", "CVS250", _
-                "CVS630", "NS1250", "NS_Motorizado","NS Motorizado","NS1250"
-                    .AddItem "720mm"  
-            case "GoPact100", "EZC250", "EZC630", "CVS250", "NSX250", "NSX630", "NS800", "NS", "GoPact250"
-                    .AddItem "400mm"   
-                    .AddItem "720mm" 
-            Case"MTZ_Extraible", "MTZ_Fijo", "NW_Extraible","NW_Fijo"
-                    .AddItem "720mm" 
-                    .AddItem "1120mm"           
-        end select
-    end with
-end sub            
+        end with
+    end sub
+    Private Sub Totalizador2_Click() 
+        CargarOrientacion2
+    End Sub
+    Private Sub Carga2_Click()
+        CargarOrientacion2
+    End Sub
+    Private sub OrientacionUF2_Change()
+        dim dato As String
+        dato = Me.OLEObjects("OrientacionUF2").Object.Value
+        With Me.OLEObjects("EquipoUF2").Object
+            .Clear
+            Select Case dato
+                Case "Horizontal", "Horizontal Abatible"
+                    .AddItem "GoPact100"
+                    .AddItem "GoPact250"
+                    .AddItem "EZC100"
+                    .AddItem "EZC250"
+                    .AddItem "EZC630"
+                    .AddItem "CVS250"
+                    .AddItem "CVS630"
+                    .AddItem "NSX250"
+                    .AddItem "NSX630"
+                    .AddItem "NS800"
+                    .AddItem "NS1250"
+                    .AddItem "NS_Motorizado"
+                Case "H. Compuesta", "H. Compuesta Abatible"
+                    .AddItem "GoPact100"   
+                    .AddItem "GoPact250" 
+                    .AddItem "EZC100"
+                    .AddItem "EZC250"
+                    .AddItem "EZC630"
+                    .AddItem "NSX250"
+                    .AddItem "NSX630"
+                case "Vertical"  
+                    .AddItem "CVS630"
+                    .AddItem "EZC630"
+                    .AddItem "Guardamotor"
+                    .AddItem "GoPact800"   
+                    .AddItem "NSX250"
+                    .AddItem "NSX630"
+                    .AddItem "NS"
+                    .AddItem "NS_Motorizado"
+                    .AddItem "NW_Fijo"
+                    .AddItem "NW_Extraible"
+                    .AddItem "MTZ_Fijo"
+                    .AddItem "MTZ_Extraible"
+                case "Vertical Abatible"   
+                    .AddItem "GoPact800" 
+                    .AddItem "EZC630"
+                    .AddItem "CVS250"
+                    .AddItem "NSX250"
+                    .AddItem "NSX630"
+                    .AddItem "NS800"
+                    .AddItem "NS_Motorizado"
+                    .AddItem "NW_Fijo"
+                    .AddItem "NW_Extraible"
+                    .AddItem "MTZ_Fijo"
+                    .AddItem "MTZ_Extraible"
+                case "V. Compuesta"   
+                    .AddItem "MiniBreaker"
+                    .AddItem "GoPact100"
+                    .AddItem "GoPact400"
+                    .AddItem "EZC100"
+                    .AddItem "EZC250"
+                    .AddItem "CVS100"
+                case "V. Compuesta Abatible"   
+                    .AddItem "GoPact100"
+                    .AddItem "GoPact250"
+                    .AddItem "GoPact400" 
+                    .AddItem "EZC100"
+                    .AddItem "EZC250"
+            end select
+        end with   
+        with Me.OLEObjects("ConexionUF2").Object 
+            .Clear
+            If Me.Totalizador2.Value Then 
+                if dato= "Horizontal" or dato = "Horizontal Abatible" or dato = "H. Compuesta" or dato = "H. Compuesta Abatible" then
+                    .AddItem "Derecha"
+                end if
+            Elseif Not Me.Totalizador2.Value Then
+                if dato= "Horizontal" or dato = "Horizontal Abatible" or dato = "H. Compuesta"or dato = "H. Compuesta Abatible"  then
+                    .AddItem "Derecha"
+                    .AddItem "Izquierda"
+                elseif dato= "Vertical" or dato = "Vertical Abatible" or dato = "V. Compuesta"or dato = "V. Compuesta Abatible" then
+                    .AddItem "NA"    
+                end if  
+            end if
+        end with
+    end sub
+    Private sub EquipoUF2_Change()
+        Dim dato As String
+        dato = Me.OLEObjects("EquipoUF2").Object.Value
+        With Me.OLEObjects("MedidaUF2").Object
+            .Clear
+            Select case dato
+                case "CVS250", "NS800", "GoPact400", "GoPact800", "CVS100"
+                        .AddItem "400mm"
+                case "MiniBreaker", "EZC100", "CVS250", _
+                    "CVS630", "NS1250", "NS_Motorizado","NS Motorizado","NS1250"
+                        .AddItem "720mm"  
+                case "GoPact100", "EZC250", "EZC630", "CVS250", "NSX250", "NSX630", "NS800", "NS", "GoPact250"
+                        .AddItem "400mm"   
+                        .AddItem "720mm" 
+                Case"MTZ_Extraible", "MTZ_Fijo", "NW_Extraible","NW_Fijo"
+                        .AddItem "720mm" 
+                        .AddItem "1120mm"           
+            end select
+        end with
+    end sub            
 'UNIDADES FUNCIONALES LISAS
     Private sub TipoLSS_Change()
         dim dato As String
@@ -312,20 +316,34 @@ end sub
     end sub
 'DPS
     Private sub FabriUNDPS_Change() 
-        Dim dato As String
+        Dim dato As String, dato2 As String
         dato = Me.OleObjects("FabriUNDPS").Object.Value
+        dato2 = Me.OleObjects("TipoUNDPS").Object.Value
         With Me.OleObjects("EquipoDPS").Object   
         .Clear
         select case dato
+            
             case "HWA"
+           
                 .AddItem "NSX100"
                 .AddItem "EZC100"
                 .AddItem "CVS100"
-            case else    
+            case "Ciprotec" 
                 .AddItem "MiniBreaker"
                 .AddItem "NSX100"
                 .AddItem "EZC100"
-                .AddItem "CVS100"
+                .AddItem "CVS100"   
+            case else   
+                if dato2 = "SFI - Frontal Interno" then 
+                    .AddItem "MiniBreaker"
+                    .AddItem "NSX100"
+                    .AddItem "EZC100"
+                    .AddItem "CVS100"
+                elseif dato2 = "SIA - Integral Abatible" then
+                    .AddItem "NSX100"
+                    .AddItem "EZC100"
+                    .AddItem "CVS100"
+                end if
             end select
         End With
         With Me.OleObjects("AnchoDPS").Object
@@ -1163,6 +1181,7 @@ Public sub Unidades_funcionales()
     Select case dato2
         Case "Horizontal", "Horizontal Abatible": dato2 = "H"
         Case "Vertical": dato2 = "V"
+        case "Vertical Extendida": dato2 = "VE"
         case "Horizontal Compuesta", "Horizontal Compuesta Abatible": dato2 = "HC"
         case "Vertical Compacta", "Vertical Compacta Abatible": dato2 = "VC"
     END SELECT  
@@ -1193,6 +1212,7 @@ Public Sub Unidades_funcionales_MENU2()
     Select Case dato2
         Case "Horizontal", "Horizontal Abatible": dato2 = "H"
         Case "Vertical": dato2 = "V"
+        case "Vertical Extendida": dato2 = "VE"
         Case "Horizontal Compuesta", "Horizontal Compuesta Abatible": dato2 = "HC"
         Case "Vertical Compacta", "Vertical Compacta Abatible": dato2 = "VC"
     End Select
