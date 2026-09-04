@@ -2,7 +2,7 @@
 Public Altura as string
 Public Ancho as string
 Public Profundidad as string
-Public IP as string, Color as string
+Public IP as string, Color as string 
 
 'UNIDADES FUNCIONALES
     Private bloqueado As Boolean
@@ -285,7 +285,6 @@ Public IP as string, Color as string
                     .AddItem "9u"
                     .AddItem "10u"
                     .AddItem "11u"
-                    .AddItem "12u"
             end select
         end with
     end sub 
