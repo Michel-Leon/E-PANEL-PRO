@@ -161,7 +161,7 @@ Public sub Seleccion_Menu_Contactores()
         activeSheet.Shapes("Menu Acotar").Visible = false
         ActiveSheet.Shapes("Menu Color").Visible = False
     end If
-End Sub+{´'o 
+End Sub
 Public sub seleccion_menu_dps()
     Dim shp As Shape
     Dim groupname As String
@@ -593,5 +593,5 @@ Public Sub Limpiar_area_trabajo()
     End With
 End Sub
 Public sub Liampiar_area_trabajo2() 
-    thisWorkbook.Sheets("DISENO").Range("NS82:QJ182").Clear
+    thisWorkbook.Sheets("DISENO").Range("NP105:QJ182").Clear
 end sub
