@@ -30,6 +30,7 @@ Public Sub Seleccion_Menu_Envolventes()
         ActiveSheet.Shapes("Menu Etiqueta").Visible = False
         activeSheet.Shapes("Menu Acotar").Visible = false
         ActiveSheet.Shapes("Menu Color").Visible = False
+        ActiveSheet.Shapes("Menu ETO").Visible = False
     end If
 End Sub  
 Public sub Seleccion_Menu_UnidadesFuncionales()
@@ -63,6 +64,7 @@ Public sub Seleccion_Menu_UnidadesFuncionales()
         ActiveSheet.Shapes("Menu Etiqueta").Visible = False
         activeSheet.Shapes("Menu Acotar").Visible = false
         ActiveSheet.Shapes("Menu Color").Visible = False
+        ActiveSheet.Shapes("Menu ETO").Visible = False
     end If
 End Sub  
 Public sub Seleccion_Menu_UnidadesFuncionales_2()
@@ -96,6 +98,7 @@ Public sub Seleccion_Menu_UnidadesFuncionales_2()
         ActiveSheet.Shapes("Menu Etiqueta").Visible = False
         activeSheet.Shapes("Menu Acotar").Visible = false
         ActiveSheet.Shapes("Menu Color").Visible = False
+        ActiveSheet.Shapes("Menu ETO").Visible = False
     end If
 End Sub  
 Public sub Seleccion_Menu_Lisas()
@@ -128,6 +131,7 @@ Public sub Seleccion_Menu_Lisas()
         ActiveSheet.Shapes("Menu Etiqueta").Visible = False
         activeSheet.Shapes("Menu Acotar").Visible = false
         ActiveSheet.Shapes("Menu Color").Visible = False
+        ActiveSheet.Shapes("Menu ETO").Visible = False
     end If
 End Sub
 Public sub Seleccion_Menu_Contactores()
@@ -160,6 +164,7 @@ Public sub Seleccion_Menu_Contactores()
         ActiveSheet.Shapes("Menu Etiqueta").Visible = False
         activeSheet.Shapes("Menu Acotar").Visible = false
         ActiveSheet.Shapes("Menu Color").Visible = False
+        ActiveSheet.Shapes("Menu ETO").Visible = False
     end If
 End Sub
 Public sub seleccion_menu_dps()
@@ -192,6 +197,7 @@ Public sub seleccion_menu_dps()
         ActiveSheet.Shapes("Menu Etiqueta").Visible = False
         activeSheet.Shapes("Menu Acotar").Visible = false
         ActiveSheet.Shapes("Menu Color").Visible = False
+        ActiveSheet.Shapes("Menu ETO").Visible = False
     end If
 End Sub
 Public sub Seleccion_Menu_EquipoCTR()
@@ -224,6 +230,7 @@ Public sub Seleccion_Menu_EquipoCTR()
         ActiveSheet.Shapes("Menu Etiqueta").Visible = False
         activeSheet.Shapes("Menu Acotar").Visible = false
         ActiveSheet.Shapes("Menu Color").Visible = False
+        ActiveSheet.Shapes("Menu ETO").Visible = False
     end If
 End Sub
 public sub Seleccion_Menu_AccesoriosCTR()
@@ -256,6 +263,7 @@ public sub Seleccion_Menu_AccesoriosCTR()
         ActiveSheet.Shapes("Menu Etiqueta").Visible = False
         activeSheet.Shapes("Menu Acotar").Visible = false
         ActiveSheet.Shapes("Menu Color").Visible = False
+        ActiveSheet.Shapes("Menu ETO").Visible = False
     end If
 End Sub
 Public sub Seleccion_Menu_EquiposIND()
@@ -288,6 +296,7 @@ Public sub Seleccion_Menu_EquiposIND()
         ActiveSheet.Shapes("Menu Etiqueta").Visible = False
         activeSheet.Shapes("Menu Acotar").Visible = false
         ActiveSheet.Shapes("Menu Color").Visible = False
+        ActiveSheet.Shapes("Menu ETO").Visible = False
     end If
 End Sub
 Public sub Seleccion_Servicios()
@@ -320,6 +329,7 @@ Public sub Seleccion_Servicios()
         ActiveSheet.Shapes("Menu Etiqueta").Visible = False
         activeSheet.Shapes("Menu Acotar").Visible = false
         ActiveSheet.Shapes("Menu Color").Visible = False
+        ActiveSheet.Shapes("Menu ETO").Visible = False
     end If
 End Sub
 public sub Seleccion_Placas_Control()
@@ -352,6 +362,7 @@ public sub Seleccion_Placas_Control()
         ActiveSheet.Shapes("Menu Etiqueta").Visible = False
         activeSheet.Shapes("Menu Acotar").Visible = false
         ActiveSheet.Shapes("Menu Color").Visible = False
+        ActiveSheet.Shapes("Menu ETO").Visible = False
     end If
 End Sub
 Public sub Seleccion_Menu_Compensacion()
@@ -384,6 +395,7 @@ Public sub Seleccion_Menu_Compensacion()
         ActiveSheet.Shapes("Menu Etiqueta").Visible = False
         activeSheet.Shapes("Menu Acotar").Visible = false
         ActiveSheet.Shapes("Menu Color").Visible = False
+        ActiveSheet.Shapes("Menu ETO").Visible = False
     end If
 End Sub
 Public sub Seleccion_Menu_Barraje()
@@ -416,6 +428,7 @@ Public sub Seleccion_Menu_Barraje()
         ActiveSheet.Shapes("Menu Etiqueta").Visible = False
         activeSheet.Shapes("Menu Acotar").Visible = false
         ActiveSheet.Shapes("Menu Color").Visible = False
+        ActiveSheet.Shapes("Menu ETO").Visible = False
     end If
 End Sub
 Public sub Seleccion_Menu_Transferencias()
@@ -448,6 +461,7 @@ Public sub Seleccion_Menu_Transferencias()
         ActiveSheet.Shapes("Menu Etiqueta").Visible = False
         activeSheet.Shapes("Menu Acotar").Visible = false
         ActiveSheet.Shapes("Menu Color").Visible = False
+        ActiveSheet.Shapes("Menu ETO").Visible = False
     end If
 End Sub
 Public sub Seleccion_Menu_AccesoriosMTM()
@@ -480,6 +494,7 @@ Public sub Seleccion_Menu_AccesoriosMTM()
         ActiveSheet.Shapes("Menu Etiqueta").Visible = False
         activeSheet.Shapes("Menu Acotar").Visible = false
         ActiveSheet.Shapes("Menu Color").Visible = False
+        ActiveSheet.Shapes("Menu ETO").Visible = False
     end If
 End Sub
 public sub Seleccion_Menu_Etiqueta()
@@ -512,6 +527,7 @@ public sub Seleccion_Menu_Etiqueta()
         ActiveSheet.Shapes("Menu AccesoriosMTM").Visible = False
         activeSheet.Shapes("Menu Acotar").Visible = false
         ActiveSheet.Shapes("Menu Color").Visible = False
+        ActiveSheet.Shapes("Menu ETO").Visible = False
     end If
 End sub
 public sub Seleccion_Menu_Acotar()
@@ -544,6 +560,7 @@ public sub Seleccion_Menu_Acotar()
         ActiveSheet.Shapes("Menu AccesoriosMTM").Visible = False
         ActiveSheet.Shapes("Menu Etiqueta").Visible = False
         ActiveSheet.Shapes("Menu Color").Visible = False
+        ActiveSheet.Shapes("Menu ETO").Visible = False
     end If
 End sub
 Public sub Seleccion_Menu_Color()
@@ -576,8 +593,42 @@ Public sub Seleccion_Menu_Color()
         ActiveSheet.Shapes("Menu AccesoriosMTM").Visible = False
         ActiveSheet.Shapes("Menu Etiqueta").Visible = False
         activeSheet.Shapes("Menu Acotar").Visible = false
+        ActiveSheet.Shapes("Menu ETO").Visible = False
     end If
 End sub
+Public Sub Seleccion_Menu_ETO()
+    Dim shp As Shape
+    Dim groupname As String
+    groupname = "Menu ETO"
+    
+    On Error Resume Next    
+    Set shp = ActiveSheet.Shapes(groupname)
+    On Error GoTo 0
+    
+    If Not shp Is Nothing Then
+        ' Alterna la visibilidad del grupo seleccionado
+        shp.Visible = Not shp.Visible
+        ' Oculta los dem s grupos
+        ActiveSheet.Shapes("Menu Envolventes").Visible = False
+        ActiveSheet.Shapes("Menu UnidadFuncional").Visible = False
+        ActiveSheet.Shapes("Menu UnidadFuncional_2").Visible = False
+        ActiveSheet.Shapes("Menu Lisas").Visible = False
+        ActiveSheet.Shapes("Menu Contactores").Visible = False
+        ActiveSheet.Shapes("Menu DPS").Visible = False
+        ActiveSheet.Shapes("Menu Equipo CTR").Visible = False
+        ActiveSheet.Shapes("Menu ACCESORIOS CTR").Visible = False
+        ActiveSheet.Shapes("Menu Equipos").Visible = False
+        ActiveSheet.Shapes("Menu Servicios").Visible = False
+        ActiveSheet.Shapes("Menu Placas de control").Visible = False
+        ActiveSheet.Shapes("Menu Compensacion").Visible = False
+        ActiveSheet.Shapes("Menu Barraje").Visible = False
+        ActiveSheet.Shapes("Menu Transferencias").Visible = False
+        ActiveSheet.Shapes("Menu AccesoriosMTM").Visible = False
+        ActiveSheet.Shapes("Menu Etiqueta").Visible = False
+        activeSheet.Shapes("Menu Acotar").Visible = false
+        ActiveSheet.Shapes("Menu Color").Visible = False
+    end If
+End Sub 
 Public Sub Limpiar_area_trabajo()
     With ThisWorkbook.Sheets("DISENO")
         .Range("BZ38:MX155").Clear
@@ -590,8 +641,10 @@ Public Sub Limpiar_area_trabajo()
         .Range("A2").FormulaLocal = "=INICIO!DK97"
         .Range("A3").FormulaLocal = "=INICIO!DK105"
         .Range("A4").FormulaLocal = "=SI(ESNUMERO(HALLAR("",30,"";"",""&INICIO!DK113&"",""));""30"";"""")"
+        .Range("A5").FormulaLocal = "=EXTRAE(SUSTITUIR("",""&A2&"","";"","";"";"");2;LARGO(SUSTITUIR("",""&A2&"","";"","";"";""))-2)"
     End With
+
 End Sub
 Public sub Liampiar_area_trabajo2() 
-    thisWorkbook.Sheets("DISENO").Range("NP105:QJ182").Clear
+    thisWorkbook.Sheets("DISENO").Range("NP82:QJ182").Clear
 end sub
