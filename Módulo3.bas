@@ -2,7 +2,7 @@ Attribute VB_Name = "M�dulo3"
 '=================================
 'ESCRIBIR CARACTERISTIOCAS DEL PRODUCTO
 '=================================
-public Menu2Unidades as string
+public MenuUnidades as string
 Public sub Escribir_caracteristicas_TB()
     dim wsActual As Worksheet
    set  wsActual = thisWorkbook.Sheets("INICIO")
@@ -29,7 +29,7 @@ Public sub Escribir_caracteristicas_TC()
         .Range("DK134").value ="1250"
         .Range("DK142").value ="25-40"
     end with
-    Menu2Unidades = "Opcion1"
+    MenuUnidades = "Opcion1"
 End sub  
 Public sub Escribir_caracteristicas_TM()
     dim wsActual As Worksheet
@@ -43,7 +43,7 @@ Public sub Escribir_caracteristicas_TM()
         .Range("DK134").value ="<=4000"
         .Range("DK142").value ="40-65"
     end with
-    Menu2Unidades = "Opcion2"
+    MenuUnidades = "Opcion2"
 End sub  
 Public sub Escribir_caracteristicas_TH()
     dim wsActual As Worksheet
