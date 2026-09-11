@@ -90,7 +90,7 @@ Sub MostrarTodasLasHojas()
     Dim intentos As Integer
 
     Const USUARIO_VALIDO As String = "ADMIN"
-    Const CLAVE_VALIDA As String = "ADMIN0715"
+    Const CLAVE_VALIDA As String = "ADMIN2026"
     Const MAX_INTENTOS As Integer = 3
 
     Do

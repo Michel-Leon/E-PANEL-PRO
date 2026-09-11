@@ -3,8 +3,6 @@ Public Altura as string
 Public Ancho as string, AnchoLISAS as string
 Public Profundidad as string
 Public IP as string, Color as string 
-
-
 '======================================================================
 '  UNIDAD FUNCIONAL (UF) - Cascada de combos ActiveX de la hoja
 '
@@ -16,80 +14,82 @@ Public IP as string, Color as string
 '
 '  REGLA NUEVA: si MedidaUF = "400" -> OrientacionUF = "Vertical"
 '======================================================================
-Private mbCargando As Boolean          'evita eventos en cascada
-'---------------------------------------------------------------- EVENTOS
-Private Sub TipoUF_Change()
-    If mbCargando Then Exit Sub
-    On Error GoTo Fin
-    mbCargando = True
-    LlenarFrame
-    LlenarMando
-Fin:
-    mbCargando = False
-    RecargarDesdeFrame                 'reconstruye Medida, Corriente y Orientacion
-End Sub
+    Private mbCargando As Boolean          'evita eventos en cascada
+    '---------------------------------------------------------------- EVENTOS
+    Private Sub TipoUF_Change()
+        If mbCargando Then Exit Sub
+        On Error GoTo Fin
+        mbCargando = True
+        LlenarFrame
+        LlenarMando
+    Fin:
+        mbCargando = False
+        RecargarDesdeFrame                 'reconstruye Medida, Corriente y Orientacion
+    End Sub
 
-Private Sub FrameUF_Change()
-    If mbCargando Then Exit Sub
-    RecargarDesdeFrame
-End Sub
+    Private Sub FrameUF_Change()
+        If mbCargando Then Exit Sub
+        RecargarDesdeFrame
+    End Sub
+    Private Sub MedidaUF_Change()
+        If mbCargando Then Exit Sub
+        RecargarDesdeMedida
+    End Sub
+    '------------------------------------------------------------ ORQUESTADOR
+    Private Sub RecargarDesdeFrame()
+        On Error GoTo Fin
+        mbCargando = True
+        LlenarMedida
+        LlenarCorriente
+    Fin:
+        mbCargando = False
+        RecargarDesdeMedida                'antes llamaba solo a LlenarOrientacion
+    End Sub
+    Private Sub OrientacionUF_Change()
+            If mbCargando Then Exit Sub
+            On Error GoTo Fin
+            mbCargando = True
+            LlenarFuncionalidad
+        Fin:
+            mbCargando = False
+            LlenarConexion
+    End Sub
+    Private Sub FuncionalidadUF_Change()   'CORREGIDO: tu stub se llamaba solo "FuncionalidadUF"
+        If mbCargando Then Exit Sub
+        LlenarConexion
+    End Sub
+    Private Sub RecargarDesdeMedida()
+            On Error GoTo Fin
+            mbCargando = True
+            LlenarOrientacion
+            LlenarFuncionalidad
+        Fin:
+            mbCargando = False
+            LlenarConexion
+    End Sub
+    '--------------------------------------------------------------- UTILIDADES
+    Private Function Cbo(ByVal sNombre As String) As Object
+        Set Cbo = Me.OLEObjects(sNombre).Object
+    End Function
 
-Private Sub MedidaUF_Change()
-    If mbCargando Then Exit Sub
-    RecargarDesdeMedida
-End Sub
-'------------------------------------------------------------ ORQUESTADOR
-Private Sub RecargarDesdeFrame()
-    On Error GoTo Fin
-    mbCargando = True
-    LlenarMedida
-    LlenarCorriente
-Fin:
-    mbCargando = False
-    RecargarDesdeMedida                'antes llamaba solo a LlenarOrientacion
-End Sub
-Private Sub OrientacionUF_Change()
-    If mbCargando Then Exit Sub
-    LlenarConexion
-End Sub
+    ' El "& """"" evita el error 94 (uso invalido de Null) con el combo vacio.
+    Private Function Txt(ByVal sNombre As String) As String
+        Txt = Trim$(Cbo(sNombre).Value & "")
+    End Function
 
-Private Sub FuncionalidadUF_Change()   'CORREGIDO: tu stub se llamaba solo "FuncionalidadUF"
-    If mbCargando Then Exit Sub
-    LlenarConexion
-End Sub
+    ' AJUSTE: MenuUnidades no se puede leer suelto con Option Explicit.
+    '   - Si es un nombre definido o celda -> deje esta version.
+    '   - Si es una variable Public de un modulo -> use: MenuActivo = MenuUnidades
+    '   - Si es otro combo ActiveX de la hoja  -> use: MenuActivo = Txt("MenuUnidades")
+    Private Function MenuActivo() As String
+        MenuActivo = Trim$(ThisWorkbook.Names("MenuUnidades").RefersToRange.Value & "")
+    End Function
+    '---------------------------------------------------------------- FRAME
+    Private Sub LlenarFrame()
+        Dim sTipo As String
+        sTipo = Txt("TipoUF")
 
-Private Sub RecargarDesdeMedida()
-    On Error GoTo Fin
-    mbCargando = True
-    LlenarOrientacion
-    LlenarFuncionalidad
-Fin:
-    mbCargando = False
-    LlenarConexion
-End Sub
-'--------------------------------------------------------------- UTILIDADES
-Private Function Cbo(ByVal sNombre As String) As Object
-    Set Cbo = Me.OLEObjects(sNombre).Object
-End Function
-
-' El "& """"" evita el error 94 (uso invalido de Null) con el combo vacio.
-Private Function Txt(ByVal sNombre As String) As String
-    Txt = Trim$(Cbo(sNombre).Value & "")
-End Function
-
-' AJUSTE: MenuUnidades no se puede leer suelto con Option Explicit.
-'   - Si es un nombre definido o celda -> deje esta version.
-'   - Si es una variable Public de un modulo -> use: MenuActivo = MenuUnidades
-'   - Si es otro combo ActiveX de la hoja  -> use: MenuActivo = Txt("MenuUnidades")
-Private Function MenuActivo() As String
-    MenuActivo = Trim$(ThisWorkbook.Names("MenuUnidades").RefersToRange.Value & "")
-End Function
-'---------------------------------------------------------------- FRAME
-Private Sub LlenarFrame()
-    Dim sTipo As String
-    sTipo = Txt("TipoUF")
-
-    With Cbo("FrameUF")
+        With Cbo("FrameUF")
         .Clear
         Select Case sTipo
             Case "SFI - Frontal Interno", "SFC - Frontal Compacto"
@@ -111,294 +111,395 @@ Private Sub LlenarFrame()
                     .AddItem "GoPact400"
                     .AddItem "GoPact800"
                 ElseIf MenuUnidades = "Opcion2" Then
-                    .AddItem "EZC250"
-                    .AddItem "EZC630"
-                    .AddItem "CVS100"
-                    .AddItem "CVS250"
-                    .AddItem "CVS630"
-                    .AddItem "NSX100"
-                    .AddItem "NSX250"
-                    .AddItem "NSX630"
-                    .AddItem "NS800_1250"
-                    .AddItem "NS800_1600"
-                    .AddItem "GoPact150"
-                    .AddItem "GoPact200"
-                    .AddItem "GoPact250"
-                    .AddItem "GoPact400"
-                    .AddItem "GoPact800"
-                    .AddItem "NWFIJO"
-                    .AddItem "NWEXTRAIBLE"
-                    .AddItem "MTZFIJO"
-                    .AddItem "MTZEXTRAIBLE"
-                    .AddItem "MVSFIJO"
-                    .AddItem "MVSEXTRAIBLE"
+                .AddItem "EZC250"
+                .AddItem "EZC630"
+                .AddItem "CVS100"
+                .AddItem "CVS250"
+                .AddItem "CVS630"
+                .AddItem "NSX100"
+                .AddItem "NSX250"
+                .AddItem "NSX630"
+                .AddItem "NS800_1250"
+                .AddItem "NS800_1600"
+                .AddItem "GoPact150"
+                .AddItem "GoPact200"
+                .AddItem "GoPact250"
+                .AddItem "GoPact400"
+                .AddItem "GoPact800"
+                .AddItem "NWFIJO"
+                .AddItem "NWEXTRAIBLE"
+                .AddItem "MTZFIJO"
+                .AddItem "MTZEXTRAIBLE"
+                .AddItem "MVSFIJO"
+                .AddItem "MVSEXTRAIBLE"
                 End If
             Case "SIA - Integral Abatible"
-                If MenuUnidades= "Opcion1" Then
-                    .AddItem "EZC100"
-                    .AddItem "EZC250"
-                    .AddItem "CVS100"
-                    .AddItem "CVS250"
-                    .AddItem "CVS630"
-                    .AddItem "NSX250"
-                    .AddItem "NSX630"
-                ElseIf MenuUnidades = "Opcion2" Then
-                    .AddItem "EZC100"
-                    .AddItem "EZC250"
-                    .AddItem "CVS100"
-                    .AddItem "CVS250"
-                    .AddItem "CVS630"
-                    .AddItem "NSX250"
-                    .AddItem "NSX630"
-                    .AddItem "NS800_1600"
-                    .AddItem "NWFIJO"
-                    .AddItem "NWEXTRAIBLE"
-                    .AddItem "MTZFIJO"
-                    .AddItem "MTZEXTRAIBLE"
-                    .AddItem "MVSFIJO"
-                    .AddItem "MVSEXTRAIBLE"
-                End If
+            If MenuUnidades= "Opcion1" Then
+            .AddItem "EZC100"
+            .AddItem "EZC250"
+            .AddItem "CVS100"
+            .AddItem "CVS250"
+            .AddItem "CVS630"
+            .AddItem "NSX250"
+            .AddItem "NSX630"
+            ElseIf MenuUnidades = "Opcion2" Then
+            .AddItem "EZC100"
+            .AddItem "EZC250"
+            .AddItem "CVS100"
+            .AddItem "CVS250"
+            .AddItem "CVS630"
+            .AddItem "NSX250"
+            .AddItem "NSX630"
+            .AddItem "NS800_1600"
+            .AddItem "NWFIJO"
+            .AddItem "NWEXTRAIBLE"
+            .AddItem "MTZFIJO"
+            .AddItem "MTZEXTRAIBLE"
+            .AddItem "MVSFIJO"
+            .AddItem "MVSEXTRAIBLE"
+            End If
+            case "SFA - Fijo Atornillado"
+        If MenuUnidades= "Opcion1" Then
+        .AddItem "EZC100"
+        .AddItem "EZC250"
+        .AddItem "CVS100"
+        .AddItem "CVS250"
+        .AddItem "CVS630"
+        .AddItem "NSX250"
+        .AddItem "NSX630" 
+        ElseIf MenuUnidades = "Opcion2" Then
+        .AddItem "NS800_1600" 
+        End If    
         End Select
         If .ListCount = 1 Then .ListIndex = 0
-    End With
-End Sub
-'------------------------------------------------------------ MEDIDA (mm)
-Private Sub LlenarMedida()
-    Dim sTipo As String, sFrame As String
-    sTipo = Txt("TipoUF")
-    sFrame = Txt("FrameUF")
-
-    With Cbo("MedidaUF")
-        .Clear
-        If sFrame = "" Then Exit Sub
-        Select Case sTipo
-            Case "SFI - Frontal Interno", "SFC - Frontal Compacto"
-                If Admite400(sFrame) Then .AddItem "400"
-                .AddItem "720"                 'el 720 sirve para todos los frames
-            Case "SIA - Integral Abatible"
-                .AddItem "720"                 'la integral abatible siempre es 720
-        End Select
-        If .ListCount = 1 Then .ListIndex = 0
-    End With
-End Sub
-' Unico lugar donde se define que frames caben en una UF de 400 mm.
-Private Function Admite400(ByVal sFrame As String) As Boolean
-    Select Case sFrame
-        Case "MiniBreaker", _
-             "EZC100", "EZC250", "EZC630", _
-             "CVS100", "CVS250", "CVS630", _
-             "NSX100", "NSX250", "NSX630", _
-             "GoPact150", "GoPact200", "GoPact250", "GoPact400"
-            Admite400 = True
-        Case Else
-            'GoPact800, NS800_1250, NS800_1600, NW / MTZ / MVS -> solo 720
-            Admite400 = False
-    End Select
-End Function
-'------------------------------------------------------------- CORRIENTE
-Private Sub LlenarCorriente()
-    Dim sFrame As String
-    sFrame = Txt("FrameUF")
-
-    With Cbo("CorrienteUF")
-        .Clear
-        Select Case sFrame
-
-            Case "MiniBreaker"
-                .AddItem "1-63A"
-
-            Case "EZC100", "CVS100", "NSX100"
-                .AddItem "100A"
-
-            Case "GoPact150"
-                .AddItem "100A"
-                .AddItem "125A"
-                .AddItem "150A"
-
-            Case "GoPact200"
-                .AddItem "200A"
-
-            Case "EZC250", "CVS250", "NSX250", "GoPact250"
-                .AddItem "250A"
-
-            Case "GoPact400"
-                .AddItem "400A"
-
-            Case "EZC630", "CVS630", "NSX630"
-                .AddItem "400A"
-                .AddItem "630A"
-
-            Case "GoPact800"
-                .AddItem "630A"
-                .AddItem "800A"
-
-            Case "NS800_1250"
-                .AddItem "800A"
-                .AddItem "1250A"
-
-            Case "NS800_1600"                  'CORREGIDO: antes compartia lista con GoPact150
-                .AddItem "800A"
-                .AddItem "1250A"
-                .AddItem "1600A"
-
-            Case "NWFIJO", "NWEXTRAIBLE", "MTZFIJO", "MTZEXTRAIBLE", _
-                 "MVSFIJO", "MVSEXTRAIBLE"
-                .AddItem "800A"
-                .AddItem "1250A"
-                .AddItem "1600A"
-                .AddItem "3200A"
-                .AddItem "4000A"
-        End Select
-
-        If .ListCount = 1 Then .ListIndex = 0
-    End With
-End Sub
-'----------------------------------------------------------- ORIENTACION
-Private Sub LlenarOrientacion()
-    Dim sTipo As String, sFrame As String, sMedida As String
-
-    sTipo = Txt("TipoUF")
-    sFrame = Txt("FrameUF")
-    sMedida = Txt("MedidaUF")
-
-    With Cbo("OrientacionUF")
-        .Clear
-        If sFrame = "" Or sMedida = "" Then Exit Sub
-
-        '--- REGLA 1: manda la medida. En 400 mm solo hay montaje vertical.
-        If sMedida = "400" Then
-
-            .AddItem "Vertical"
-
-            'Si en 400 mm algun frame debe conservar su nombre propio de vertical
-            '(por ejemplo "V.Compacta" en CVS100 / NSX100), reemplace la linea
-            'anterior por:
-            '
-            'Select Case sFrame
-            '    Case "CVS100", "NSX100": .AddItem "V.Compacta"
-            '    Case Else:               .AddItem "Vertical"
-            'End Select
-
-        Else
-            '--- REGLA 2: en 720 mm depende del tipo de UF y del frame.
-            Select Case sTipo
-                Case "SIA - Integral Abatible"
-                    Select Case sFrame
-                        Case "EZC100", "EZC250", "CVS100", "CVS250", "NSX250"
-                            .AddItem "Horizontal"
-                        Case "CVS630", "NSX630", "NS800_1600"
-                            .AddItem "Horizontal"
-                            .AddItem "V.Extendida"
-                        Case "NWFIJO", "NWEXTRAIBLE", "MTZFIJO", "MTZEXTRAIBLE", _
-                             "MVSFIJO", "MVSEXTRAIBLE"
-                            .AddItem "Vertical"
-                    End Select
-                Case Else       'SFI - Frontal Interno / SFC - Frontal Compacto
-                    Select Case sFrame
-                        Case "MiniBreaker", _
-                             "NWFIJO", "NWEXTRAIBLE", "MTZFIJO", "MTZEXTRAIBLE", _
-                             "MVSFIJO", "MVSEXTRAIBLE"
-                            .AddItem "Vertical"
-                        Case "CVS100", "NSX100"
-                            .AddItem "V.Compacta"
-                        Case "GoPact150"                'CORREGIDO: antes decia "GoPact100"
-                            .AddItem "Horizontal"
-                            .AddItem "H.Compuesta"
-                            .AddItem "V.Compacta"
-                        Case "EZC100", "EZC250", "CVS250", "NSX250", _
-                             "GoPact200", "GoPact250"
-                            .AddItem "Horizontal"
-                            .AddItem "H.Compuesta"
-                            .AddItem "V.Extendida"
-                        Case "GoPact400"
-                            .AddItem "Horizontal"
-                            .AddItem "H.Compuesta"
-                        Case "CVS630", "NSX630", "NS800_1250", "NS800_1600"
-                            .AddItem "Horizontal"
-                            .AddItem "V.Extendida"
-                        Case "EZC630", "GoPact800"
-                            .AddItem "Horizontal"
-                    End Select
-            End Select
-        End If
-
-        If .ListCount = 1 Then .ListIndex = 0
-    End With
-End Sub 
-'-------------------------------------------------------------- MANDO
-' SFI / SFC -> Toggle      SIA -> Prolongado
-' (era tu "OPeracion_Mando"; va Private, no Public, y sin evento propio
-'  porque nada depende de MandoUF)
-
-Private Sub LlenarMando()
-    Dim sTipo As String
-    sTipo = Txt("TipoUF")
-
-    With Cbo("MandoUF")
-        .Clear
-        Select Case sTipo
-            Case "SFI - Frontal Interno", "SFC - Frontal Compacto"
-                .AddItem "Toggle"
-            Case "SIA - Integral Abatible"
-                .AddItem "Prolongado"
-        End Select
-        If .ListCount = 1 Then .ListIndex = 0
-    End With
-End Sub
-'------------------------------------------------------- FUNCIONALIDAD
-' 400 mm -> solo Carga        720 mm -> Carga y Totalizador
-Private Sub LlenarFuncionalidad()
-    Dim sMedida As String
-    sMedida = Txt("MedidaUF")
-
-    With Cbo("FuncionalidadUF")
-        .Clear
-        Select Case sMedida
-            Case "400"
-                .AddItem "Carga"           'en 400 mm no cabe totalizador
-            Case "720"
-                .AddItem "Carga"
-                .AddItem "Totalizador"
-        End Select
-        If .ListCount = 1 Then .ListIndex = 0
-    End With
-End Sub
-'------------------------------------------------------------ CONEXION
-' Manda la orientacion:
-'   Vertical / V.Extendida / V.Compacta -> Superior  (igual en 400 y 720)
-'   Horizontal / H.Compuesta            -> depende de la funcionalidad:
-'         Totalizador -> solo Derecha
-'         Carga       -> Derecha e Izquierda
-
-Private Sub LlenarConexion()
-    Dim sOrient As String, sFunc As String
-
-    sOrient = Txt("OrientacionUF")
-    sFunc = Txt("FuncionalidadUF")
-
-    With Cbo("ConexionUF")
-        .Clear
-        If sOrient = "" Or sFunc = "" Then Exit Sub
-
-        Select Case sOrient
-
-            Case "Vertical", "V.Extendida", "V.Compacta"
-                .AddItem "Superior"
-
-            Case "Horizontal", "H.Compuesta"
-                Select Case sFunc
-                    Case "Totalizador"
-                        .AddItem "Derecha"
-                    Case "Carga"
-                        .AddItem "Derecha"
-                        .AddItem "Izquierda"
+        End With
+    End Sub
+    '------------------------------------------------------------ MEDIDA (mm)
+        Private Sub LlenarMedida()
+            Dim sTipo As String, sFrame As String
+            sTipo = Txt("TipoUF")
+            sFrame = Txt("FrameUF")
+            With Cbo("MedidaUF")
+                .Clear
+                If sFrame = "" Then Exit Sub
+                Select Case sTipo
+                    Case "SFI - Frontal Interno", "SFC - Frontal Compacto"
+                        If Admite400(sFrame) Then
+                            .AddItem "400"
+                            .AddItem "720"
+                        ElseIf sFrame = "NS800_1250" Then
+                            .AddItem "400"
+                        Else
+                            .AddItem "720"
+                        End If
+                    Case "SIA - Integral Abatible", "SFA - Fijo Atornillado"
+                        .AddItem "720"                 'siempre 720
                 End Select
-
+                If .ListCount = 1 Then .ListIndex = 0
+            End With
+        End Sub
+    ' Unico lugar donde se define que frames caben en una UF de 400 mm.
+    Private Function Admite400(ByVal sFrame As String) As Boolean
+        Select Case sFrame
+            Case "MiniBreaker", _
+                "EZC100", "EZC250", "EZC630", _
+                "CVS100", "CVS250", "CVS630", _
+                "NSX100", "NSX250", "NSX630", _
+                "GoPact150", "GoPact200", "GoPact250", "GoPact400"',"NS800_1250"
+                Admite400 = True
+            Case Else
+                'GoPact800, NS800_1600, NW / MTZ / MVS -> solo 720
+                Admite400 = False
         End Select
+    End Function
+    '------------------------------------------------------------- CORRIENTE
+    Private Sub LlenarCorriente()
+        Dim sFrame As String
+        sFrame = Txt("FrameUF")
 
-        If .ListCount = 1 Then .ListIndex = 0
-    End With
-End Sub
+        With Cbo("CorrienteUF")
+            .Clear
+            Select Case sFrame
+
+                Case "MiniBreaker"
+                    .AddItem "1-63A"
+
+                Case "EZC100", "CVS100", "NSX100"
+                    .AddItem "100A"
+
+                Case "GoPact150"
+                    .AddItem "100A"
+                    .AddItem "125A"
+                    .AddItem "150A"
+
+                Case "GoPact200"
+                    .AddItem "200A"
+
+                Case "EZC250", "CVS250", "NSX250", "GoPact250"
+                    .AddItem "250A"
+
+                Case "GoPact400"
+                    .AddItem "400A"
+
+                Case "EZC630", "CVS630", "NSX630"
+                    .AddItem "400A"
+                    .AddItem "630A"
+
+                Case "GoPact800"
+                    .AddItem "630A"
+                    .AddItem "800A"
+
+                Case "NS800_1250"
+                    .AddItem "800A"
+                    .AddItem "1250A"
+
+                Case "NS800_1600"                  'CORREGIDO: antes compartia lista con GoPact150
+                    .AddItem "800A"
+                    .AddItem "1250A"
+                    .AddItem "1600A"
+
+                Case "NWFIJO", "NWEXTRAIBLE", "MTZFIJO", "MTZEXTRAIBLE", _
+                    "MVSFIJO", "MVSEXTRAIBLE"
+                    .AddItem "800A"
+                    .AddItem "1250A"
+                    .AddItem "1600A"
+                    .AddItem "3200A"
+                    .AddItem "4000A"
+            End Select
+
+            If .ListCount = 1 Then .ListIndex = 0
+        End With
+    End Sub
+    '----------------------------------------------------------- ORIENTACION
+    Private Sub LlenarOrientacion()
+        Dim sTipo As String, sFrame As String, sMedida As String
+
+        sTipo = Txt("TipoUF")
+        sFrame = Txt("FrameUF")
+        sMedida = Txt("MedidaUF")
+
+        With Cbo("OrientacionUF")
+            .Clear
+            If sFrame = "" Or sMedida = "" Then Exit Sub
+
+            '--- REGLA 1: manda la medida. En 400 mm solo hay montaje vertical.
+            If sMedida = "400" Then
+
+                .AddItem "Vertical"
+
+                'Si en 400 mm algun frame debe conservar su nombre propio de vertical
+                '(por ejemplo "V.Compacta" en CVS100 / NSX100), reemplace la linea
+                'anterior por:
+                '
+                'Select Case sFrame
+                '    Case "CVS100", "NSX100": .AddItem "V.Compacta"
+                '    Case Else:               .AddItem "Vertical"
+                'End Select
+
+            Else
+                '--- REGLA 2: en 720 mm depende del tipo de UF y del frame.
+                Select Case sTipo
+                    Case "SIA - Integral Abatible"
+                        Select Case sFrame
+                            Case "EZC100", "EZC250", "CVS100", "CVS250", "NSX250"
+                                .AddItem "Horizontal"
+                            Case "CVS630", "NSX630", "NS800_1600"
+                                .AddItem "Horizontal"
+                                .AddItem "V.Extendida"
+                            Case "NWFIJO", "NWEXTRAIBLE", "MTZFIJO", "MTZEXTRAIBLE", _
+                                "MVSFIJO", "MVSEXTRAIBLE"
+                                .AddItem "Vertical"
+                        End Select
+                    case "SFA - Fijo Atornillado"
+                        .AddItem "Horizontal"
+                    Case Else       'SFI - Frontal Interno / SFC - Frontal Compacto
+                        Select Case sFrame
+                            Case "MiniBreaker", _
+                                "NWFIJO", "NWEXTRAIBLE", "MTZFIJO", "MTZEXTRAIBLE", _
+                                "MVSFIJO", "MVSEXTRAIBLE"
+                                .AddItem "Vertical"
+                            Case "CVS100", "NSX100"
+                                .AddItem "V.Compacta"
+                            Case "GoPact150"                'CORREGIDO: antes decia "GoPact100"
+                                .AddItem "Horizontal"
+                                .AddItem "H.Compuesta"
+                                .AddItem "V.Compacta"
+                            Case "EZC100", "EZC250", "CVS250", "NSX250", _
+                                "GoPact200", "GoPact250"
+                                .AddItem "Horizontal"
+                                .AddItem "H.Compuesta"
+                                .AddItem "V.Extendida"
+                            Case "GoPact400"
+                                .AddItem "Horizontal"
+                                .AddItem "H.Compuesta"
+                            Case "CVS630", "NSX630", "NS800_1250", "NS800_1600"
+                                .AddItem "Horizontal"
+                                .AddItem "V.Extendida"
+                            Case "EZC630", "GoPact800"
+                                .AddItem "Horizontal"
+                        End Select
+                End Select
+            End If
+
+            If .ListCount = 1 Then .ListIndex = 0
+        End With
+    End Sub 
+    '-------------------------------------------------------------- MANDO
+    ' SFI / SFC -> Toggle      SIA -> Prolongado
+    ' (era tu "OPeracion_Mando"; va Private, no Public, y sin evento propio
+    '  porque nada depende de MandoUF)
+
+    Private Sub LlenarMando()
+        Dim sTipo As String
+        sTipo = Txt("TipoUF")
+
+        With Cbo("MandoUF")
+            .Clear
+            Select Case sTipo
+                Case "SFI - Frontal Interno", "SFC - Frontal Compacto"
+                    .AddItem "Toggle"
+                Case "SIA - Integral Abatible", "SFA - Fijo Atornillado"
+                    .AddItem "Prolongado"
+            End Select
+            If .ListCount = 1 Then .ListIndex = 0
+        End With
+    End Sub
+    '------------------------------------------------------- FUNCIONALIDAD
+    ' 400 mm -> solo Carga        720 mm -> Carga y Totalizador
+    ' H.Compuesta -> solo Totalizador
+    ' Horizontal  -> Carga y Totalizador
+    ' Verticales  -> segun la medida (400 mm no admite Totalizador)
+    Private Sub LlenarFuncionalidad()
+        Dim sMedida As String, sOrient As String
+        sMedida = Txt("MedidaUF")
+        sOrient = Txt("OrientacionUF")
+
+        With Cbo("FuncionalidadUF")
+            .Clear
+            If sMedida = "" Then Exit Sub
+
+            Select Case sOrient
+
+                Case "H.Compuesta"
+                    .AddItem "Totalizador"
+
+                Case "Horizontal"
+                    if Me.OleObjects("TipoUF").Object.Value = "SFA - Fijo Atornillado" Then
+                        .AddItem "Carga"
+                    elseif Me.OleObjects("TipoUF").Object.Value = "SIA - Integral Abatible" Then
+                        .AddItem "Totalizador"
+                    else 
+                        .AddItem "Carga"
+                        .AddItem "Totalizador"
+                    end if    
+                Case Else   'Vertical, V.Extendida, V.Compacta o aun sin elegir
+                    Select Case sMedida
+                        Case "400"
+                            .AddItem "Carga"
+                        Case "720"
+                            .AddItem "Carga"
+                            .AddItem "Totalizador"
+                    End Select
+
+            End Select
+
+            If .ListCount = 1 Then .ListIndex = 0
+        End With
+    End Sub
+    '------------------------------------------------------------ CONEXION
+    ' Manda la orientacion:
+    '   Vertical / V.Extendida / V.Compacta -> Superior  (igual en 400 y 720
+    ' Verticales   -> Superior
+    ' H.Compuesta  -> solo Derecha
+    ' Horizontal   -> Carga: Derecha e Izquierda / Totalizador: solo Derecha
+    Private Sub LlenarConexion()
+        Dim sOrient As String, sFunc As String
+
+        sOrient = Txt("OrientacionUF")
+        sFunc = Txt("FuncionalidadUF")
+
+        With Cbo("ConexionUF")
+            .Clear
+            If sOrient = "" Or sFunc = "" Then Exit Sub
+
+            Select Case sOrient
+
+                Case "Vertical", "V.Extendida", "V.Compacta"
+                    .AddItem "Superior"
+
+                Case "H.Compuesta"
+                    .AddItem "Derecha"
+
+                Case "Horizontal"
+                    Select Case sFunc
+                        Case "Carga"
+                            if Me.OleObjects("TipoUF").Object.Value = "SFA - Fijo Atornillado" Then
+                                .AddItem "Derecha"
+                            else 
+                                .AddItem "Derecha"    
+                                .AddItem "Izquierda"
+                            end if
+                        Case "Totalizador"
+                            .AddItem "Izquierda"
+                    End Select
+
+            End Select
+
+            If .ListCount = 1 Then .ListIndex = 0
+        End With
+    End Sub
+'UNIDADES FUNCIONALES LISAS
+    Private sub TipoLSS_Change()
+        dim dato As String
+        dato = Me.OleObjects("TipoLSS").Object.Value
+        with Me.OleObjects("UnidadesLSS").Object
+            .Clear
+            Select case dato
+                case "SFI - Frontal Interno","SFC - Frontal Compacto"
+                    .AddItem "1u"
+                    .AddItem "2u"
+                    .AddItem "3u"
+                    .AddItem "4u"
+                    .AddItem "5u"
+                    .AddItem "6u"
+                    .AddItem "7u"
+                    .AddItem "8u"
+                    .AddItem "9u"
+                    .AddItem "10u"
+                    .AddItem "11u"
+                    .AddItem "12u"
+                case "SIA - Integral Abatible" 
+                    .AddItem "5u"  
+                    .AddItem "6u"
+                    .AddItem "7u"
+                    .AddItem "8u"
+                    .AddItem "9u"
+                    .AddItem "10u"
+                    .AddItem "11u"
+                    .AddItem "12u"
+                case "SFA - Fijo Atornillado"
+                    .AddItem "2u" 
+                    .AddItem "3u"
+                    .AddItem "4u"  
+                    .AddItem "5u"     
+                    .AddItem "6u"
+                    .AddItem "7u"
+                    .AddItem "8u"
+                    .AddItem "9u"
+                    .AddItem "10u"
+                    .AddItem "11u"
+                    .AddItem "12u"
+                case "SIC - Placa de Control"
+                    .AddItem "5u"     
+                    .AddItem "6u"
+                    .AddItem "7u"
+                    .AddItem "8u"
+                    .AddItem "9u"
+                    .AddItem "10u"
+                    .AddItem "11u"
+            end select
+        end with
+    end sub 
 'CONTACTORES
     Private sub EquipoCT_Change()
         dim dato as string
@@ -1013,7 +1114,7 @@ Public Sub Worksheet_Activate()
     Extraer_datos
     'ocultar menus emergentes
         ActiveSheet.Shapes("Menu Envolventes").Visible = False
-        'ActiveSheet.Shapes("Menu UnidadFuncional").Visible = False 
+        ActiveSheet.Shapes("Menu UnidadFuncional").Visible = False 
         ActiveSheet.Shapes("Menu Lisas").Visible = False
         ActiveSheet.Shapes("Menu Contactores").Visible = False
         ActiveSheet.Shapes("Menu DPS").Visible = False
@@ -1038,12 +1139,13 @@ Public Sub Worksheet_Activate()
             select case IP
                 Case "30"
                 .AddItem "SFI - Frontal Interno"
-                .AddItem "SIA - Integral Abatible"
                 .AddItem "SFC - Frontal Compacto"
-                
+                .AddItem "SIA - Integral Abatible"
+                .AddItem "SFA - Fijo Atornillado"
             case else
                 .AddItem "SFI - Frontal Interno"
                 .AddItem "SIA - Integral Abatible" 
+                .AddItem "SFA - Fijo Atornillado"
             end select  
         End With
         
@@ -1298,7 +1400,7 @@ Public sub Extraer_datos()
     LlenarCombo Me.OLEObjects("AlturaENV").Object, Altura
     LlenarCombo Me.OLEObjects("AnchoENV").Object, Ancho
     LlenarCombo Me.OLEObjects("AnchoLSS").Object, AnchoLISAS
-    msgbox MenuUnidades
+    'msgbox MenuUnidades
     
 End Sub
 Public sub Envolventes()
@@ -1326,6 +1428,8 @@ Public sub UnidadesFuncionales()
     select case dato1
         case "SFI - Frontal Interno": dato1 = "SFI_"
         Case "SFC - Frontal Compacto": dato1 = "SFC_"
+        Case "SIA - Integral Abatible": dato1 = "SIA_"
+        case "SFA - Fijo Atornillado": dato1 = "SFA_"
     end select
     dato2 = Me.OleObjects("FrameUF").Object.Value   
     dato3 = Me.OleObjects("MedidaUF").Object.Value
@@ -1444,7 +1548,7 @@ Public sub Equipos_Control()
     dim dato1 as string, dato2 as string
     dato1 = Me.OleObjects("EquipoCTR").Object.Value
     dato2 = Me.OleObjects("MedidasCTR").Object.Value
-    ResultadoCT = dato1 & "_" & dato2
+    ResultadoCT = "SFI_" &dato1 & "_" & dato2
     MoverBloque ResultadoCT,"UCONTROL", wsActual, celda
 End sub
 Public sub Accesorios_CTR()
