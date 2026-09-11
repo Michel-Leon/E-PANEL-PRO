@@ -15,7 +15,7 @@ Public sub Escribir_caracteristicas_TB()
         .Range("DK134").value ="630"
         .Range("DK142").value ="25"
     end with
-  Menu2Unidades = "Opcion1"
+  MenuUnidades = "Opcion1"
 End sub   
 Public sub Escribir_caracteristicas_TC()
     dim wsActual As Worksheet

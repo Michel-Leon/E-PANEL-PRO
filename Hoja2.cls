@@ -86,14 +86,14 @@ Private Function MenuActivo() As String
 End Function
 '---------------------------------------------------------------- FRAME
 Private Sub LlenarFrame()
-    Dim sTipo As String, sMenu As String
+    Dim sTipo As String
     sTipo = Txt("TipoUF")
-    sMenu = MenuActivo()
+
     With Cbo("FrameUF")
         .Clear
         Select Case sTipo
             Case "SFI - Frontal Interno", "SFC - Frontal Compacto"
-                If sMenu = "Opcion1" Then
+                If MenuUnidades = "Opcion1" Then
                     .AddItem "MiniBreaker"
                     .AddItem "EZC100"
                     .AddItem "EZC250"
@@ -110,7 +110,7 @@ Private Sub LlenarFrame()
                     .AddItem "GoPact250"
                     .AddItem "GoPact400"
                     .AddItem "GoPact800"
-                ElseIf sMenu = "Opcion2" Then
+                ElseIf MenuUnidades = "Opcion2" Then
                     .AddItem "EZC250"
                     .AddItem "EZC630"
                     .AddItem "CVS100"
@@ -134,7 +134,7 @@ Private Sub LlenarFrame()
                     .AddItem "MVSEXTRAIBLE"
                 End If
             Case "SIA - Integral Abatible"
-                If sMenu = "Opcion1" Then
+                If MenuUnidades= "Opcion1" Then
                     .AddItem "EZC100"
                     .AddItem "EZC250"
                     .AddItem "CVS100"
@@ -142,7 +142,7 @@ Private Sub LlenarFrame()
                     .AddItem "CVS630"
                     .AddItem "NSX250"
                     .AddItem "NSX630"
-                ElseIf sMenu = "Opcion2" Then
+                ElseIf MenuUnidades = "Opcion2" Then
                     .AddItem "EZC100"
                     .AddItem "EZC250"
                     .AddItem "CVS100"
@@ -345,11 +345,8 @@ Private Sub LlenarMando()
         If .ListCount = 1 Then .ListIndex = 0
     End With
 End Sub
-
-
 '------------------------------------------------------- FUNCIONALIDAD
 ' 400 mm -> solo Carga        720 mm -> Carga y Totalizador
-
 Private Sub LlenarFuncionalidad()
     Dim sMedida As String
     sMedida = Txt("MedidaUF")
@@ -366,8 +363,6 @@ Private Sub LlenarFuncionalidad()
         If .ListCount = 1 Then .ListIndex = 0
     End With
 End Sub
-
-
 '------------------------------------------------------------ CONEXION
 ' Manda la orientacion:
 '   Vertical / V.Extendida / V.Compacta -> Superior  (igual en 400 y 720)
@@ -1018,8 +1013,7 @@ Public Sub Worksheet_Activate()
     Extraer_datos
     'ocultar menus emergentes
         ActiveSheet.Shapes("Menu Envolventes").Visible = False
-        ActiveSheet.Shapes("Menu UnidadFuncional").Visible = False
-        ActiveSheet.Shapes("Menu UnidadFuncional_2").Visible = False
+        'ActiveSheet.Shapes("Menu UnidadFuncional").Visible = False 
         ActiveSheet.Shapes("Menu Lisas").Visible = False
         ActiveSheet.Shapes("Menu Contactores").Visible = False
         ActiveSheet.Shapes("Menu DPS").Visible = False
@@ -1036,15 +1030,7 @@ Public Sub Worksheet_Activate()
         ActiveSheet.Shapes("Menu Etiqueta").Visible = False
         activeSheet.Shapes("Menu Acotar").Visible = false
         ActiveSheet.Shapes("Menu Color").Visible = False
-    if Menu2Unidades = "Opcion1" then
-        ActiveSheet.Shapes("Opcion1").Visible = True
-        ActiveSheet.Shapes("Opcion2").Visible = False
-    elseif Menu2Unidades = "Opcion2" then
-        ActiveSheet.Shapes("Opcion1").Visible = False
-        ActiveSheet.Shapes("Opcion2").Visible = True 
-    end if
-    Me.OleObjects("Carga").Object.Value = false
-    Me.OleObjects("Totalizador").Object.Value = false
+    
     '============== Envolventes ============================
     '============== Unidades Funcionales ===================
         With  Me.OleObjects("TipoUF").Object
@@ -1312,6 +1298,7 @@ Public sub Extraer_datos()
     LlenarCombo Me.OLEObjects("AlturaENV").Object, Altura
     LlenarCombo Me.OLEObjects("AnchoENV").Object, Ancho
     LlenarCombo Me.OLEObjects("AnchoLSS").Object, AnchoLISAS
+    msgbox MenuUnidades
     
 End Sub
 Public sub Envolventes()
@@ -1326,7 +1313,46 @@ Public sub Envolventes()
     ResultadoENV= "EFM_" & dato1 & "X" & dato2
     MoverBloque ResultadoENV,"ENVOLVENTES", wsActual, celda
 End sub
+Public sub UnidadesFuncionales()
+    '========================
+        celda = "NS132"
+        thisWorkbook.Sheets("DISENO").Range("NP82:QJ182").Clear
+        Set wsActual = thisWorkbook.Sheets("DISENO")
+    '========================
+    Dim dato1 As String, dato2 As String, dato3 As String, dato4 As String
+    dim dato5 as string, dato6 as string
 
+    dato1 = Me.OleObjects("TipoUF").Object.Value
+    select case dato1
+        case "SFI - Frontal Interno": dato1 = "SFI_"
+        Case "SFC - Frontal Compacto": dato1 = "SFC_"
+    end select
+    dato2 = Me.OleObjects("FrameUF").Object.Value   
+    dato3 = Me.OleObjects("MedidaUF").Object.Value
+    dato4 = Me.OleObjects("OrientacionUF").Object.Value
+    select case dato4
+        case "Horizontal": dato4 = "H"
+        case "H.Compuesta": dato4 = "HC"
+        case "Vertical": dato4 = "V"
+        case "V.Extendida": dato4 = "VE"
+        case "V.Compuesta": dato4 = "VC"
+    end select 
+    dato5 = Me.OleObjects("ConexionUF").Object.Value
+    select case dato5
+        case "Superior": dato5 = "_NA"
+        case "Izquierda": dato5 = "_IZ"
+        case "Derecha": dato5 = "_DR"
+    END SELECT
+    dato6 = Me.OleObjects("MandoUF").Object.Value   
+    Select case dato6
+        case "Toggle": dato6 = "To" 
+        case "Prolongado": dato6 = "P"
+    End Select
+
+    ResultadoUF= dato1 & dato2 & dato6 & "X" & dato3 & dato4 & dato5
+    msgbox ResultadoUF
+    MoverBloque ResultadoUF,"UF-SFI", wsActual, celda
+end sub    
 Public sub Unidades_funcionales_lisas()
     '========================
         celda = "NS132"
