@@ -1,4 +1,4 @@
-Attribute VB_Name = "Mï¿½dulo2"
+Attribute VB_Name = "Módulo2"
 Public Sub Seleccion_Menu_Envolventes()
     Dim shp As Shape
     Dim groupname As String
@@ -12,19 +12,124 @@ Public Sub Seleccion_Menu_Envolventes()
         ' Alterna la visibilidad del grupo seleccionado
         shp.Visible = Not shp.Visible
         ' Oculta los dem s grupos
-        ActiveSheet.Shapes("Menu DPS").Visible = False
-        ActiveSheet.Shapes("Menu_Servicios").Visible = False
-        ActiveSheet.Shapes("Menu_BARRAS").Visible = False
-        ActiveSheet.Shapes("Menu_Lisas").Visible = False
-        ActiveSheet.Shapes("Menu Unidades").Visible = False
+        ActiveSheet.Shapes("Menu UnidadFuncional").Visible = False
+        ActiveSheet.Shapes("Menu Lisas").Visible = False
         ActiveSheet.Shapes("Menu Contactores").Visible = False
-        ActiveSheet.Shapes("Menu Control").Visible = False
-        ActiveSheet.Shapes("Menu AC Control").Visible = False
+        ActiveSheet.Shapes("Menu DPS").Visible = False
+        ActiveSheet.Shapes("Menu Equipo CTR").Visible = False
+        ActiveSheet.Shapes("Menu ACCESORIOS CTR").Visible = False
         ActiveSheet.Shapes("Menu Equipos").Visible = False
-        
+        ActiveSheet.Shapes("Menu Equipos").Visible = False
+        ActiveSheet.Shapes("Menu Servicios").Visible = False
+        ActiveSheet.Shapes("Menu Placas de control").Visible = False
+        ActiveSheet.Shapes("Menu Compensacion").Visible = False
+        ActiveSheet.Shapes("Menu Barraje").Visible = False
+        ActiveSheet.Shapes("Menu Transferencias").Visible = False
+        ActiveSheet.Shapes("Menu AccesoriosMTM").Visible = False
+        ActiveSheet.Shapes("Menu Etiqueta").Visible = False
+        ActiveSheet.Shapes("Menu Acotar").Visible = False
+        ActiveSheet.Shapes("Menu Color").Visible = False
+        ActiveSheet.Shapes("Menu ETO").Visible = False
     End If
 End Sub
-Public Sub Seleccion_Menu_DPS()
+Public Sub Seleccion_Menu_UnidadesFuncionales()
+    Dim shp As Shape
+    Dim groupname As String
+    groupname = "Menu UnidadFuncional"
+    
+    On Error Resume Next
+    Set shp = ActiveSheet.Shapes(groupname)
+    On Error GoTo 0
+    
+    If Not shp Is Nothing Then
+        ' Alterna la visibilidad del grupo seleccionado
+        shp.Visible = Not shp.Visible
+        ' Oculta los dem s grupos
+        ActiveSheet.Shapes("Menu Envolventes").Visible = False
+        ActiveSheet.Shapes("Menu Lisas").Visible = False
+        ActiveSheet.Shapes("Menu Contactores").Visible = False
+        ActiveSheet.Shapes("Menu DPS").Visible = False
+        ActiveSheet.Shapes("Menu Equipo CTR").Visible = False
+        ActiveSheet.Shapes("Menu ACCESORIOS CTR").Visible = False
+        ActiveSheet.Shapes("Menu Equipos").Visible = False
+        ActiveSheet.Shapes("Menu Equipos").Visible = False
+        ActiveSheet.Shapes("Menu Servicios").Visible = False
+        ActiveSheet.Shapes("Menu Placas de control").Visible = False
+        ActiveSheet.Shapes("Menu Compensacion").Visible = False
+        ActiveSheet.Shapes("Menu Barraje").Visible = False
+        ActiveSheet.Shapes("Menu Transferencias").Visible = False
+        ActiveSheet.Shapes("Menu AccesoriosMTM").Visible = False
+        ActiveSheet.Shapes("Menu Etiqueta").Visible = False
+        ActiveSheet.Shapes("Menu Acotar").Visible = False
+        ActiveSheet.Shapes("Menu Color").Visible = False
+        ActiveSheet.Shapes("Menu ETO").Visible = False
+    End If
+End Sub
+Public Sub Seleccion_Menu_Lisas()
+    Dim shp As Shape
+    Dim groupname As String
+    groupname = "Menu Lisas"
+    
+    On Error Resume Next
+    Set shp = ActiveSheet.Shapes(groupname)
+    On Error GoTo 0
+    
+    If Not shp Is Nothing Then
+        ' Alterna la visibilidad del grupo seleccionado
+        shp.Visible = Not shp.Visible
+        ' Oculta los dem s grupos
+        ActiveSheet.Shapes("Menu Envolventes").Visible = False
+        ActiveSheet.Shapes("Menu UnidadFuncional").Visible = False
+        ActiveSheet.Shapes("Menu Contactores").Visible = False
+        ActiveSheet.Shapes("Menu DPS").Visible = False
+        ActiveSheet.Shapes("Menu Equipo CTR").Visible = False
+        ActiveSheet.Shapes("Menu ACCESORIOS CTR").Visible = False
+        ActiveSheet.Shapes("Menu Equipos").Visible = False
+        ActiveSheet.Shapes("Menu Servicios").Visible = False
+        ActiveSheet.Shapes("Menu Placas de control").Visible = False
+        ActiveSheet.Shapes("Menu Compensacion").Visible = False
+        ActiveSheet.Shapes("Menu Barraje").Visible = False
+        ActiveSheet.Shapes("Menu Transferencias").Visible = False
+        ActiveSheet.Shapes("Menu AccesoriosMTM").Visible = False
+        ActiveSheet.Shapes("Menu Etiqueta").Visible = False
+        ActiveSheet.Shapes("Menu Acotar").Visible = False
+        ActiveSheet.Shapes("Menu Color").Visible = False
+        ActiveSheet.Shapes("Menu ETO").Visible = False
+    End If
+End Sub
+Public Sub Seleccion_Menu_Contactores()
+    Dim shp As Shape
+    Dim groupname As String
+    groupname = "Menu Contactores"
+    
+    On Error Resume Next
+    Set shp = ActiveSheet.Shapes(groupname)
+    On Error GoTo 0
+    
+    If Not shp Is Nothing Then
+        ' Alterna la visibilidad del grupo seleccionado
+        shp.Visible = Not shp.Visible
+        ' Oculta los dem s grupos
+        ActiveSheet.Shapes("Menu Envolventes").Visible = False
+        ActiveSheet.Shapes("Menu UnidadFuncional").Visible = False
+        ActiveSheet.Shapes("Menu Lisas").Visible = False
+        ActiveSheet.Shapes("Menu DPS").Visible = False
+        ActiveSheet.Shapes("Menu Equipo CTR").Visible = False
+        ActiveSheet.Shapes("Menu ACCESORIOS CTR").Visible = False
+        ActiveSheet.Shapes("Menu Equipos").Visible = False
+        ActiveSheet.Shapes("Menu Servicios").Visible = False
+        ActiveSheet.Shapes("Menu Placas de control").Visible = False
+        ActiveSheet.Shapes("Menu Compensacion").Visible = False
+        ActiveSheet.Shapes("Menu Barraje").Visible = False
+        ActiveSheet.Shapes("Menu Transferencias").Visible = False
+        ActiveSheet.Shapes("Menu AccesoriosMTM").Visible = False
+        ActiveSheet.Shapes("Menu Etiqueta").Visible = False
+        ActiveSheet.Shapes("Menu Acotar").Visible = False
+        ActiveSheet.Shapes("Menu Color").Visible = False
+        ActiveSheet.Shapes("Menu ETO").Visible = False
+    End If
+End Sub
+Public Sub seleccion_menu_dps()
     Dim shp As Shape
     Dim groupname As String
     groupname = "Menu DPS"
@@ -38,20 +143,28 @@ Public Sub Seleccion_Menu_DPS()
         shp.Visible = Not shp.Visible
         ' Oculta los dem s grupos
         ActiveSheet.Shapes("Menu Envolventes").Visible = False
-        ActiveSheet.Shapes("Menu_Servicios").Visible = False
-        ActiveSheet.Shapes("Menu_BARRAS").Visible = False
-        ActiveSheet.Shapes("Menu_Lisas").VIsible = False
-        ActiveSheet.Shapes("Menu Unidades").Visible = False
+        ActiveSheet.Shapes("Menu UnidadFuncional").Visible = False
+        ActiveSheet.Shapes("Menu Lisas").Visible = False
         ActiveSheet.Shapes("Menu Contactores").Visible = False
-        ActiveSheet.Shapes("Menu Control").Visible = False
-        ActiveSheet.Shapes("Menu AC Control").Visible = False
+        ActiveSheet.Shapes("Menu Equipo CTR").Visible = False
+        ActiveSheet.Shapes("Menu ACCESORIOS CTR").Visible = False
         ActiveSheet.Shapes("Menu Equipos").Visible = False
+        ActiveSheet.Shapes("Menu Servicios").Visible = False
+        ActiveSheet.Shapes("Menu Placas de control").Visible = False
+        ActiveSheet.Shapes("Menu Compensacion").Visible = False
+        ActiveSheet.Shapes("Menu Barraje").Visible = False
+        ActiveSheet.Shapes("Menu Transferencias").Visible = False
+        ActiveSheet.Shapes("Menu AccesoriosMTM").Visible = False
+        ActiveSheet.Shapes("Menu Etiqueta").Visible = False
+        ActiveSheet.Shapes("Menu Acotar").Visible = False
+        ActiveSheet.Shapes("Menu Color").Visible = False
+        ActiveSheet.Shapes("Menu ETO").Visible = False
     End If
 End Sub
-public Sub Seleccion_Menu_Servicios()
+Public Sub Seleccion_Menu_EquipoCTR()
     Dim shp As Shape
     Dim groupname As String
-    groupname = "Menu_Servicios"
+    groupname = "Menu Equipo CTR"
     
     On Error Resume Next
     Set shp = ActiveSheet.Shapes(groupname)
@@ -62,20 +175,28 @@ public Sub Seleccion_Menu_Servicios()
         shp.Visible = Not shp.Visible
         ' Oculta los dem s grupos
         ActiveSheet.Shapes("Menu Envolventes").Visible = False
-        ActiveSheet.Shapes("Menu DPS").Visible = False
-        ActiveSheet.Shapes("Menu_BARRAS").Visible = False
-        ActiveSheet.Shapes("Menu_Lisas").Visible = False
-        ActiveSheet.Shapes("Menu Unidades").Visible = False
+        ActiveSheet.Shapes("Menu UnidadFuncional").Visible = False
+        ActiveSheet.Shapes("Menu Lisas").Visible = False
         ActiveSheet.Shapes("Menu Contactores").Visible = False
-        ActiveSheet.Shapes("Menu Control").Visible = False
-        ActiveSheet.Shapes("Menu AC Control").Visible = False
+        ActiveSheet.Shapes("Menu DPS").Visible = False
+        ActiveSheet.Shapes("Menu ACCESORIOS CTR").Visible = False
         ActiveSheet.Shapes("Menu Equipos").Visible = False
+        ActiveSheet.Shapes("Menu Servicios").Visible = False
+        ActiveSheet.Shapes("Menu Placas de control").Visible = False
+        ActiveSheet.Shapes("Menu Compensacion").Visible = False
+        ActiveSheet.Shapes("Menu Barraje").Visible = False
+        ActiveSheet.Shapes("Menu Transferencias").Visible = False
+        ActiveSheet.Shapes("Menu AccesoriosMTM").Visible = False
+        ActiveSheet.Shapes("Menu Etiqueta").Visible = False
+        ActiveSheet.Shapes("Menu Acotar").Visible = False
+        ActiveSheet.Shapes("Menu Color").Visible = False
+        ActiveSheet.Shapes("Menu ETO").Visible = False
     End If
 End Sub
-Public Sub Seleccion_Menu_BARRAS()
+Public Sub Seleccion_Menu_AccesoriosCTR()
     Dim shp As Shape
     Dim groupname As String
-    groupname = "Menu_BARRAS"
+    groupname = "Menu ACCESORIOS CTR"
     
     On Error Resume Next
     Set shp = ActiveSheet.Shapes(groupname)
@@ -86,137 +207,25 @@ Public Sub Seleccion_Menu_BARRAS()
         shp.Visible = Not shp.Visible
         ' Oculta los dem s grupos
         ActiveSheet.Shapes("Menu Envolventes").Visible = False
-        ActiveSheet.Shapes("Menu DPS").Visible = False
-        ActiveSheet.Shapes("Menu_Servicios").Visible = False
-        ActiveSheet.Shapes("Menu_Lisas").visible = False
-        ActiveSheet.Shapes("Menu Unidades").Visible = False
+        ActiveSheet.Shapes("Menu Lisas").Visible = False
         ActiveSheet.Shapes("Menu Contactores").Visible = False
-        ActiveSheet.Shapes("Menu Control").Visible = False
-        ActiveSheet.Shapes("Menu AC Control").Visible = False
-        ActiveSheet.Shapes("Menu Equipos").Visible = False
-    End If
-End Sub
-Public Sub Seleccion_Menu_Lisas()
-    Dim shp As Shape
-    Dim groupname As String
-    groupname = "Menu_Lisas"
-    
-    On Error Resume Next
-    Set shp = ActiveSheet.Shapes(groupname)
-    On Error GoTo 0
-    
-    If Not shp Is Nothing Then
-        ' Alterna la visibilidad del grupo seleccionado
-        shp.Visible = Not shp.Visible
-        ' Oculta los dem s grupos
-        ActiveSheet.Shapes("Menu Envolventes").Visible = False
         ActiveSheet.Shapes("Menu DPS").Visible = False
-        ActiveSheet.Shapes("Menu_Servicios").Visible = False
-        ActiveSheet.Shapes("Menu_BARRAS").visible = False
-        ActiveSheet.Shapes("Menu Unidades").Visible = False
-        ActiveSheet.Shapes("Menu Contactores").Visible = False
-        ActiveSheet.Shapes("Menu Control").Visible = False
-        ActiveSheet.Shapes("Menu AC Control").Visible = False
+        ActiveSheet.Shapes("Menu Equipo CTR").Visible = False
+        ActiveSheet.Shapes("Menu UnidadFuncional").Visible = False
         ActiveSheet.Shapes("Menu Equipos").Visible = False
+        ActiveSheet.Shapes("Menu Servicios").Visible = False
+        ActiveSheet.Shapes("Menu Placas de control").Visible = False
+        ActiveSheet.Shapes("Menu Compensacion").Visible = False
+        ActiveSheet.Shapes("Menu Barraje").Visible = False
+        ActiveSheet.Shapes("Menu Transferencias").Visible = False
+        ActiveSheet.Shapes("Menu AccesoriosMTM").Visible = False
+        ActiveSheet.Shapes("Menu Etiqueta").Visible = False
+        ActiveSheet.Shapes("Menu Acotar").Visible = False
+        ActiveSheet.Shapes("Menu Color").Visible = False
+        ActiveSheet.Shapes("Menu ETO").Visible = False
     End If
 End Sub
-Public Sub Seleccion_Menu_Unidades()
-    Dim shp As Shape
-    Dim groupname As String
-    groupname = "Menu Unidades"
-    
-    On Error Resume Next
-    Set shp = ActiveSheet.Shapes(groupname)
-    On Error GoTo 0
-    
-    If Not shp Is Nothing Then
-        ' Alterna la visibilidad del grupo seleccionado
-        shp.Visible = Not shp.Visible
-        ' Oculta los dem s grupos
-        ActiveSheet.Shapes("Menu Envolventes").Visible = False
-        ActiveSheet.Shapes("Menu DPS").Visible = False
-        ActiveSheet.Shapes("Menu_Servicios").Visible = False
-        ActiveSheet.Shapes("Menu_BARRAS").visible = False
-        ActiveSheet.Shapes("Menu_Lisas").Visible = False
-        ActiveSheet.Shapes("Menu Contactores").Visible = False
-        ActiveSheet.Shapes("Menu Control").Visible = False
-        ActiveSheet.Shapes("Menu AC Control").Visible = False
-        ActiveSheet.Shapes("Menu Equipos").Visible = False
-    End If
-End Sub
-public Sub Seleccion_Menu_Contactores()
-    Dim shp As Shape
-    Dim groupname As String
-    groupname = "Menu Contactores"
-    
-    On Error Resume Next
-        Set shp = ActiveSheet.Shapes(groupname)
-    On Error GoTo 0
-    
-    If Not shp Is Nothing Then
-        ' Alterna la visibilidad del grupo seleccionado
-        shp.Visible = Not shp.Visible
-        ' Oculta los dem s grupos
-        ActiveSheet.Shapes("Menu Envolventes").Visible = False
-        ActiveSheet.Shapes("Menu DPS").Visible = False
-        ActiveSheet.Shapes("Menu_Servicios").Visible = False
-        ActiveSheet.Shapes("Menu_BARRAS").visible = False
-        ActiveSheet.Shapes("Menu_Lisas").Visible = False
-        ActiveSheet.Shapes("Menu Unidades").Visible = False
-        ActiveSheet.Shapes("Menu Control").Visible = False
-        ActiveSheet.Shapes("Menu AC Control").Visible = False
-        ActiveSheet.Shapes("Menu Equipos").Visible = False
-    End If
-End Sub
-Public Sub Seleccion_Menu_Control()
-    Dim shp As Shape
-    Dim groupname As String
-    groupname = "Menu Control"
-    
-    On Error Resume Next
-    Set shp = ActiveSheet.Shapes(groupname)
-    On Error GoTo 0
-    
-    If Not shp Is Nothing Then
-        ' Alterna la visibilidad del grupo seleccionado
-        shp.Visible = Not shp.Visible
-        ' Oculta los dem s grupos
-        ActiveSheet.Shapes("Menu Envolventes").Visible = False
-        ActiveSheet.Shapes("Menu DPS").Visible = False
-        ActiveSheet.Shapes("Menu_Servicios").Visible = False
-        ActiveSheet.Shapes("Menu_BARRAS").visible = False
-        ActiveSheet.Shapes("Menu_Lisas").Visible = False
-        ActiveSheet.Shapes("Menu Unidades").Visible = False
-        ActiveSheet.Shapes("Menu Contactores").Visible = False
-        ActiveSheet.Shapes("Menu AC Control").Visible = False
-        ActiveSheet.Shapes("Menu Equipos").Visible = False
-    End If
-End Sub
-Public Sub Seleccion_Menu_AC_Control()
-    Dim shp As Shape
-    Dim groupname As String
-    groupname = "Menu AC Control"
-    
-    On Error Resume Next    
-    Set shp = ActiveSheet.Shapes(groupname)
-    On Error GoTo 0
-    
-    If Not shp Is Nothing Then
-        ' Alterna la visibilidad del grupo seleccionado
-        shp.Visible = Not shp.Visible
-        ' Oculta los dem s grupos
-        ActiveSheet.Shapes("Menu Envolventes").Visible = False
-        ActiveSheet.Shapes("Menu DPS").Visible = False
-        ActiveSheet.Shapes("Menu_Servicios").Visible = False
-        ActiveSheet.Shapes("Menu_BARRAS").visible = False
-        ActiveSheet.Shapes("Menu_Lisas").Visible = False
-        ActiveSheet.Shapes("Menu Unidades").Visible = False
-        ActiveSheet.Shapes("Menu Contactores").Visible = False
-        ActiveSheet.Shapes("Menu Control").Visible = False
-        ActiveSheet.Shapes("Menu Equipos").Visible = False
-    End If
-End Sub
-Public Sub Seleccion_Menu_Equipos()
+Public Sub Seleccion_Menu_EquiposIND()
     Dim shp As Shape
     Dim groupname As String
     groupname = "Menu Equipos"
@@ -230,13 +239,360 @@ Public Sub Seleccion_Menu_Equipos()
         shp.Visible = Not shp.Visible
         ' Oculta los dem s grupos
         ActiveSheet.Shapes("Menu Envolventes").Visible = False
-        ActiveSheet.Shapes("Menu DPS").Visible = False
-        ActiveSheet.Shapes("Menu_Servicios").Visible = False
-        ActiveSheet.Shapes("Menu_BARRAS").visible = False
-        ActiveSheet.Shapes("Menu_Lisas").Visible = False
-        ActiveSheet.Shapes("Menu Unidades").Visible = False
+        ActiveSheet.Shapes("Menu UnidadFuncional").Visible = False
+        ActiveSheet.Shapes("Menu Lisas").Visible = False
         ActiveSheet.Shapes("Menu Contactores").Visible = False
-        ActiveSheet.Shapes("Menu Control").Visible = False
-        ActiveSheet.Shapes("Menu AC Control").Visible = False
+        ActiveSheet.Shapes("Menu DPS").Visible = False
+        ActiveSheet.Shapes("Menu Equipo CTR").Visible = False
+        ActiveSheet.Shapes("Menu ACCESORIOS CTR").Visible = False
+        ActiveSheet.Shapes("Menu Servicios").Visible = False
+        ActiveSheet.Shapes("Menu Placas de control").Visible = False
+        ActiveSheet.Shapes("Menu Compensacion").Visible = False
+        ActiveSheet.Shapes("Menu Barraje").Visible = False
+        ActiveSheet.Shapes("Menu Transferencias").Visible = False
+        ActiveSheet.Shapes("Menu AccesoriosMTM").Visible = False
+        ActiveSheet.Shapes("Menu Etiqueta").Visible = False
+        ActiveSheet.Shapes("Menu Acotar").Visible = False
+        ActiveSheet.Shapes("Menu Color").Visible = False
+        ActiveSheet.Shapes("Menu ETO").Visible = False
     End If
+End Sub
+Public Sub Seleccion_Servicios()
+    Dim shp As Shape
+    Dim groupname As String
+    groupname = "Menu Servicios"
+    
+    On Error Resume Next
+    Set shp = ActiveSheet.Shapes(groupname)
+    On Error GoTo 0
+    
+    If Not shp Is Nothing Then
+        ' Alterna la visibilidad del grupo seleccionado
+        shp.Visible = Not shp.Visible
+        ' Oculta los dem s grupos
+        ActiveSheet.Shapes("Menu Envolventes").Visible = False
+        ActiveSheet.Shapes("Menu UnidadFuncional").Visible = False
+        ActiveSheet.Shapes("Menu Lisas").Visible = False
+        ActiveSheet.Shapes("Menu Contactores").Visible = False
+        ActiveSheet.Shapes("Menu DPS").Visible = False
+        ActiveSheet.Shapes("Menu Equipo CTR").Visible = False
+        ActiveSheet.Shapes("Menu ACCESORIOS CTR").Visible = False
+        ActiveSheet.Shapes("Menu Equipos").Visible = False
+        ActiveSheet.Shapes("Menu Placas de control").Visible = False
+        ActiveSheet.Shapes("Menu Compensacion").Visible = False
+        ActiveSheet.Shapes("Menu Barraje").Visible = False
+        ActiveSheet.Shapes("Menu Transferencias").Visible = False
+        ActiveSheet.Shapes("Menu AccesoriosMTM").Visible = False
+        ActiveSheet.Shapes("Menu Etiqueta").Visible = False
+        ActiveSheet.Shapes("Menu Acotar").Visible = False
+        ActiveSheet.Shapes("Menu Color").Visible = False
+        ActiveSheet.Shapes("Menu ETO").Visible = False
+    End If
+End Sub
+Public Sub Seleccion_Placas_Control()
+    Dim shp As Shape
+    Dim groupname As String
+    groupname = "Menu Placas de control"
+    
+    On Error Resume Next
+    Set shp = ActiveSheet.Shapes(groupname)
+    On Error GoTo 0
+    
+    If Not shp Is Nothing Then
+        ' Alterna la visibilidad del grupo seleccionado
+        shp.Visible = Not shp.Visible
+        ' Oculta los dem s grupos
+        ActiveSheet.Shapes("Menu Envolventes").Visible = False
+        ActiveSheet.Shapes("Menu UnidadFuncional").Visible = False
+        ActiveSheet.Shapes("Menu Lisas").Visible = False
+        ActiveSheet.Shapes("Menu Contactores").Visible = False
+        ActiveSheet.Shapes("Menu DPS").Visible = False
+        ActiveSheet.Shapes("Menu Equipo CTR").Visible = False
+        ActiveSheet.Shapes("Menu ACCESORIOS CTR").Visible = False
+        ActiveSheet.Shapes("Menu Equipos").Visible = False
+        ActiveSheet.Shapes("Menu Servicios").Visible = False
+        ActiveSheet.Shapes("Menu Compensacion").Visible = False
+        ActiveSheet.Shapes("Menu Barraje").Visible = False
+        ActiveSheet.Shapes("Menu Transferencias").Visible = False
+        ActiveSheet.Shapes("Menu AccesoriosMTM").Visible = False
+        ActiveSheet.Shapes("Menu Etiqueta").Visible = False
+        ActiveSheet.Shapes("Menu Acotar").Visible = False
+        ActiveSheet.Shapes("Menu Color").Visible = False
+        ActiveSheet.Shapes("Menu ETO").Visible = False
+    End If
+End Sub
+Public Sub Seleccion_Menu_Compensacion()
+    Dim shp As Shape
+    Dim groupname As String
+    groupname = "Menu Compensacion"
+    
+    On Error Resume Next
+    Set shp = ActiveSheet.Shapes(groupname)
+    On Error GoTo 0
+    
+    If Not shp Is Nothing Then
+        ' Alterna la visibilidad del grupo seleccionado
+        shp.Visible = Not shp.Visible
+        ' Oculta los dem s grupos
+        ActiveSheet.Shapes("Menu Envolventes").Visible = False
+        ActiveSheet.Shapes("Menu UnidadFuncional").Visible = False
+        ActiveSheet.Shapes("Menu Lisas").Visible = False
+        ActiveSheet.Shapes("Menu Contactores").Visible = False
+        ActiveSheet.Shapes("Menu DPS").Visible = False
+        ActiveSheet.Shapes("Menu Equipo CTR").Visible = False
+        ActiveSheet.Shapes("Menu ACCESORIOS CTR").Visible = False
+        ActiveSheet.Shapes("Menu Equipos").Visible = False
+        ActiveSheet.Shapes("Menu Servicios").Visible = False
+        ActiveSheet.Shapes("Menu Placas de control").Visible = False
+        ActiveSheet.Shapes("Menu Barraje").Visible = False
+        ActiveSheet.Shapes("Menu Transferencias").Visible = False
+        ActiveSheet.Shapes("Menu AccesoriosMTM").Visible = False
+        ActiveSheet.Shapes("Menu Etiqueta").Visible = False
+        ActiveSheet.Shapes("Menu Acotar").Visible = False
+        ActiveSheet.Shapes("Menu Color").Visible = False
+        ActiveSheet.Shapes("Menu ETO").Visible = False
+    End If
+End Sub
+Public Sub Seleccion_Menu_Barraje()
+    Dim shp As Shape
+    Dim groupname As String
+    groupname = "Menu Barraje"
+    
+    On Error Resume Next
+    Set shp = ActiveSheet.Shapes(groupname)
+    On Error GoTo 0
+    
+    If Not shp Is Nothing Then
+        ' Alterna la visibilidad del grupo seleccionado
+        shp.Visible = Not shp.Visible
+        ' Oculta los dem s grupos
+        ActiveSheet.Shapes("Menu Envolventes").Visible = False
+        ActiveSheet.Shapes("Menu UnidadFuncional").Visible = False
+        ActiveSheet.Shapes("Menu Lisas").Visible = False
+        ActiveSheet.Shapes("Menu Contactores").Visible = False
+        ActiveSheet.Shapes("Menu DPS").Visible = False
+        ActiveSheet.Shapes("Menu Equipo CTR").Visible = False
+        ActiveSheet.Shapes("Menu ACCESORIOS CTR").Visible = False
+        ActiveSheet.Shapes("Menu Equipos").Visible = False
+        ActiveSheet.Shapes("Menu Servicios").Visible = False
+        ActiveSheet.Shapes("Menu Placas de control").Visible = False
+        ActiveSheet.Shapes("Menu Compensacion").Visible = False
+        ActiveSheet.Shapes("Menu Transferencias").Visible = False
+        ActiveSheet.Shapes("Menu AccesoriosMTM").Visible = False
+        ActiveSheet.Shapes("Menu Etiqueta").Visible = False
+        ActiveSheet.Shapes("Menu Acotar").Visible = False
+        ActiveSheet.Shapes("Menu Color").Visible = False
+        ActiveSheet.Shapes("Menu ETO").Visible = False
+    End If
+End Sub
+Public Sub Seleccion_Menu_Transferencias()
+    Dim shp As Shape
+    Dim groupname As String
+    groupname = "Menu Transferencias"
+    
+    On Error Resume Next
+    Set shp = ActiveSheet.Shapes(groupname)
+    On Error GoTo 0
+    
+    If Not shp Is Nothing Then
+        ' Alterna la visibilidad del grupo seleccionado
+        shp.Visible = Not shp.Visible
+        ' Oculta los dem s grupos
+        ActiveSheet.Shapes("Menu Envolventes").Visible = False
+        ActiveSheet.Shapes("Menu UnidadFuncional").Visible = False
+        ActiveSheet.Shapes("Menu Lisas").Visible = False
+        ActiveSheet.Shapes("Menu Contactores").Visible = False
+        ActiveSheet.Shapes("Menu DPS").Visible = False
+        ActiveSheet.Shapes("Menu Equipo CTR").Visible = False
+        ActiveSheet.Shapes("Menu ACCESORIOS CTR").Visible = False
+        ActiveSheet.Shapes("Menu Equipos").Visible = False
+        ActiveSheet.Shapes("Menu Servicios").Visible = False
+        ActiveSheet.Shapes("Menu Placas de control").Visible = False
+        ActiveSheet.Shapes("Menu Compensacion").Visible = False
+        ActiveSheet.Shapes("Menu Barraje").Visible = False
+        ActiveSheet.Shapes("Menu AccesoriosMTM").Visible = False
+        ActiveSheet.Shapes("Menu Etiqueta").Visible = False
+        ActiveSheet.Shapes("Menu Acotar").Visible = False
+        ActiveSheet.Shapes("Menu Color").Visible = False
+        ActiveSheet.Shapes("Menu ETO").Visible = False
+    End If
+End Sub
+Public Sub Seleccion_Menu_AccesoriosMTM()
+    Dim shp As Shape
+    Dim groupname As String
+    groupname = "Menu AccesoriosMTM"
+    
+    On Error Resume Next
+    Set shp = ActiveSheet.Shapes(groupname)
+    On Error GoTo 0
+    
+    If Not shp Is Nothing Then
+        ' Alterna la visibilidad del grupo seleccionado
+        shp.Visible = Not shp.Visible
+        ' Oculta los dem s grupos
+        ActiveSheet.Shapes("Menu Envolventes").Visible = False
+        ActiveSheet.Shapes("Menu UnidadFuncional").Visible = False
+        ActiveSheet.Shapes("Menu Lisas").Visible = False
+        ActiveSheet.Shapes("Menu Contactores").Visible = False
+        ActiveSheet.Shapes("Menu DPS").Visible = False
+        ActiveSheet.Shapes("Menu Equipo CTR").Visible = False
+        ActiveSheet.Shapes("Menu ACCESORIOS CTR").Visible = False
+        ActiveSheet.Shapes("Menu Equipos").Visible = False
+        ActiveSheet.Shapes("Menu Servicios").Visible = False
+        ActiveSheet.Shapes("Menu Placas de control").Visible = False
+        ActiveSheet.Shapes("Menu Compensacion").Visible = False
+        ActiveSheet.Shapes("Menu Barraje").Visible = False
+        ActiveSheet.Shapes("Menu Transferencias").Visible = False
+        ActiveSheet.Shapes("Menu Etiqueta").Visible = False
+        ActiveSheet.Shapes("Menu Acotar").Visible = False
+        ActiveSheet.Shapes("Menu Color").Visible = False
+        ActiveSheet.Shapes("Menu ETO").Visible = False
+    End If
+End Sub
+Public Sub Seleccion_Menu_Etiqueta()
+    Dim shp As Shape
+    Dim groupname As String
+    groupname = "Menu Etiqueta"
+    
+    On Error Resume Next
+    Set shp = ActiveSheet.Shapes(groupname)
+    On Error GoTo 0
+    
+    If Not shp Is Nothing Then
+        ' Alterna la visibilidad del grupo seleccionado
+        shp.Visible = Not shp.Visible
+        ' Oculta los dem s grupos
+        ActiveSheet.Shapes("Menu Envolventes").Visible = False
+        ActiveSheet.Shapes("Menu UnidadFuncional").Visible = False
+        ActiveSheet.Shapes("Menu Lisas").Visible = False
+        ActiveSheet.Shapes("Menu Contactores").Visible = False
+        ActiveSheet.Shapes("Menu DPS").Visible = False
+        ActiveSheet.Shapes("Menu Equipo CTR").Visible = False
+        ActiveSheet.Shapes("Menu ACCESORIOS CTR").Visible = False
+        ActiveSheet.Shapes("Menu Equipos").Visible = False
+        ActiveSheet.Shapes("Menu Servicios").Visible = False
+        ActiveSheet.Shapes("Menu Placas de control").Visible = False
+        ActiveSheet.Shapes("Menu Compensacion").Visible = False
+        ActiveSheet.Shapes("Menu Barraje").Visible = False
+        ActiveSheet.Shapes("Menu Transferencias").Visible = False
+        ActiveSheet.Shapes("Menu AccesoriosMTM").Visible = False
+        ActiveSheet.Shapes("Menu Acotar").Visible = False
+        ActiveSheet.Shapes("Menu Color").Visible = False
+        ActiveSheet.Shapes("Menu ETO").Visible = False
+    End If
+End Sub
+Public Sub Seleccion_Menu_Acotar()
+    Dim shp As Shape
+    Dim groupname As String
+    groupname = "Menu Acotar"
+    
+    On Error Resume Next
+    Set shp = ActiveSheet.Shapes(groupname)
+    On Error GoTo 0
+    
+    If Not shp Is Nothing Then
+        ' Alterna la visibilidad del grupo seleccionado
+        shp.Visible = Not shp.Visible
+        ' Oculta los dem s grupos
+        ActiveSheet.Shapes("Menu Envolventes").Visible = False
+        ActiveSheet.Shapes("Menu UnidadFuncional").Visible = False
+        ActiveSheet.Shapes("Menu Lisas").Visible = False
+        ActiveSheet.Shapes("Menu Contactores").Visible = False
+        ActiveSheet.Shapes("Menu DPS").Visible = False
+        ActiveSheet.Shapes("Menu Equipo CTR").Visible = False
+        ActiveSheet.Shapes("Menu ACCESORIOS CTR").Visible = False
+        ActiveSheet.Shapes("Menu Equipos").Visible = False
+        ActiveSheet.Shapes("Menu Servicios").Visible = False
+        ActiveSheet.Shapes("Menu Placas de control").Visible = False
+        ActiveSheet.Shapes("Menu Compensacion").Visible = False
+        ActiveSheet.Shapes("Menu Barraje").Visible = False
+        ActiveSheet.Shapes("Menu Transferencias").Visible = False
+        ActiveSheet.Shapes("Menu AccesoriosMTM").Visible = False
+        ActiveSheet.Shapes("Menu Etiqueta").Visible = False
+        ActiveSheet.Shapes("Menu Color").Visible = False
+        ActiveSheet.Shapes("Menu ETO").Visible = False
+    End If
+End Sub
+Public Sub Seleccion_Menu_Color()
+    Dim shp As Shape
+    Dim groupname As String
+    groupname = "Menu Color"
+    
+    On Error Resume Next
+    Set shp = ActiveSheet.Shapes(groupname)
+    On Error GoTo 0
+    
+    If Not shp Is Nothing Then
+        ' Alterna la visibilidad del grupo seleccionado
+        shp.Visible = Not shp.Visible
+        ' Oculta los dem s grupos
+        ActiveSheet.Shapes("Menu Envolventes").Visible = False
+        ActiveSheet.Shapes("Menu UnidadFuncional").Visible = False
+        ActiveSheet.Shapes("Menu Lisas").Visible = False
+        ActiveSheet.Shapes("Menu Contactores").Visible = False
+        ActiveSheet.Shapes("Menu DPS").Visible = False
+        ActiveSheet.Shapes("Menu Equipo CTR").Visible = False
+        ActiveSheet.Shapes("Menu ACCESORIOS CTR").Visible = False
+        ActiveSheet.Shapes("Menu Equipos").Visible = False
+        ActiveSheet.Shapes("Menu Servicios").Visible = False
+        ActiveSheet.Shapes("Menu Placas de control").Visible = False
+        ActiveSheet.Shapes("Menu Compensacion").Visible = False
+        ActiveSheet.Shapes("Menu Barraje").Visible = False
+        ActiveSheet.Shapes("Menu Transferencias").Visible = False
+        ActiveSheet.Shapes("Menu AccesoriosMTM").Visible = False
+        ActiveSheet.Shapes("Menu Etiqueta").Visible = False
+        ActiveSheet.Shapes("Menu Acotar").Visible = False
+        ActiveSheet.Shapes("Menu ETO").Visible = False
+    End If
+End Sub
+Public Sub Seleccion_Menu_ETO()
+    Dim shp As Shape
+    Dim groupname As String
+    groupname = "Menu ETO"
+    
+    On Error Resume Next
+    Set shp = ActiveSheet.Shapes(groupname)
+    On Error GoTo 0
+    
+    If Not shp Is Nothing Then
+        ' Alterna la visibilidad del grupo seleccionado
+        shp.Visible = Not shp.Visible
+        ' Oculta los dem s grupos
+        ActiveSheet.Shapes("Menu Envolventes").Visible = False
+        ActiveSheet.Shapes("Menu UnidadFuncional").Visible = False
+        ActiveSheet.Shapes("Menu Lisas").Visible = False
+        ActiveSheet.Shapes("Menu Contactores").Visible = False
+        ActiveSheet.Shapes("Menu DPS").Visible = False
+        ActiveSheet.Shapes("Menu Equipo CTR").Visible = False
+        ActiveSheet.Shapes("Menu ACCESORIOS CTR").Visible = False
+        ActiveSheet.Shapes("Menu Equipos").Visible = False
+        ActiveSheet.Shapes("Menu Servicios").Visible = False
+        ActiveSheet.Shapes("Menu Placas de control").Visible = False
+        ActiveSheet.Shapes("Menu Compensacion").Visible = False
+        ActiveSheet.Shapes("Menu Barraje").Visible = False
+        ActiveSheet.Shapes("Menu Transferencias").Visible = False
+        ActiveSheet.Shapes("Menu AccesoriosMTM").Visible = False
+        ActiveSheet.Shapes("Menu Etiqueta").Visible = False
+        ActiveSheet.Shapes("Menu Acotar").Visible = False
+        ActiveSheet.Shapes("Menu Color").Visible = False
+    End If
+End Sub
+Public Sub Limpiar_area_trabajo()
+    With ThisWorkbook.Sheets("DISENO")
+        .Range("BZ38:MX155").Clear
+
+        With .Range("A1:A4")
+            .NumberFormat = "General"
+            .ClearContents          ' borra el texto viejo que quedó como cadena
+        End With
+        .Range("A1").FormulaLocal = "=INICIO!DK89"
+        .Range("A2").FormulaLocal = "=INICIO!DK97"
+        .Range("A3").FormulaLocal = "=INICIO!DK105"
+        .Range("A4").FormulaLocal = "=SI(ESNUMERO(HALLAR("",30,"";"",""&INICIO!DK113&"",""));""30"";"""")"
+        .Range("A5").FormulaLocal = "=EXTRAE(SUSTITUIR("",""&A2&"","";"","";"";"");2;LARGO(SUSTITUIR("",""&A2&"","";"","";"";""))-2)"
+    End With
+
+End Sub
+Public Sub Liampiar_area_trabajo2()
+    ThisWorkbook.Sheets("DISENO").Range("NP82:QJ182").Clear
 End Sub
