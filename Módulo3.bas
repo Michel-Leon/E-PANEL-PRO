@@ -1,61 +1,121 @@
-Attribute VB_Name = "Módulo3"
-'=================================
-'ESCRIBIR CARACTERISTIOCAS DEL PRODUCTO
-'=================================
-Public MenuUnidades As String
-Public Sub Escribir_caracteristicas_TB()
-    Dim wsActual As Worksheet
-   Set wsActual = ThisWorkbook.Sheets("INICIO")
-    With wsActual
-        .Range("A1").Value = "true"
-        .Range("DK89").Value = "1600"
-        .Range("DK97").Value = "200,400,720"
-        .Range("DK105").Value = "400"
-        .Range("DK113").Value = "30,31"
-        .Range("DK134").Value = "630"
-        .Range("DK142").Value = "25"
-    End With
-  MenuUnidades = "Opcion1"
+Attribute VB_Name = "Mï¿½dulo3"
+Public Sub Puerta_Menu_Envolventes()
+    Dim shp As Shape
+    Dim groupname As String
+    groupname = "Menu Envolventes"
+    
+    On Error Resume Next
+    Set shp = ActiveSheet.Shapes(groupname)
+    On Error GoTo 0
+    
+    If Not shp Is Nothing Then
+        ' Alterna la visibilidad del grupo seleccionado
+        shp.Visible = Not shp.Visible
+        ' Oculta los dem s grupos
+        ActiveSheet.Shapes("Menu Placas de control").Visible = False
+        ActiveSheet.Shapes("Menu AccesoriosMTM").Visible = False
+        ActiveSheet.Shapes("Menu Etiqueta").Visible = False
+        ActiveSheet.Shapes("Menu Acotar").Visible = False
+        ActiveSheet.Shapes("Menu Color").Visible = False
+    End If
 End Sub
-Public Sub Escribir_caracteristicas_TC()
-    Dim wsActual As Worksheet
-   Set wsActual = ThisWorkbook.Sheets("INICIO")
-    With wsActual
-        .Range("A1").Value = "true"
-        .Range("DK89").Value = "1800,2000"
-        .Range("DK97").Value = "200,400,720"
-        .Range("DK105").Value = "400"
-        .Range("DK113").Value = "30, 31, 42, 54"
-        .Range("DK134").Value = "1250"
-        .Range("DK142").Value = "25-40"
-    End With
-    MenuUnidades = "Opcion1"
-End Sub
-Public Sub Escribir_caracteristicas_TM()
-    Dim wsActual As Worksheet
-     Set wsActual = ThisWorkbook.Sheets("INICIO")
-    With wsActual
-        .Range("A1").Value = "true"
-        .Range("DK89").Value = "1800,2000,2200"
-        .Range("DK97").Value = "200,400,720,800"
-        .Range("DK105").Value = "600,800,1000"
-        .Range("DK113").Value = "31,42,54,55,65"
-        .Range("DK134").Value = "<=4000"
-        .Range("DK142").Value = "40-65"
-    End With
-    MenuUnidades = "Opcion2"
-End Sub
-Public Sub Escribir_caracteristicas_TH()
-    Dim wsActual As Worksheet
-   Set wsActual = ThisWorkbook.Sheets("INICIO")
-    With wsActual
-        .Range("A1").Value = "true"
-        .Range("DK89").Value = "2000,2200"
-        .Range("DK97").Value = "400,720,1120"
-        .Range("DK105").Value = "1000,400+1000"
-        .Range("DK113").Value = "31,42,54"
-        .Range("DK134").Value = ">4000"
-        .Range("DK142").Value = "40-85"
-    End With
-    Menu2Unidades = "Opcion2"
-End Sub
+Public sub Puerta_Menu_Placas()
+    Dim shp As Shape
+    Dim groupname As String
+    groupname = "Menu Placas de control"
+    
+    On Error Resume Next
+    Set shp = ActiveSheet.Shapes(groupname)
+    On Error GoTo 0
+    
+    If Not shp Is Nothing Then
+        ' Alterna la visibilidad del grupo seleccionado
+        shp.Visible = Not shp.Visible
+        ' Oculta los dem s grupos
+        ActiveSheet.Shapes("Menu Envolventes").Visible = False
+        ActiveSheet.Shapes("Menu AccesoriosMTM").Visible = False
+        ActiveSheet.Shapes("Menu Etiqueta").Visible = False
+        ActiveSheet.Shapes("Menu Acotar").Visible = False
+        ActiveSheet.Shapes("Menu Color").Visible = False
+    End If
+End sub
+Public sub Puerta_Menu_AccesoriosMTM()
+    Dim shp As Shape
+    Dim groupname As String
+    groupname = "Menu AccesoriosMTM"
+    
+    On Error Resume Next
+    Set shp = ActiveSheet.Shapes(groupname)
+    On Error GoTo 0
+    
+    If Not shp Is Nothing Then
+        ' Alterna la visibilidad del grupo seleccionado
+        shp.Visible = Not shp.Visible
+        ' Oculta los dem s grupos
+        ActiveSheet.Shapes("Menu Envolventes").Visible = False
+        ActiveSheet.Shapes("Menu Placas de control").Visible = False
+        ActiveSheet.Shapes("Menu Etiqueta").Visible = False
+        ActiveSheet.Shapes("Menu Acotar").Visible = False
+        ActiveSheet.Shapes("Menu Color").Visible = False
+    End If
+End sub
+Public sub Puerta_Menu_Etiqueta()
+    Dim shp As Shape
+    Dim groupname As String
+    groupname = "Menu Etiqueta"
+    
+    On Error Resume Next
+    Set shp = ActiveSheet.Shapes(groupname)
+    On Error GoTo 0
+    
+    If Not shp Is Nothing Then
+        ' Alterna la visibilidad del grupo seleccionado
+        shp.Visible = Not shp.Visible
+        ' Oculta los dem s grupos
+        ActiveSheet.Shapes("Menu Envolventes").Visible = False
+        ActiveSheet.Shapes("Menu Placas de control").Visible = False
+        ActiveSheet.Shapes("Menu AccesoriosMTM").Visible = False
+        ActiveSheet.Shapes("Menu Acotar").Visible = False
+        ActiveSheet.Shapes("Menu Color").Visible = False
+    End If
+End sub
+public sub Puerta_Menu_Acotar()
+    Dim shp As Shape
+    Dim groupname As String
+    groupname = "Menu Acotar"
+    
+    On Error Resume Next
+    Set shp = ActiveSheet.Shapes(groupname)
+    On Error GoTo 0
+    
+    If Not shp Is Nothing Then
+        ' Alterna la visibilidad del grupo seleccionado
+        shp.Visible = Not shp.Visible
+        ' Oculta los dem s grupos
+        ActiveSheet.Shapes("Menu Envolventes").Visible = False
+        ActiveSheet.Shapes("Menu Placas de control").Visible = False
+        ActiveSheet.Shapes("Menu AccesoriosMTM").Visible = False
+        ActiveSheet.Shapes("Menu Etiqueta").Visible = False
+        ActiveSheet.Shapes("Menu Color").Visible = False
+    End If
+End sub
+public sub Puerta_Menu_Color()
+    Dim shp As Shape
+    Dim groupname As String
+    groupname = "Menu Color"
+    
+    On Error Resume Next
+    Set shp = ActiveSheet.Shapes(groupname)
+    On Error GoTo 0
+    
+    If Not shp Is Nothing Then
+        ' Alterna la visibilidad del grupo seleccionado
+        shp.Visible = Not shp.Visible
+        ' Oculta los dem s grupos
+        ActiveSheet.Shapes("Menu Envolventes").Visible = False
+        ActiveSheet.Shapes("Menu Placas de control").Visible = False
+        ActiveSheet.Shapes("Menu AccesoriosMTM").Visible = False
+        ActiveSheet.Shapes("Menu Etiqueta").Visible = False
+        ActiveSheet.Shapes("Menu Acotar").Visible = False
+    End If
+End sub

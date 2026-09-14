@@ -1,4 +1,4 @@
-Attribute VB_Name = "Módulo2"
+Attribute VB_Name = "Mï¿½dulo2"
 Public Sub Seleccion_Menu_Envolventes()
     Dim shp As Shape
     Dim groupname As String
@@ -578,21 +578,20 @@ Public Sub Seleccion_Menu_ETO()
     End If
 End Sub
 Public Sub Limpiar_area_trabajo()
-    With ThisWorkbook.Sheets("DISENO")
-        .Range("BZ38:MX155").Clear
-
-        With .Range("A1:A4")
+    With ThisWorkbook.Sheets("FrontalFM")
+        .Range("CG45:FI146").Clear
+        With .Range("A1:A5")
             .NumberFormat = "General"
-            .ClearContents          ' borra el texto viejo que quedó como cadena
+            .ClearContents          ' borra el texto viejo que quedï¿½ como cadena
         End With
-        .Range("A1").FormulaLocal = "=INICIO!DK89"
-        .Range("A2").FormulaLocal = "=INICIO!DK97"
-        .Range("A3").FormulaLocal = "=INICIO!DK105"
-        .Range("A4").FormulaLocal = "=SI(ESNUMERO(HALLAR("",30,"";"",""&INICIO!DK113&"",""));""30"";"""")"
-        .Range("A5").FormulaLocal = "=EXTRAE(SUSTITUIR("",""&A2&"","";"","";"";"");2;LARGO(SUSTITUIR("",""&A2&"","";"","";"";""))-2)"
+        .Range("A1").FormulaLocal = "=INICIO!GY56"
+        .Range("A2").FormulaLocal = "=INICIO!GY65 & "","" & INICIO!HP65 & "","" & INICIO!IG65"
+        .Range("A3").FormulaLocal = "=INICIO!GY74"
+        .Range("A4").FormulaLocal = "=VALOR(EXTRAE(INICIO!GY87;3;LARGO(INICIO!GY87)-2))"
+        .Range("A5").FormulaLocal = "=UNIRCADENAS("","";VERDADERO;SI(DIVIDIRTEXTO(A2;"","")=""200"";"""";DIVIDIRTEXTO(A2;"","")))"
     End With
 
 End Sub
 Public Sub Liampiar_area_trabajo2()
-    ThisWorkbook.Sheets("DISENO").Range("NP82:QJ182").Clear
+    ThisWorkbook.Sheets("FrontalFM").Range("KO83:NJ185").Clear
 End Sub

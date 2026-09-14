@@ -1,19 +1,10 @@
-'========================== DISENO TREN =======================
+'========================== FrontalFM TREN =======================
 Public Altura As String
 Public Ancho As String, AnchoLISAS As String
 Public Profundidad As String
 Public IP As String, Color As String
-'======================================================================
-'  UNIDAD FUNCIONAL (UF) - Cascada de combos ActiveX de la hoja
-'
-'      TipoUF --> FrameUF --+--> MedidaUF --> OrientacionUF
-'                           +--> CorrienteUF
-'
-'  La ORIENTACION depende de TipoUF + FrameUF + MEDIDA, por eso se
-'  llena en MedidaUF_Change y ya no dentro de FrameUF_Change.
-'
-'  REGLA NUEVA: si MedidaUF = "400" -> OrientacionUF = "Vertical"
-'======================================================================
+
+'UNIDAD FUNCIONAL (UF) 
     Private mbCargando As Boolean          'evita eventos en cascada
     '---------------------------------------------------------------- EVENTOS
     Private Sub TipoUF_Change()
@@ -22,7 +13,7 @@ Public IP As String, Color As String
         mbCargando = True
         LlenarFrame
         LlenarMando
-Fin:
+    Fin:
         mbCargando = False
         RecargarDesdeFrame                 'reconstruye Medida, Corriente y Orientacion
     End Sub
@@ -41,7 +32,7 @@ Fin:
         mbCargando = True
         LlenarMedida
         LlenarCorriente
-Fin:
+    Fin:
         mbCargando = False
         RecargarDesdeMedida                'antes llamaba solo a LlenarOrientacion
     End Sub
@@ -50,7 +41,7 @@ Fin:
             On Error GoTo Fin
             mbCargando = True
             LlenarFuncionalidad
-Fin:
+    Fin:
             mbCargando = False
             LlenarConexion
     End Sub
@@ -63,7 +54,7 @@ Fin:
             mbCargando = True
             LlenarOrientacion
             LlenarFuncionalidad
-Fin:
+    Fin:
             mbCargando = False
             LlenarConexion
     End Sub
@@ -93,7 +84,7 @@ Fin:
         .Clear
         Select Case sTipo
             Case "SFI - Frontal Interno", "SFC - Frontal Compacto"
-                If MenuUnidades = "Opcion1" Then
+                'If MenuUnidades = "Opcion1" Then
                     .AddItem "MiniBreaker"
                     .AddItem "EZC100"
                     .AddItem "EZC250"
@@ -110,31 +101,31 @@ Fin:
                     .AddItem "GoPact250"
                     .AddItem "GoPact400"
                     .AddItem "GoPact800"
-                ElseIf MenuUnidades = "Opcion2" Then
-                .AddItem "EZC250"
-                .AddItem "EZC630"
-                .AddItem "CVS100"
-                .AddItem "CVS250"
-                .AddItem "CVS630"
-                .AddItem "NSX100"
-                .AddItem "NSX250"
-                .AddItem "NSX630"
-                .AddItem "NS800_1250"
-                .AddItem "NS800_1600"
-                .AddItem "GoPact150"
-                .AddItem "GoPact200"
-                .AddItem "GoPact250"
-                .AddItem "GoPact400"
-                .AddItem "GoPact800"
-                .AddItem "NWFIJO"
-                .AddItem "NWEXTRAIBLE"
-                .AddItem "MTZFIJO"
-                .AddItem "MTZEXTRAIBLE"
-                .AddItem "MVSFIJO"
-                .AddItem "MVSEXTRAIBLE"
-                End If
+                'ElseIf MenuUnidades = "Opcion2" Then
+                '.AddItem "EZC250"
+                '.AddItem "EZC630"
+                '.AddItem "CVS100"
+                '.AddItem "CVS250"
+                '.AddItem "CVS630"
+                '.AddItem "NSX100"
+                '.AddItem "NSX250"
+                '.AddItem "NSX630"
+                '.AddItem "NS800_1250"
+                '.AddItem "NS800_1600"
+                '.AddItem "GoPact150"
+                '.AddItem "GoPact200"
+                '.AddItem "GoPact250"
+                '.AddItem "GoPact400"
+                '.AddItem "GoPact800"
+                '.AddItem "NWFIJO"
+                '.AddItem "NWEXTRAIBLE"
+                '.AddItem "MTZFIJO"
+                '.AddItem "MTZEXTRAIBLE"
+                '.AddItem "MVSFIJO"
+                '.AddItem "MVSEXTRAIBLE"
+               'End If
             Case "SIA - Integral Abatible"
-            If MenuUnidades = "Opcion1" Then
+            'If MenuUnidades = "Opcion1" Then
             .AddItem "EZC100"
             .AddItem "EZC250"
             .AddItem "CVS100"
@@ -142,34 +133,34 @@ Fin:
             .AddItem "CVS630"
             .AddItem "NSX250"
             .AddItem "NSX630"
-            ElseIf MenuUnidades = "Opcion2" Then
-            .AddItem "EZC100"
-            .AddItem "EZC250"
-            .AddItem "CVS100"
-            .AddItem "CVS250"
-            .AddItem "CVS630"
-            .AddItem "NSX250"
-            .AddItem "NSX630"
-            .AddItem "NS800_1600"
-            .AddItem "NWFIJO"
-            .AddItem "NWEXTRAIBLE"
-            .AddItem "MTZFIJO"
-            .AddItem "MTZEXTRAIBLE"
-            .AddItem "MVSFIJO"
-            .AddItem "MVSEXTRAIBLE"
-            End If
+           ' ElseIf MenuUnidades = "Opcion2" Then
+           ' .AddItem "EZC100"
+            '.AddItem "EZC250"
+            '.AddItem "CVS100"
+            '.AddItem "CVS250"
+            '.AddItem "CVS630"
+            '.AddItem "NSX250"
+            '.AddItem "NSX630"
+            '.AddItem "NS800_1600"
+            '.AddItem "NWFIJO"
+            '.AddItem "NWEXTRAIBLE"
+            '.AddItem "MTZFIJO"
+            '.AddItem "MTZEXTRAIBLE"
+            '.AddItem "MVSFIJO"
+            '.AddItem "MVSEXTRAIBLE"
+            'End If
             Case "SFA - Fijo Atornillado"
-        If MenuUnidades = "Opcion1" Then
-        .AddItem "EZC100"
-        .AddItem "EZC250"
-        .AddItem "CVS100"
-        .AddItem "CVS250"
-        .AddItem "CVS630"
-        .AddItem "NSX250"
-        .AddItem "NSX630"
-        ElseIf MenuUnidades = "Opcion2" Then
-        .AddItem "NS800_1600"
-        End If
+       ' If MenuUnidades = "Opcion1" Then
+            .AddItem "EZC100"
+            .AddItem "EZC250"
+            .AddItem "CVS100"
+            .AddItem "CVS250"
+            .AddItem "CVS630"
+            .AddItem "NSX250"
+            .AddItem "NSX630"
+       ' ElseIf MenuUnidades = "Opcion2" Then
+        '.AddItem "NS800_1600"
+       ' End If
         End Select
         If .ListCount = 1 Then .ListIndex = 0
         End With
@@ -220,44 +211,33 @@ Fin:
         With cbo("CorrienteUF")
             .Clear
             Select Case sFrame
-
                 Case "MiniBreaker"
                     .AddItem "1-63A"
-
                 Case "EZC100", "CVS100", "NSX100"
                     .AddItem "100A"
-
                 Case "GoPact150"
                     .AddItem "100A"
                     .AddItem "125A"
                     .AddItem "150A"
-
                 Case "GoPact200"
                     .AddItem "200A"
-
                 Case "EZC250", "CVS250", "NSX250", "GoPact250"
                     .AddItem "250A"
-
                 Case "GoPact400"
                     .AddItem "400A"
-
                 Case "EZC630", "CVS630", "NSX630"
                     .AddItem "400A"
                     .AddItem "630A"
-
                 Case "GoPact800"
                     .AddItem "630A"
                     .AddItem "800A"
-
                 Case "NS800_1250"
                     .AddItem "800A"
                     .AddItem "1250A"
-
                 Case "NS800_1600"                  'CORREGIDO: antes compartia lista con GoPact150
                     .AddItem "800A"
                     .AddItem "1250A"
                     .AddItem "1600A"
-
                 Case "NWFIJO", "NWEXTRAIBLE", "MTZFIJO", "MTZEXTRAIBLE", _
                     "MVSFIJO", "MVSEXTRAIBLE"
                     .AddItem "800A"
@@ -266,7 +246,6 @@ Fin:
                     .AddItem "3200A"
                     .AddItem "4000A"
             End Select
-
             If .ListCount = 1 Then .ListIndex = 0
         End With
     End Sub
@@ -320,11 +299,11 @@ Fin:
                                 .AddItem "Vertical"
                             Case "CVS100", "NSX100"
                                 .AddItem "V.Compacta"
-                            Case "GoPact150"                'CORREGIDO: antes decia "GoPact100"
+                            Case "GoPact150" ,"EZC100"               'CORREGIDO: antes decia "GoPact100"
                                 .AddItem "Horizontal"
                                 .AddItem "H.Compuesta"
                                 .AddItem "V.Compacta"
-                            Case "EZC100", "EZC250", "CVS250", "NSX250", _
+                            Case "EZC250", "CVS250", "NSX250", _
                                 "GoPact200", "GoPact250"
                                 .AddItem "Horizontal"
                                 .AddItem "H.Compuesta"
@@ -620,7 +599,7 @@ Fin:
             .Clear
             Select Case dato
                 Case "A-Unit"
-                .AddItem "Iluminaci�n"
+                .AddItem "Iluminación"
                 .AddItem "Cambio Tension"
                 .AddItem "Batery.ST"
                 .AddItem "Pont I/O"
@@ -679,7 +658,7 @@ Fin:
         With Me.OLEObjects("EquipoPC").Object
             .Clear
             Select Case dato2
-                Case "Peque�a"
+                Case "Pequeña"
                     If dato1 = "Lateral" Then
                         .AddItem "Liso"
                     ElseIf dato1 = "Frontal" Then
@@ -1276,7 +1255,7 @@ Public Sub Worksheet_Activate()
     '============== PLACAS DE CONTROL ===================
         With Me.OLEObjects("TamanoPC").Object
             .Clear
-            .AddItem "Peque�a"
+            .AddItem "Pequeña"
             '.AddItem "Mediana"
             .AddItem "Grande"
         End With
@@ -1329,7 +1308,7 @@ Public Sub Worksheet_Activate()
             .AddItem "Ventilador_Frontal"
             .AddItem "Ventilador_Superior"
             .AddItem "Ventilador_Lateral"
-            .AddItem "Celosidas_Peque�a"
+            .AddItem "Celosidas_Pequeña"
             .AddItem "Celosidas_Grande"
             .AddItem "Chapa_Antivandalica"
         End With
@@ -1405,9 +1384,9 @@ Public Sub Extraer_datos()
 End Sub
 Public Sub Envolventes()
     '========================
-        Celda = "NS82"
-        ThisWorkbook.Sheets("DISENO").Range("NP82:QJ182").Clear
-        Set wsActual = ThisWorkbook.Sheets("DISENO")
+        Celda = "KR83"
+        ThisWorkbook.Sheets("FrontalFM").Range("KR83:NJ185").Clear
+        Set wsActual = ThisWorkbook.Sheets("FrontalFM")
     '========================
     Dim dato1 As String, dato2 As String
     dato1 = Me.OLEObjects("AlturaENV").Object.Value
@@ -1417,9 +1396,9 @@ Public Sub Envolventes()
 End Sub
 Public Sub UnidadesFuncionales()
     '========================
-        Celda = "NS132"
-        ThisWorkbook.Sheets("DISENO").Range("NP82:QJ182").Clear
-        Set wsActual = ThisWorkbook.Sheets("DISENO")
+        Celda = "KP132"
+        ThisWorkbook.Sheets("FrontalFM").Range("KR83:NJ185").Clear
+        Set wsActual = ThisWorkbook.Sheets("FrontalFM")
     '========================
     Dim dato1 As String, dato2 As String, dato3 As String, dato4 As String
     Dim dato5 As String, dato6 As String
@@ -1439,7 +1418,7 @@ Public Sub UnidadesFuncionales()
         Case "H.Compuesta": dato4 = "HC"
         Case "Vertical": dato4 = "V"
         Case "V.Extendida": dato4 = "VE"
-        Case "V.Compuesta": dato4 = "VC"
+        Case "V.Compacta": dato4 = "VC"
     End Select
     dato5 = Me.OLEObjects("ConexionUF").Object.Value
     Select Case dato5
@@ -1454,14 +1433,14 @@ Public Sub UnidadesFuncionales()
     End Select
 
     ResultadoUF = dato1 & dato2 & dato6 & "X" & dato3 & dato4 & dato5
-    MsgBox ResultadoUF
+    'MsgBox ResultadoUF
     MoverBloque ResultadoUF, "UF-SFI", wsActual, Celda
 End Sub
 Public Sub Unidades_funcionales_lisas()
     '========================
-        Celda = "NS132"
-        ThisWorkbook.Sheets("DISENO").Range("NP82:QJ182").Clear
-        Set wsActual = ThisWorkbook.Sheets("DISENO")
+        Celda = "KP132"
+        ThisWorkbook.Sheets("FrontalFM").Range("KR83:NJ185").Clear
+        Set wsActual = ThisWorkbook.Sheets("FrontalFM")
     '========================
     Dim dato1 As String, dato2 As String, dato3 As String
     dato1 = Me.OLEObjects("TipoLSS").Object.Value
@@ -1478,9 +1457,9 @@ Public Sub Unidades_funcionales_lisas()
 End Sub
 Public Sub Contactores()
     '========================
-        Celda = "NS132"
-        ThisWorkbook.Sheets("DISENO").Range("NP82:QJ182").Clear
-        Set wsActual = ThisWorkbook.Sheets("DISENO")
+        Celda = "KP132"
+        ThisWorkbook.Sheets("FrontalFM").Range("KR83:NJ185").Clear
+        Set wsActual = ThisWorkbook.Sheets("FrontalFM")
     '========================
 
     Select Case CStr(Me.OLEObjects("EquipoCT").Object.Value & "")
@@ -1509,9 +1488,9 @@ Public Sub Contactores()
 End Sub
 Public Sub DPS()
     '========================
-        Celda = "NS132"
-        ThisWorkbook.Sheets("DISENO").Range("NP82:QJ182").Clear
-        Set wsActual = ThisWorkbook.Sheets("DISENO")
+        Celda = "KP132"
+        ThisWorkbook.Sheets("FrontalFM").Range("KR83:NJ185").Clear
+        Set wsActual = ThisWorkbook.Sheets("FrontalFM")
     '========================
     Dim dato1 As String, dato2 As String, dato3 As String, dato4 As String, dato5 As String
     dato1 = Me.OLEObjects("TipoUNDPS").Object.Value
@@ -1541,9 +1520,9 @@ Public Sub DPS()
 End Sub
 Public Sub Equipos_Control()
     '========================
-        Celda = "NS132"
-        ThisWorkbook.Sheets("DISENO").Range("NP82:QJ182").Clear
-        Set wsActual = ThisWorkbook.Sheets("DISENO")
+        Celda = "KP132"
+        ThisWorkbook.Sheets("FrontalFM").Range("KR83:NJ185").Clear
+        Set wsActual = ThisWorkbook.Sheets("FrontalFM")
     '========================
     Dim dato1 As String, dato2 As String
     dato1 = Me.OLEObjects("EquipoCTR").Object.Value
@@ -1553,9 +1532,9 @@ Public Sub Equipos_Control()
 End Sub
 Public Sub Accesorios_CTR()
     '========================
-        Celda = "NS132"
-        ThisWorkbook.Sheets("DISENO").Range("NP82:QJ182").Clear
-        Set wsActual = ThisWorkbook.Sheets("DISENO")
+        Celda = "KP132"
+        ThisWorkbook.Sheets("FrontalFM").Range("KR83:NJ185").Clear
+        Set wsActual = ThisWorkbook.Sheets("FrontalFM")
     '========================
     Dim dato1 As String, dato2 As String
     dato1 = Me.OLEObjects("ElementoCTR").Object.Value
@@ -1572,9 +1551,9 @@ Public Sub Accesorios_CTR()
 End Sub
 Public Sub Unidades_ETO()
     '========================
-        Celda = "NS132"
-        ThisWorkbook.Sheets("DISENO").Range("NP82:QJ182").Clear
-        Set wsActual = ThisWorkbook.Sheets("DISENO")
+        Celda = "KP132"
+        ThisWorkbook.Sheets("FrontalFM").Range("KR83:NJ185").Clear
+        Set wsActual = ThisWorkbook.Sheets("FrontalFM")
     '========================
     Dim dato1 As String, dato2 As String
 
@@ -1586,9 +1565,9 @@ Public Sub Unidades_ETO()
 End Sub
 Public Sub Equipo_Individual()
     '========================
-        Celda = "NS132"
-        ThisWorkbook.Sheets("DISENO").Range("NP82:QJ182").Clear
-        Set wsActual = ThisWorkbook.Sheets("DISENO")
+        Celda = "KP132"
+        ThisWorkbook.Sheets("FrontalFM").Range("KR83:NJ185").Clear
+        Set wsActual = ThisWorkbook.Sheets("FrontalFM")
     '========================
     Dim dato1 As String
     dato1 = Me.OLEObjects("EquipoIND").Object.Value
@@ -1597,9 +1576,9 @@ Public Sub Equipo_Individual()
 End Sub
 Public Sub Servicios_Auxiliares()
     '========================
-        Celda = "NS132"
-        ThisWorkbook.Sheets("DISENO").Range("NP82:QJ182").Clear
-        Set wsActual = ThisWorkbook.Sheets("DISENO")
+        Celda = "KP132"
+        ThisWorkbook.Sheets("FrontalFM").Range("KR83:NJ185").Clear
+        Set wsActual = ThisWorkbook.Sheets("FrontalFM")
     '========================
     Dim dato1 As String, dato2 As String, dato3 As String, dato4 As String
     dato1 = Me.OLEObjects("MontajeSV").Object.Value
@@ -1624,14 +1603,14 @@ Public Sub Servicios_Auxiliares()
 End Sub
 Public Sub Placas_Control()
     '========================
-        Celda = "NS132"
-        ThisWorkbook.Sheets("DISENO").Range("NP82:QJ182").Clear
-        Set wsActual = ThisWorkbook.Sheets("DISENO")
+        Celda = "KP120"
+        ThisWorkbook.Sheets("FrontalFM").Range("KR83:NJ185").Clear
+        Set wsActual = ThisWorkbook.Sheets("FrontalFM")
     '========================
     Dim dato1 As String, dato2 As String, dato3 As String, dato4 As String
     dato1 = Me.OLEObjects("TamanoPC").Object.Value
     Select Case dato1
-        Case "Peque�a": dato1 = "PQ"
+        Case "Pequeña": dato1 = "PQ"
         Case "Grande": dato1 = "GD"
         Case "Mediana": dato1 = "MD"
     End Select
@@ -1666,9 +1645,9 @@ Public Sub Placas_Control()
 End Sub
 Public Sub Compensacion()
     '========================
-        Celda = "NU107"
-        ThisWorkbook.Sheets("DISENO").Range("NP82:QJ182").Clear
-        Set wsActual = ThisWorkbook.Sheets("DISENO")
+        Celda = "KP107"
+        ThisWorkbook.Sheets("FrontalFM").Range("KR83:NJ185").Clear
+        Set wsActual = ThisWorkbook.Sheets("FrontalFM")
     '========================
     Dim dato1 As String, dato2 As String, dato3 As String
     dato1 = Me.OLEObjects("EquipoCOM").Object.Value
@@ -1679,9 +1658,9 @@ Public Sub Compensacion()
 End Sub
 Public Sub BARRAS()
     '========================
-        Celda = "NS104"
-        ThisWorkbook.Sheets("DISENO").Range("NP82:QJ182").Clear
-        Set wsActual = ThisWorkbook.Sheets("DISENO")
+        Celda = "KP104"
+        ThisWorkbook.Sheets("FrontalFM").Range("KR83:NJ185").Clear
+        Set wsActual = ThisWorkbook.Sheets("FrontalFM")
     '========================
     Dim dato1 As String, dato2 As String, dato3 As String
     dato1 = Me.OLEObjects("OrientacionBRR").Object.Value
@@ -1697,9 +1676,9 @@ Public Sub BARRAS()
 End Sub
 Public Sub Transferencia()
     '========================
-        Celda = "NU127"
-        ThisWorkbook.Sheets("DISENO").Range("NP82:QJ182").Clear
-        Set wsActual = ThisWorkbook.Sheets("DISENO")
+        Celda = "KP127"
+        ThisWorkbook.Sheets("FrontalFM").Range("KR83:NJ185").Clear
+        Set wsActual = ThisWorkbook.Sheets("FrontalFM")
     '========================
     Dim dato1 As String, dato2 As String, dato3 As String, dato4 As String, dato5 As String, dato6 As String
     dato1 = Me.OLEObjects("TipoUnidadTRF").Object.Value
@@ -1731,9 +1710,9 @@ Public Sub Transferencia()
 End Sub
 Public Sub ACESORIOS_MTM()
     '========================
-        Celda = "NS104"
-        ThisWorkbook.Sheets("DISENO").Range("NP82:QJ182").Clear
-        Set wsActual = ThisWorkbook.Sheets("DISENO")
+        Celda = "KP104"
+        ThisWorkbook.Sheets("FrontalFM").Range("KR83:NJ185").Clear
+        Set wsActual = ThisWorkbook.Sheets("FrontalFM")
     '========================
     Dim dato1 As String, dato2 As String
     dato1 = Me.OLEObjects("TipoACC").Object.Value
@@ -1743,9 +1722,9 @@ Public Sub ACESORIOS_MTM()
 End Sub
 Public Sub ETIQUETAS()
     '========================
-        Celda = "NS104"
-        ThisWorkbook.Sheets("DISENO").Range("NP82:QJ182").Clear
-        Set wsActual = ThisWorkbook.Sheets("DISENO")
+        Celda = "KP104"
+        ThisWorkbook.Sheets("FrontalFM").Range("KR83:NJ185").Clear
+        Set wsActual = ThisWorkbook.Sheets("FrontalFM")
     '========================
     Dim dato1 As String, dato2 As String, dato3 As String
     dato2 = Me.OLEObjects("Dato3ETQ").Object.Value
@@ -1772,9 +1751,9 @@ Public Sub ETIQUETAS()
 End Sub
 Public Sub COTAS()
     '========================
-        Celda = "NS104"
-        ThisWorkbook.Sheets("DISENO").Range("NP82:QJ182").Clear
-        Set wsActual = ThisWorkbook.Sheets("DISENO")
+        Celda = "KP104"
+        ThisWorkbook.Sheets("FrontalFM").Range("KR83:NJ185").Clear
+        Set wsActual = ThisWorkbook.Sheets("FrontalFM")
     '========================
     Dim dato1 As String
     dato1 = Me.OLEObjects("CotasDIBUJO").Object.Value
