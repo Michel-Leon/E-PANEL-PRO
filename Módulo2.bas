@@ -589,7 +589,7 @@ Public Sub Limpiar_area_trabajo()
         .Range("A2").FormulaLocal = "=INICIO!DK97"
         .Range("A3").FormulaLocal = "=INICIO!DK105"
         .Range("A4").FormulaLocal = "=SI(ESNUMERO(HALLAR("",30,"";"",""&INICIO!DK113&"",""));""30"";"""")"
-        .Range("A5").FormulaLocal = "=EXTRAE(SUSTITUIR("",""&A2&"","";"","";"";"");2;LARGO(SUSTITUIR("",""&A2&"","";"","";"";""))-2)"
+        .Range("A5").FormulaLocal = "=EXTRAE(SUSTITUIR("",""&A2&"","";"",200,"";"","");2;LARGO(SUSTITUIR("",""&A2&"","";"",200,"";"",""))-2)"
     End With
 
 End Sub

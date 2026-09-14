@@ -93,7 +93,18 @@ Public IP as string, Color as string
         .Clear
         Select Case sTipo
             Case "SFI - Frontal Interno", "SFC - Frontal Compacto"
-                If MenuUnidades = "Opcion1" Then
+                If MenuUnidades = "Opcion0" Then
+                    .AddItem "MiniBreaker"
+                    .AddItem "EZC100"
+                    .AddItem "EZC250"
+                    .AddItem "EZC630"
+                    .AddItem "CVS100"
+                    .AddItem "CVS250"
+                    .AddItem "CVS630"
+                    .AddItem "NSX100"
+                    .AddItem "NSX250"
+                    .AddItem "NSX630"
+                elseIf MenuUnidades = "Opcion1" Then
                     .AddItem "MiniBreaker"
                     .AddItem "EZC100"
                     .AddItem "EZC250"
@@ -111,65 +122,72 @@ Public IP as string, Color as string
                     .AddItem "GoPact400"
                     .AddItem "GoPact800"
                 ElseIf MenuUnidades = "Opcion2" Then
-                .AddItem "EZC250"
-                .AddItem "EZC630"
-                .AddItem "CVS100"
-                .AddItem "CVS250"
-                .AddItem "CVS630"
-                .AddItem "NSX100"
-                .AddItem "NSX250"
-                .AddItem "NSX630"
-                .AddItem "NS800_1250"
-                .AddItem "NS800_1600"
-                .AddItem "GoPact150"
-                .AddItem "GoPact200"
-                .AddItem "GoPact250"
-                .AddItem "GoPact400"
-                .AddItem "GoPact800"
-                .AddItem "NWFIJO"
-                .AddItem "NWEXTRAIBLE"
-                .AddItem "MTZFIJO"
-                .AddItem "MTZEXTRAIBLE"
-                .AddItem "MVSFIJO"
-                .AddItem "MVSEXTRAIBLE"
+                    .AddItem "EZC250"
+                    .AddItem "EZC630"
+                    .AddItem "CVS100"
+                    .AddItem "CVS250"
+                    .AddItem "CVS630"
+                    .AddItem "NSX100"
+                    .AddItem "NSX250"
+                    .AddItem "NSX630"
+                    .AddItem "NS800_1250"
+                    .AddItem "NS800_1600"
+                    .AddItem "GoPact150"
+                    .AddItem "GoPact200"
+                    .AddItem "GoPact250"
+                    .AddItem "GoPact400"
+                    .AddItem "GoPact800"
+                    .AddItem "NWFIJO"
+                    .AddItem "NWEXTRAIBLE"
+                    .AddItem "MTZFIJO"
+                    .AddItem "MTZEXTRAIBLE"
+                    .AddItem "MVSFIJO"
+                    .AddItem "MVSEXTRAIBLE"
                 End If
             Case "SIA - Integral Abatible"
-            If MenuUnidades= "Opcion1" Then
-            .AddItem "EZC100"
-            .AddItem "EZC250"
-            .AddItem "CVS100"
-            .AddItem "CVS250"
-            .AddItem "CVS630"
-            .AddItem "NSX250"
-            .AddItem "NSX630"
-            ElseIf MenuUnidades = "Opcion2" Then
-            .AddItem "EZC100"
-            .AddItem "EZC250"
-            .AddItem "CVS100"
-            .AddItem "CVS250"
-            .AddItem "CVS630"
-            .AddItem "NSX250"
-            .AddItem "NSX630"
-            .AddItem "NS800_1600"
-            .AddItem "NWFIJO"
-            .AddItem "NWEXTRAIBLE"
-            .AddItem "MTZFIJO"
-            .AddItem "MTZEXTRAIBLE"
-            .AddItem "MVSFIJO"
-            .AddItem "MVSEXTRAIBLE"
-            End If
+                If MenuUnidades= "Opcion1" or MenuUnidades= "Opcion0" Then
+                    .AddItem "EZC100"
+                    .AddItem "EZC250"
+                    .AddItem "CVS100"
+                    .AddItem "CVS250"
+                    .AddItem "CVS630"
+                    .AddItem "NSX250"
+                    .AddItem "NSX630"
+                ElseIf MenuUnidades = "Opcion2" Then
+                    .AddItem "EZC100"
+                    .AddItem "EZC250"
+                    .AddItem "CVS100"
+                    .AddItem "CVS250"
+                    .AddItem "CVS630"
+                    .AddItem "NSX250"
+                    .AddItem "NSX630"
+                    .AddItem "NS800_1600"
+                    .AddItem "NWFIJO"
+                    .AddItem "NWEXTRAIBLE"
+                    .AddItem "MTZFIJO"
+                    .AddItem "MTZEXTRAIBLE"
+                    .AddItem "MVSFIJO"
+                    .AddItem "MVSEXTRAIBLE"
+                End If
             case "SFA - Fijo Atornillado"
-        If MenuUnidades= "Opcion1" Then
-        .AddItem "EZC100"
-        .AddItem "EZC250"
-        .AddItem "CVS100"
-        .AddItem "CVS250"
-        .AddItem "CVS630"
-        .AddItem "NSX250"
-        .AddItem "NSX630" 
-        ElseIf MenuUnidades = "Opcion2" Then
-        .AddItem "NS800_1600" 
-        End If    
+                If MenuUnidades= "Opcion1" or MenuUnidades= "Opcion0" Then
+                    .AddItem "EZC100"
+                    .AddItem "EZC250"
+                    .AddItem "CVS100"
+                    .AddItem "CVS250"
+                    .AddItem "CVS630"
+                    .AddItem "NSX250"
+                    .AddItem "NSX630" 
+                ElseIf MenuUnidades = "Opcion2" Then
+                    .AddItem "EZC100"
+                    .AddItem "EZC250"
+                    .AddItem "CVS100"
+                    .AddItem "CVS250"
+                    .AddItem "CVS630"
+                    .AddItem "NSX250"
+                    .AddItem "NSX630"    
+                    .AddItem "NS800_1600" 
+                End If    
         End Select
         If .ListCount = 1 Then .ListIndex = 0
         End With
@@ -314,29 +332,54 @@ Public IP as string, Color as string
                         .AddItem "Horizontal"
                     Case Else       'SFI - Frontal Interno / SFC - Frontal Compacto
                         Select Case sFrame
-                            Case "MiniBreaker", _
-                                "NWFIJO", "NWEXTRAIBLE", "MTZFIJO", "MTZEXTRAIBLE", _
+                            '--- Solo Vertical -------------------------------------------------
+                            Case "MiniBreaker", "Guardamotor", "NS800_1250", _
+                                "NWFIJO", "NWEXTRAIBLE", _
+                                "MTZFIJO", "MTZEXTRAIBLE", _
                                 "MVSFIJO", "MVSEXTRAIBLE"
                                 .AddItem "Vertical"
+
+                            '--- Vertical + V.Compacta -----------------------------------------
                             Case "CVS100", "NSX100"
+                                .AddItem "Vertical"
                                 .AddItem "V.Compacta"
-                            Case "GoPact150"                'CORREGIDO: antes decia "GoPact100"
-                                .AddItem "Horizontal"
-                                .AddItem "H.Compuesta"
-                                .AddItem "V.Compacta"
-                            Case "EZC100", "EZC250", "CVS250", "NSX250", _
-                                "GoPact200", "GoPact250"
-                                .AddItem "Horizontal"
-                                .AddItem "H.Compuesta"
-                                .AddItem "V.Extendida"
-                            Case "GoPact400"
-                                .AddItem "Horizontal"
-                                .AddItem "H.Compuesta"
-                            Case "CVS630", "NSX630", "NS800_1250", "NS800_1600"
-                                .AddItem "Horizontal"
-                                .AddItem "V.Extendida"
+
+                            '--- Vertical + Horizontal -----------------------------------------
                             Case "EZC630", "GoPact800"
+                                .AddItem "Vertical"
                                 .AddItem "Horizontal"
+
+                            '--- Vertical + Horizontal + H.Compuesta ---------------------------
+                            Case "GoPact400"
+                                .AddItem "Vertical"
+                                .AddItem "Horizontal"
+                                .AddItem "H.Compuesta"
+
+                            '--- Vertical + Horizontal + V.Extendida ---------------------------
+                            Case "CVS630", "NSX630"
+                                .AddItem "Vertical"
+                                .AddItem "Horizontal"
+                                .AddItem "V.Extendida"
+
+                            '--- Horizontal + V.Extendida (sin Vertical) -----------------------
+                            Case "NS800_1600"
+                                .AddItem "Horizontal"
+                                .AddItem "V.Extendida"
+
+                            '--- Vertical + Horizontal + V.Compacta + H.Compuesta --------------
+                            Case "EZC100", "GoPact150"          'GoPact150 = filas "GoPact100" de la tabla
+                                .AddItem "Vertical"
+                                .AddItem "Horizontal"
+                                .AddItem "V.Compacta"
+                                .AddItem "H.Compuesta"
+
+                            '--- Vertical + Horizontal + V.Extendida + H.Compuesta -------------
+                            Case "EZC250", "CVS250", "NSX250", _
+                                "GoPact200", "GoPact250"
+                                .AddItem "Vertical"
+                                .AddItem "Horizontal"
+                                .AddItem "V.Extendida"
+                                .AddItem "H.Compuesta"
                         End Select
                 End Select
             End If
@@ -683,7 +726,7 @@ Public IP as string, Color as string
                     if dato1 = "Lateral" then
                         .AddItem "Liso" 
                     elseif dato1 = "Frontal" then
-                        .AddItem "Liso"
+                        '.AddItem "Liso"
                         .AddItem "PM"
                         '.AddItem "ATS PREMIUM"
                         '.AddItem "ATS ESTANDAR"
@@ -693,7 +736,7 @@ Public IP as string, Color as string
                     if dato1 = "Lateral" then
                         .AddItem "Liso" 
                     elseif dato1 = "Frontal" then  
-                        .AddItem "Liso"
+                        '.AddItem "Liso"
                         .AddItem "ATS PREMIUM"
                         .AddItem "ATS ESTANDAR"
                         .AddItem "ATS BASICA"
@@ -702,7 +745,7 @@ Public IP as string, Color as string
                     if dato1 = "Lateral" then   
                         .AddItem "Liso" 
                     elseif dato1 = "Frontal" then  
-                        .AddItem "Liso" 
+                        '.AddItem "Liso" 
                         .AddItem "ATL600"
                         .AddItem "DCRL5"
                         .AddItem "Rapidus"
@@ -825,8 +868,12 @@ Public IP as string, Color as string
                 case "Horizontal Tierra Neutro"   
                     .AddItem "NA" 
                 case "Vertical Bus Bar"
-                    .AddItem "1250A"   
+                    IF MenuUnidades = "Opcion1" or MenuUnidades = "Opcion0" Then
+                    .AddItem "1250A"  
+                    elseif MenuUnidades = "Opcion2" Then
+                    .AddItem "1250A"
                     .AddItem "1600A"
+                    end if
             end select
         end with
     end sub 
@@ -853,10 +900,16 @@ Public IP as string, Color as string
                 Case "Vertical Bus Bar"
                     select case dato2
                         case "1250A"
+                            if MenuUnidades = "Opcion0" Then
                             .AddItem "1600"
+                            elseif MenuUnidades = "Opcion1" Then
+                            .AddItem "1800"
+                            .AddItem "2000"
+                            elseif MenuUnidades = "Opcion2" Then
                             .AddItem "1800"
                             .AddItem "2000"
                             .AddItem "2200"
+                            end if
                         case "1600A"
                             .AddItem "1800"
                             .AddItem "2000"
@@ -938,7 +991,7 @@ Public IP as string, Color as string
                     .AddItem "600"
                 case "Cancamo_Frontal", "Cancamo_Lateral","Celosidas_Grande","Celosidas_Pequeña", _
                         "Chapa_Antivandalica","Hablador_Lateral","Angulo_Frontal","Angulo Lateral", _
-                        "Cubierta Frontal"
+                        "Cubierta Frontal","Ventilador_Frontal","Cubierta_Frontal"
                     .AddItem "NA" 
                 case else
                     .AddItem "No se reconoce"  
@@ -1317,18 +1370,18 @@ Public Sub Worksheet_Activate()
         with Me.OleObjects("TipoACC").Object
             .Clear
             .AddItem "Techo_Frontal"
-            .AddItem "Techo_Laterial"
+            '.AddItem "Techo_Laterial"
             .AddItem "Cancamo_Frontal"
-            .AddItem "Cancamo_Lateral"
+            '.AddItem "Cancamo_Lateral"
             .AddItem "Hablador_Frontal"
-            .AddItem "Hablador_Lateral"
+            '.AddItem "Hablador_Lateral"
             .AddItem "Angulo_Frontal"
-            .AddItem "Angulo_Lateral"
+            '.AddItem "Angulo_Lateral"
             .AddItem "Cubierta_Frontal"
-            .AddItem "Cubierta_Lateral"
+            '.AddItem "Cubierta_Lateral"
             .AddItem "Ventilador_Frontal"
-            .AddItem "Ventilador_Superior"
-            .AddItem "Ventilador_Lateral"
+            '.AddItem "Ventilador_Superior"
+            '.AddItem "Ventilador_Lateral"
             .AddItem "Celosidas_Pequeña"
             .AddItem "Celosidas_Grande"
             .AddItem "Chapa_Antivandalica"
@@ -1439,7 +1492,7 @@ Public sub UnidadesFuncionales()
         case "H.Compuesta": dato4 = "HC"
         case "Vertical": dato4 = "V"
         case "V.Extendida": dato4 = "VE"
-        case "V.Compuesta": dato4 = "VC"
+        case "V.Compacta": dato4 = "VC"
     end select 
     dato5 = Me.OleObjects("ConexionUF").Object.Value
     select case dato5
@@ -1454,7 +1507,7 @@ Public sub UnidadesFuncionales()
     End Select
 
     ResultadoUF= dato1 & dato2 & dato6 & "X" & dato3 & dato4 & dato5
-    msgbox ResultadoUF
+    'msgbox ResultadoUF
     MoverBloque ResultadoUF,"UF-SFI", wsActual, celda
 end sub    
 Public sub Unidades_funcionales_lisas()
@@ -1679,7 +1732,7 @@ Public sub Compensacion()
 End sub
 Public sub BARRAS()
     '========================
-        celda = "NS104"
+        celda = "NQ96"
         thisWorkbook.Sheets("DISENO").Range("NP82:QJ182").Clear
         Set wsActual = thisWorkbook.Sheets("DISENO")
     '========================
