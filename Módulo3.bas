@@ -119,3 +119,10 @@ public sub Puerta_Menu_Color()
         ActiveSheet.Shapes("Menu Acotar").Visible = False
     End If
 End sub
+
+Public Sub Puerta_area_trabajo2()
+    ThisWorkbook.Sheets("FrontalPuerta").Range("KO83:NJ185").Clear
+End Sub
+Public Sub Puerta_area_trabajo1()
+    ThisWorkbook.Sheets("FrontalPuerta").Range("CG48:FI146").Clear
+End Sub

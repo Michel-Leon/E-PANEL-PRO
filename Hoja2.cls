@@ -125,39 +125,39 @@ Public IP As String, Color As String
                 '.AddItem "MVSEXTRAIBLE"
                'End If
             Case "SIA - Integral Abatible"
-            'If MenuUnidades = "Opcion1" Then
-            .AddItem "EZC100"
-            .AddItem "EZC250"
-            .AddItem "CVS100"
-            .AddItem "CVS250"
-            .AddItem "CVS630"
-            .AddItem "NSX250"
-            .AddItem "NSX630"
-           ' ElseIf MenuUnidades = "Opcion2" Then
-           ' .AddItem "EZC100"
-            '.AddItem "EZC250"
-            '.AddItem "CVS100"
-            '.AddItem "CVS250"
-            '.AddItem "CVS630"
-            '.AddItem "NSX250"
-            '.AddItem "NSX630"
-            '.AddItem "NS800_1600"
-            '.AddItem "NWFIJO"
-            '.AddItem "NWEXTRAIBLE"
-            '.AddItem "MTZFIJO"
-            '.AddItem "MTZEXTRAIBLE"
-            '.AddItem "MVSFIJO"
-            '.AddItem "MVSEXTRAIBLE"
-            'End If
+                'If MenuUnidades = "Opcion1" Then
+                .AddItem "EZC100"
+                .AddItem "EZC250"
+                .AddItem "CVS100"
+                .AddItem "CVS250"
+                .AddItem "CVS630"
+                .AddItem "NSX250"
+                .AddItem "NSX630"
+            ' ElseIf MenuUnidades = "Opcion2" Then
+                ' .AddItem "EZC100"
+                '.AddItem "EZC250"
+                '.AddItem "CVS100"
+                '.AddItem "CVS250"
+                '.AddItem "CVS630"
+                '.AddItem "NSX250"
+                '.AddItem "NSX630"
+                '.AddItem "NS800_1600"
+                '.AddItem "NWFIJO"
+                '.AddItem "NWEXTRAIBLE"
+                '.AddItem "MTZFIJO"
+                '.AddItem "MTZEXTRAIBLE"
+                '.AddItem "MVSFIJO"
+                '.AddItem "MVSEXTRAIBLE"
+                'End If
             Case "SFA - Fijo Atornillado"
-       ' If MenuUnidades = "Opcion1" Then
-            .AddItem "EZC100"
-            .AddItem "EZC250"
-            .AddItem "CVS100"
-            .AddItem "CVS250"
-            .AddItem "CVS630"
-            .AddItem "NSX250"
-            .AddItem "NSX630"
+                ' If MenuUnidades = "Opcion1" Then
+                .AddItem "EZC100"
+                .AddItem "EZC250"
+                .AddItem "CVS100"
+                .AddItem "CVS250"
+                .AddItem "CVS630"
+                .AddItem "NSX250"
+                .AddItem "NSX630"
        ' ElseIf MenuUnidades = "Opcion2" Then
         '.AddItem "NS800_1600"
        ' End If
@@ -293,29 +293,53 @@ Public IP As String, Color As String
                         .AddItem "Horizontal"
                     Case Else       'SFI - Frontal Interno / SFC - Frontal Compacto
                         Select Case sFrame
-                            Case "MiniBreaker", _
-                                "NWFIJO", "NWEXTRAIBLE", "MTZFIJO", "MTZEXTRAIBLE", _
+                            '--- Solo Vertical -------------------------------------------------
+                            Case "MiniBreaker", "Guardamotor", "NS800_1250", _
+                                "NWFIJO", "NWEXTRAIBLE", _
+                                "MTZFIJO", "MTZEXTRAIBLE", _
                                 "MVSFIJO", "MVSEXTRAIBLE"
                                 .AddItem "Vertical"
+
+                            '--- Vertical + V.Compacta -----------------------------------------
                             Case "CVS100", "NSX100"
                                 .AddItem "V.Compacta"
-                            Case "GoPact150" ,"EZC100"               'CORREGIDO: antes decia "GoPact100"
+                            '--- Vertical + Horizontal -----------------------------------------
+                            Case "EZC630", "GoPact800"
+                                '.AddItem "Vertical"
+                                .AddItem "Horizontal"
+                            '--- Vertical + Horizontal + H.Compuesta ---------------------------
+                            Case "GoPact400"
+                                '.AddItem "Vertical"
                                 .AddItem "Horizontal"
                                 .AddItem "H.Compuesta"
+
+                            '--- Vertical + Horizontal + V.Extendida ---------------------------
+                            Case "CVS630", "NSX630"
+                                '.AddItem "Vertical"
+                                .AddItem "Horizontal"
+                                .AddItem "V.Extendida"
+
+                            '--- Horizontal + V.Extendida (sin Vertical) -----------------------
+                            Case "NS800_1600"
+                                .AddItem "Horizontal"
+                                .AddItem "V.Extendida"
+
+                            '--- Vertical + Horizontal + V.Compacta + H.Compuesta --------------
+                            Case "EZC100", "GoPact150"          'GoPact150 = filas "GoPact100" de la tabla
+                                '.AddItem "Vertical"
+                                .AddItem "Horizontal"
                                 .AddItem "V.Compacta"
+                                .AddItem "H.Compuesta"
+
+                            '--- Vertical + Horizontal + V.Extendida + H.Compuesta -------------
                             Case "EZC250", "CVS250", "NSX250", _
                                 "GoPact200", "GoPact250"
-                                .AddItem "Horizontal"
-                                .AddItem "H.Compuesta"
-                                .AddItem "V.Extendida"
-                            Case "GoPact400"
-                                .AddItem "Horizontal"
-                                .AddItem "H.Compuesta"
-                            Case "CVS630", "NSX630", "NS800_1250", "NS800_1600"
+                                '.AddItem "Vertical"
                                 .AddItem "Horizontal"
                                 .AddItem "V.Extendida"
-                            Case "EZC630", "GoPact800"
-                                .AddItem "Horizontal"
+                                .AddItem "H.Compuesta"
+
+                           
                         End Select
                 End Select
             End If
@@ -798,14 +822,14 @@ Public IP As String, Color As String
                 Case "Horizontal Bus Bar"
                     .AddItem "400A"
                     .AddItem "630_1250A"
-                    .AddItem "1600_2500A"
-                    .AddItem "3200A"
-                    .AddItem "4000A"
+                    '.AddItem "1600_2500A"
+                    '.AddItem "3200A"
+                    '.AddItem "4000A"
                 Case "Horizontal Tierra Neutro"
                     .AddItem "NA"
                 Case "Vertical Bus Bar"
                     .AddItem "1250A"
-                    .AddItem "1600A"
+                    '.AddItem "1600A"
             End Select
         End With
     End Sub
@@ -915,12 +939,12 @@ Public IP As String, Color As String
                 Case "Techo Lateral"
                     .AddItem "400"
                     .AddItem "600"
-                Case "Cancamo_Frontal", "Cancamo_Lateral", "Celosidas_Grande", "Celosidas_Peque�a", _
+                Case "Cancamo_Frontal", "Cancamo_Lateral", "Celosidas_Grande", "Celosidas_Pequeña", _
                         "Chapa_Antivandalica", "Hablador_Lateral", "Angulo_Frontal", "Angulo Lateral", _
-                        "Cubierta Frontal"
+                        "Cubierta Frontal","Techo_Frontal", "Ventilador_Frontal"
                     .AddItem "NA"
                 Case Else
-                    .AddItem "No se reconoce"
+                    .AddItem "No se reconoce" 
                 End Select
         End With
     End Sub
@@ -936,7 +960,7 @@ Public IP As String, Color As String
                     .AddItem "Codigo_QR"
                     .AddItem "Placa_GR"
                     .AddItem "Riesgo_electrico1"
-                    .AddItem "Ventilaci�n"
+                    .AddItem "Ventilación"
                     .AddItem "Descarga"
                     .AddItem "Riesgo_electrico2"
                     .AddItem "Advertencia_choque_electrico"
@@ -1296,18 +1320,18 @@ Public Sub Worksheet_Activate()
         With Me.OLEObjects("TipoACC").Object
             .Clear
             .AddItem "Techo_Frontal"
-            .AddItem "Techo_Laterial"
+            '.AddItem "Techo_Laterial"
             .AddItem "Cancamo_Frontal"
-            .AddItem "Cancamo_Lateral"
+            '.AddItem "Cancamo_Lateral"
             .AddItem "Hablador_Frontal"
-            .AddItem "Hablador_Lateral"
+            '.AddItem "Hablador_Lateral"
             .AddItem "Angulo_Frontal"
-            .AddItem "Angulo_Lateral"
+            '.AddItem "Angulo_Lateral"
             .AddItem "Cubierta_Frontal"
-            .AddItem "Cubierta_Lateral"
+            '.AddItem "Cubierta_Lateral"
             .AddItem "Ventilador_Frontal"
             .AddItem "Ventilador_Superior"
-            .AddItem "Ventilador_Lateral"
+            '.AddItem "Ventilador_Lateral"
             .AddItem "Celosidas_Pequeña"
             .AddItem "Celosidas_Grande"
             .AddItem "Chapa_Antivandalica"
@@ -1658,8 +1682,8 @@ Public Sub Compensacion()
 End Sub
 Public Sub BARRAS()
     '========================
-        Celda = "KP104"
-        ThisWorkbook.Sheets("FrontalFM").Range("KR83:NJ185").Clear
+        Celda = "KR93"
+        ThisWorkbook.Sheets("FrontalFM").Range("KR60:NJ185").Clear
         Set wsActual = ThisWorkbook.Sheets("FrontalFM")
     '========================
     Dim dato1 As String, dato2 As String, dato3 As String
@@ -1711,7 +1735,7 @@ End Sub
 Public Sub ACESORIOS_MTM()
     '========================
         Celda = "KP104"
-        ThisWorkbook.Sheets("FrontalFM").Range("KR83:NJ185").Clear
+        ThisWorkbook.Sheets("FrontalFM").Range("KR60:NJ185").Clear
         Set wsActual = ThisWorkbook.Sheets("FrontalFM")
     '========================
     Dim dato1 As String, dato2 As String
@@ -1785,7 +1809,7 @@ Public Sub Cambiodecolor() 'Vista frontal
     
     ' Obtener el valor del color desde la portada
     valorColor = Me.OLEObjects("Colorselec").Object.Value
-    Set ws = ThisWorkbook.Sheets("Vista frontal")
+    Set ws = ThisWorkbook.Sheets("FrontalFM")
     ' Definir color destino seg�n el valor
     Select Case valorColor
         Case "RAL 7035": colorDestino = RGB(197, 199, 196)
