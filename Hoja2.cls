@@ -1883,4 +1883,8 @@ Public Sub Cambiodecolor() 'Vista frontal
     
     MsgBox "Proceso Finalizado con Exito", vbInformation, "Cambio de Color"
 End Sub
-
+'======================================================
+Public sub  Buscar_datos_Unidade()
+    Informe_Unidades,ResultadoUF
+    Funcion = Me.OLEObjects("ConexionUF").Object.Value
+End Sub
