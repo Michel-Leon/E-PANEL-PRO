@@ -1,9 +1,10 @@
-Attribute VB_Name = "Módulo1"
+Attribute VB_Name = "Mï¿½dulo1"
 '============== vARIABLES GLOBALES ===================
 Public Linea As String
 Public Celda As String
 Public wsActual As Worksheet
 Public ResultadoENV As String
+Public ResultadoS_I As String
 'Public ResultadoENVP As String
 'Public ResultadoENVL As String
 'Public ResultadoENVPS As String
@@ -97,10 +98,10 @@ Sub MostrarTodasLasHojas()
         intentos = intentos + 1
 
         usuario = InputBox("Ingrese el usuario:", "Acceso restringido")
-        If StrPtr(usuario) = 0 Then Exit Sub   ' Canceló
+        If StrPtr(usuario) = 0 Then Exit Sub   ' Cancelï¿½
 
-        clave = InputBox("Ingrese la contraseña:", "Acceso restringido")
-        If StrPtr(clave) = 0 Then Exit Sub     ' Canceló
+        clave = InputBox("Ingrese la contraseï¿½a:", "Acceso restringido")
+        If StrPtr(clave) = 0 Then Exit Sub     ' Cancelï¿½
 
         If UCase(Trim(usuario)) = USUARIO_VALIDO And Trim(clave) = CLAVE_VALIDA Then
             Exit Do
@@ -109,7 +110,7 @@ Sub MostrarTodasLasHojas()
                 MsgBox "Acceso denegado. Se agotaron los intentos.", vbCritical, "Error"
                 Exit Sub
             End If
-            MsgBox "Usuario o contraseña incorrectos." & vbNewLine & _
+            MsgBox "Usuario o contraseï¿½a incorrectos." & vbNewLine & _
                    "Intento " & intentos & " de " & MAX_INTENTOS, vbExclamation, "Error"
         End If
     Loop
@@ -123,7 +124,7 @@ Sub MostrarTodasLasHojas()
     Application.DisplayFormulaBar = True
     Application.ScreenUpdating = True
 
-    MsgBox "Acceso concedido. Todas las hojas están visibles.", vbInformation, "Listo"
+    MsgBox "Acceso concedido. Todas las hojas estï¿½n visibles.", vbInformation, "Listo"
 End Sub
 Sub abrir_formulario()
 
@@ -142,10 +143,10 @@ Sub abrir_formulario()
     Set wsUsuarios = ThisWorkbook.Sheets("USUARIOS")
     Set wsConfig = ThisWorkbook.Sheets("INICIO")
 
-    ' Verificar que la estructura del libro no esté protegida
+    ' Verificar que la estructura del libro no estï¿½ protegida
     If ThisWorkbook.ProtectStructure Then
-        MsgBox "La estructura del libro está protegida." & vbNewLine & _
-               "Desprotéjala en Revisar > Proteger libro.", vbCritical, "Error"
+        MsgBox "La estructura del libro estï¿½ protegida." & vbNewLine & _
+               "Desprotï¿½jala en Revisar > Proteger libro.", vbCritical, "Error"
         Exit Sub
     End If
 
@@ -154,7 +155,7 @@ Sub abrir_formulario()
     claveIngresada = Trim(wsLogin.Range("HX98").Value)
 
     If usuarioIngresado = "" Or claveIngresada = "" Then
-        MsgBox "Debe ingresar usuario y contraseña.", vbExclamation, "Login"
+        MsgBox "Debe ingresar usuario y contraseï¿½a.", vbExclamation, "Login"
         Exit Sub
     End If
 
@@ -183,7 +184,7 @@ Sub abrir_formulario()
         ' 2) Escribir el nombre del usuario
         wsConfig.Range("K193").Value = nombreUsuario
 
-        ' 3) DESPUÉS ocultar el login (ya hay otra hoja visible)
+        ' 3) DESPUï¿½S ocultar el login (ya hay otra hoja visible)
         'wsLogin.Visible = xlSheetVeryHidden
 
         ' Limpiar los campos del login por seguridad
@@ -193,7 +194,7 @@ Sub abrir_formulario()
         Application.ScreenUpdating = True
 
     Else
-        MsgBox "Usuario o contraseña incorrectos.", vbCritical, "Login"
+        MsgBox "Usuario o contraseï¿½a incorrectos.", vbCritical, "Login"
         wsLogin.Range("HX98").Value = ""
     End If
 
@@ -207,10 +208,10 @@ Public Sub Cerrar_seccion()
     Set wsLogin = ThisWorkbook.Sheets("LOGIN")
     Set wsConfig = ThisWorkbook.Sheets("INICIO")
 
-    ' Verificar que la estructura del libro no esté protegida
+    ' Verificar que la estructura del libro no estï¿½ protegida
     If ThisWorkbook.ProtectStructure Then
-        MsgBox "La estructura del libro está protegida." & vbNewLine & _
-               "Desprotéjala en Revisar > Proteger libro.", vbCritical, "Error"
+        MsgBox "La estructura del libro estï¿½ protegida." & vbNewLine & _
+               "Desprotï¿½jala en Revisar > Proteger libro.", vbCritical, "Error"
         Exit Sub
     End If
 
@@ -224,10 +225,10 @@ Public Sub Cerrar_seccion()
     wsLogin.Range("HX83").Value = ""
     wsLogin.Range("HX98").Value = ""
 
-    ' 3) Borrar el usuario de la sesión
+    ' 3) Borrar el usuario de la sesiï¿½n
     wsConfig.Range("K193").ClearContents
 
-    ' 4) DESPUÉS ocultar INICIO (ya hay otra hoja visible)
+    ' 4) DESPUï¿½S ocultar INICIO (ya hay otra hoja visible)
     wsConfig.Visible = xlSheetVeryHidden
 
     ' Dejar el cursor en el campo de usuario
@@ -243,16 +244,16 @@ Sub CambiarZoomEnTodasLasHojas()
 
     ' Solicitar el valor de zoom al usuario
     zoomStr = InputBox("Ingrese el nivel de zoom deseado (ej. 100 para 100%):", "Cambiar Zoom")
-    ' Cancelar si el usuario presiona Cancelar o deja vacío
+    ' Cancelar si el usuario presiona Cancelar o deja vacï¿½o
     If zoomStr = "" Then Exit Sub
 
-    ' Validar que el valor ingresado sea numérico
+    ' Validar que el valor ingresado sea numï¿½rico
     If Not IsNumeric(zoomStr) Then
-        MsgBox "Por favor ingrese un número válido.", vbExclamation
+        MsgBox "Por favor ingrese un nï¿½mero vï¿½lido.", vbExclamation
         Exit Sub
     End If
     zoomVal = CInt(zoomStr)
-    ' Validar que el zoom esté dentro de un rango razonable
+    ' Validar que el zoom estï¿½ dentro de un rango razonable
     If zoomVal < 10 Or zoomVal > 400 Then
         MsgBox "El nivel de zoom debe estar entre 10 y 400.", vbExclamation
         Exit Sub

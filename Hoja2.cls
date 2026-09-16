@@ -2,7 +2,7 @@
 Public Altura As String
 Public Ancho As String, AnchoLISAS As String
 Public Profundidad As String
-Public IP As String, Color As String
+Public IP As String, Color As String 
 
 'UNIDAD FUNCIONAL (UF) 
     Private mbCargando As Boolean          'evita eventos en cascada
