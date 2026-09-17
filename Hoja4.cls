@@ -261,6 +261,13 @@ Public IP As String, Color As String
     End Sub
 Public Sub Worksheet_Activate()
     Extraer_datos
+    'Ocultar menus
+        ActiveSheet.Shapes("Menu Envolventes").Visible = False
+        ActiveSheet.Shapes("Menu AccesoriosMTM").Visible = False
+        ActiveSheet.Shapes("Menu Placas de control").Visible = False
+        ActiveSheet.Shapes("Menu Etiqueta").Visible = False
+        ActiveSheet.Shapes("Menu Acotar").Visible = False
+        ActiveSheet.Shapes("Menu Color").Visible = False
     '============== PLACAS DE CONTROL ===================
         With Me.OLEObjects("TamanoPC").Object
             .Clear

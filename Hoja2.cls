@@ -353,16 +353,28 @@ Public IP As String, Color As String
     '  porque nada depende de MandoUF)
 
     Private Sub LlenarMando()
-        Dim sTipo As String
+        Dim sTipo As String, sFrame As String
         sTipo = Txt("TipoUF")
-
+        sFrame = Txt("FrameUF")
         With cbo("MandoUF")
             .Clear
             Select Case sTipo
                 Case "SFI - Frontal Interno", "SFC - Frontal Compacto"
-                    .AddItem "Toggle"
+                    select case sFrame
+                        case "NWFIJO", "NWEXTRAIBLE", "MTZFIJO", "MTZEXTRAIBLE", _
+                            "MVSFIJO", "MVSEXTRAIBLE"
+                            .AddItem "Motorizado"
+                        case else    
+                            .AddItem "Toggle"
+                    end select
                 Case "SIA - Integral Abatible", "SFA - Fijo Atornillado"
-                    .AddItem "Prolongado"
+                    select case sFrame
+                        case "NWFIJO", "NWEXTRAIBLE", "MTZFIJO", "MTZEXTRAIBLE", _
+                            "MVSFIJO", "MVSEXTRAIBLE"
+                            .AddItem "Motorizado"
+                        case else
+                            .AddItem "Prolongado"
+                    end select
             End Select
             If .ListCount = 1 Then .ListIndex = 0
         End With
@@ -536,9 +548,7 @@ Public IP As String, Color As String
         With Me.OLEObjects("EquipoDPS").Object
         .Clear
         Select Case dato
-            
             Case "HWA"
-           
                 .AddItem "NSX100"
                 .AddItem "EZC100"
                 .AddItem "CVS100"
@@ -1129,7 +1139,7 @@ Public Sub Worksheet_Activate()
         ActiveSheet.Shapes("Menu Placas de control").Visible = False
         ActiveSheet.Shapes("Menu Compensacion").Visible = False
         ActiveSheet.Shapes("Menu Barraje").Visible = False
-        'ActiveSheet.Shapes("Menu Transferencias").Visible = False
+        ActiveSheet.Shapes("Menu Transferencias").Visible = False
         ActiveSheet.Shapes("Menu AccesoriosMTM").Visible = False
         ActiveSheet.Shapes("Menu Etiqueta").Visible = False
         ActiveSheet.Shapes("Menu Acotar").Visible = False
@@ -1540,6 +1550,7 @@ Public Sub DPS()
     End Select
 
     ResultadoDPS = dato1 & dato2 & "X" & dato3 & "_" & dato4 & dato5
+    msgbox ResultadoDPS
     MoverBloque ResultadoDPS, "DPS", wsActual, Celda
 End Sub
 Public Sub Equipos_Control()
@@ -1726,9 +1737,7 @@ Public Sub Transferencia()
         Case "NA": dato5 = "NA"
     End Select
     dato6 = Me.OLEObjects("EquipoTRF").Object.Value
-
     ResultadoTRF = dato1 & "_UT_" & dato6 & dato3 & "X" & dato2 & "X" & dato4 & "X" & dato5
-    
     MoverBloque ResultadoTRF, "ATS_SFI", wsActual, Celda
 
 End Sub
@@ -1885,6 +1894,27 @@ Public Sub Cambiodecolor() 'Vista frontal
 End Sub
 '======================================================
 Public sub  Buscar_datos_Unidade()
-    Informe_Unidades,ResultadoUF
+    Informe_Unidades ResultadoUF
     Funcion = Me.OLEObjects("ConexionUF").Object.Value
 End Sub
+Public sub  Buscar_datos_Lisas()
+    Informe_Unidades ResultadoLSS
+End Sub
+Public sub Buscar_datos_BRR()
+    Informe_Unidades ResultadoBAR
+End sub
+Public Sub Buscar_datos_CT()
+    Informe_Unidades ResultadoCT
+End Sub
+Public Sub Buscar_datos_DPS()
+    Informe_Unidades ResultadoDPS
+End Sub
+Public sub Buscar_datos_SV()
+    Informe_Unidades ResultadoSV
+End sub
+Public sub Buscar_datos_ETO()
+    Informe_Unidades ResultadoETO
+End sub
+Public sub Buscar_datos_TRF()
+    Informe_Unidades ResultadoTRF
+End sub

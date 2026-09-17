@@ -10,8 +10,8 @@ Public ResultadoL_P As String
 'Public ResultadoENVL As String
 'Public ResultadoENVPS As String
 Public ResultadoDPS As String
-Public ResultadoSERV As String
-Public ResultadoBRR As String
+Public ResultadoSV As String
+Public ResultadoBAR As String
 Public ResultadoUF As String
 Public ResultadoCT As String
 Public ResultadoEQ As String
@@ -20,6 +20,7 @@ Public ResultadoPC As String
 Public ResultadoCOM As String
 Public ResultadoTRF As String
 Public ResultadoETO As String
+Public ResultadoLSS As String
 '============== Mover Bloque ===================
 Public Sub MoverBloque(ByVal ref As String, ByVal BD As String, _
                        ByVal wsDestino As Worksheet, ByVal celdaDestino As String)
@@ -146,8 +147,8 @@ Sub abrir_formulario()
 
     ' Verificar que la estructura del libro no est� protegida
     If ThisWorkbook.ProtectStructure Then
-        MsgBox "La estructura del libro est� protegida." & vbNewLine & _
-               "Desprot�jala en Revisar > Proteger libro.", vbCritical, "Error"
+        MsgBox "La estructura del libro esta protegida." & vbNewLine & _
+               "Desprotejala en Revisar > Proteger libro.", vbCritical, "Error"
         Exit Sub
     End If
 
@@ -156,7 +157,7 @@ Sub abrir_formulario()
     claveIngresada = Trim(wsLogin.Range("HX98").Value)
 
     If usuarioIngresado = "" Or claveIngresada = "" Then
-        MsgBox "Debe ingresar usuario y contrase�a.", vbExclamation, "Login"
+        MsgBox "Debe ingresar usuario y contraseña.", vbExclamation, "Login"
         Exit Sub
     End If
 
@@ -183,7 +184,7 @@ Sub abrir_formulario()
         wsConfig.Activate
 
         ' 2) Escribir el nombre del usuario
-        wsConfig.Range("K193").Value = nombreUsuario
+        wsConfig.Range("L185").Value = nombreUsuario
 
         ' 3) DESPU�S ocultar el login (ya hay otra hoja visible)
         'wsLogin.Visible = xlSheetVeryHidden
@@ -195,7 +196,7 @@ Sub abrir_formulario()
         Application.ScreenUpdating = True
 
     Else
-        MsgBox "Usuario o contrase�a incorrectos.", vbCritical, "Login"
+        MsgBox "Usuario o contraseña incorrectos.", vbCritical, "Login"
         wsLogin.Range("HX98").Value = ""
     End If
 

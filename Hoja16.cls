@@ -1,4 +1,4 @@
-'========= Vista_Lat_Post ==========
+'========= Vista_superior_INFERIROR ==========
 Public Altura As String
 Public Ancho As String, Profundidad As String
 Public IP As String, Color As String 
@@ -43,6 +43,13 @@ Public IP As String, Color As String
 
 Public Sub Worksheet_Activate()
     Extraer_datos
+    'Ocultar menus
+        ActiveSheet.Shapes("Menu Envolventes").Visible = False
+        ActiveSheet.Shapes("Menu AccesoriosMTM").Visible = False
+        'ActiveSheet.Shapes("Menu Placas de control").Visible = False
+       ' ActiveSheet.Shapes("Menu Etiqueta").Visible = False
+        ActiveSheet.Shapes("Menu Acotar").Visible = False
+        ActiveSheet.Shapes("Menu Color").Visible = False
     '============== Envolventes ============================
         With Me.OLEObjects("Vista_Panel").Object
             .Clear

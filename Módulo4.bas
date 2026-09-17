@@ -61,7 +61,7 @@ Sub Informe_Unidades(codigoBuscado As String)
     Dim filaDestino As Long
     'VARIABLES QUE SE EXTRAEN DE LA TABLA----------------------------------------
     Dim Tipo As String, Breaker As String, Posicion As String, Instalacion As String
-    Dim Mando As String , CodigoAPM As String
+    Dim Mando As String , CodigoAPM As String, Complemento As String
     Dim encontrado As Boolean
     '-------------------------------------------------------------------
     'VARIABLES QUE SE Preguntan
@@ -80,10 +80,11 @@ Sub Informe_Unidades(codigoBuscado As String)
             filaCodigo = celdaCodigo.Row
             Tipo = hojaDatos.Cells(filaCodigo, "C").Value
             Breaker = hojaDatos.Cells(filaCodigo, "D").Value
-            Posicion = hojaDatos.Cells(filaCodigo, "E").Value
-            Instalacion = hojaDatos.Cells(filaCodigo, "F").Value
-            Mando = hojaDatos.Cells(filaCodigo, "G").Value
-            CodigoAPM = hojaDatos.Cells(filaCodigo, "I").Value
+            Complemento = hojaDatos.Cells(filaCodigo, "E").Value
+            Posicion = hojaDatos.Cells(filaCodigo, "F").Value
+            Instalacion = hojaDatos.Cells(filaCodigo, "G").Value
+            Mando = hojaDatos.Cells(filaCodigo, "H").Value
+            CodigoAPM = hojaDatos.Cells(filaCodigo, "J").Value
             encontrado = True
             Exit For
         End If
@@ -103,6 +104,7 @@ Sub Informe_Unidades(codigoBuscado As String)
         .Range("FT" & filaDestino).Value = ValorC
         .Range("FX" & filaDestino).Value = Tipo
         .Range("GC" & filaDestino).Value = Breaker
+        .Range("GM" & filaDestino).Value = Complemento
         .Range("GW" & filaDestino).Value = Posicion
         .Range("HF" & filaDestino).Value = Instalacion
         .Range("HO" & filaDestino).Value = Mando

@@ -580,6 +580,7 @@ End Sub
 Public Sub Limpiar_area_trabajo()
     With ThisWorkbook.Sheets("FrontalFM")
         .Range("CG45:FI146").Clear
+        .Range("CF150:FI155").Clear
         With .Range("A1:A5")
             .NumberFormat = "General"
             .ClearContents          ' borra el texto viejo que qued� como cadena

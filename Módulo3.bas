@@ -123,7 +123,10 @@ Public Sub Puerta_area_trabajo2()
     ThisWorkbook.Sheets("FrontalPuerta").Range("KO83:NJ185").Clear
 End Sub
 Public Sub Puerta_area_trabajo1()
-    ThisWorkbook.Sheets("FrontalPuerta").Range("CG48:FI146").Clear
+    With ThisWorkbook.Sheets("FrontalPuerta")
+        .Range("CG48:FI146").Clear
+        .Range("CF150:FI155").Clear
+    End With
 End Sub
 '=======================================================================
 Public Sub Superior_Inferior_Menu_Envolventes()
@@ -233,11 +236,11 @@ Public Sub Superior_Inferior_area_trabajo1()
     Select Case opcion
         Case 1  ' ----- VISTA SUPERIOR -----
             ws.Range("CG45:FR122").Clear   ' área 1 vista superior
-            ws.Range("GE45:JJ122").Clear   ' área 2 vista superior
+            ws.Range("CF150:FI155").Clear   ' área 2 vista superior
             MsgBox "Vista SUPERIOR limpiada correctamente.", vbInformation, "Listo"
         Case 2  ' ----- VISTA INFERIOR -----
             ws.Range("CG130:FR207").Clear  ' área 1 vista inferior  <-- AJUSTAR RANGO
-            ws.Range("GE130:JJ207").Clear  ' área 2 vista inferior  <-- AJUSTAR RANGO
+            ws.Range("GD150:JG155").Clear  ' área 2 vista inferior  <-- AJUSTAR RANGO
             MsgBox "Vista INFERIOR limpiada correctamente.", vbInformation, "Listo"
     End Select
     Application.ScreenUpdating = True
@@ -351,9 +354,11 @@ Public Sub Lateral_Posterior_area_trabajo1()
     Select Case opcion
         Case 1  ' ----- VISTA POSTERIOR -----
             ws.Range("CG45:FJ146").Clear   ' área 1 vista   posterior
+            ws.Range("CF150:FI155").Clear   ' área 2 vista superior
             MsgBox "Vista Posterior limpiada correctamente.", vbInformation, "Listo"
         Case 2  ' ----- VISTA LATERAL -----
             ws.Range("GT45:JG146").Clear  ' área 1 vista Lateral  <-- AJUSTAR RANGO
+            ws.Range("GD150:JG155").Clear  ' área 2 vista inferior  <-- AJUSTAR RANGO
             MsgBox "Vista Lateral limpiada correctamente.", vbInformation, "Listo"
     End Select
     Application.ScreenUpdating = True
