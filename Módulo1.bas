@@ -34,15 +34,16 @@ Public Sub MoverBloque(ByVal ref As String, ByVal BD As String, _
     Set destino = wsDestino.Range(celdaDestino)
 
     origen.Copy Destination:=destino
-    wsActual.Range(destino, destino.Offset(origen.Rows.Count - 1, origen.Columns.Count - 1)).Select
+    Application.CutCopyMode = False
+
     Exit Sub
 
 errHandler:
-        MsgBox "Fallo al mover el bloque." & vbCrLf & _
-            "Ref: " & ref & vbCrLf & _
-            "BD: " & BD & vbCrLf & _
-            "Destino: " & celdaDestino & vbCrLf & vbCrLf & _
-            "Error " & Err.Number & ": " & Err.Description, vbCritical
+    MsgBox "Fallo al mover el bloque." & vbCrLf & _
+           "Ref: " & ref & vbCrLf & _
+           "BD: " & BD & vbCrLf & _
+           "Destino: " & celdaDestino & vbCrLf & vbCrLf & _
+           "Error " & Err.Number & ": " & Err.Description, vbCritical
 End Sub
 Private Function ResolverBloque(ByVal nombre As String) As Range
     Dim n As Name

@@ -3,16 +3,39 @@ Public Altura As String
 Public Ancho As String, AnchoLISAS As String
 Public Profundidad As String
 Public IP As String, Color As String 
+Private mbCargando As Boolean          'evita eventos en cascada
+' Prepara la hoja destino y limpia la zona (celdas + shapes)
+    Private Sub PrepararHoja(ByRef ws As Worksheet, ByVal sZona As String)
+        Set ws = ThisWorkbook.Sheets("FrontalFM")
+        Application.ScreenUpdating = False
+        Application.CutCopyMode = False
+        LimpiarZona ws, sZona
+    End Sub
 
+    ' Devuelve True si alguno de los valores esta vacio
+    Private Function Vacio(ParamArray v() As Variant) As Boolean
+        Dim i As Long
+        For i = LBound(v) To UBound(v)
+            If Trim$(CStr(v(i) & "")) = "" Then
+                Vacio = True
+                Exit Function
+            End If
+        Next i
+    End Function
+
+    Private Sub AvisoFaltan(ByVal sQue As String)
+        Application.ScreenUpdating = True
+        MsgBox "Faltan selecciones en: " & sQue, vbExclamation
+    End Sub
+'==============================================================
 'UNIDAD FUNCIONAL (UF) 
-    Private mbCargando As Boolean          'evita eventos en cascada
+    
     '---------------------------------------------------------------- EVENTOS
     Private Sub TipoUF_Change()
         If mbCargando Then Exit Sub
         On Error GoTo Fin
         mbCargando = True
         LlenarFrame
-        LlenarMando
     Fin:
         mbCargando = False
         RecargarDesdeFrame                 'reconstruye Medida, Corriente y Orientacion
@@ -21,6 +44,7 @@ Public IP As String, Color As String
     Private Sub FrameUF_Change()
         If mbCargando Then Exit Sub
         RecargarDesdeFrame
+        LlenarMando
     End Sub
     Private Sub MedidaUF_Change()
         If mbCargando Then Exit Sub
@@ -355,30 +379,36 @@ Public IP As String, Color As String
     Private Sub LlenarMando()
         Dim sTipo As String, sFrame As String
         sTipo = Txt("TipoUF")
-        sFrame = Txt("FrameUF")
-        With cbo("MandoUF")
+        sFrame = Txt("FrameUF")          'ESTO es lo que faltaba
+
+        With Cbo("MandoUF")
             .Clear
-            Select Case sTipo
-                Case "SFI - Frontal Interno", "SFC - Frontal Compacto"
-                    select case sFrame
-                        case "NWFIJO", "NWEXTRAIBLE", "MTZFIJO", "MTZEXTRAIBLE", _
-                            "MVSFIJO", "MVSEXTRAIBLE"
-                            .AddItem "Motorizado"
-                        case else    
-                            .AddItem "Toggle"
-                    end select
-                Case "SIA - Integral Abatible", "SFA - Fijo Atornillado"
-                    select case sFrame
-                        case "NWFIJO", "NWEXTRAIBLE", "MTZFIJO", "MTZEXTRAIBLE", _
-                            "MVSFIJO", "MVSEXTRAIBLE"
-                            .AddItem "Motorizado"
-                        case else
-                            .AddItem "Prolongado"
-                    end select
-            End Select
+            If sTipo = "" Or sFrame = "" Then Exit Sub
+
+            If EsMotorizado(sFrame) Then
+                .AddItem "Motorizado"
+            Else
+                Select Case sTipo
+                    Case "SFI - Frontal Interno", "SFC - Frontal Compacto"
+                        .AddItem "Toggle"
+                    Case "SIA - Integral Abatible", "SFA - Fijo Atornillado"
+                        .AddItem "Prolongado"
+                End Select
+            End If
+
             If .ListCount = 1 Then .ListIndex = 0
         End With
     End Sub
+
+    Private Function EsMotorizado(ByVal sFrame As String) As Boolean
+        Select Case sFrame
+            Case "NWFIJO", "NWEXTRAIBLE", "MTZFIJO", "MTZEXTRAIBLE", _
+                "MVSFIJO", "MVSEXTRAIBLE"
+                EsMotorizado = True
+            Case Else
+                EsMotorizado = False
+        End Select
+    End Function
     '------------------------------------------------------- FUNCIONALIDAD
     ' 400 mm -> solo Carga        720 mm -> Carga y Totalizador
     ' H.Compuesta -> solo Totalizador
@@ -1416,482 +1446,583 @@ Public Sub Extraer_datos()
     'msgbox MenuUnidades
     
 End Sub
-Public Sub Envolventes()
-    '========================
-        Celda = "KR83"
-        ThisWorkbook.Sheets("FrontalFM").Range("KR83:NJ185").Clear
-        Set wsActual = ThisWorkbook.Sheets("FrontalFM")
-    '========================
-    Dim dato1 As String, dato2 As String
-    dato1 = Me.OLEObjects("AlturaENV").Object.Value
-    dato2 = Me.OLEObjects("AnchoENV").Object.Value
-    ResultadoENV = "EFM_" & dato1 & "X" & dato2
-    MoverBloque ResultadoENV, "ENVOLVENTES", wsActual, Celda
+Private Sub LimpiarZona(ws As Worksheet, ByVal sRango As String)
+    Dim rngZona As Range, shp As Shape, i As Long
+
+    Set rngZona = ws.Range(sRango)
+
+    Application.CutCopyMode = False          'clave: sale del modo copiar
+
+    'borrar de atras hacia adelante porque la coleccion se reindexa
+    For i = ws.Shapes.Count To 1 Step -1
+        Set shp = ws.Shapes(i)
+        If Not Intersect(shp.TopLeftCell, rngZona) Is Nothing Then
+            'no borrar los combos ActiveX si estuvieran en la zona
+            If shp.Type <> msoOLEControlObject Then shp.Delete
+        End If
+    Next i
+
+    rngZona.Clear
 End Sub
-Public Sub UnidadesFuncionales()
-    '========================
+'====================================================== ENVOLVENTES
+    Public Sub Envolventes()
+        '========================
+            Set wsActual = ThisWorkbook.Sheets("FrontalFM")
+            Celda = "KP132"
+            Application.ScreenUpdating = False
+            LimpiarZona wsActual, "KO120:NJ185"
+        '========================
+        Dim dato1 As String, dato2 As String
+        dato1 = Me.OLEObjects("AlturaENV").Object.Value
+        dato2 = Me.OLEObjects("AnchoENV").Object.Value
+        ResultadoENV = "EFM_" & dato1 & "X" & dato2
+        MoverBloque ResultadoENV, "ENVOLVENTES", wsActual, Celda
+    End Sub
+'====================================================== UNIDADES FUNCIONALES
+    Public Sub UnidadesFuncionales()
+        Dim wsActual As Worksheet, Celda As String
+        Dim dato1 As String, dato2 As String, dato3 As String, dato4 As String
+        Dim dato5 As String, dato6 As String, ResultadoUF As String
+        Set wsActual = ThisWorkbook.Sheets("FrontalFM")
         Celda = "KP132"
-        ThisWorkbook.Sheets("FrontalFM").Range("KR83:NJ185").Clear
-        Set wsActual = ThisWorkbook.Sheets("FrontalFM")
-    '========================
-    Dim dato1 As String, dato2 As String, dato3 As String, dato4 As String
-    Dim dato5 As String, dato6 As String
-
-    dato1 = Me.OLEObjects("TipoUF").Object.Value
-    Select Case dato1
-        Case "SFI - Frontal Interno": dato1 = "SFI_"
-        Case "SFC - Frontal Compacto": dato1 = "SFC_"
-        Case "SIA - Integral Abatible": dato1 = "SIA_"
-        Case "SFA - Fijo Atornillado": dato1 = "SFA_"
-    End Select
-    dato2 = Me.OLEObjects("FrameUF").Object.Value
-    dato3 = Me.OLEObjects("MedidaUF").Object.Value
-    dato4 = Me.OLEObjects("OrientacionUF").Object.Value
-    Select Case dato4
-        Case "Horizontal": dato4 = "H"
-        Case "H.Compuesta": dato4 = "HC"
-        Case "Vertical": dato4 = "V"
-        Case "V.Extendida": dato4 = "VE"
-        Case "V.Compacta": dato4 = "VC"
-    End Select
-    dato5 = Me.OLEObjects("ConexionUF").Object.Value
-    Select Case dato5
-        Case "Superior": dato5 = "_NA"
-        Case "Izquierda": dato5 = "_IZ"
-        Case "Derecha": dato5 = "_DR"
-    End Select
-    dato6 = Me.OLEObjects("MandoUF").Object.Value
-    Select Case dato6
-        Case "Toggle": dato6 = "To"
-        Case "Prolongado": dato6 = "P"
-    End Select
-
-    ResultadoUF = dato1 & dato2 & dato6 & "X" & dato3 & dato4 & dato5
-    'MsgBox ResultadoUF
-    MoverBloque ResultadoUF, "UF-SFI", wsActual, Celda
-End Sub
-Public Sub Unidades_funcionales_lisas()
-    '========================
-        Celda = "KP132"
-        ThisWorkbook.Sheets("FrontalFM").Range("KR83:NJ185").Clear
-        Set wsActual = ThisWorkbook.Sheets("FrontalFM")
-    '========================
-    Dim dato1 As String, dato2 As String, dato3 As String
-    dato1 = Me.OLEObjects("TipoLSS").Object.Value
-    Select Case dato1
-        Case "SFI - Frontal Interno": dato1 = "SFI"
-        Case "SFC - Frontal Compacto": dato1 = "SFC"
-        Case "SIA - Integral Abatible", "SFA - Fijo Atornillado": dato1 = "SFA"
-        Case "SIC - Placa de Control": dato1 = "SIC_"
-    End Select
-    dato3 = Me.OLEObjects("UnidadesLSS").Object.Value
-    dato2 = Me.OLEObjects("AnchoLSS").Object.Value
-    ResultadoLSS = dato1 & dato2 & "X" & dato3
-    MoverBloque ResultadoLSS, "LISAS", wsActual, Celda
-End Sub
-Public Sub Contactores()
-    '========================
-        Celda = "KP132"
-        ThisWorkbook.Sheets("FrontalFM").Range("KR83:NJ185").Clear
-        Set wsActual = ThisWorkbook.Sheets("FrontalFM")
-    '========================
-
-    Select Case CStr(Me.OLEObjects("EquipoCT").Object.Value & "")
-        Case "A-Unit (Barra + Mini)": dato1 = "MBXAUNIT"
-        Case "Contactores":           dato1 = "Cont"
-    End Select
-
-    Select Case CStr(Me.OLEObjects("Tama�oCT").Object.Value & "")
-        Case "Talla 1-2": dato2 = "T1_2"
-        Case "Talla 3":   dato2 = "T1_3"
-        Case "4u":        dato2 = "4u"      ' <-- faltaba
-    End Select
-
-    Select Case CStr(Me.OLEObjects("VistaCT").Object.Value & "")
-        Case "Con frente muerto": dato3 = "FM"
-        Case "Sin frente muerto": dato3 = "SFM"
-    End Select
-
-    If dato1 = "" Or dato2 = "" Or dato3 = "" Then
-        MsgBox "Faltan selecciones en Equipo, Tama�o o Vista.", vbExclamation
-        Exit Sub
-    End If
-
-    ResultadoCT = "UN_" & dato1 & "_" & dato3 & "X" & dato2
-    MoverBloque ResultadoCT, "Ufuncionales", wsActual, Celda
-End Sub
-Public Sub DPS()
-    '========================
-        Celda = "KP132"
-        ThisWorkbook.Sheets("FrontalFM").Range("KR83:NJ185").Clear
-        Set wsActual = ThisWorkbook.Sheets("FrontalFM")
-    '========================
-    Dim dato1 As String, dato2 As String, dato3 As String, dato4 As String, dato5 As String
-    dato1 = Me.OLEObjects("TipoUNDPS").Object.Value
-    Select Case dato1
-        Case "SFI - Frontal Interno": dato1 = "SFC_D"
-        Case "SFC - Frontal Compacto": dato1 = "SFC_D"
-        Case "SIA - Integral Abatible": dato1 = "SIA_D"
-    End Select
-    dato2 = Me.OLEObjects("FabriUNDPS").Object.Value
-    Select Case dato2
-        Case "Citel": dato2 = "CI"
-        Case "HWA": dato2 = "HW"
-        Case "Ciprotec": dato2 = "CP"
-        Case "Schneider Electric": dato2 = "SE"
-        Case "Phoenix Contac": dato2 = "PC"
-    End Select
-    dato3 = Me.OLEObjects("AnchoDPS").Object.Value
-    dato4 = Me.OLEObjects("EquipoDPS").Object.Value
-    dato5 = Me.OLEObjects("MandoDPS").Object.Value
-    Select Case dato5
-        Case "Toggle": dato5 = "To"
-        Case "Prolongado": dato5 = "P"
-    End Select
-
-    ResultadoDPS = dato1 & dato2 & "X" & dato3 & "_" & dato4 & dato5
-    msgbox ResultadoDPS
-    MoverBloque ResultadoDPS, "DPS", wsActual, Celda
-End Sub
-Public Sub Equipos_Control()
-    '========================
-        Celda = "KP132"
-        ThisWorkbook.Sheets("FrontalFM").Range("KR83:NJ185").Clear
-        Set wsActual = ThisWorkbook.Sheets("FrontalFM")
-    '========================
-    Dim dato1 As String, dato2 As String
-    dato1 = Me.OLEObjects("EquipoCTR").Object.Value
-    dato2 = Me.OLEObjects("MedidasCTR").Object.Value
-    ResultadoCT = "SFI_" & dato1 & "_" & dato2
-    MoverBloque ResultadoCT, "UCONTROL", wsActual, Celda
-End Sub
-Public Sub Accesorios_CTR()
-    '========================
-        Celda = "KP132"
-        ThisWorkbook.Sheets("FrontalFM").Range("KR83:NJ185").Clear
-        Set wsActual = ThisWorkbook.Sheets("FrontalFM")
-    '========================
-    Dim dato1 As String, dato2 As String
-    dato1 = Me.OLEObjects("ElementoCTR").Object.Value
-    dato2 = Me.OLEObjects("vistaACCCTR").Object.Value
-    Select Case dato2
-        Case "Derecha_Abierta": dato2 = "DA"
-        Case "Derecha_Cerrada": dato2 = "DC"
-        Case "Izquierda_Abierta": dato2 = "IA"
-        Case "Izquierda_Cerrada": dato2 = "IC"
-    End Select
-
-    ResultadoACC = "AC_" & dato1 & "_" & dato2
-    MoverBloque ResultadoACC, "UCONTROL", wsActual, Celda
-End Sub
-Public Sub Unidades_ETO()
-    '========================
-        Celda = "KP132"
-        ThisWorkbook.Sheets("FrontalFM").Range("KR83:NJ185").Clear
-        Set wsActual = ThisWorkbook.Sheets("FrontalFM")
-    '========================
-    Dim dato1 As String, dato2 As String
-
-    dato1 = Me.OLEObjects("Ancho_ETO").Object.Value
-    dato2 = Me.OLEObjects("Unidades_ETO").Object.Value
-
-    ResultadoETO = "ETO" & dato1 & "X" & dato2
-    MoverBloque ResultadoETO, "ETO_SFC_SFI", wsActual, Celda
-End Sub
-Public Sub Equipo_Individual()
-    '========================
-        Celda = "KP132"
-        ThisWorkbook.Sheets("FrontalFM").Range("KR83:NJ185").Clear
-        Set wsActual = ThisWorkbook.Sheets("FrontalFM")
-    '========================
-    Dim dato1 As String
-    dato1 = Me.OLEObjects("EquipoIND").Object.Value
-    ResultadoEQ = "EQ_" & dato1
-    MoverBloque ResultadoEQ, "UCONTROL", wsActual, Celda
-End Sub
-Public Sub Servicios_Auxiliares()
-    '========================
-        Celda = "KP132"
-        ThisWorkbook.Sheets("FrontalFM").Range("KR83:NJ185").Clear
-        Set wsActual = ThisWorkbook.Sheets("FrontalFM")
-    '========================
-    Dim dato1 As String, dato2 As String, dato3 As String, dato4 As String
-    dato1 = Me.OLEObjects("MontajeSV").Object.Value
-    Select Case dato1
-        Case "A-Unit": dato1 = "AU_"
-        Case "Cubiculo": dato1 = "CB_"
-    End Select
-    dato2 = Me.OLEObjects("EquipoSV").Object.Value
-    Select Case dato2
-        Case "Cambio Tension": dato2 = "CambioTension"
-        Case "Pont I/O": dato2 = "PontI_O"
-        Case "Toma Corriente": dato2 = "TomaCorriente"
-    End Select
-    dato3 = Me.OLEObjects("AnchoSV").Object.Value
-    dato4 = Me.OLEObjects("UnidadesSV").Object.Value
-    If dato1 = "AU_" Then
-        ResultadoSV = dato1 & dato2
-    Else
-        ResultadoSV = dato1 & dato2 & "X" & dato3 & "_" & dato4
-    End If
-    MoverBloque ResultadoSV, "SERVICIOS", wsActual, Celda
-End Sub
-Public Sub Placas_Control()
-    '========================
-        Celda = "KP120"
-        ThisWorkbook.Sheets("FrontalFM").Range("KR83:NJ185").Clear
-        Set wsActual = ThisWorkbook.Sheets("FrontalFM")
-    '========================
-    Dim dato1 As String, dato2 As String, dato3 As String, dato4 As String
-    dato1 = Me.OLEObjects("TamanoPC").Object.Value
-    Select Case dato1
-        Case "Pequeña": dato1 = "PQ"
-        Case "Grande": dato1 = "GD"
-        Case "Mediana": dato1 = "MD"
-    End Select
-    dato2 = Me.OLEObjects("VistaPC").Object.Value
-    Select Case dato2
-        Case "Frontal": dato2 = "FR"
-        Case "Lateral": dato2 = "LT"
-    End Select
-    dato3 = Me.OLEObjects("EquipoPC").Object.Value
-    Select Case dato3
-        Case "ATS PREMIUM": dato3 = "ATSPREMIUM"
-        Case "ATS ESTANDAR": dato3 = "ATSESTANDAR"
-        Case "ATS BASICA": dato3 = "ATSBASICA"
-    End Select
-    dato4 = Me.OLEObjects("DisponibilidadPC").Object.Value
-    Select Case dato4
-        Case "Externa":  dato4 = "EXT"
-        Case "Interna":  dato4 = "INT"
-        Case "5 Pasos":  dato4 = "5P"
-        Case "6 Pasos":  dato4 = "6P"
-        Case "7 Pasos":  dato4 = "7P"
-        Case "8 Pasos":  dato4 = "8P"
-        Case "9 Pasos":  dato4 = "9P"
-        Case "10 Pasos": dato4 = "10P"
-        Case "11 Pasos": dato4 = "11P"
-        Case "12 Pasos": dato4 = "12P"
-        Case "13 Pasos": dato4 = "13P"
-        Case "14 Pasos": dato4 = "14P"
-    End Select
-    ResultadoPC = "PCTR_X" & dato1 & "X" & dato2 & "_" & dato3 & "X" & dato4
-    MoverBloque ResultadoPC, "SERVICIOS", wsActual, Celda
-End Sub
-Public Sub Compensacion()
-    '========================
-        Celda = "KP107"
-        ThisWorkbook.Sheets("FrontalFM").Range("KR83:NJ185").Clear
-        Set wsActual = ThisWorkbook.Sheets("FrontalFM")
-    '========================
-    Dim dato1 As String, dato2 As String, dato3 As String
-    dato1 = Me.OLEObjects("EquipoCOM").Object.Value
-    dato2 = Me.OLEObjects("MedidaCOM").Object.Value
-    dato3 = Me.OLEObjects("UnidadCOM").Object.Value
-    ResultadoCOM = "UNC_" & dato1 & "X" & dato2 & "X" & dato3
-    MoverBloque ResultadoCOM, "COMPENSACION", wsActual, Celda
-End Sub
-Public Sub BARRAS()
-    '========================
-        Celda = "KR93"
-        ThisWorkbook.Sheets("FrontalFM").Range("KR60:NJ185").Clear
-        Set wsActual = ThisWorkbook.Sheets("FrontalFM")
-    '========================
-    Dim dato1 As String, dato2 As String, dato3 As String
-    dato1 = Me.OLEObjects("OrientacionBRR").Object.Value
-    Select Case dato1
-        Case "Horizontal Bus Bar": dato1 = "HBB"
-        Case "Horizontal Tierra Neutro": dato1 = "HTN"
-        Case "Vertical Bus Bar": dato1 = "VBB"
-    End Select
-    dato2 = Me.OLEObjects("AmperajeBRR").Object.Value
-    dato3 = Me.OLEObjects("MedidaBRR").Object.Value
-    ResultadoBAR = dato1 & "X" & dato3 & "X" & dato2
-    MoverBloque ResultadoBAR, "BARRAJE", wsActual, Celda
-End Sub
-Public Sub Transferencia()
-    '========================
-        Celda = "KP127"
-        ThisWorkbook.Sheets("FrontalFM").Range("KR83:NJ185").Clear
-        Set wsActual = ThisWorkbook.Sheets("FrontalFM")
-    '========================
-    Dim dato1 As String, dato2 As String, dato3 As String, dato4 As String, dato5 As String, dato6 As String
-    dato1 = Me.OLEObjects("TipoUnidadTRF").Object.Value
-    Select Case dato1
-        Case "SFI - Frontal Interno": dato1 = "SFI"
-    End Select
-    dato2 = Me.OLEObjects("OrientacionTRF").Object.Value
-    Select Case dato2
-        Case "Horizontal": dato2 = "H"
-        Case "Vertical": dato2 = "V"
-    End Select
-    dato3 = Me.OLEObjects("MandoTFF").Object.Value
-    Select Case dato3
-        Case "Manual": dato3 = "MN"
-        Case "Motorizado": dato3 = "M"
-    End Select
-    dato4 = Me.OLEObjects("AnchoTFR").Object.Value
-    dato5 = Me.OLEObjects("ConexionTRF").Object.Value
-    Select Case dato5
-        Case "Superior": dato5 = "SUP"
-        Case "NA": dato5 = "NA"
-    End Select
-    dato6 = Me.OLEObjects("EquipoTRF").Object.Value
-    ResultadoTRF = dato1 & "_UT_" & dato6 & dato3 & "X" & dato2 & "X" & dato4 & "X" & dato5
-    MoverBloque ResultadoTRF, "ATS_SFI", wsActual, Celda
-
-End Sub
-Public Sub ACESORIOS_MTM()
-    '========================
-        Celda = "KP104"
-        ThisWorkbook.Sheets("FrontalFM").Range("KR60:NJ185").Clear
-        Set wsActual = ThisWorkbook.Sheets("FrontalFM")
-    '========================
-    Dim dato1 As String, dato2 As String
-    dato1 = Me.OLEObjects("TipoACC").Object.Value
-    dato2 = Me.OLEObjects("MedidaACC").Object.Value
-    ResultadoACM = "ACC_" & dato1 & "X" & dato2
-    MoverBloque ResultadoACM, "ACCESOSRIOS MTM", wsActual, Celda
-End Sub
-Public Sub ETIQUETAS()
-    '========================
-        Celda = "KP104"
-        ThisWorkbook.Sheets("FrontalFM").Range("KR83:NJ185").Clear
-        Set wsActual = ThisWorkbook.Sheets("FrontalFM")
-    '========================
-    Dim dato1 As String, dato2 As String, dato3 As String
-    dato2 = Me.OLEObjects("Dato3ETQ").Object.Value
-    Select Case dato2
-        Case "Pequeno": dato2 = "1"
-        Case "Mediano": dato2 = "2"
-        Case "Grande": dato2 = "3"
-    End Select
-    dato1 = Me.OLEObjects("ClaseETQ").Object.Value
-    dato3 = Me.OLEObjects("TipoETQ").Object.Value
-    Select Case dato1
-        Case "Etiqueta"
-            dato1 = "E_"
-            ResultadoETQ = dato1 & dato3 & "X" & dato2
-
-        Case "Linea de Producto"
-            dato1 = "L_"
-            ResultadoETQ = dato1 & dato3 & "X" & dato2
-
-        Case "Logo de clientes": dato1 = "LC_"
-            ResultadoETQ = dato1 & dato3
-    End Select
-    MoverBloque ResultadoETQ, "ETIQUETAS", wsActual, Celda
-End Sub
-Public Sub COTAS()
-    '========================
-        Celda = "KP104"
-        ThisWorkbook.Sheets("FrontalFM").Range("KR83:NJ185").Clear
-        Set wsActual = ThisWorkbook.Sheets("FrontalFM")
-    '========================
-    Dim dato1 As String
-    dato1 = Me.OLEObjects("CotasDIBUJO").Object.Value
-    Select Case dato1
-        Case "Ancho: 200mm": dato1 = "C_200"
-        Case "Ancho: 230mm": dato1 = "C_230"
-        Case "Ancho: 400mm": dato1 = "C_400"
-        Case "Ancho: 430mm": dato1 = "C_430"
-        Case "Ancho: 720mm": dato1 = "C_720"
-        Case "Ancho: 750mm": dato1 = "C_750"
-        Case "Ancho: 980mm": dato1 = "C_980"
-        Case "Ancho: 1180mm": dato1 = "C_1180"
-        Case "Ancho: 1380mm": dato1 = "C_1380"
-        Case "Altura: 1600mm": dato1 = "C_1600"
-        Case "Altura: 1800mm": dato1 = "C_1800"
-        Case "Altura: 2000mm": dato1 = "C_2000"
-        Case "Division Tabelero": dato1 = "Division"
-        Case "Corte Tren": dato1 = "Corte_Tren"
-        Case "Continuacion Tren": dato1 = "Continuidad_Tren"
-    End Select
-    ResultadoCOT = dato1
-    MoverBloque ResultadoCOT, "COTAS", wsActual, Celda
-End Sub
-Public Sub Cambiodecolor() 'Vista frontal
-    Dim ws As Worksheet
-    Dim Celda As Range
-    Dim valorColor As String
-    Dim colorDestino As Long
-    
-    ' Obtener el valor del color desde la portada
-    valorColor = Me.OLEObjects("Colorselec").Object.Value
-    Set ws = ThisWorkbook.Sheets("FrontalFM")
-    ' Definir color destino seg�n el valor
-    Select Case valorColor
-        Case "RAL 7035": colorDestino = RGB(197, 199, 196)
-        Case "RAL 7032": colorDestino = RGB(181, 176, 161)
-        Case "RAL 9003": colorDestino = RGB(236, 236, 231)
-        Case "RAL 9004": colorDestino = RGB(43, 43, 44)
-        Case "Naranja": colorDestino = RGB(201, 133, 12)
-        Case "Amarillo": colorDestino = RGB(235, 198, 21)
-    End Select
-    
-    ' Recorrer el rango y cambiar solo los colores espec�ficos
-    For Each Celda In ws.Range("BZ38:MX155")
-        Select Case valorColor
-            Case "RAL 7035"
-                If Celda.Interior.Color = RGB(181, 176, 161) Or _
-                   Celda.Interior.Color = RGB(43, 43, 44) Or _
-                   Celda.Interior.Color = RGB(201, 133, 12) Or _
-                   Celda.Interior.Color = RGB(235, 198, 21) Or _
-                   Celda.Interior.Color = RGB(181, 184, 177) Or _
-                   Celda.Interior.Color = RGB(244, 244, 244) Or _
-                   Celda.Interior.Color = RGB(236, 236, 231) Then
-                    Celda.Interior.Color = RGB(197, 199, 196)
-                End If
-            Case "RAL 7032"
-                If Celda.Interior.Color = RGB(197, 199, 196) Or _
-                   Celda.Interior.Color = RGB(43, 43, 44) Or _
-                   Celda.Interior.Color = RGB(201, 133, 12) Or _
-                   Celda.Interior.Color = RGB(235, 198, 21) Or _
-                   Celda.Interior.Color = RGB(244, 244, 244) Or _
-                   Celda.Interior.Color = RGB(236, 236, 231) Then
-                    Celda.Interior.Color = RGB(181, 176, 161)
-                End If
-            Case "RAL 9003"
-                If Celda.Interior.Color = RGB(197, 199, 196) Or _
-                   Celda.Interior.Color = RGB(181, 176, 161) Or _
-                   Celda.Interior.Color = RGB(43, 43, 44) Or _
-                   Celda.Interior.Color = RGB(201, 133, 12) Or _
-                   Celda.Interior.Color = RGB(235, 198, 21) Or _
-                   Celda.Interior.Color = RGB(244, 244, 244) Then
-                    Celda.Interior.Color = RGB(236, 236, 231)
-                End If
-            Case "RAL 9004"
-                If Celda.Interior.Color = RGB(197, 199, 196) Or _
-                   Celda.Interior.Color = RGB(181, 176, 161) Or _
-                   Celda.Interior.Color = RGB(201, 133, 12) Or _
-                   Celda.Interior.Color = RGB(235, 198, 21) Or _
-                   Celda.Interior.Color = RGB(244, 244, 244) Or _
-                   Celda.Interior.Color = RGB(236, 236, 231) Then
-                    Celda.Interior.Color = RGB(43, 43, 44)
-                End If
-            Case "Naranja"
-                If Celda.Interior.Color = RGB(197, 199, 196) Or _
-                   Celda.Interior.Color = RGB(181, 176, 161) Or _
-                   Celda.Interior.Color = RGB(43, 43, 44) Or _
-                   Celda.Interior.Color = RGB(235, 198, 21) Or _
-                   Celda.Interior.Color = RGB(244, 244, 244) Or _
-                   Celda.Interior.Color = RGB(236, 236, 231) Then
-                    Celda.Interior.Color = RGB(201, 133, 12)
-                End If
-            Case "Amarillo"
-                If Celda.Interior.Color = RGB(197, 199, 196) Or _
-                   Celda.Interior.Color = RGB(181, 176, 161) Or _
-                   Celda.Interior.Color = RGB(43, 43, 44) Or _
-                   Celda.Interior.Color = RGB(201, 133, 12) Or _
-                   Celda.Interior.Color = RGB(244, 244, 244) Or _
-                   Celda.Interior.Color = RGB(236, 236, 231) Then
-                    Celda.Interior.Color = RGB(235, 198, 21)
-                End If
+        Application.ScreenUpdating = False
+        LimpiarZona wsActual, "KO120:NJ185"
+        dato1 = Txt("TipoUF")
+        Select Case dato1
+            Case "SFI - Frontal Interno":  dato1 = "SFI_"
+            Case "SFC - Frontal Compacto": dato1 = "SFC_"
+            Case "SIA - Integral Abatible": dato1 = "SIA_"
+            Case "SFA - Fijo Atornillado": dato1 = "SFA_"
+        End Select 
+        dato2 = Txt("FrameUF")
+        dato3 = Txt("MedidaUF")
+        dato4 = Txt("OrientacionUF")
+        Select Case dato4
+            Case "Horizontal":   dato4 = "H"
+            Case "H.Compuesta":  dato4 = "HC"
+            Case "Vertical":     dato4 = "V"
+            Case "V.Extendida":  dato4 = "VE"
+            Case "V.Compacta":   dato4 = "VC"
         End Select
-    Next Celda
-    
-    MsgBox "Proceso Finalizado con Exito", vbInformation, "Cambio de Color"
-End Sub
+        dato5 = Txt("ConexionUF")
+        Select Case dato5
+            Case "Superior":   dato5 = "_NA"
+            Case "Izquierda":  dato5 = "_IZ"
+            Case "Derecha":    dato5 = "_DR"
+        End Select
+        dato6 = Txt("MandoUF")
+        Select Case dato6
+            Case "Toggle":     dato6 = "To"
+            Case "Prolongado": dato6 = "P"
+            Case "Motorizado": dato6 = "M"
+        End Select
+        If dato1 = "" Or dato2 = "" Or dato3 = "" Or _
+        dato4 = "" Or dato5 = "" Or dato6 = "" Then
+            Application.ScreenUpdating = True
+            MsgBox "Faltan datos por seleccionar en la unidad funcional.", vbExclamation
+            Exit Sub
+        End If
+        ResultadoUF = dato1 & dato2 & dato6 & "X" & dato3 & dato4 & dato5
+        Debug.Print ResultadoUF          'F5 y mira la ventana Inmediato (Ctrl+G)
+        MoverBloque ResultadoUF, "UF-SFI", wsActual, Celda
+        Application.ScreenUpdating = True
+    End Sub
+'==================================================================== LISAS
+    Public Sub Unidades_funcionales_lisas()
+        Dim wsActual As Worksheet, Celda As String
+        Dim dato1 As String, dato2 As String, dato3 As String, ResultadoLSS As String
+
+        PrepararHoja wsActual, "KO125:NJ185"
+        Celda = "KP132"
+
+        dato1 = Txt("TipoLSS")
+        Select Case dato1
+            Case "SFI - Frontal Interno":  dato1 = "SFI"
+            Case "SFC - Frontal Compacto": dato1 = "SFC"
+            Case "SIA - Integral Abatible", "SFA - Fijo Atornillado": dato1 = "SFA"
+            Case "SIC - Placa de Control": dato1 = "SIC_"
+        End Select
+
+        dato3 = Txt("UnidadesLSS")
+        dato2 = Txt("AnchoLSS")
+
+        If Vacio(dato1, dato2, dato3) Then AvisoFaltan "Tipo, Ancho o Unidades": Exit Sub
+
+        ResultadoLSS = dato1 & dato2 & "X" & dato3
+        MoverBloque ResultadoLSS, "LISAS", wsActual, Celda
+        Application.ScreenUpdating = True
+    End Sub
+'=============================================================== CONTACTORES
+    Public Sub Contactores()
+        Dim wsActual As Worksheet, Celda As String
+        Dim dato1 As String, dato2 As String, dato3 As String, ResultadoCT As String
+
+        PrepararHoja wsActual, "KO125:NJ185"
+        Celda = "KP132"
+
+        Select Case Txt("EquipoCT")
+            Case "A-Unit (Barra + Mini)": dato1 = "MBXAUNIT"
+            Case "Contactores":           dato1 = "Cont"
+        End Select
+
+        Select Case Txt("TamanoCT")          'OJO: revisa el nombre real del combo
+            Case "Talla 1-2": dato2 = "T1_2"
+            Case "Talla 3":   dato2 = "T1_3"
+            Case "4u":        dato2 = "4u"
+        End Select
+
+        Select Case Txt("VistaCT")
+            Case "Con frente muerto": dato3 = "FM"
+            Case "Sin frente muerto": dato3 = "SFM"
+        End Select
+
+        If Vacio(dato1, dato2, dato3) Then AvisoFaltan "Equipo, Tamano o Vista": Exit Sub
+
+        ResultadoCT = "UN_" & dato1 & "_" & dato3 & "X" & dato2
+        MoverBloque ResultadoCT, "Ufuncionales", wsActual, Celda
+        Application.ScreenUpdating = True
+    End Sub
+'====================================================================== DPS
+    Public Sub DPS()
+        Dim wsActual As Worksheet, Celda As String
+        Dim dato1 As String, dato2 As String, dato3 As String
+        Dim dato4 As String, dato5 As String, ResultadoDPS As String
+
+        PrepararHoja wsActual, "KO125:NJ185"
+        Celda = "KP132"
+
+        dato1 = Txt("TipoUNDPS")
+        Select Case dato1
+            Case "SFI - Frontal Interno":   dato1 = "SFC_D"
+            Case "SFC - Frontal Compacto":  dato1 = "SFC_D"
+            Case "SIA - Integral Abatible": dato1 = "SIA_D"
+        End Select
+
+        dato2 = Txt("FabriUNDPS")
+        Select Case dato2
+            Case "Citel":              dato2 = "CI"
+            Case "HWA":                dato2 = "HW"
+            Case "Ciprotec":           dato2 = "CP"
+            Case "Schneider Electric": dato2 = "SE"
+            Case "Phoenix Contac":     dato2 = "PC"
+        End Select
+
+        dato3 = Txt("AnchoDPS")
+        dato4 = Txt("EquipoDPS")
+
+        dato5 = Txt("MandoDPS")
+        Select Case dato5
+            Case "Toggle":     dato5 = "To"
+            Case "Prolongado": dato5 = "P"
+            Case "Motorizado": dato5 = "M"      'agregado por consistencia
+        End Select
+
+        If Vacio(dato1, dato2, dato3, dato4, dato5) Then AvisoFaltan "datos del DPS": Exit Sub
+
+        ResultadoDPS = dato1 & dato2 & "X" & dato3 & "_" & dato4 & dato5
+        MoverBloque ResultadoDPS, "DPS", wsActual, Celda
+        Application.ScreenUpdating = True
+    End Sub
+'========================================================== EQUIPOS CONTROL
+    Public Sub Equipos_Control()
+        Dim wsActual As Worksheet, Celda As String
+        Dim dato1 As String, dato2 As String, ResultadoCT As String
+
+        PrepararHoja wsActual, "KO125:NJ185"
+        Celda = "KP132"
+
+        dato1 = Txt("EquipoCTR")
+        dato2 = Txt("MedidasCTR")
+
+        If Vacio(dato1, dato2) Then AvisoFaltan "Equipo o Medidas": Exit Sub
+
+        ResultadoCT = "SFI_" & dato1 & "_" & dato2
+        MoverBloque ResultadoCT, "UCONTROL", wsActual, Celda
+        Application.ScreenUpdating = True
+    End Sub
+'============================================================ ACCESORIOS CTR
+    Public Sub Accesorios_CTR()
+        Dim wsActual As Worksheet, Celda As String
+        Dim dato1 As String, dato2 As String, ResultadoACC As String
+
+        PrepararHoja wsActual, "KO125:NJ185"
+        Celda = "KP132"
+
+        dato1 = Txt("ElementoCTR")
+        dato2 = Txt("vistaACCCTR")
+        Select Case dato2
+            Case "Derecha_Abierta":   dato2 = "DA"
+            Case "Derecha_Cerrada":   dato2 = "DC"
+            Case "Izquierda_Abierta": dato2 = "IA"
+            Case "Izquierda_Cerrada": dato2 = "IC"
+        End Select
+
+        If Vacio(dato1, dato2) Then AvisoFaltan "Elemento o Vista": Exit Sub
+
+        ResultadoACC = "AC_" & dato1 & "_" & dato2
+        MoverBloque ResultadoACC, "UCONTROL", wsActual, Celda
+        Application.ScreenUpdating = True
+    End Sub
+'====================================================================== ETO
+    Public Sub Unidades_ETO()
+        Dim wsActual As Worksheet, Celda As String
+        Dim dato1 As String, dato2 As String, ResultadoETO As String
+
+        PrepararHoja wsActual, "KO125:NJ185"
+        Celda = "KP132"
+
+        dato1 = Txt("Ancho_ETO")
+        dato2 = Txt("Unidades_ETO")
+
+        If Vacio(dato1, dato2) Then AvisoFaltan "Ancho o Unidades": Exit Sub
+
+        ResultadoETO = "ETO" & dato1 & "X" & dato2
+        MoverBloque ResultadoETO, "ETO_SFC_SFI", wsActual, Celda
+        Application.ScreenUpdating = True
+    End Sub
+'======================================================== EQUIPO INDIVIDUAL
+    Public Sub Equipo_Individual()
+        Dim wsActual As Worksheet, Celda As String
+        Dim dato1 As String, ResultadoEQ As String
+
+        PrepararHoja wsActual, "KO125:NJ185"
+        Celda = "KP132"
+
+        dato1 = Txt("EquipoIND")
+        If Vacio(dato1) Then AvisoFaltan "Equipo": Exit Sub
+
+        ResultadoEQ = "EQ_" & dato1
+        MoverBloque ResultadoEQ, "UCONTROL", wsActual, Celda
+        Application.ScreenUpdating = True
+    End Sub
+'==================================================== SERVICIOS AUXILIARES
+    Public Sub Servicios_Auxiliares()
+        Dim wsActual As Worksheet, Celda As String
+        Dim dato1 As String, dato2 As String, dato3 As String
+        Dim dato4 As String, ResultadoSV As String
+
+        PrepararHoja wsActual, "KO125:NJ185"
+        Celda = "KP132"
+
+        dato1 = Txt("MontajeSV")
+        Select Case dato1
+            Case "A-Unit":   dato1 = "AU_"
+            Case "Cubiculo": dato1 = "CB_"
+        End Select
+
+        dato2 = Txt("EquipoSV")
+        Select Case dato2
+            Case "Cambio Tension": dato2 = "CambioTension"
+            Case "Pont I/O":       dato2 = "PontI_O"
+            Case "Toma Corriente": dato2 = "TomaCorriente"
+        End Select
+
+        dato3 = Txt("AnchoSV")
+        dato4 = Txt("UnidadesSV")
+
+        If dato1 = "AU_" Then
+            If Vacio(dato2) Then AvisoFaltan "Equipo": Exit Sub
+            ResultadoSV = dato1 & dato2
+        Else
+            If Vacio(dato1, dato2, dato3, dato4) Then AvisoFaltan "datos del servicio": Exit Sub
+            ResultadoSV = dato1 & dato2 & "X" & dato3 & "_" & dato4
+        End If
+
+        MoverBloque ResultadoSV, "SERVICIOS", wsActual, Celda
+        Application.ScreenUpdating = True
+    End Sub
+
+'=========================================================== PLACAS CONTROL
+    Public Sub Placas_Control()
+        Dim wsActual As Worksheet, Celda As String
+        Dim dato1 As String, dato2 As String, dato3 As String
+        Dim dato4 As String, ResultadoPC As String
+        PrepararHoja wsActual, "KO125:NJ185"
+        Celda = "KP120"
+        dato1 = Txt("TamanoPC")
+        Select Case dato1
+            Case "Pequena", "Pequeña": dato1 = "PQ"
+            Case "Grande":             dato1 = "GD"
+            Case "Mediana":            dato1 = "MD"
+        End Select
+        dato2 = Txt("VistaPC")
+        Select Case dato2
+            Case "Frontal": dato2 = "FR"
+            Case "Lateral": dato2 = "LT"
+        End Select
+        dato3 = Txt("EquipoPC")
+        Select Case dato3
+            Case "ATS PREMIUM":  dato3 = "ATSPREMIUM"
+            Case "ATS ESTANDAR": dato3 = "ATSESTANDAR"
+            Case "ATS BASICA":   dato3 = "ATSBASICA"
+        End Select
+        dato4 = Txt("DisponibilidadPC")
+        Select Case dato4
+            Case "Externa":  dato4 = "EXT"
+            Case "Interna":  dato4 = "INT"
+            Case "5 Pasos":  dato4 = "5P"
+            Case "6 Pasos":  dato4 = "6P"
+            Case "7 Pasos":  dato4 = "7P"
+            Case "8 Pasos":  dato4 = "8P"
+            Case "9 Pasos":  dato4 = "9P"
+            Case "10 Pasos": dato4 = "10P"
+            Case "11 Pasos": dato4 = "11P"
+            Case "12 Pasos": dato4 = "12P"
+            Case "13 Pasos": dato4 = "13P"
+            Case "14 Pasos": dato4 = "14P"
+        End Select
+
+        If Vacio(dato1, dato2, dato3, dato4) Then AvisoFaltan "datos de la placa": Exit Sub
+
+        ResultadoPC = "PCTR_X" & dato1 & "X" & dato2 & "_" & dato3 & "X" & dato4
+        MoverBloque ResultadoPC, "SERVICIOS", wsActual, Celda
+        Application.ScreenUpdating = True
+    End Sub
+'============================================================= COMPENSACION
+    Public Sub Compensacion()
+        Dim wsActual As Worksheet, Celda As String
+        Dim dato1 As String, dato2 As String, dato3 As String, ResultadoCOM As String
+
+        PrepararHoja wsActual, "KO125:NJ185"
+        Celda = "KP107"
+
+        dato1 = Txt("EquipoCOM")
+        dato2 = Txt("MedidaCOM")
+        dato3 = Txt("UnidadCOM")
+
+        If Vacio(dato1, dato2, dato3) Then AvisoFaltan "Equipo, Medida o Unidad": Exit Sub
+
+        ResultadoCOM = "UNC_" & dato1 & "X" & dato2 & "X" & dato3
+        MoverBloque ResultadoCOM, "COMPENSACION", wsActual, Celda
+        Application.ScreenUpdating = True
+    End Sub
+'=================================================================== BARRAS
+    Public Sub BARRAS()
+        Dim wsActual As Worksheet, Celda As String
+        Dim dato1 As String, dato2 As String, dato3 As String, ResultadoBAR As String
+
+        PrepararHoja wsActual, "KR60:NJ185"
+        Celda = "KR93"
+
+        dato1 = Txt("OrientacionBRR")
+        Select Case dato1
+            Case "Horizontal Bus Bar":        dato1 = "HBB"
+            Case "Horizontal Tierra Neutro":  dato1 = "HTN"
+            Case "Vertical Bus Bar":          dato1 = "VBB"
+        End Select
+
+        dato2 = Txt("AmperajeBRR")
+        dato3 = Txt("MedidaBRR")
+
+        If Vacio(dato1, dato2, dato3) Then AvisoFaltan "Orientacion, Amperaje o Medida": Exit Sub
+
+        ResultadoBAR = dato1 & "X" & dato3 & "X" & dato2
+        MoverBloque ResultadoBAR, "BARRAJE", wsActual, Celda
+        Application.ScreenUpdating = True
+    End Sub
+'============================================================ TRANSFERENCIA
+    Public Sub Transferencia()
+        Dim wsActual As Worksheet, Celda As String
+        Dim dato1 As String, dato2 As String, dato3 As String
+        Dim dato4 As String, dato5 As String, dato6 As String, ResultadoTRF As String
+        PrepararHoja wsActual, "KO125:NJ185"
+        Celda = "KP127"
+        dato1 = Txt("TipoUnidadTRF")
+        Select Case dato1
+            Case "SFI - Frontal Interno": dato1 = "SFI"
+        End Select
+        dato2 = Txt("OrientacionTRF")
+        Select Case dato2
+            Case "Horizontal": dato2 = "H"
+            Case "Vertical":   dato2 = "V"
+        End Select
+        dato3 = Txt("MandoTFF")
+        Select Case dato3
+            Case "Manual":     dato3 = "MN"
+            Case "Motorizado": dato3 = "M"
+        End Select
+        dato4 = Txt("AnchoTFR")
+        dato5 = Txt("ConexionTRF")
+        Select Case dato5
+            Case "Superior": dato5 = "SUP"
+            Case "NA":       dato5 = "NA"
+        End Select
+        dato6 = Txt("EquipoTRF")
+        If Vacio(dato1, dato2, dato3, dato4, dato5, dato6) Then AvisoFaltan "datos de transferencia": Exit Sub
+        ResultadoTRF = dato1 & "_UT_" & dato6 & dato3 & "X" & dato2 & "X" & dato4 & "X" & dato5
+        MoverBloque ResultadoTRF, "ATS_SFI", wsActual, Celda
+        Application.ScreenUpdating = True
+    End Sub
+'========================================================== ACCESORIOS MTM
+    Public Sub ACESORIOS_MTM()
+        Dim wsActual As Worksheet, Celda As String
+        Dim dato1 As String, dato2 As String, ResultadoACM As String
+
+        PrepararHoja wsActual, "KR60:NJ185"
+        Celda = "KP104"
+
+        dato1 = Txt("TipoACC")
+        dato2 = Txt("MedidaACC")
+
+        If Vacio(dato1, dato2) Then AvisoFaltan "Tipo o Medida": Exit Sub
+
+        ResultadoACM = "ACC_" & dato1 & "X" & dato2
+        MoverBloque ResultadoACM, "ACCESOSRIOS MTM", wsActual, Celda
+        Application.ScreenUpdating = True
+    End Sub
+'================================================================ ETIQUETAS
+    Public Sub ETIQUETAS()
+        Dim wsActual As Worksheet, Celda As String
+        Dim dato1 As String, dato2 As String, dato3 As String, ResultadoETQ As String
+
+        PrepararHoja wsActual, "KO125:NJ185"
+        Celda = "KP104"
+
+        dato2 = Txt("Dato3ETQ")
+        Select Case dato2
+            Case "Pequeno", "Pequeño": dato2 = "1"
+            Case "Mediano":            dato2 = "2"
+            Case "Grande":             dato2 = "3"
+        End Select
+
+        dato1 = Txt("ClaseETQ")
+        dato3 = Txt("TipoETQ")
+
+        Select Case dato1
+            Case "Etiqueta"
+                If Vacio(dato2, dato3) Then AvisoFaltan "Tipo o Tamano": Exit Sub
+                ResultadoETQ = "E_" & dato3 & "X" & dato2
+            Case "Linea de Producto"
+                If Vacio(dato2, dato3) Then AvisoFaltan "Tipo o Tamano": Exit Sub
+                ResultadoETQ = "L_" & dato3 & "X" & dato2
+            Case "Logo de clientes"
+                If Vacio(dato3) Then AvisoFaltan "Tipo": Exit Sub
+                ResultadoETQ = "LC_" & dato3
+            Case Else
+                AvisoFaltan "Clase de etiqueta"
+                Exit Sub
+        End Select
+
+        MoverBloque ResultadoETQ, "ETIQUETAS", wsActual, Celda
+        Application.ScreenUpdating = True
+    End Sub
+'==================================================================== COTAS
+    Public Sub COTAS()
+        Dim wsActual As Worksheet, Celda As String
+        Dim dato1 As String, ResultadoCOT As String
+
+        PrepararHoja wsActual, "KO125:NJ185"
+        Celda = "KP104"
+
+        dato1 = Txt("CotasDIBUJO")
+        Select Case dato1
+            Case "Ancho: 200mm":        dato1 = "C_200"
+            Case "Ancho: 230mm":        dato1 = "C_230"
+            Case "Ancho: 400mm":        dato1 = "C_400"
+            Case "Ancho: 430mm":        dato1 = "C_430"
+            Case "Ancho: 720mm":        dato1 = "C_720"
+            Case "Ancho: 750mm":        dato1 = "C_750"
+            Case "Ancho: 980mm":        dato1 = "C_980"
+            Case "Ancho: 1180mm":       dato1 = "C_1180"
+            Case "Ancho: 1380mm":       dato1 = "C_1380"
+            Case "Altura: 1600mm":      dato1 = "C_1600"
+            Case "Altura: 1800mm":      dato1 = "C_1800"
+            Case "Altura: 2000mm":      dato1 = "C_2000"
+            Case "Division Tabelero":   dato1 = "Division"
+            Case "Corte Tren":          dato1 = "Corte_Tren"
+            Case "Continuacion Tren":   dato1 = "Continuidad_Tren"
+            Case Else
+                AvisoFaltan "Cota"
+                Exit Sub
+        End Select
+
+        ResultadoCOT = dato1
+        MoverBloque ResultadoCOT, "COTAS", wsActual, Celda
+        Application.ScreenUpdating = True
+    End Sub
+'================================================================= CAMBIO DE COLOR
+    Public Sub Cambiodecolor() 'Vista frontal
+        Dim ws As Worksheet
+        Dim Celda As Range
+        Dim valorColor As String
+        Dim colorDestino As Long
+        
+        ' Obtener el valor del color desde la portada
+        valorColor = Me.OLEObjects("Colorselec").Object.Value
+        Set ws = ThisWorkbook.Sheets("FrontalFM")
+        ' Definir color destino seg�n el valor
+        Select Case valorColor
+            Case "RAL 7035": colorDestino = RGB(197, 199, 196)
+            Case "RAL 7032": colorDestino = RGB(181, 176, 161)
+            Case "RAL 9003": colorDestino = RGB(236, 236, 231)
+            Case "RAL 9004": colorDestino = RGB(43, 43, 44)
+            Case "Naranja": colorDestino = RGB(201, 133, 12)
+            Case "Amarillo": colorDestino = RGB(235, 198, 21)
+        End Select
+        
+        ' Recorrer el rango y cambiar solo los colores espec�ficos
+        For Each Celda In ws.Range("BZ38:MX155")
+            Select Case valorColor
+                Case "RAL 7035"
+                    If Celda.Interior.Color = RGB(181, 176, 161) Or _
+                    Celda.Interior.Color = RGB(43, 43, 44) Or _
+                    Celda.Interior.Color = RGB(201, 133, 12) Or _
+                    Celda.Interior.Color = RGB(235, 198, 21) Or _
+                    Celda.Interior.Color = RGB(181, 184, 177) Or _
+                    Celda.Interior.Color = RGB(244, 244, 244) Or _
+                    Celda.Interior.Color = RGB(236, 236, 231) Then
+                        Celda.Interior.Color = RGB(197, 199, 196)
+                    End If
+                Case "RAL 7032"
+                    If Celda.Interior.Color = RGB(197, 199, 196) Or _
+                    Celda.Interior.Color = RGB(43, 43, 44) Or _
+                    Celda.Interior.Color = RGB(201, 133, 12) Or _
+                    Celda.Interior.Color = RGB(235, 198, 21) Or _
+                    Celda.Interior.Color = RGB(244, 244, 244) Or _
+                    Celda.Interior.Color = RGB(236, 236, 231) Then
+                        Celda.Interior.Color = RGB(181, 176, 161)
+                    End If
+                Case "RAL 9003"
+                    If Celda.Interior.Color = RGB(197, 199, 196) Or _
+                    Celda.Interior.Color = RGB(181, 176, 161) Or _
+                    Celda.Interior.Color = RGB(43, 43, 44) Or _
+                    Celda.Interior.Color = RGB(201, 133, 12) Or _
+                    Celda.Interior.Color = RGB(235, 198, 21) Or _
+                    Celda.Interior.Color = RGB(244, 244, 244) Then
+                        Celda.Interior.Color = RGB(236, 236, 231)
+                    End If
+                Case "RAL 9004"
+                    If Celda.Interior.Color = RGB(197, 199, 196) Or _
+                    Celda.Interior.Color = RGB(181, 176, 161) Or _
+                    Celda.Interior.Color = RGB(201, 133, 12) Or _
+                    Celda.Interior.Color = RGB(235, 198, 21) Or _
+                    Celda.Interior.Color = RGB(244, 244, 244) Or _
+                    Celda.Interior.Color = RGB(236, 236, 231) Then
+                        Celda.Interior.Color = RGB(43, 43, 44)
+                    End If
+                Case "Naranja"
+                    If Celda.Interior.Color = RGB(197, 199, 196) Or _
+                    Celda.Interior.Color = RGB(181, 176, 161) Or _
+                    Celda.Interior.Color = RGB(43, 43, 44) Or _
+                    Celda.Interior.Color = RGB(235, 198, 21) Or _
+                    Celda.Interior.Color = RGB(244, 244, 244) Or _
+                    Celda.Interior.Color = RGB(236, 236, 231) Then
+                        Celda.Interior.Color = RGB(201, 133, 12)
+                    End If
+                Case "Amarillo"
+                    If Celda.Interior.Color = RGB(197, 199, 196) Or _
+                    Celda.Interior.Color = RGB(181, 176, 161) Or _
+                    Celda.Interior.Color = RGB(43, 43, 44) Or _
+                    Celda.Interior.Color = RGB(201, 133, 12) Or _
+                    Celda.Interior.Color = RGB(244, 244, 244) Or _
+                    Celda.Interior.Color = RGB(236, 236, 231) Then
+                        Celda.Interior.Color = RGB(235, 198, 21)
+                    End If
+            End Select
+        Next Celda
+        
+        MsgBox "Proceso Finalizado con Exito", vbInformation, "Cambio de Color"
+    End Sub
 '======================================================
 Public sub  Buscar_datos_Unidade()
     Informe_Unidades ResultadoUF
