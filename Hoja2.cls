@@ -1482,7 +1482,7 @@ End Sub
     Public Sub UnidadesFuncionales()
         Dim wsActual As Worksheet, Celda As String
         Dim dato1 As String, dato2 As String, dato3 As String, dato4 As String
-        Dim dato5 As String, dato6 As String, ResultadoUF As String
+        Dim dato5 As String, dato6 As String
         Set wsActual = ThisWorkbook.Sheets("FrontalFM")
         Celda = "KP132"
         Application.ScreenUpdating = False
@@ -1530,7 +1530,7 @@ End Sub
 '==================================================================== LISAS
     Public Sub Unidades_funcionales_lisas()
         Dim wsActual As Worksheet, Celda As String
-        Dim dato1 As String, dato2 As String, dato3 As String, ResultadoLSS As String
+        Dim dato1 As String, dato2 As String, dato3 As String
 
         PrepararHoja wsActual, "KO125:NJ185"
         Celda = "KP132"
@@ -1555,7 +1555,7 @@ End Sub
 '=============================================================== CONTACTORES
     Public Sub Contactores()
         Dim wsActual As Worksheet, Celda As String
-        Dim dato1 As String, dato2 As String, dato3 As String, ResultadoCT As String
+        Dim dato1 As String, dato2 As String, dato3 As String
 
         PrepararHoja wsActual, "KO125:NJ185"
         Celda = "KP132"
@@ -1586,7 +1586,7 @@ End Sub
     Public Sub DPS()
         Dim wsActual As Worksheet, Celda As String
         Dim dato1 As String, dato2 As String, dato3 As String
-        Dim dato4 As String, dato5 As String, ResultadoDPS As String
+        Dim dato4 As String, dato5 As String
 
         PrepararHoja wsActual, "KO125:NJ185"
         Celda = "KP132"
@@ -1626,7 +1626,7 @@ End Sub
 '========================================================== EQUIPOS CONTROL
     Public Sub Equipos_Control()
         Dim wsActual As Worksheet, Celda As String
-        Dim dato1 As String, dato2 As String, ResultadoCT As String
+        Dim dato1 As String, dato2 As String
 
         PrepararHoja wsActual, "KO125:NJ185"
         Celda = "KP132"
@@ -1643,7 +1643,7 @@ End Sub
 '============================================================ ACCESORIOS CTR
     Public Sub Accesorios_CTR()
         Dim wsActual As Worksheet, Celda As String
-        Dim dato1 As String, dato2 As String, ResultadoACC As String
+        Dim dato1 As String, dato2 As String
 
         PrepararHoja wsActual, "KO125:NJ185"
         Celda = "KP132"
@@ -1666,7 +1666,7 @@ End Sub
 '====================================================================== ETO
     Public Sub Unidades_ETO()
         Dim wsActual As Worksheet, Celda As String
-        Dim dato1 As String, dato2 As String, ResultadoETO As String
+        Dim dato1 As String, dato2 As String
 
         PrepararHoja wsActual, "KO125:NJ185"
         Celda = "KP132"
@@ -1683,7 +1683,7 @@ End Sub
 '======================================================== EQUIPO INDIVIDUAL
     Public Sub Equipo_Individual()
         Dim wsActual As Worksheet, Celda As String
-        Dim dato1 As String, ResultadoEQ As String
+        Dim dato1 As String
 
         PrepararHoja wsActual, "KO125:NJ185"
         Celda = "KP132"
@@ -1699,7 +1699,7 @@ End Sub
     Public Sub Servicios_Auxiliares()
         Dim wsActual As Worksheet, Celda As String
         Dim dato1 As String, dato2 As String, dato3 As String
-        Dim dato4 As String, ResultadoSV As String
+        Dim dato4 As String
 
         PrepararHoja wsActual, "KO125:NJ185"
         Celda = "KP132"
@@ -1736,7 +1736,7 @@ End Sub
     Public Sub Placas_Control()
         Dim wsActual As Worksheet, Celda As String
         Dim dato1 As String, dato2 As String, dato3 As String
-        Dim dato4 As String, ResultadoPC As String
+        Dim dato4 As String
         PrepararHoja wsActual, "KO125:NJ185"
         Celda = "KP120"
         dato1 = Txt("TamanoPC")
@@ -1781,7 +1781,7 @@ End Sub
 '============================================================= COMPENSACION
     Public Sub Compensacion()
         Dim wsActual As Worksheet, Celda As String
-        Dim dato1 As String, dato2 As String, dato3 As String, ResultadoCOM As String
+        Dim dato1 As String, dato2 As String, dato3 As String
 
         PrepararHoja wsActual, "KO125:NJ185"
         Celda = "KP107"
@@ -1799,7 +1799,7 @@ End Sub
 '=================================================================== BARRAS
     Public Sub BARRAS()
         Dim wsActual As Worksheet, Celda As String
-        Dim dato1 As String, dato2 As String, dato3 As String, ResultadoBAR As String
+        Dim dato1 As String, dato2 As String, dato3 As String
 
         PrepararHoja wsActual, "KR60:NJ185"
         Celda = "KR93"
@@ -1824,7 +1824,7 @@ End Sub
     Public Sub Transferencia()
         Dim wsActual As Worksheet, Celda As String
         Dim dato1 As String, dato2 As String, dato3 As String
-        Dim dato4 As String, dato5 As String, dato6 As String, ResultadoTRF As String
+        Dim dato4 As String, dato5 As String, dato6 As String
         PrepararHoja wsActual, "KO125:NJ185"
         Celda = "KP127"
         dato1 = Txt("TipoUnidadTRF")
@@ -1856,7 +1856,7 @@ End Sub
 '========================================================== ACCESORIOS MTM
     Public Sub ACESORIOS_MTM()
         Dim wsActual As Worksheet, Celda As String
-        Dim dato1 As String, dato2 As String, ResultadoACM As String
+        Dim dato1 As String, dato2 As String
 
         PrepararHoja wsActual, "KR60:NJ185"
         Celda = "KP104"
@@ -1873,8 +1873,7 @@ End Sub
 '================================================================ ETIQUETAS
     Public Sub ETIQUETAS()
         Dim wsActual As Worksheet, Celda As String
-        Dim dato1 As String, dato2 As String, dato3 As String, ResultadoETQ As String
-
+        Dim dato1 As String, dato2 As String, dato3 As String
         PrepararHoja wsActual, "KO125:NJ185"
         Celda = "KP104"
 
@@ -1909,7 +1908,7 @@ End Sub
 '==================================================================== COTAS
     Public Sub COTAS()
         Dim wsActual As Worksheet, Celda As String
-        Dim dato1 As String, ResultadoCOT As String
+        Dim dato1 As String
 
         PrepararHoja wsActual, "KO125:NJ185"
         Celda = "KP104"
