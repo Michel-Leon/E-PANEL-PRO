@@ -21,7 +21,7 @@ Public IP as string, Color as string
         On Error GoTo Fin
         mbCargando = True
         LlenarFrame
-        LlenarMando
+        
     Fin:
         mbCargando = False
         RecargarDesdeFrame                 'reconstruye Medida, Corriente y Orientacion
@@ -30,6 +30,7 @@ Public IP as string, Color as string
     Private Sub FrameUF_Change()
         If mbCargando Then Exit Sub
         RecargarDesdeFrame
+        LlenarMando
     End Sub
     Private Sub MedidaUF_Change()
         If mbCargando Then Exit Sub
@@ -393,20 +394,38 @@ Public IP as string, Color as string
     '  porque nada depende de MandoUF)
 
     Private Sub LlenarMando()
-        Dim sTipo As String
+        Dim sTipo As String, sFrame As String
         sTipo = Txt("TipoUF")
+        sFrame = Txt("FrameUF")          'ESTO es lo que faltaba
 
         With Cbo("MandoUF")
             .Clear
-            Select Case sTipo
-                Case "SFI - Frontal Interno", "SFC - Frontal Compacto"
-                    .AddItem "Toggle"
-                Case "SIA - Integral Abatible", "SFA - Fijo Atornillado"
-                    .AddItem "Prolongado"
-            End Select
+            If sTipo = "" Or sFrame = "" Then Exit Sub
+
+            If EsMotorizado(sFrame) Then
+                .AddItem "Motorizado"
+            Else
+                Select Case sTipo
+                    Case "SFI - Frontal Interno", "SFC - Frontal Compacto"
+                        .AddItem "Toggle"
+                    Case "SIA - Integral Abatible", "SFA - Fijo Atornillado"
+                        .AddItem "Prolongado"
+                End Select
+            End If
+
             If .ListCount = 1 Then .ListIndex = 0
         End With
     End Sub
+
+    Private Function EsMotorizado(ByVal sFrame As String) As Boolean
+        Select Case sFrame
+            Case "NWFIJO", "NWEXTRAIBLE", "MTZFIJO", "MTZEXTRAIBLE", _
+                "MVSFIJO", "MVSEXTRAIBLE"
+                EsMotorizado = True
+            Case Else
+                EsMotorizado = False
+        End Select
+    End Function
     '------------------------------------------------------- FUNCIONALIDAD
     ' 400 mm -> solo Carga        720 mm -> Carga y Totalizador
     ' H.Compuesta -> solo Totalizador
@@ -1191,10 +1210,16 @@ Public Sub Worksheet_Activate()
             .Clear
             select case IP
                 Case "30"
-                .AddItem "SFI - Frontal Interno"
-                .AddItem "SFC - Frontal Compacto"
-                .AddItem "SIA - Integral Abatible"
-                .AddItem "SFA - Fijo Atornillado"
+                if  MenuUnidades = "Opcion2" then
+                    .AddItem "SFI - Frontal Interno"
+                    .AddItem "SIA - Integral Abatible"
+                    .AddItem "SFA - Fijo Atornillado"
+                else
+                    .AddItem "SFI - Frontal Interno"
+                    .AddItem "SFC - Frontal Compacto"
+                    .AddItem "SIA - Integral Abatible"
+                    .AddItem "SFA - Fijo Atornillado"
+                end if
             case else
                 .AddItem "SFI - Frontal Interno"
                 .AddItem "SIA - Integral Abatible" 
@@ -1504,6 +1529,7 @@ Public sub UnidadesFuncionales()
     Select case dato6
         case "Toggle": dato6 = "To" 
         case "Prolongado": dato6 = "P"
+        case "Motorizado": dato6 = "M"
     End Select
 
     ResultadoUF= dato1 & dato2 & dato6 & "X" & dato3 & dato4 & dato5
@@ -1858,8 +1884,8 @@ Public Sub Cambiodecolor() 'Vista frontal
     Dim colorDestino As Long
     
     ' Obtener el valor del color desde la portada
-    valorColor = Me.OLEObjects("Colorselec").Object.Value
-    Set ws = ThisWorkbook.Sheets("Vista frontal")
+    valorColor = Me.OLEObjects("ColorConf").Object.Value
+    Set ws = ThisWorkbook.Sheets("DISENO")
     ' Definir color destino según el valor
     Select Case valorColor
         Case "RAL 7035": colorDestino = RGB(197, 199, 196)
@@ -1871,7 +1897,7 @@ Public Sub Cambiodecolor() 'Vista frontal
     End Select
     
     ' Recorrer el rango y cambiar solo los colores específicos
-    For Each celda In ws.Range("BZ38:MX155")
+    For Each celda In ws.Range("BZ57:MY155")
         Select Case valorColor
             Case "RAL 7035"
                 If celda.Interior.Color = RGB(181, 176, 161) Or _
