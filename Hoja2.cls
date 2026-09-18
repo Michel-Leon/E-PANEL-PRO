@@ -29,7 +29,6 @@ Private mbCargando As Boolean          'evita eventos en cascada
     End Sub
 '==============================================================
 'UNIDAD FUNCIONAL (UF) 
-    
     '---------------------------------------------------------------- EVENTOS
     Private Sub TipoUF_Change()
         If mbCargando Then Exit Sub
@@ -108,7 +107,6 @@ Private mbCargando As Boolean          'evita eventos en cascada
         .Clear
         Select Case sTipo
             Case "SFI - Frontal Interno", "SFC - Frontal Compacto"
-                'If MenuUnidades = "Opcion1" Then
                     .AddItem "MiniBreaker"
                     .AddItem "EZC100"
                     .AddItem "EZC250"
@@ -125,31 +123,13 @@ Private mbCargando As Boolean          'evita eventos en cascada
                     .AddItem "GoPact250"
                     .AddItem "GoPact400"
                     .AddItem "GoPact800"
-                'ElseIf MenuUnidades = "Opcion2" Then
-                '.AddItem "EZC250"
-                '.AddItem "EZC630"
-                '.AddItem "CVS100"
-                '.AddItem "CVS250"
-                '.AddItem "CVS630"
-                '.AddItem "NSX100"
-                '.AddItem "NSX250"
-                '.AddItem "NSX630"
-                '.AddItem "NS800_1250"
-                '.AddItem "NS800_1600"
-                '.AddItem "GoPact150"
-                '.AddItem "GoPact200"
-                '.AddItem "GoPact250"
-                '.AddItem "GoPact400"
-                '.AddItem "GoPact800"
-                '.AddItem "NWFIJO"
-                '.AddItem "NWEXTRAIBLE"
-                '.AddItem "MTZFIJO"
-                '.AddItem "MTZEXTRAIBLE"
-                '.AddItem "MVSFIJO"
-                '.AddItem "MVSEXTRAIBLE"
-               'End If
+                    .AddItem "NWFIJO"
+                    .AddItem "NWEXTRAIBLE"
+                    .AddItem "MTZFIJO"
+                    .AddItem "MTZEXTRAIBLE"
+                    .AddItem "MVSFIJO"
+                    .AddItem "MVSEXTRAIBLE"
             Case "SIA - Integral Abatible"
-                'If MenuUnidades = "Opcion1" Then
                 .AddItem "EZC100"
                 .AddItem "EZC250"
                 .AddItem "CVS100"
@@ -157,24 +137,15 @@ Private mbCargando As Boolean          'evita eventos en cascada
                 .AddItem "CVS630"
                 .AddItem "NSX250"
                 .AddItem "NSX630"
-            ' ElseIf MenuUnidades = "Opcion2" Then
-                ' .AddItem "EZC100"
-                '.AddItem "EZC250"
-                '.AddItem "CVS100"
-                '.AddItem "CVS250"
-                '.AddItem "CVS630"
-                '.AddItem "NSX250"
-                '.AddItem "NSX630"
-                '.AddItem "NS800_1600"
-                '.AddItem "NWFIJO"
-                '.AddItem "NWEXTRAIBLE"
-                '.AddItem "MTZFIJO"
-                '.AddItem "MTZEXTRAIBLE"
-                '.AddItem "MVSFIJO"
-                '.AddItem "MVSEXTRAIBLE"
-                'End If
+                .AddItem "NS800_1600"
+                .AddItem "NWFIJO"
+                .AddItem "NWEXTRAIBLE"
+                .AddItem "MTZFIJO"
+                .AddItem "MTZEXTRAIBLE"
+                .AddItem "MVSFIJO"
+                .AddItem "MVSEXTRAIBLE"
+            
             Case "SFA - Fijo Atornillado"
-                ' If MenuUnidades = "Opcion1" Then
                 .AddItem "EZC100"
                 .AddItem "EZC250"
                 .AddItem "CVS100"
@@ -182,9 +153,8 @@ Private mbCargando As Boolean          'evita eventos en cascada
                 .AddItem "CVS630"
                 .AddItem "NSX250"
                 .AddItem "NSX630"
-       ' ElseIf MenuUnidades = "Opcion2" Then
-        '.AddItem "NS800_1600"
-       ' End If
+                .AddItem "NS800_1600"
+       
         End Select
         If .ListCount = 1 Then .ListIndex = 0
         End With
@@ -1482,7 +1452,7 @@ End Sub
     Public Sub UnidadesFuncionales()
         Dim wsActual As Worksheet, Celda As String
         Dim dato1 As String, dato2 As String, dato3 As String, dato4 As String
-        Dim dato5 As String, dato6 As String, ResultadoUF As String
+        Dim dato5 As String, dato6 As String
         Set wsActual = ThisWorkbook.Sheets("FrontalFM")
         Celda = "KP132"
         Application.ScreenUpdating = False
@@ -1523,14 +1493,14 @@ End Sub
             Exit Sub
         End If
         ResultadoUF = dato1 & dato2 & dato6 & "X" & dato3 & dato4 & dato5
-        Debug.Print ResultadoUF          'F5 y mira la ventana Inmediato (Ctrl+G)
+        'Debug.Print ResultadoUF          'F5 y mira la ventana Inmediato (Ctrl+G)
         MoverBloque ResultadoUF, "UF-SFI", wsActual, Celda
         Application.ScreenUpdating = True
     End Sub
 '==================================================================== LISAS
     Public Sub Unidades_funcionales_lisas()
         Dim wsActual As Worksheet, Celda As String
-        Dim dato1 As String, dato2 As String, dato3 As String, ResultadoLSS As String
+        Dim dato1 As String, dato2 As String, dato3 As String
 
         PrepararHoja wsActual, "KO125:NJ185"
         Celda = "KP132"
@@ -1555,7 +1525,7 @@ End Sub
 '=============================================================== CONTACTORES
     Public Sub Contactores()
         Dim wsActual As Worksheet, Celda As String
-        Dim dato1 As String, dato2 As String, dato3 As String, ResultadoCT As String
+        Dim dato1 As String, dato2 As String, dato3 As String
 
         PrepararHoja wsActual, "KO125:NJ185"
         Celda = "KP132"
@@ -1586,7 +1556,7 @@ End Sub
     Public Sub DPS()
         Dim wsActual As Worksheet, Celda As String
         Dim dato1 As String, dato2 As String, dato3 As String
-        Dim dato4 As String, dato5 As String, ResultadoDPS As String
+        Dim dato4 As String, dato5 As String
 
         PrepararHoja wsActual, "KO125:NJ185"
         Celda = "KP132"
@@ -1626,7 +1596,7 @@ End Sub
 '========================================================== EQUIPOS CONTROL
     Public Sub Equipos_Control()
         Dim wsActual As Worksheet, Celda As String
-        Dim dato1 As String, dato2 As String, ResultadoCT As String
+        Dim dato1 As String, dato2 As String
 
         PrepararHoja wsActual, "KO125:NJ185"
         Celda = "KP132"
@@ -1643,7 +1613,7 @@ End Sub
 '============================================================ ACCESORIOS CTR
     Public Sub Accesorios_CTR()
         Dim wsActual As Worksheet, Celda As String
-        Dim dato1 As String, dato2 As String, ResultadoACC As String
+        Dim dato1 As String, dato2 As String
 
         PrepararHoja wsActual, "KO125:NJ185"
         Celda = "KP132"
@@ -1666,7 +1636,7 @@ End Sub
 '====================================================================== ETO
     Public Sub Unidades_ETO()
         Dim wsActual As Worksheet, Celda As String
-        Dim dato1 As String, dato2 As String, ResultadoETO As String
+        Dim dato1 As String, dato2 As String
 
         PrepararHoja wsActual, "KO125:NJ185"
         Celda = "KP132"
@@ -1679,11 +1649,11 @@ End Sub
         ResultadoETO = "ETO" & dato1 & "X" & dato2
         MoverBloque ResultadoETO, "ETO_SFC_SFI", wsActual, Celda
         Application.ScreenUpdating = True
-    End Sub
+    End Sub 
 '======================================================== EQUIPO INDIVIDUAL
     Public Sub Equipo_Individual()
         Dim wsActual As Worksheet, Celda As String
-        Dim dato1 As String, ResultadoEQ As String
+        Dim dato1 As String
 
         PrepararHoja wsActual, "KO125:NJ185"
         Celda = "KP132"
@@ -1699,7 +1669,7 @@ End Sub
     Public Sub Servicios_Auxiliares()
         Dim wsActual As Worksheet, Celda As String
         Dim dato1 As String, dato2 As String, dato3 As String
-        Dim dato4 As String, ResultadoSV As String
+        Dim dato4 As String
 
         PrepararHoja wsActual, "KO125:NJ185"
         Celda = "KP132"
@@ -1731,12 +1701,11 @@ End Sub
         MoverBloque ResultadoSV, "SERVICIOS", wsActual, Celda
         Application.ScreenUpdating = True
     End Sub
-
 '=========================================================== PLACAS CONTROL
     Public Sub Placas_Control()
         Dim wsActual As Worksheet, Celda As String
         Dim dato1 As String, dato2 As String, dato3 As String
-        Dim dato4 As String, ResultadoPC As String
+        Dim dato4 As String
         PrepararHoja wsActual, "KO125:NJ185"
         Celda = "KP120"
         dato1 = Txt("TamanoPC")
@@ -1781,7 +1750,7 @@ End Sub
 '============================================================= COMPENSACION
     Public Sub Compensacion()
         Dim wsActual As Worksheet, Celda As String
-        Dim dato1 As String, dato2 As String, dato3 As String, ResultadoCOM As String
+        Dim dato1 As String, dato2 As String, dato3 As String
 
         PrepararHoja wsActual, "KO125:NJ185"
         Celda = "KP107"
@@ -1799,7 +1768,7 @@ End Sub
 '=================================================================== BARRAS
     Public Sub BARRAS()
         Dim wsActual As Worksheet, Celda As String
-        Dim dato1 As String, dato2 As String, dato3 As String, ResultadoBAR As String
+        Dim dato1 As String, dato2 As String, dato3 As String
 
         PrepararHoja wsActual, "KR60:NJ185"
         Celda = "KR93"
@@ -1824,7 +1793,7 @@ End Sub
     Public Sub Transferencia()
         Dim wsActual As Worksheet, Celda As String
         Dim dato1 As String, dato2 As String, dato3 As String
-        Dim dato4 As String, dato5 As String, dato6 As String, ResultadoTRF As String
+        Dim dato4 As String, dato5 As String, dato6 As String
         PrepararHoja wsActual, "KO125:NJ185"
         Celda = "KP127"
         dato1 = Txt("TipoUnidadTRF")
@@ -1856,7 +1825,7 @@ End Sub
 '========================================================== ACCESORIOS MTM
     Public Sub ACESORIOS_MTM()
         Dim wsActual As Worksheet, Celda As String
-        Dim dato1 As String, dato2 As String, ResultadoACM As String
+        Dim dato1 As String, dato2 As String
 
         PrepararHoja wsActual, "KR60:NJ185"
         Celda = "KP104"
@@ -1873,7 +1842,7 @@ End Sub
 '================================================================ ETIQUETAS
     Public Sub ETIQUETAS()
         Dim wsActual As Worksheet, Celda As String
-        Dim dato1 As String, dato2 As String, dato3 As String, ResultadoETQ As String
+        Dim dato1 As String, dato2 As String, dato3 As String
 
         PrepararHoja wsActual, "KO125:NJ185"
         Celda = "KP104"
@@ -1909,7 +1878,7 @@ End Sub
 '==================================================================== COTAS
     Public Sub COTAS()
         Dim wsActual As Worksheet, Celda As String
-        Dim dato1 As String, ResultadoCOT As String
+        Dim dato1 As String
 
         PrepararHoja wsActual, "KO125:NJ185"
         Celda = "KP104"

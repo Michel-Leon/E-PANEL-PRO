@@ -6,9 +6,6 @@ Public wsActual As Worksheet
 Public ResultadoENV As String
 Public ResultadoS_I As String
 Public ResultadoL_P As String
-'Public ResultadoENVP As String
-'Public ResultadoENVL As String
-'Public ResultadoENVPS As String
 Public ResultadoDPS As String
 Public ResultadoSV As String
 Public ResultadoBAR As String
