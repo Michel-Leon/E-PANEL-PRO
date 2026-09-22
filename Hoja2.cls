@@ -1468,7 +1468,7 @@ End Sub
     Public Sub Envolventes()
         '========================
             Set wsActual = ThisWorkbook.Sheets("FrontalFM")
-            Celda = "KP132"
+            Celda = "KP105"
             Application.ScreenUpdating = False
             LimpiarZona wsActual, "KO120:NJ185"
         '========================
@@ -2024,27 +2024,49 @@ End Sub
     End Sub
 '======================================================
 Public sub  Buscar_datos_Unidade()
-    Informe_Unidades ResultadoUF
     Funcion = Me.OLEObjects("ConexionUF").Object.Value
+    Celda_Cubiculo = "KQ132"
+    Informe_Unidades ResultadoUF
+    
 End Sub
 Public sub  Buscar_datos_Lisas()
+    Celda_Cubiculo = "KQ132"
+    Funcion = ""
     Informe_Unidades ResultadoLSS
+    
 End Sub
 Public sub Buscar_datos_BRR()
+    Celda_Cubiculo = "KS93"
+    Funcion = ""
     Informe_Unidades ResultadoBAR
+    
 End sub
 Public Sub Buscar_datos_CT()
+    Celda_Cubiculo = "KQ132"
+    Funcion = ""
     Informe_Unidades ResultadoCT
+    
 End Sub
 Public Sub Buscar_datos_DPS()
+    Celda_Cubiculo = "KQ132"
+    Funcion = ""
     Informe_Unidades ResultadoDPS
+    
 End Sub
 Public sub Buscar_datos_SV()
+    Funcion = ""
     Informe_Unidades ResultadoSV
+    
 End sub
 Public sub Buscar_datos_ETO()
+    Celda_Cubiculo = "KQ132"
+    Funcion = ""
     Informe_Unidades ResultadoETO
+   
 End sub
 Public sub Buscar_datos_TRF()
+    Celda_Cubiculo = "KQ127"
+    Funcion = ""
     Informe_Unidades ResultadoTRF
+    
 End sub

@@ -1,12 +1,12 @@
 Attribute VB_Name = "M�dulo4"
-Public Funcion As String
+Public Funcion As String, Celda_Cubiculo As String
 
 Public Sub ObtenerHojaYFilaDestino(ByRef hojaDestino As Worksheet, ByRef filaDestino As Long)
 
     Const FILA_INICIO As Long = 56
     Const FILA_LIMITE As Long = 146
    
-    Dim hojas(1 To 1) As Worksheet
+    Dim hojas(1 To 1) As Worksheet 
     Set hojas(1) = ThisWorkbook.Sheets("FrontalFM")
 
     Dim i As Integer
@@ -111,6 +111,7 @@ Sub Informe_Unidades(codigoBuscado As String)
         .Range("HX" & filaDestino).Value = Funcion
         .Range("II" & filaDestino).Value = CodigoAPM
     End With
-
+    ThisWorkbook.Worksheets("FrontalFM").Range(Celda_Cubiculo).Value = ValorC  
     MsgBox "Referencia agregada al BOM correctamente en hoja '" & hojaDestino.Name & "'", vbInformation
 End Sub
+
