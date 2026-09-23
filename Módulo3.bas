@@ -364,3 +364,86 @@ Public Sub Lateral_Posterior_area_trabajo1()
     Application.ScreenUpdating = True
 
 End Sub
+'========================================================================
+Public Sub Menu_Neutro()
+    Dim shp As Shape
+    Dim groupname As String
+    groupname = "Menu Neutro"
+    
+    On Error Resume Next
+    Set shp = ActiveSheet.Shapes(groupname)
+    On Error GoTo 0
+    
+    If Not shp Is Nothing Then
+        ' Alterna la visibilidad del grupo seleccionado
+        shp.Visible = Not shp.Visible
+        ' Oculta los dem s grupos
+        ActiveSheet.Shapes("Menu Vertical").Visible = False
+        ActiveSheet.Shapes("Menu Horizontal").Visible = False
+        ActiveSheet.Shapes("Menu Tierra").Visible = False
+    End If
+End Sub
+Public Sub Menu_Vertical()
+    Dim shp As Shape
+    Dim groupname As String
+    groupname = "Menu Vertical"
+    
+    On Error Resume Next
+    Set shp = ActiveSheet.Shapes(groupname)
+    On Error GoTo 0
+    
+    If Not shp Is Nothing Then
+        ' Alterna la visibilidad del grupo seleccionado
+        shp.Visible = Not shp.Visible
+        ' Oculta los dem s grupos
+        ActiveSheet.Shapes("Menu Neutro").Visible = False
+        ActiveSheet.Shapes("Menu Horizontal").Visible = False
+        ActiveSheet.Shapes("Menu Tierra").Visible = False
+    End If
+End Sub
+Public Sub Menu_Horizontal()
+    Dim shp As Shape
+    Dim groupname As String
+    groupname = "Menu Horizontal"
+
+    On Error Resume Next
+    Set shp = ActiveSheet.Shapes(groupname)
+    On Error GoTo 0
+
+    If Not shp Is Nothing Then
+        ' Alterna la visibilidad del grupo seleccionado
+        shp.Visible = Not shp.Visible
+        ' Oculta los dem s grupos
+        ActiveSheet.Shapes("Menu Neutro").Visible = False
+        ActiveSheet.Shapes("Menu Vertical").Visible = False
+        ActiveSheet.Shapes("Menu Tierra").Visible = False
+    End If
+End Sub
+Public Sub Menu_Tierra()
+    Dim shp As Shape
+    Dim groupname As String
+    groupname = "Menu Tierra"
+
+    On Error Resume Next
+    Set shp = ActiveSheet.Shapes(groupname)
+    On Error GoTo 0
+
+    If Not shp Is Nothing Then
+        ' Alterna la visibilidad del grupo seleccionado
+        shp.Visible = Not shp.Visible
+        ' Oculta los dem s grupos
+        ActiveSheet.Shapes("Menu Neutro").Visible = False
+        ActiveSheet.Shapes("Menu Vertical").Visible = False
+        ActiveSheet.Shapes("Menu Horizontal").Visible = False
+    End If
+End Sub
+Public Sub B_Conf_zona_2()
+    ThisWorkbook.Sheets("B_Conf").Range("KO83:NJ185").Clear
+End Sub
+Public Sub B_Conf_zona_1()
+    ThisWorkbook.Sheets("B_Conf").Range("CG51:FH146").Clear
+    ThisWorkbook.Sheets("B_Conf").Range("GB56:IP59").Value = ""
+    ThisWorkbook.Sheets("B_Conf").Range("GB68:IP71").Value = ""
+    ThisWorkbook.Sheets("B_Conf").Range("GB80:IP86").Value = ""
+    ThisWorkbook.Sheets("B_Conf").Range("GB95:IW152").Value = ""
+End Sub
