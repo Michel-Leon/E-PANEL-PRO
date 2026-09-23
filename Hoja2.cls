@@ -40,7 +40,6 @@ Private mbCargando As Boolean          'evita eventos en cascada
         mbCargando = False
         RecargarDesdeFrame                 'reconstruye Medida, Corriente y Orientacion
     End Sub
-
     Private Sub FrameUF_Change()
         If mbCargando Then Exit Sub
         RecargarDesdeFrame

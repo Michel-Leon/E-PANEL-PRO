@@ -30,8 +30,69 @@ Public Ancho As String, ICC As String
     Private Function Txt(ByVal sNombre As String) As String
         Txt = Trim$(cbo(sNombre).Value & "")
     End Function
+' UNIDAD DE BARRAJE VERTICAL
+    Private sub CorrienteVBB_Change()
+        Dim dato As String
+        dato = Me.OLEObjects("CorrienteVBB").Object.Value
+         with Me.OLEObjects("ICCVBB").Object
+            .clear
+            select case dato
+                case "630"
+                    if ICC = "Basic" Then
+                        .AddItem "25"
+                    ELSE
+                        .AddItem "25"
+                        .AddItem "65"
+                    end if
+                case "800", "1250"
+                    .AddItem "65"
+            end select
+        End With    
+    End Sub
+'UNIDAD DE BARRAJE HORIZONTAL
+    Private sub CorrienteHBB_Change()
+        Dim dato As String
+        dato = Me.OLEObjects("CorrienteHBB").Object.Value
+         with Me.OLEObjects("ICCHBB").Object
+            .clear
+            select case dato
+                case "400"
+                   .AddItem "25"
+                case "630"
+                    IF ICC = "Basic" Then
+                        .AddItem "25"
+                    ELSE
+                        .AddItem "40"
+                        .AddItem "65"
+                    end if
+                case "1250", "NS1250"
+                    .AddItem "40"
+                    .AddItem "65"
+            end select
+        End With    
+    End Sub
+'UNIDAD DE BARRAJE NEUTRO
+    Private sub CorrienteNBB_Change()
+        Dim dato As String    
+        dato = Me.OLEObjects("CorrienteNBB").Object.Value
+        with Me.OLEObjects("PorcentajeNBB").Object
+            .clear
+            Select case dato
+                case "630"
+                    .AddItem "100"
+                case "1000", "1250"
+                    .AddItem "50"
+                    .AddItem "100"
+            end select
+        End With
+    End Sub            
 Public Sub Worksheet_Activate()
     Extraer_datos
+    'Ocultar menus
+        ActiveSheet.Shapes("Menu Vertical").Visible = False
+        ActiveSheet.Shapes("Menu Horizontal").Visible = False
+        ActiveSheet.Shapes("Menu Tierra").Visible = False
+        ActiveSheet.Shapes("Menu Neutro").Visible = False
     '---------------------------- HBB
         with Me.OLEObjects("CorrienteHBB").Object
             .clear
@@ -44,6 +105,7 @@ Public Sub Worksheet_Activate()
                     '.AddItem "800"
                     '.AddItem "1000"
                     .AddItem "1250"
+                    .AddItem "NS1250"
             end select
         End With
         with Me.OLEObjects("ICCHBB").Object
@@ -77,19 +139,9 @@ Public Sub Worksheet_Activate()
                     .AddItem "630"
                 case "Compact"
                     .AddItem "630"
-                    '.AddItem "800"
+                    .AddItem "800"
                     '.AddItem "1000"
                     .AddItem "1250"
-            end select
-        End With
-        with Me.OLEObjects("ICCVBB").Object
-            .clear
-            select case ICC
-                case "Basic"
-                    .AddItem "25"
-                case "Compact"
-                    .AddItem "25"
-                    .AddItem "40"
             end select
         End With
     '---------------------------- GBB
@@ -117,11 +169,7 @@ Public Sub Worksheet_Activate()
                     .AddItem "1250"
             end select
         End With
-        with Me.OLEObjects("PorcentajeNBB").Object
-            .clear
-            .AddItem "50"
-            .AddItem "100"
-        End With
+        
 End sub    
 '--- Llena un ComboBox ActiveX a partir de una cadena separada por comas
 Private Sub LlenarCombo(cbo As Object, ByVal datos As String)
@@ -169,6 +217,15 @@ Private Sub LimpiarZona(ws As Worksheet, ByVal sRango As String)
     Next i
 
     rngZona.Clear
+End Sub
+'---------------------------------------------------------------
+Sub Traercolumna()
+    ' Copia el rango A1:C10 y lo pega en E1
+    Sheets("FrontalFM").Range("BV48:FJ155").Copy
+    Sheets("B_Conf").Range("BV48").PasteSpecial xlPasteAll
+    
+    ' Limpia el portapapeles
+    Application.CutCopyMode = False
 End Sub
 '========================================= HBB
     Public Sub Barraje_Horizontal()
@@ -247,25 +304,29 @@ End Sub
         MoverBloque ResultadoNBB, "TC-TB", wsActual, Celda
         Application.ScreenUpdating = True
     End Sub
-'=======================================================
-Public sub Bucar_datos_HBB()
-    N_INICIO = 68
-    N_FIN = 71
-    Informe_Barras ResultadoHBB
-end sub
-Public sub Buscar_datosVBB()
-    N_INICIO = 56
-    N_FIN = 59
-    Informe_Barras ResultadoVBB
-end sub
-Public sub Buscar_datosGBB()
-    N_INICIO = 80
-    N_FIN =86 
-    Informe_Barras_GBB ResultadoGBB
-end sub
-Public sub Buscar_datosNBB()
-    N_INICIO = 80
-    N_FIN =86 
-    Informe_Barras_GBB ResultadoNBB
-end sub
+'======================================================= BUSCAR DATOS
+    Public sub Bucar_datos_HBB()
+        N_INICIO = 68
+        N_FIN = 71
+        Celda_cubiculo ="KS105"
+        Informe_Barras ResultadoHBB
+    end sub
+    Public sub Buscar_datosVBB()
+        N_INICIO = 56
+        N_FIN = 59
+        Celda_cubiculo ="KS105"
+        Informe_Barras ResultadoVBB
+    end sub
+    Public sub Buscar_datosGBB()
+        N_INICIO = 80
+        N_FIN =86 
+        Celda_cubiculo ="KS105"
+        Informe_Barras_GBB ResultadoGBB
+    end sub
+    Public sub Buscar_datosNBB()
+        N_INICIO = 80
+        N_FIN =86 
+        Celda_cubiculo =""
+        Informe_Barras_GBB ResultadoNBB
+    end sub
 

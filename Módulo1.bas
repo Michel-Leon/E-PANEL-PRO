@@ -219,7 +219,7 @@ Public Sub Cerrar_seccion()
 
     ' Verificar que la estructura del libro no est� protegida
     If ThisWorkbook.ProtectStructure Then
-        MsgBox "La estructura del libro est� protegida." & vbNewLine & _
+        MsgBox "La estructura del libro esta protegida." & vbNewLine & _
                "Desprot�jala en Revisar > Proteger libro.", vbCritical, "Error"
         Exit Sub
     End If
@@ -258,7 +258,7 @@ Sub CambiarZoomEnTodasLasHojas()
 
     ' Validar que el valor ingresado sea num�rico
     If Not IsNumeric(zoomStr) Then
-        MsgBox "Por favor ingrese un n�mero v�lido.", vbExclamation
+        MsgBox "Por favor ingrese un numero valido.", vbExclamation
         Exit Sub
     End If
     zoomVal = CInt(zoomStr)

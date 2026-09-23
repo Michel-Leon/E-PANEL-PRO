@@ -105,7 +105,7 @@ Sub Informe_Barras(codigoBuscado As String)
         .Range("GV" & filaDestino).Value = Descripcion
         .Range("IP" & filaDestino).Value = CodigoAPM
     End With
-
+    thisworkbook.Worksheets("B_Conf").Range(Celda_Cubiculo).Value = ValorC
     MsgBox "Referencia agregada al BOM correctamente en hoja '" & hojaDestino.Name & "'", vbInformation
 End Sub
 Sub Informe_Barras_GBB(codigoBuscado As String)
@@ -164,4 +164,3 @@ Sub Informe_Barras_GBB(codigoBuscado As String)
 
     MsgBox "Referencia agregada al BOM correctamente en hoja '" & hojaDestino.Name & "'", vbInformation
 End Sub
-
