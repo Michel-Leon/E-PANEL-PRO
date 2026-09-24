@@ -18,6 +18,10 @@ Public ResultadoCOM As String
 Public ResultadoTRF As String
 Public ResultadoETO As String
 Public ResultadoLSS As String
+Public ResultadoHBB As String
+Public ResultadoVBB As String
+Public ResultadoNBB As String
+public ResultadoGBB As String
 '============== Mover Bloque ===================
 Public Sub MoverBloque(ByVal ref As String, ByVal BD As String, _
                        ByVal wsDestino As Worksheet, ByVal celdaDestino As String)
@@ -36,11 +40,12 @@ Public Sub MoverBloque(ByVal ref As String, ByVal BD As String, _
     Exit Sub
 
 errHandler:
-    MsgBox "Fallo al mover el bloque." & vbCrLf & _
+    MsgBox "La Configuracion seleccionada no existe en la base de datos." & vbCrLf & _
            "Ref: " & ref & vbCrLf & _
            "BD: " & BD & vbCrLf & _
+           "Pruebe otra configuracion." & vbCrLf & _
            "Destino: " & celdaDestino & vbCrLf & vbCrLf & _
-           "Error " & Err.Number & ": " & Err.Description, vbCritical
+           "Error " & Err.Number & ": " & Err.Description, vbInformation, "Alerta"
 End Sub
 Private Function ResolverBloque(ByVal nombre As String) As Range
     Dim n As Name

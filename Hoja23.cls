@@ -30,57 +30,41 @@ Public Ancho As String, ICC As String
     Private Function Txt(ByVal sNombre As String) As String
         Txt = Trim$(cbo(sNombre).Value & "")
     End Function
-' UNIDAD DE BARRAJE VERTICAL
-    Private Sub CorrienteVBB_Change()
-        Dim dato As String
-        dato = Me.OLEObjects("CorrienteVBB").Object.Value
-         With Me.OLEObjects("ICCVBB").Object
-            .Clear
-            Select Case dato
-                Case "630"
-                    If ICC = "Basic" Then
-                        .AddItem "25"
-                    Else
-                        .AddItem "25"
-                        .AddItem "65"
-                    End If
-                Case "800", "1250"
-                    .AddItem "65"
-            End Select
-        End With
-    End Sub
-'UNIDAD DE BARRAJE HORIZONTAL
-    Private Sub CorrienteHBB_Change()
-        Dim dato As String
-        dato = Me.OLEObjects("CorrienteHBB").Object.Value
-         With Me.OLEObjects("ICCHBB").Object
-            .Clear
-            Select Case dato
-                Case "400"
-                   .AddItem "25"
-                Case "630"
-                    If ICC = "Basic" Then
-                        .AddItem "25"
-                    Else
-                        .AddItem "40"
-                        .AddItem "65"
-                    End If
-                Case "1250", "NS1250"
-                    .AddItem "40"
-                    .AddItem "65"
-            End Select
-        End With
-    End Sub
+
 'UNIDAD DE BARRAJE NEUTRO
-    Private Sub CorrienteNBB_Change()
+    Private sub AnchoNBB_Change()
         Dim dato As String
+        dato = Me.OLEObjects("AnchoNBB").Object.Value
+        With Me.OLEObjects("CorrienteNBB").Object
+            .Clear
+            Select Case dato
+                Case "720","400"
+                    .AddItem "630"
+                    .AddItem "1000"
+                    .AddItem "1250"
+                case "1120"
+                    .AddItem "1000"   
+                end select
+        End With
+    End sub 
+
+    Private Sub CorrienteNBB_Change()
+        Dim dato As String, dato2 As String
         dato = Me.OLEObjects("CorrienteNBB").Object.Value
+        dato2 = Me.OLEObjects("AnchoNBB").Object.Value
         With Me.OLEObjects("PorcentajeNBB").Object
             .Clear
             Select Case dato
                 Case "630"
                     .AddItem "100"
-                Case "1000", "1250"
+                Case "1000"
+                    if dato2 = "1120" Then
+                        .AddItem "100"
+                    Else
+                        .AddItem "50"
+                        .AddItem "100"
+                    End If
+                Case "1250"
                     .AddItem "50"
                     .AddItem "100"
             End Select
@@ -97,78 +81,64 @@ Public Sub Worksheet_Activate()
         With Me.OLEObjects("CorrienteHBB").Object
             .Clear
             Select Case ICC
-                Case "Basic"
-                    .AddItem "400"
-                    .AddItem "630"
-                Case "Compact"
+                Case "Modular"
                     .AddItem "630"
                     '.AddItem "800"
-                    '.AddItem "1000"
+                   ' .AddItem "1000"
                     .AddItem "1250"
                     .AddItem "NS1250"
+                    .AddItem "1600"
+                    .AddItem "NS1600"
+                    .AddItem "2000"
+                    .AddItem "2500"
+                    .AddItem "3200"
+                    .AddItem "4000"
+                Case "Heavy"
+                    .AddItem "1600"
+                    .AddItem "2000"
+                    .AddItem "2500"
+                    .AddItem "3200"
+                    .AddItem "4000"
+                    '.AddItem "5000"
+                    '.AddItem "6000"
+                    '.AddItem "7000"
             End Select
         End With
         With Me.OLEObjects("ICCHBB").Object
             .Clear
-            Select Case ICC
-                Case "Basic"
-                    .AddItem "25"
-                Case "Compact"
-                    .AddItem "25"
-                    .AddItem "40"
-            End Select
+            .AddItem "40"
+            .AddItem "65"
         End With
     '---------------------------- VBB
         With Me.OLEObjects("FraccionVBB").Object
             .Clear
-            Select Case ICC
-                Case "Basic"
-                    .AddItem "1/2"
-                    .AddItem "3/4"
-                Case "Compact"
-                    .AddItem "1/2"
-                    .AddItem "3/4"
-                    .AddItem "1"
-            End Select
+            .AddItem "1/2"
+            .AddItem "3/4"
+            .AddItem "1"
+            
         End With
         With Me.OLEObjects("CorrienteVBB").Object
             .Clear
-            Select Case ICC
-                Case "Basic"
-                    .AddItem "400"
-                    .AddItem "630"
-                Case "Compact"
-                    .AddItem "630"
-                    .AddItem "800"
-                    '.AddItem "1000"
-                    .AddItem "1250"
-            End Select
+            .AddItem "630"
+            '.AddItem "800"
+            '.AddItem "1000"
+            .AddItem "1250"
+            .AddItem "1600"
+            .AddItem "2000"
+            .AddItem "2500"
+        End With
+        With Me.OLEObjects("ICCVBB").Object
+            .Clear
+            .AddItem "65"
         End With
     '---------------------------- GBB
          With Me.OLEObjects("ICCGBB").Object
             .Clear
-            Select Case ICC
-                Case "Basic"
-                    .AddItem "25"
-                Case "Compact"
-                    .AddItem "25"
-                    .AddItem "40"
-            End Select
+            .AddItem "65"
+            .AddItem "40"
         End With
     '---------------------------- NBB
-        With Me.OLEObjects("CorrienteNBB").Object
-            .Clear
-            Select Case ICC
-                Case "Basic"
-                    '.AddItem "400"
-                    .AddItem "630"
-                Case "Compact"
-                    .AddItem "630"
-                    '.AddItem "800"
-                    .AddItem "1000"
-                    .AddItem "1250"
-            End Select
-        End With
+       
         
 End Sub
 '--- Llena un ComboBox ActiveX a partir de una cadena separada por comas
@@ -243,7 +213,7 @@ End Sub
         If Vacio(dato1, dato2, dato3) Then AvisoFaltan "Corriente, Ancho o ICC": Exit Sub
 
         ResultadoHBB = "HBB" & "X" & dato1 & "_" & dato2 & "X" & dato3
-        MoverBloque ResultadoHBB, "TC-TB", wsActual, Celda
+        MoverBloque ResultadoHBB, "TM-TH", wsActual, Celda
         Application.ScreenUpdating = True
     End Sub
 '========================================= VBB
@@ -266,7 +236,7 @@ End Sub
        
         If Vacio(dato1, dato2, dato3, dato4) Then AvisoFaltan "Corriente, Altura, Fraccion o ICC": Exit Sub
         ResultadoVBB = "VBB" & "X" & dato4 & "_" & dato2 & "X" & dato3 & "X" & dato1
-        MoverBloque ResultadoVBB, "TC-TB", wsActual, Celda
+        MoverBloque ResultadoVBB, "TM-TH", wsActual, Celda
         Application.ScreenUpdating = True
     End Sub
 '========================================= GBB
@@ -283,7 +253,7 @@ End Sub
         If Vacio(dato1, dato2) Then AvisoFaltan "Ancho o ICC": Exit Sub
 
         ResultadoGBB = "GBB" & "X" & dato1 & "X" & dato2
-        MoverBloque ResultadoGBB, "TC-TB", wsActual, Celda
+        MoverBloque ResultadoGBB, "TM-TH", wsActual, Celda
         Application.ScreenUpdating = True
     End Sub
 '========================================= NBB
@@ -301,7 +271,7 @@ End Sub
         If Vacio(dato1, dato2) Then AvisoFaltan "Ancho o ICC": Exit Sub
 
         ResultadoNBB = "NBB" & "X" & dato1 & "_" & dato3 & "X" & dato2
-        MoverBloque ResultadoNBB, "TC-TB", wsActual, Celda
+        MoverBloque ResultadoNBB, "TM-TH", wsActual, Celda
         Application.ScreenUpdating = True
     End Sub
 '======================================================= BUSCAR DATOS
