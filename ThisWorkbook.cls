@@ -126,7 +126,7 @@ Private Sub ConfigurarInterfaz()
         .DisplayWorkbookTabs = False
         .DisplayHorizontalScrollBar = False
         .DisplayVerticalScrollBar = False
-        .Zoom = 85
+        .Zoom = 90
     End With
     
     On Error GoTo 0
@@ -134,7 +134,7 @@ End Sub
 
 ' Carga valores iniciales de configuraci?n
 'Private Sub CargarValoresIniciales()
-    'On Error Resume Next
+    'On Error Resume Next 
     
     ' Cargar valor del ComboBox de color si las hojas existen
     'If SheetExists("Vista frontal") And SheetExists("PORTADA") Then

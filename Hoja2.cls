@@ -1844,12 +1844,13 @@ End Sub
         dato5 = Txt("ConexionTRF")
         Select Case dato5
             Case "Superior": dato5 = "SUP"
-            Case "NA":       dato5 = "NA"
+            Case "NA":       dato5 = "NA" 
         End Select
         dato6 = Txt("EquipoTRF")
         If Vacio(dato1, dato2, dato3, dato4, dato5, dato6) Then AvisoFaltan "datos de transferencia": Exit Sub
         ResultadoTRF = dato1 & "_UT_" & dato6 & dato3 & "X" & dato2 & "X" & dato4 & "X" & dato5
         MoverBloque ResultadoTRF, "ATS_SFI", wsActual, Celda
+
         Application.ScreenUpdating = True
     End Sub
 '========================================================== ACCESORIOS MTM
