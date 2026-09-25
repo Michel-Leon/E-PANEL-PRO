@@ -126,7 +126,7 @@ Private Sub ConfigurarInterfaz()
         .DisplayWorkbookTabs = False
         .DisplayHorizontalScrollBar = False
         .DisplayVerticalScrollBar = False
-        .Zoom = 85
+        .Zoom = 90
     End With
     
     On Error GoTo 0

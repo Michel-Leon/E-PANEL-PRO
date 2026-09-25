@@ -1438,7 +1438,7 @@ End Sub
     Public Sub Envolventes()
         '========================
             Set wsActual = ThisWorkbook.Sheets("FrontalFM")
-            Celda = "KP132"
+            Celda = "KP100"
             Application.ScreenUpdating = False
             LimpiarZona wsActual, "KO120:NJ185"
         '========================

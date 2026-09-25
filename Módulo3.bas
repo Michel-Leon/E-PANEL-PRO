@@ -381,6 +381,7 @@ Public Sub Menu_Neutro()
         ActiveSheet.Shapes("Menu Vertical").Visible = False
         ActiveSheet.Shapes("Menu Horizontal").Visible = False
         ActiveSheet.Shapes("Menu Tierra").Visible = False
+        ActiveSheet.Shapes("Menu Flange").Visible = False
     End If
 End Sub
 Public Sub Menu_Vertical()
@@ -399,6 +400,7 @@ Public Sub Menu_Vertical()
         ActiveSheet.Shapes("Menu Neutro").Visible = False
         ActiveSheet.Shapes("Menu Horizontal").Visible = False
         ActiveSheet.Shapes("Menu Tierra").Visible = False
+        ActiveSheet.Shapes("Menu Flange").Visible = False
     End If
 End Sub
 Public Sub Menu_Horizontal()
@@ -417,6 +419,7 @@ Public Sub Menu_Horizontal()
         ActiveSheet.Shapes("Menu Neutro").Visible = False
         ActiveSheet.Shapes("Menu Vertical").Visible = False
         ActiveSheet.Shapes("Menu Tierra").Visible = False
+        ActiveSheet.Shapes("Menu Flange").Visible = False
     End If
 End Sub
 Public Sub Menu_Tierra()
@@ -435,6 +438,26 @@ Public Sub Menu_Tierra()
         ActiveSheet.Shapes("Menu Neutro").Visible = False
         ActiveSheet.Shapes("Menu Vertical").Visible = False
         ActiveSheet.Shapes("Menu Horizontal").Visible = False
+        ActiveSheet.Shapes("Menu Flange").Visible = False
+    End If
+End Sub
+public Sub Menu_Flange()
+    Dim shp As Shape
+    Dim groupname As String
+    groupname = "Menu Flange"
+
+    On Error Resume Next
+    Set shp = ActiveSheet.Shapes(groupname)
+    On Error GoTo 0
+
+    If Not shp Is Nothing Then
+        ' Alterna la visibilidad del grupo seleccionado
+        shp.Visible = Not shp.Visible
+        ' Oculta los dem s grupos
+        ActiveSheet.Shapes("Menu Neutro").Visible = False
+        ActiveSheet.Shapes("Menu Vertical").Visible = False
+        ActiveSheet.Shapes("Menu Horizontal").Visible = False
+        ActiveSheet.Shapes("Menu Tierra").Visible = False
     End If
 End Sub
 Public Sub B_Conf_zona_2()

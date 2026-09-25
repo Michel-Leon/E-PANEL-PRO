@@ -50,12 +50,10 @@ End Sub
 Private Function ResolverBloque(ByVal nombre As String) As Range
     Dim n As Name
     On Error Resume Next
-
     ' 1) Nombre global
     Set ResolverBloque = ThisWorkbook.Names(nombre).RefersToRange
     If Not ResolverBloque Is Nothing Then Exit Function
     Err.Clear
-
     ' 2) Nombre local en cualquier hoja
     Dim ws As Worksheet
     For Each ws In ThisWorkbook.Worksheets
@@ -63,7 +61,6 @@ Private Function ResolverBloque(ByVal nombre As String) As Range
         If Not ResolverBloque Is Nothing Then Exit Function
         Err.Clear
     Next ws
-
     On Error GoTo 0
 End Function
 Sub OcultarBARRAS()
@@ -94,20 +91,15 @@ Sub MostrarTodasLasHojas()
     Dim usuario As String
     Dim clave As String
     Dim intentos As Integer
-
     Const USUARIO_VALIDO As String = "ADMIN"
     Const CLAVE_VALIDA As String = "ADMIN2026"
     Const MAX_INTENTOS As Integer = 3
-
     Do
         intentos = intentos + 1
-
         usuario = InputBox("Ingrese el usuario:", "Acceso restringido")
         If StrPtr(usuario) = 0 Then Exit Sub   ' Cancel�
-
         clave = InputBox("Ingrese la contrase�a:", "Acceso restringido")
         If StrPtr(clave) = 0 Then Exit Sub     ' Cancel�
-
         If UCase(Trim(usuario)) = USUARIO_VALIDO And Trim(clave) = CLAVE_VALIDA Then
             Exit Do
         Else
@@ -119,7 +111,6 @@ Sub MostrarTodasLasHojas()
                    "Intento " & intentos & " de " & MAX_INTENTOS, vbExclamation, "Error"
         End If
     Loop
-
     ' Acceso concedido
     Application.ScreenUpdating = False
     For Each ws In ThisWorkbook.Worksheets

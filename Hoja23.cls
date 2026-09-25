@@ -47,7 +47,6 @@ Public Ancho As String, ICC As String
                 end select
         End With
     End sub 
-
     Private Sub CorrienteNBB_Change()
         Dim dato As String, dato2 As String
         dato = Me.OLEObjects("CorrienteNBB").Object.Value
@@ -77,6 +76,7 @@ Public Sub Worksheet_Activate()
         ActiveSheet.Shapes("Menu Horizontal").Visible = False
         ActiveSheet.Shapes("Menu Tierra").Visible = False
         ActiveSheet.Shapes("Menu Neutro").Visible = False
+        ActiveSheet.Shapes("Menu Flange").Visible = False
     '---------------------------- HBB
         With Me.OLEObjects("CorrienteHBB").Object
             .Clear
@@ -169,6 +169,7 @@ Public Sub Extraer_datos()
     LlenarCombo Me.OLEObjects("AnchoGBB").Object, Ancho
     LlenarCombo Me.OLEObjects("AnchoNBB").Object, Ancho
     LlenarCombo Me.OLEObjects("AlturaVBB").Object, Altura
+    LlenarCombo Me.OLEObjects("AnchoFlange").Object, Ancho
 End Sub
 Private Sub LimpiarZona(ws As Worksheet, ByVal sRango As String)
     Dim rngZona As Range, shp As Shape, i As Long
@@ -272,6 +273,22 @@ End Sub
 
         ResultadoNBB = "NBB" & "X" & dato1 & "_" & dato3 & "X" & dato2
         MoverBloque ResultadoNBB, "TM-TH", wsActual, Celda
+        Application.ScreenUpdating = True
+    End Sub
+'========================================= FLANGE
+    Public Sub Barraje_Flange()
+        Dim wsActual As Worksheet, Celda As String
+        Dim dato1 As String
+
+        PrepararHoja wsActual, "KO125:NJ185"
+        Celda = "KS105"
+
+        dato1 = Txt("AnchoFlange")  
+
+        If Vacio(dato1) Then AvisoFaltan "Ancho": Exit Sub
+
+        ResultadoFLANGE = "F" & "_" & dato1
+        MoverBloque ResultadoFLANGE, "Flange", wsActual, Celda
         Application.ScreenUpdating = True
     End Sub
 '======================================================= BUSCAR DATOS
