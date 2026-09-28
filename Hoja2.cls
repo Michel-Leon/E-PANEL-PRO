@@ -1152,6 +1152,24 @@ Private mbCargando As Boolean          'evita eventos en cascada
         End With
 
     End Sub
+'Conmutadoras
+    private sub CorrienteCOM_Change()
+        Dim dato As String
+        dato = Me.OleObjects("CorrienteCOM").Object.Value
+        With Me.OleObjects("EquipoCOMT").Object
+            .Clear
+            Select Case dato      
+                Case "25A"   
+                    .AddItem "MiniBreaker"
+                Case "63A"
+                    .AddItem "MiniBreaker"
+                    .AddItem "EZC100"
+                Case "125A"
+                    .AddItem "CVS100"
+                    .AddItem "EZC100"
+            End Select
+        End With
+    End Sub       
 Public Sub Worksheet_Activate()
     Extraer_datos
     'ocultar menus emergentes
@@ -1413,6 +1431,24 @@ Public Sub Worksheet_Activate()
             .AddItem "Naranja"
             .AddItem "Amarillo"
         End With
+     '============== CONMUTADORES =======================
+        With Me.OLEObjects("TipoUNCOM").Object 
+            .Clear
+            .AddItem "SFI - Frontal Interno"
+            .AddItem "SFC - Frontal Compacto"
+            .AddItem "SFA - Fijo Atornillado"
+        End With 
+        With Me.OLEObjects("CorrienteCOM").Object  
+            .Clear
+            .AddItem "25A"
+            .AddItem "63A"
+            .AddItem "125A"
+        End With
+        with Me.OLEObjects("OrientacionCOM").Object
+            .Clear
+            .AddItem "Vertical"
+    	 end with
+    
 End Sub
 '--- Llena un ComboBox ActiveX a partir de una cadena separada por comas
 Private Sub LlenarCombo(cbo As Object, ByVal datos As String)
@@ -2022,6 +2058,34 @@ End Sub
         
         MsgBox "Proceso Finalizado con Exito", vbInformation, "Cambio de Color"
     End Sub
+'================================================================= CONMUTADORES    
+Public sub Conmutadores()
+    '========================
+        celda = "KR124"
+        thisWorkbook.Sheets("FrontalFM").Range("NP82:QJ182").Clear
+        Set wsActual = thisWorkbook.Sheets("FrontalFM")
+    '========================
+    Dim dato1 As String, dato2 As String, dato3 As String, dato4 As String
+    dato1 = Me.OleObjects("TipoUNCOM").Object.Value
+    select case dato1
+        case "SFI - Frontal Interno": dato1 = "SFI"
+        case "SIA - Integral Abatible": dato1 = "SIA"
+        case "SFA - Fijo Atornillado": dato1 = "SFA"
+    end select
+    dato2 = Me.OleObjects("CorrienteCOM").Object.Value
+    select case dato2
+        case "25A": dato2 = "C25A"
+        case "63A": dato2 = "C63A"
+        case "125A": dato2 = "C125A"
+    End select
+    dato3 = Me.OleObjects("EquipoCOMT").Object.Value 
+    dato4 = Me.OleObjects("OrientacionCOM").Object.Value   
+    select case dato4
+        case "Vertical": dato4 = "V"
+    end select 
+    ResultadoCOMT= dato1 & "_" & dato2 & "_" & dato3 & "ToX720" & dato4
+    MoverBloque ResultadoCOMT,"Conmutadora", wsActual, celda
+End Sub    
 '======================================================
 Public sub  Buscar_datos_Unidade()
     Funcion = Me.OLEObjects("ConexionUF").Object.Value
@@ -2069,4 +2133,9 @@ Public sub Buscar_datos_TRF()
     Funcion = ""
     Informe_Unidades ResultadoTRF
     
+End sub
+public sub Buscar_datos_COMT()
+    Celda_Cubiculo = "KS124"
+    Funcion = ""
+    Informe_Unidades ResultadoCOMT
 End sub
