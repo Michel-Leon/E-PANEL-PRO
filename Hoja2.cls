@@ -1181,7 +1181,25 @@ Public IP as string, Color as string
             end select        
         end with
 
-    end sub       
+    end sub  
+'Conmutadoras
+    private sub CorrienteCOM_Change()
+        Dim dato As String
+        dato = Me.OleObjects("CorrienteCOM").Object.Value
+        With Me.OleObjects("EquipoCOMT").Object
+            .Clear
+            Select Case dato      
+                Case "25A"   
+                    .AddItem "MiniBreaker"
+                Case "63A"
+                    .AddItem "MiniBreaker"
+                    .AddItem "EZC100"
+                Case "125A"
+                    .AddItem "CVS100"
+                    .AddItem "EZC100"
+            End Select
+        End With
+    End Sub          
 Public Sub Worksheet_Activate()
     Extraer_datos
     'ocultar menus emergentes
@@ -1226,7 +1244,6 @@ Public Sub Worksheet_Activate()
                 .AddItem "SFA - Fijo Atornillado"
             end select  
         End With
-        
     '============== Unidades Funcionales Lisas ===================
         With  Me.OleObjects("TipoLSS").Object
             .Clear
@@ -1298,19 +1315,19 @@ Public Sub Worksheet_Activate()
     '============== ACCESORIOS DE CONTROL ===================
         With Me.OleObjects("ElementoCTR").Object
             .Clear
-        .AddItem "ClavijaRoja"
-        .AddItem "ClavijaAzul"
-        .AddItem "Pilotos"
-        .AddItem "Parada_Emergencia"
-        .AddItem "Selector1"
-        .AddItem "Selector2"
-        .AddItem "Pulsador"
-        .AddItem "Piloto_Verde"
-        .AddItem "Piloto_Azul"
-        .AddItem "Piloto_Rojo"
-        .AddItem "Piloto_Amarillo"
-        .AddItem "Piloto_gris"
-        .AddItem "Piloto_grisX3"
+            .AddItem "ClavijaRoja"
+            .AddItem "ClavijaAzul"
+            .AddItem "Pilotos"
+            .AddItem "Parada_Emergencia"
+            .AddItem "Selector1"
+            .AddItem "Selector2"
+            .AddItem "Pulsador"
+            .AddItem "Piloto_Verde"
+            .AddItem "Piloto_Azul"
+            .AddItem "Piloto_Rojo"
+            .AddItem "Piloto_Amarillo"
+            .AddItem "Piloto_gris"
+            .AddItem "Piloto_grisX3"
         End With
     '============== MENU ETOS =================
         With Me.OleObjects("TipoU_ETO").Object   
@@ -1449,6 +1466,23 @@ Public Sub Worksheet_Activate()
             .AddItem "Naranja"
             .AddItem "Amarillo"
         End With
+    '============== CONMUTADORES =======================
+        With Me.OLEObjects("TipoUNCOM").Object 
+            .Clear
+            .AddItem "SFI - Frontal Interno"
+            .AddItem "SFC - Frontal Compacto"
+            .AddItem "SFA - Fijo Atornillado"
+        End With 
+        With Me.OLEObjects("CorrienteCOM").Object  
+            .Clear
+            .AddItem "25A"
+            .AddItem "63A"
+            .AddItem "125A"
+        End With
+        with Me.OLEObjects("OrientacionCOM").Object
+            .Clear
+            .AddItem "Vertical"
+    	 end with    
 END Sub
 '--- Llena un ComboBox ActiveX a partir de una cadena separada por comas
 Private Sub LlenarCombo(cbo As Object, ByVal datos As String)
@@ -1561,23 +1595,19 @@ Public Sub Contactores()
         thisWorkbook.Sheets("DISENO").Range("NP82:QJ182").Clear
         Set wsActual = thisWorkbook.Sheets("DISENO")
     '========================
-
     Select Case CStr(Me.OLEObjects("EquipoCT").Object.Value & "")
         Case "A-Unit (Barra + Mini)": dato1 = "MBXAUNIT"
         Case "Contactores":           dato1 = "Cont"
     End Select
-
     Select Case CStr(Me.OLEObjects("TamañoCT").Object.Value & "")
         Case "Talla 1-2": dato2 = "T1_2"
         Case "Talla 3":   dato2 = "T1_3"
         Case "4u":        dato2 = "4u"      ' <-- faltaba
     End Select
-
     Select Case CStr(Me.OLEObjects("VistaCT").Object.Value & "")
         Case "Con frente muerto": dato3 = "FM"
         Case "Sin frente muerto": dato3 = "SFM"
     End Select
-
     If dato1 = "" Or dato2 = "" Or dato3 = "" Then
         MsgBox "Faltan selecciones en Equipo, Tamaño o Vista.", vbExclamation
         Exit Sub
@@ -1958,4 +1988,31 @@ Public Sub Cambiodecolor() 'Vista frontal
     Next celda
     
     MSGBox "Proceso Finalizado con Exito", vbInformation, "Cambio de Color"
+End Sub
+Public sub Conmutadores()
+    '========================
+        celda = "NS113"
+        thisWorkbook.Sheets("DISENO").Range("NP82:QJ182").Clear
+        Set wsActual = thisWorkbook.Sheets("DISENO")
+    '========================
+    Dim dato1 As String, dato2 As String, dato3 As String, dato4 As String
+    dato1 = Me.OleObjects("TipoUNCOM").Object.Value
+    select case dato1
+        case "SFI - Frontal Interno": dato1 = "SFI"
+        case "SIA - Integral Abatible": dato1 = "SIA"
+        case "SFA - Fijo Atornillado": dato1 = "SFA"
+    end select
+    dato2 = Me.OleObjects("CorrienteCOM").Object.Value
+    select case dato2
+        case "25A": dato2 = "C25A"
+        case "63A": dato2 = "C63A"
+        case "125A": dato2 = "C125A"
+    End select
+    dato3 = Me.OleObjects("EquipoCOMT").Object.Value 
+    dato4 = Me.OleObjects("OrientacionCOM").Object.Value   
+    select case dato4
+        case "Vertical": dato4 = "V"
+    end select 
+    ResultadoCOMT= dato1 & "_" & dato2 & "_" & dato3 & "ToX720" & dato4
+    MoverBloque ResultadoCOMT,"Conmutadora", wsActual, celda
 End Sub
