@@ -108,6 +108,7 @@ Public Sub Worksheet_Activate()
             .Clear
             .AddItem "40"
             .AddItem "65"
+            .AddItem "85"
         End With
     '---------------------------- VBB
         With Me.OLEObjects("FraccionVBB").Object
