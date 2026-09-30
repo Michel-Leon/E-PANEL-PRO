@@ -1599,7 +1599,7 @@ End Sub
 
         dato1 = Txt("TipoUNDPS")
         Select Case dato1
-            Case "SFI - Frontal Interno":   dato1 = "SFC_D"
+            Case "SFI - Frontal Interno":   dato1 = "SFI_D"
             Case "SFC - Frontal Compacto":  dato1 = "SFC_D"
             Case "SIA - Integral Abatible": dato1 = "SIA_D"
         End Select
@@ -2030,7 +2030,7 @@ End Sub
     End Sub
 '================================================================= CONMUTADORES    
 Public sub Conmutadores()
-    '========================
+    '======================== 
         celda = "KR124"
         thisWorkbook.Sheets("FrontalFM").Range("NP82:QJ182").Clear
         Set wsActual = thisWorkbook.Sheets("FrontalFM")
