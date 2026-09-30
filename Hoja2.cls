@@ -1628,7 +1628,7 @@ End Sub
 
         dato1 = Txt("TipoUNDPS")
         Select Case dato1
-            Case "SFI - Frontal Interno":   dato1 = "SFC_D"
+            Case "SFI - Frontal Interno":   dato1 = "SFI_D"
             Case "SFC - Frontal Compacto":  dato1 = "SFC_D"
             Case "SIA - Integral Abatible": dato1 = "SIA_D"
         End Select
