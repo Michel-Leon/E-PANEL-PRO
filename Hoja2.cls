@@ -1503,7 +1503,7 @@ End Sub
     Public Sub Envolventes()
         '========================
             Set wsActual = ThisWorkbook.Sheets("FrontalFM")
-            Celda = "KP105"
+            Celda = "KP86"
             Application.ScreenUpdating = False
             LimpiarZona wsActual, "KO120:NJ185"
         '========================
@@ -2129,9 +2129,17 @@ Public sub Buscar_datos_ETO()
    
 End sub
 Public sub Buscar_datos_TRF()
+    Dim msg As String
     Celda_Cubiculo = "KQ127"
     Funcion = ""
     Informe_Unidades ResultadoTRF
+    msg = "IMPORTANTE" & vbCrLf & _
+      String(30, "-") & vbCrLf & vbCrLf & _
+      Chr(149) & " Debe añadir al listado de materiales las unidades" & vbCrLf & _
+      "   que van con la transferencia de manera individual." & vbCrLf & vbCrLf & _
+      "(Solo si es el caso)"
+
+MsgBox msg, vbExclamation + vbOKOnly, "Aviso - Transferencia"
     
 End sub
 public sub Buscar_datos_COMT()

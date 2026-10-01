@@ -112,6 +112,6 @@ Sub Informe_Unidades(codigoBuscado As String)
         .Range("II" & filaDestino).Value = CodigoAPM
     End With
     ThisWorkbook.Worksheets("FrontalFM").Range(Celda_Cubiculo).Value = ValorC  
-    MsgBox "Referencia agregada al BOM correctamente en hoja '" & hojaDestino.Name & "'", vbInformation
+    'MsgBox "Referencia agregada al BOM correctamente en hoja '" & hojaDestino.Name & "'", vbInformation
 End Sub
 
