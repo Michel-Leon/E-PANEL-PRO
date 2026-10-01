@@ -832,14 +832,14 @@ Private mbCargando As Boolean          'evita eventos en cascada
                 Case "Horizontal Bus Bar"
                     .AddItem "400A"
                     .AddItem "630_1250A"
-                    '.AddItem "1600_2500A"
-                    '.AddItem "3200A"
-                    '.AddItem "4000A"
+                    .AddItem "1600_2500A"
+                    .AddItem "3200A"
+                    .AddItem "4000A"
                 Case "Horizontal Tierra Neutro"
                     .AddItem "NA"
                 Case "Vertical Bus Bar"
                     .AddItem "1250A"
-                    '.AddItem "1600A"
+                    .AddItem "1600A-4000A"
             End Select
         End With
     End Sub
@@ -870,7 +870,7 @@ Private mbCargando As Boolean          'evita eventos en cascada
                             .AddItem "1800"
                             .AddItem "2000"
                             .AddItem "2200"
-                        Case "1600A"
+                        Case "1600A-4000A"
                             .AddItem "1800"
                             .AddItem "2000"
                             .AddItem "2200"
@@ -1817,6 +1817,9 @@ End Sub
         End Select
 
         dato2 = Txt("AmperajeBRR")
+        Select Case dato2
+            case "1600A-4000A": dato2 = "1600A"
+        End Select
         dato3 = Txt("MedidaBRR")
 
         If Vacio(dato1, dato2, dato3) Then AvisoFaltan "Orientacion, Amperaje o Medida": Exit Sub
@@ -2029,33 +2032,33 @@ End Sub
         MsgBox "Proceso Finalizado con Exito", vbInformation, "Cambio de Color"
     End Sub
 '================================================================= CONMUTADORES    
-Public sub Conmutadores()
-    '======================== 
-        celda = "KR124"
-        thisWorkbook.Sheets("FrontalFM").Range("NP82:QJ182").Clear
-        Set wsActual = thisWorkbook.Sheets("FrontalFM")
-    '========================
-    Dim dato1 As String, dato2 As String, dato3 As String, dato4 As String
-    dato1 = Me.OleObjects("TipoUNCOM").Object.Value
-    select case dato1
-        case "SFI - Frontal Interno": dato1 = "SFI"
-        case "SIA - Integral Abatible": dato1 = "SIA"
-        case "SFA - Fijo Atornillado": dato1 = "SFA"
-    end select
-    dato2 = Me.OleObjects("CorrienteCOM").Object.Value
-    select case dato2
-        case "25A": dato2 = "C25A"
-        case "63A": dato2 = "C63A"
-        case "125A": dato2 = "C125A"
-    End select
-    dato3 = Me.OleObjects("EquipoCOMT").Object.Value 
-    dato4 = Me.OleObjects("OrientacionCOM").Object.Value   
-    select case dato4
-        case "Vertical": dato4 = "V"
-    end select 
-    ResultadoCOMT= dato1 & "_" & dato2 & "_" & dato3 & "ToX720" & dato4
-    MoverBloque ResultadoCOMT,"Conmutadora", wsActual, celda
-End Sub    
+    Public sub Conmutadores()
+        '======================== 
+            celda = "KR124"
+            thisWorkbook.Sheets("FrontalFM").Range("NP82:QJ182").Clear
+            Set wsActual = thisWorkbook.Sheets("FrontalFM")
+        '========================
+        Dim dato1 As String, dato2 As String, dato3 As String, dato4 As String
+        dato1 = Me.OleObjects("TipoUNCOM").Object.Value
+        select case dato1
+            case "SFI - Frontal Interno": dato1 = "SFI"
+            case "SIA - Integral Abatible": dato1 = "SIA"
+            case "SFA - Fijo Atornillado": dato1 = "SFA"
+        end select
+        dato2 = Me.OleObjects("CorrienteCOM").Object.Value
+        select case dato2
+            case "25A": dato2 = "C25A"
+            case "63A": dato2 = "C63A"
+            case "125A": dato2 = "C125A"
+        End select
+        dato3 = Me.OleObjects("EquipoCOMT").Object.Value 
+        dato4 = Me.OleObjects("OrientacionCOM").Object.Value   
+        select case dato4
+            case "Vertical": dato4 = "V"
+        end select 
+        ResultadoCOMT= dato1 & "_" & dato2 & "_" & dato3 & "ToX720" & dato4
+        MoverBloque ResultadoCOMT,"Conmutadora", wsActual, celda
+    End Sub    
 '======================================================
 Public sub  Buscar_datos_Unidade()
     Funcion = Me.OLEObjects("ConexionUF").Object.Value
@@ -2099,9 +2102,17 @@ Public sub Buscar_datos_ETO()
    
 End sub
 Public sub Buscar_datos_TRF()
+    Dim msg As String
     Celda_Cubiculo = "KQ127"
     Funcion = ""
     Informe_Unidades ResultadoTRF
+    msg = "IMPORTANTE" & vbCrLf & _
+      String(30, "-") & vbCrLf & vbCrLf & _
+      Chr(149) & " Debe añadir al listado de materiales las unidades" & vbCrLf & _
+      "   que van con la transferencia de manera individual." & vbCrLf & vbCrLf & _
+      "(Solo si es el caso)"
+
+    MsgBox msg, vbExclamation + vbOKOnly, "Aviso - Transferencia"
     
 End sub
 public sub Buscar_datos_COMT()
