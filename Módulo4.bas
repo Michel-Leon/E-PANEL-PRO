@@ -51,67 +51,50 @@ Private Function BuscarFilaLibre(hoja As Worksheet, filaInicio As Long) As Long
     BuscarFilaLibre = fila
 End Function
 
-Sub Informe_Unidades(codigoBuscado As String)
-    Dim hojaDestino As Worksheet
-    Dim hojaDatos As Worksheet
-    Dim hojasDatos As Variant
-    Dim nombreHoja As Variant
+Sub Informe_Unidades(ByVal codigoBuscado As String, Optional ByVal escribirFrontal As Boolean = True)
+    Dim hojaDestino As Worksheet, hojaDatos As Worksheet
     Dim celdaCodigo As Range
-    Dim filaCodigo As Long
-    Dim filaDestino As Long
-    'VARIABLES QUE SE EXTRAEN DE LA TABLA----------------------------------------
-    Dim Tipo As String, Breaker As String, Posicion As String, Instalacion As String
-    Dim Mando As String , CodigoAPM As String, Complemento As String
-    Dim encontrado As Boolean
-    '-------------------------------------------------------------------
-    'VARIABLES QUE SE Preguntan
+    Dim filaCodigo As Long, filaDestino As Long
     Dim valorN As String, valorC As String
-    hojasDatos = Array("UNIDADES_FUNCIONALES")
-    encontrado = False
+
     If codigoBuscado = "" Then
         MsgBox "No se ha generado ningún código de Unidad.", vbExclamation
         Exit Sub
     End If
-    ' Buscar en cada hoja
-    For Each nombreHoja In hojasDatos
-        Set hojaDatos = ThisWorkbook.Sheets(nombreHoja)
-        Set celdaCodigo = hojaDatos.Range("B:B").Find(What:=codigoBuscado, LookIn:=xlValues, LookAt:=xlWhole)
-        If Not celdaCodigo Is Nothing Then
-            filaCodigo = celdaCodigo.Row
-            Tipo = hojaDatos.Cells(filaCodigo, "C").Value
-            Breaker = hojaDatos.Cells(filaCodigo, "D").Value
-            Complemento = hojaDatos.Cells(filaCodigo, "E").Value
-            Posicion = hojaDatos.Cells(filaCodigo, "F").Value
-            Instalacion = hojaDatos.Cells(filaCodigo, "G").Value
-            Mando = hojaDatos.Cells(filaCodigo, "H").Value
-            CodigoAPM = hojaDatos.Cells(filaCodigo, "J").Value
-            encontrado = True
-            Exit For
-        End If
-    Next nombreHoja
-    If Not encontrado Then
-        MsgBox "Código no encontrado en las hojas de datos.", vbExclamation
+
+    Set hojaDatos = ThisWorkbook.Sheets("UNIDADES_FUNCIONALES")
+    Set celdaCodigo = hojaDatos.Range("B:B").Find(What:=codigoBuscado, _
+                        LookIn:=xlValues, LookAt:=xlWhole)
+
+    If celdaCodigo Is Nothing Then
+        MsgBox "Código '" & codigoBuscado & "' no encontrado en las hojas de datos.", vbExclamation
         Exit Sub
     End If
-    valorN = InputBox("Ingrese el Tag de la Columna", "Tag columna")
-    ValorC = InputBox("Ingrese el Tag de la Cubiculo", "Tag cubiculo")
-    ' Obtener hoja y fila destino 
+    filaCodigo = celdaCodigo.Row
+
+    valorN = InputBox("Ingrese el Tag de la Columna" & vbCrLf & "(" & codigoBuscado & ")", "Tag columna")
+    valorC = InputBox("Ingrese el Tag del Cubículo" & vbCrLf & "(" & codigoBuscado & ")", "Tag cubículo")
+
+    ' Obtener hoja y fila destino
     Call ObtenerHojaYFilaDestino(hojaDestino, filaDestino)
     If hojaDestino Is Nothing Then Exit Sub
 
     With hojaDestino
-        .Range("FO" & filaDestino).Value = ValorN
-        .Range("FT" & filaDestino).Value = ValorC
-        .Range("FX" & filaDestino).Value = Tipo
-        .Range("GC" & filaDestino).Value = Breaker
-        .Range("GM" & filaDestino).Value = Complemento
-        .Range("GW" & filaDestino).Value = Posicion
-        .Range("HF" & filaDestino).Value = Instalacion
-        .Range("HO" & filaDestino).Value = Mando
+        .Range("FO" & filaDestino).Value = valorN
+        .Range("FT" & filaDestino).Value = valorC
+        .Range("FX" & filaDestino).Value = hojaDatos.Cells(filaCodigo, "C").Value  ' Tipo
+        .Range("GC" & filaDestino).Value = hojaDatos.Cells(filaCodigo, "D").Value  ' Breaker
+        .Range("GM" & filaDestino).Value = hojaDatos.Cells(filaCodigo, "E").Value  ' Complemento
+        .Range("GW" & filaDestino).Value = hojaDatos.Cells(filaCodigo, "F").Value  ' Posición
+        .Range("HF" & filaDestino).Value = hojaDatos.Cells(filaCodigo, "G").Value  ' Instalación
+        .Range("HO" & filaDestino).Value = hojaDatos.Cells(filaCodigo, "H").Value  ' Mando
         .Range("HX" & filaDestino).Value = Funcion
-        .Range("II" & filaDestino).Value = CodigoAPM
+        .Range("II" & filaDestino).Value = hojaDatos.Cells(filaCodigo, "J").Value  ' Código APM
     End With
-    ThisWorkbook.Worksheets("FrontalFM").Range(Celda_Cubiculo).Value = ValorC  
-    'MsgBox "Referencia agregada al BOM correctamente en hoja '" & hojaDestino.Name & "'", vbInformation
+
+    ' Solo la unidad/transferencia principal escribe el +C en FrontalFM
+    If escribirFrontal Then
+        ThisWorkbook.Worksheets("FrontalFM").Range(Celda_Cubiculo).Value = valorC
+    End If
 End Sub
 
