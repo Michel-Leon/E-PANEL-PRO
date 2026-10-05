@@ -118,6 +118,7 @@ Private mbCargando As Boolean          'evita eventos en cascada
                     .AddItem "NSX250"
                     .AddItem "NSX630"
                     .AddItem "NS800_1250"
+                    .AddItem "NS800_1600"
                     .AddItem "GoPact150"
                     .AddItem "GoPact200"
                     .AddItem "GoPact250"
