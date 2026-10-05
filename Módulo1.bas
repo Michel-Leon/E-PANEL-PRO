@@ -22,6 +22,7 @@ Public ResultadoCOM As String
 Public ResultadoTRF As String
 Public ResultadoETO As String
 Public ResultadoLSS As String
+Public ResultadoTFM As String
 '------------------------------
 Public ResultadoHBB As String
 Public ResultadoVBB As String

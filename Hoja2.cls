@@ -1169,7 +1169,22 @@ Private mbCargando As Boolean          'evita eventos en cascada
                     .AddItem "EZC100"
             End Select
         End With
-    End Sub       
+    End Sub  
+'Transformadores
+    Private Sub TallaTranf_Change()
+        Dim dato As String
+        dato = Me.OLEObjects("TallaTranf").Object.Value
+        With Me.OLEObjects("AnchoTRF").Object
+            .Clear
+            select case dato
+                Case "0.5_2kVA","3_5kVA"
+                    .Additem "400"
+                    .Additem "720"
+                Case "10_50kVA", "75kVA"   
+                    .Additem "720"
+            End Select
+        End With
+    End Sub         
 Public Sub Worksheet_Activate()
     Extraer_datos
     'ocultar menus emergentes
@@ -1378,6 +1393,13 @@ Public Sub Worksheet_Activate()
             .Clear
             .Additem "SFA - Fijo Atornillado"
         End With       
+        With Me.OLEObjects("TallaTranf").Object
+            .Clear
+            .AddItem "0.5_2kVA"
+            .AddItem "3_5kVA"
+            .AddItem "10_50kVA"
+            .AddItem "75kVA"
+        End With
     '============== Accesorios MTM  =============================
         With Me.OLEObjects("TipoACC").Object
             .Clear
@@ -1771,7 +1793,6 @@ End Sub
         MoverBloque ResultadoSV, "SERVICIOS", wsActual, Celda
         Application.ScreenUpdating = True
     End Sub
-
 '=========================================================== PLACAS CONTROL
     Public Sub Placas_Control()
         Dim wsActual As Worksheet, Celda As String
@@ -1894,6 +1915,23 @@ End Sub
 
         Application.ScreenUpdating = True
     End Sub
+'============================================================ TRANSFORMADORES
+    Public Sub Transformadores()
+        Dim wsActual As Worksheet, Celda As String
+        Dim dato1 As String, dato2 As String, dato3 As String
+        PrepararHoja wsActual, "KO125:NJ185"
+        Celda = "KP127"
+        dato1 = Txt("UnidadTRF")
+        select Case dato1
+            Case "SFA - Fijo Atornillado": dato1 = "SFA"
+        End Select
+        dato2 = Txt("TallaTranf")
+        dato3 = Txt("AnchoTRF")
+        If Vacio(dato1, dato2, dato3) Then AvisoFaltan "datos de transformador": Exit Sub
+        ResultadoTFM = dato1 & "_TR" & dato2 & "X" & dato3
+        MoverBloque ResultadoTFM, "TRAFO", wsActual, Celda
+        Application.ScreenUpdating = True
+    End Sub    
 '========================================================== ACCESORIOS MTM
     Public Sub ACESORIOS_MTM()
         Dim wsActual As Worksheet, Celda As String
