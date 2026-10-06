@@ -1141,7 +1141,22 @@ Private mbCargando As Boolean          'evita eventos en cascada
                     .AddItem "EZC100"
             End Select
         End With
-    End Sub      
+    End Sub  
+'Transformadores
+    Private Sub TallaTranf_Change()
+        Dim dato As String
+        dato = Me.OLEObjects("TallaTranf").Object.Value
+        With Me.OLEObjects("AnchoTRF").Object
+            .Clear
+            select case dato
+                Case "0.5_2kVA","3_5kVA"
+                    .Additem "400"
+                    .Additem "720"
+                Case "10_50kVA", "75kVA"   
+                    .Additem "720"
+            End Select
+        End With
+    End Sub         
 Public Sub Worksheet_Activate()
     Extraer_datos
     'ocultar menus emergentes
@@ -1344,6 +1359,29 @@ Public Sub Worksheet_Activate()
         End With
         With Me.OLEObjects("AnchoTFR").Object
             .Clear
+            .AddItem "720"
+        End With
+    '============== TRANSFORMADORES ============================
+        With Me.OLEObjects("UnidadTRF").Object 
+            .Clear
+            .Additem "SFA - Fijo Atornillado"
+        End With 
+        With Me.OLEObjects("TallaTranf").Object
+            .Clear
+            .AddItem "0.5_2kVA"
+            .AddItem "3_5kVA"
+            .AddItem "10_50kVA"
+            .AddItem "75kVA"
+        End With   
+    '============== FLANGE =============================
+        With Me.OLEObjects("TipoUnidadFlange").Object 
+            .Clear
+            .AddItem "SFI - Frontal Interno"
+            .AddItem "SFA - Fijo Atornillado"
+        End With  
+        With Me.OLEObjects("AnchoFlange").Object
+            .Clear
+            .AddItem "400"
             .AddItem "720"
         End With
     '============== Accesorios MTM  =============================
@@ -1829,6 +1867,24 @@ End Sub
         MoverBloque ResultadoBAR, "BARRAJE", wsActual, Celda
         Application.ScreenUpdating = True
     End Sub
+'================================================================= FLANGES
+    Public Sub Flanges()
+        Dim wsActual As Worksheet, Celda As String
+        Dim dato1 As String, dato2 As String
+
+        PrepararHoja wsActual, "KO125:NJ185"
+        Celda = "KP127"
+        dato1 = Txt("TipoUnidadFlange")
+        Select Case dato1
+            Case "SFI - Frontal Interno":  dato1 = "SFI"
+            Case "SFA - Fijo Atornillado": dato1 = "SFA"
+        End Select
+        dato2 = Txt("AnchoFlange")
+        If Vacio(dato1, dato2) Then AvisoFaltan "Equipo o Unidad": Exit Sub
+        ResultadoFLG =  dato1 & "_FX" & dato2
+        MoverBloque ResultadoFLG, "Flange", wsActual, Celda
+        Application.ScreenUpdating = True
+    End Sub  
 '============================================================ TRANSFERENCIA
     Public Sub Transferencia()
         Dim wsActual As Worksheet, Celda As String
@@ -2059,7 +2115,24 @@ End Sub
         end select 
         ResultadoCOMT= dato1 & "_" & dato2 & "_" & dato3 & "ToX720" & dato4
         MoverBloque ResultadoCOMT,"Conmutadora", wsActual, celda
-    End Sub    
+    End Sub 
+'============================================================ TRANSFORMADORES
+    Public Sub Transformadores()
+        Dim wsActual As Worksheet, Celda As String
+        Dim dato1 As String, dato2 As String, dato3 As String
+        PrepararHoja wsActual, "KO125:NJ185"
+        Celda = "KP127"
+        dato1 = Txt("UnidadTRF")
+        select Case dato1
+            Case "SFA - Fijo Atornillado": dato1 = "SFA"
+        End Select
+        dato2 = Txt("TallaTranf")
+        dato3 = Txt("AnchoTRF")
+        If Vacio(dato1, dato2, dato3) Then AvisoFaltan "datos de transformador": Exit Sub
+        ResultadoTFM = dato1 & "_TR" & dato2 & "X" & dato3
+        MoverBloque ResultadoTFM, "TRAFO", wsActual, Celda
+        Application.ScreenUpdating = True
+    End Sub          
 '======================================================
 Public sub  Buscar_datos_Unidade()
     Funcion = Me.OLEObjects("ConexionUF").Object.Value
