@@ -1957,7 +1957,7 @@ End Sub
         Dim colorDestino As Long
         
         ' Obtener el valor del color desde la portada
-        valorColor = Me.OLEObjects("Colorselec").Object.Value
+        valorColor = Me.OLEObjects("ColorConf").Object.Value
         Set ws = ThisWorkbook.Sheets("FrontalFM")
         ' Definir color destino seg�n el valor
         Select Case valorColor
