@@ -2065,6 +2065,7 @@ Public sub  Buscar_datos_Unidade()
     Funcion = Me.OLEObjects("ConexionUF").Object.Value
     Celda_Cubiculo = "KQ132"
     Informe_Unidades ResultadoUF
+    Buscar_datos_conjunto ResultadoUF
     
 End Sub
 Public sub  Buscar_datos_Lisas()
@@ -2104,16 +2105,21 @@ Public sub Buscar_datos_ETO()
 End sub
 Public sub Buscar_datos_TRF()
     Dim msg As String
-    Celda_Cubiculo = "KQ127"
+    IF ResultadoTRF = "SFI_UT_NS800MXVX720XSUP" then
+        Celda_Cubiculo = "KQ139"
+    Else
+        Celda_Cubiculo = "KQ135"
+    End If
     Funcion = ""
-    Informe_Unidades ResultadoTRF
-    msg = "IMPORTANTE" & vbCrLf & _
-      String(30, "-") & vbCrLf & vbCrLf & _
-      Chr(149) & " Debe añadir al listado de materiales las unidades" & vbCrLf & _
-      "   que van con la transferencia de manera individual." & vbCrLf & vbCrLf & _
-      "(Solo si es el caso)"
+    Informe_Unidades ResultadoTRF            ' escribe en FrontalFM
+    Buscar_datos_conjunto ResultadoTRF       ' adicionales sin escribir
 
-    MsgBox msg, vbExclamation + vbOKOnly, "Aviso - Transferencia"
+    'msg = "IMPORTANTE" & vbCrLf & _
+          String(30, "-") & vbCrLf & vbCrLf & _
+          Chr(149) & " Debe añadir al listado de materiales las unidades" & vbCrLf & _
+          "   que van con la transferencia de manera individual." & vbCrLf & vbCrLf & _
+          "(Solo si es el caso)"
+    'MsgBox msg, vbExclamation + vbOKOnly, "Aviso - Transferencia"
     
 End sub
 public sub Buscar_datos_COMT()
@@ -2121,3 +2127,50 @@ public sub Buscar_datos_COMT()
     Funcion = ""
     Informe_Unidades ResultadoCOMT
 End sub
+'============= Agregra referencia conjunto para ciertas unidades  y tranferencias
+Public Sub Buscar_datos_conjunto(ByVal codigo As String)
+    Select Case codigo
+    case "SFI_GoPact200ToX720VE_NA","SFC_GoPact200ToX720VE_NA", _
+        "SFI_GoPact250ToX720VE_NA","SFC_GoPact250ToX720VE_NA", _
+        "SFI_EZC250ToX720VE_NA","SFC_EZC250ToX720VE_NA", _
+        "SFI_CVS250ToX720VE_NA","SFC_CVS250ToX720VE_NA", _
+        "SFI_CVS630ToX720VE_NA","SFC_CVS630ToX720VE_NA", _
+        "SFI_NSX250ToX720VE_NA", "SFC_NSX250ToX720VE_NA", _
+        "SFI_NSX630ToX720VE_NA","SFC_NSX630ToX720VE_NA", _
+        "SFI_NS800_1600ToX720VE_NA","SFC_NS800_1600ToX720VE_NA", _
+        "SIA_CVS630PX720VE_NA","SIA_NSX630PX720VE_NA", _
+        "SIA_NS800_1600PX720VE_NA"
+        AgregarAdicional "SFI720X5u", 1
+    Case "SFI_NWFIJOMX720V_NA","SFC_NWFIJOMX720V_NA", _
+        "SFI_NWEXTRAIBLEMX720V_NA","SFC_NWEXTRAIBLEMX720V_NA", _
+        "SFI_MTZFIJOMX720V_NA","SFC_MTZFIJOMX720V_NA", _
+        "SFI_MTZEXTRAIBLEMX720V_NA","SFC_MTZEXTRAIBLEMX720V_NA", _
+        "SFI_MVSFIJOMX720V_NA","SFC_MVSFIJOMX720V_NA", _
+        "SFI_MVSEXTRAIBLEMX720V_NA", "SFC_MVSEXTRAIBLEMX720V_NA", _
+        "SIA_NWFIJOMX720V_NA","SIA_NWEXTRAIBLEMX720V_NA", _
+        "SIA_MTZFIJOMX720V_NA","SIA_MTZEXTRAIBLEMX720V_NA", _
+        "SIA_MVSFIJOMX720V_NA","SIA_MVSEXTRAIBLEMX720V_NA"
+        AgregarAdicional "SFI720X7u", 1
+     ' ---- Transferencias: 2 x SFI720X4u
+    Case "SFI_UT_EZC250MNXVX720XSUP", "SFI_UT_EZC630MNXVX720XSUP", _
+        "SFI_UT_CVS250MNXVX720XSUP", "SFI_UT_CVS630MNXVX720XSUP", _
+        "SFI_UT_NSX250MNXVX720XSUP", "SFI_UT_NSX630MNXVX720XSUP", _
+        "SFI_UT_GoPact250MNXVX720XSUP", "SFI_UT_GoPact400MNXVX720XSUP", _
+        "SFI_UT_CVS250MXVX720XSUP", "SFI_UT_CVS630MXVX720XSUP", _
+        "SFI_UT_NSX250MXVX720XSUP", "SFI_UT_NSX630MXVX720XSUP"
+        AgregarAdicional "SFI720X4u", 2
+    Case "SFI_UT_NS800MXVX720XSUP"  
+        
+        AgregarAdicional "SFI720X6u", 1 
+        AgregarAdicional "SFI720X5u", 1 
+    End Select
+End Sub
+'============= Agrega una referencia adicional N veces SIN escribir en FrontalFM
+Private Sub AgregarAdicional(ByVal referencia As String, ByVal cantidad As Long)
+    Dim i As Long
+    RefAdicional = referencia
+    Funcion = ""
+    For i = 1 To cantidad
+        Informe_Unidades RefAdicional, False   ' False = no tocar FrontalFM
+    Next i
+End Sub

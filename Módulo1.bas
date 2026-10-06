@@ -13,7 +13,7 @@ Public ResultadoUF As String
 Public ResultadoCT As String
 Public ResultadoEQ As String
 Public ResultadoACC As String
-Public ResultadoPC As String
+Public ResultadoPC As String 
 Public ResultadoCOM As String
 Public ResultadoTRF As String
 Public ResultadoETO As String
@@ -23,6 +23,7 @@ Public ResultadoVBB As String
 Public ResultadoNBB As String
 public ResultadoGBB As String
 Public ResultadoCOMT As String
+Public RefAdicional As String
 '============== Mover Bloque ===================
 Public Sub MoverBloque(ByVal ref As String, ByVal BD As String, _
                        ByVal wsDestino As Worksheet, ByVal celdaDestino As String)
