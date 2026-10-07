@@ -19,6 +19,8 @@ Public ResultadoCOM As String
 Public ResultadoTRF As String
 public ResultadoETO As String
 Public ResultadoCOMT As String
+Public ResultadoFLG As String
+Public ResultadoTFM As String
 '============== Mover Bloque ===================
 Public Sub MoverBloque(ByVal ref As String, ByVal BD As String, _
                        ByVal wsDestino As Worksheet, ByVal celdaDestino As String)
@@ -32,15 +34,17 @@ Public Sub MoverBloque(ByVal ref As String, ByVal BD As String, _
     Set destino = wsDestino.Range(celdaDestino)
 
     origen.Copy Destination:=destino
-    wsActual.Range(destino, destino.Offset(origen.Rows.Count - 1, origen.Columns.Count - 1)).Select
+
+    ' Seleccionar el bloque pegado
+    Application.Goto destino.Resize(origen.Rows.Count, origen.Columns.Count)
     Exit Sub
 
-    errHandler:
-        MsgBox "Fallo al mover el bloque." & vbCrLf & _
-            "Ref: " & ref & vbCrLf & _
-            "BD: " & BD & vbCrLf & _
-            "Destino: " & celdaDestino & vbCrLf & vbCrLf & _
-            "Error " & Err.Number & ": " & Err.Description, vbCritical
+errHandler:
+    MsgBox "Fallo al mover el bloque." & vbCrLf & _
+        "Ref: " & ref & vbCrLf & _
+        "BD: " & BD & vbCrLf & _
+        "Destino: " & celdaDestino & vbCrLf & vbCrLf & _
+        "Error " & Err.Number & ": " & Err.Description, vbCritical
 End Sub
 Private Function ResolverBloque(ByVal nombre As String) As Range
     Dim n As Name

@@ -39,7 +39,7 @@ Public sub Escribir_caracteristicas_TM()
         .Range("DK89").value ="1800,2000,2200"
         .Range("DK97").value ="200,400,720,800"
         .Range("DK105").value ="600,800,1000"
-        .Range("DK113").value ="31,42,54,55,65"
+        .Range("DK113").value ="31,42,54"
         .Range("DK134").value ="<=4000"
         .Range("DK142").value ="40-65"
     end with

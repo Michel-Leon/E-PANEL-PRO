@@ -31,6 +31,8 @@ Public Sub Seleccion_Menu_Envolventes()
         ActiveSheet.Shapes("Menu Color").Visible = False
         ActiveSheet.Shapes("Menu ETO").Visible = False
         ActiveSheet.Shapes("Menu Conmutadores").Visible = False
+        ActiveSheet.Shapes("Menu Transformadores").Visible = False
+        ActiveSheet.Shapes("Menu Flange").Visible = False
     end If
 End Sub  
 Public sub Seleccion_Menu_UnidadesFuncionales()
@@ -65,6 +67,8 @@ Public sub Seleccion_Menu_UnidadesFuncionales()
         ActiveSheet.Shapes("Menu Color").Visible = False
         ActiveSheet.Shapes("Menu ETO").Visible = False
         ActiveSheet.Shapes("Menu Conmutadores").Visible = False
+        ActiveSheet.Shapes("Menu Transformadores").Visible = False
+        ActiveSheet.Shapes("Menu Flange").Visible = False
     end If
 End Sub  
 Public sub Seleccion_Menu_Lisas()
@@ -98,6 +102,8 @@ Public sub Seleccion_Menu_Lisas()
         ActiveSheet.Shapes("Menu Color").Visible = False
         ActiveSheet.Shapes("Menu ETO").Visible = False
         ActiveSheet.Shapes("Menu Conmutadores").Visible = False
+        ActiveSheet.Shapes("Menu Transformadores").Visible = False
+        ActiveSheet.Shapes("Menu Flange").Visible = False
     end If
 End Sub
 Public sub Seleccion_Menu_Contactores()
@@ -131,6 +137,8 @@ Public sub Seleccion_Menu_Contactores()
         ActiveSheet.Shapes("Menu Color").Visible = False
         ActiveSheet.Shapes("Menu ETO").Visible = False
         ActiveSheet.Shapes("Menu Conmutadores").Visible = False
+        ActiveSheet.Shapes("Menu Transformadores").Visible = False
+        ActiveSheet.Shapes("Menu Flange").Visible = False
     end If
 End Sub
 Public sub seleccion_menu_dps()
@@ -164,6 +172,8 @@ Public sub seleccion_menu_dps()
         ActiveSheet.Shapes("Menu Color").Visible = False
         ActiveSheet.Shapes("Menu ETO").Visible = False
         ActiveSheet.Shapes("Menu Conmutadores").Visible = False
+        ActiveSheet.Shapes("Menu Transformadores").Visible = False
+        ActiveSheet.Shapes("Menu Flange").Visible = False
     end If
 End Sub
 Public sub Seleccion_Menu_EquipoCTR()
@@ -197,6 +207,8 @@ Public sub Seleccion_Menu_EquipoCTR()
         ActiveSheet.Shapes("Menu Color").Visible = False
         ActiveSheet.Shapes("Menu ETO").Visible = False
         ActiveSheet.Shapes("Menu Conmutadores").Visible = False
+        ActiveSheet.Shapes("Menu Transformadores").Visible = False
+        ActiveSheet.Shapes("Menu Flange").Visible = False
     end If
 End Sub
 public sub Seleccion_Menu_AccesoriosCTR()
@@ -230,6 +242,8 @@ public sub Seleccion_Menu_AccesoriosCTR()
         ActiveSheet.Shapes("Menu Color").Visible = False
         ActiveSheet.Shapes("Menu ETO").Visible = False
         ActiveSheet.Shapes("Menu Conmutadores").Visible = False
+        ActiveSheet.Shapes("Menu Transformadores").Visible = False
+        ActiveSheet.Shapes("Menu Flange").Visible = False
     end If
 End Sub
 Public sub Seleccion_Menu_EquiposIND()
@@ -263,6 +277,8 @@ Public sub Seleccion_Menu_EquiposIND()
         ActiveSheet.Shapes("Menu Color").Visible = False
         ActiveSheet.Shapes("Menu ETO").Visible = False
         ActiveSheet.Shapes("Menu Conmutadores").Visible = False
+        ActiveSheet.Shapes("Menu Transformadores").Visible = False
+        ActiveSheet.Shapes("Menu Flange").Visible = False
     end If
 End Sub
 Public sub Seleccion_Servicios()
@@ -296,6 +312,8 @@ Public sub Seleccion_Servicios()
         ActiveSheet.Shapes("Menu Color").Visible = False
         ActiveSheet.Shapes("Menu ETO").Visible = False
         ActiveSheet.Shapes("Menu Conmutadores").Visible = False
+        ActiveSheet.Shapes("Menu Transformadores").Visible = False
+        ActiveSheet.Shapes("Menu Flange").Visible = False
     end If
 End Sub
 public sub Seleccion_Placas_Control()
@@ -329,6 +347,8 @@ public sub Seleccion_Placas_Control()
         ActiveSheet.Shapes("Menu Color").Visible = False
         ActiveSheet.Shapes("Menu ETO").Visible = False
         ActiveSheet.Shapes("Menu Conmutadores").Visible = False
+        ActiveSheet.Shapes("Menu Transformadores").Visible = False
+        ActiveSheet.Shapes("Menu Flange").Visible = False
     end If
 End Sub
 Public sub Seleccion_Menu_Compensacion()
@@ -362,6 +382,8 @@ Public sub Seleccion_Menu_Compensacion()
         ActiveSheet.Shapes("Menu Color").Visible = False
         ActiveSheet.Shapes("Menu ETO").Visible = False
         ActiveSheet.Shapes("Menu Conmutadores").Visible = False
+        ActiveSheet.Shapes("Menu Transformadores").Visible = False
+        ActiveSheet.Shapes("Menu Flange").Visible = False
     end If
 End Sub
 Public sub Seleccion_Menu_Barraje()
@@ -395,6 +417,8 @@ Public sub Seleccion_Menu_Barraje()
         ActiveSheet.Shapes("Menu Color").Visible = False
         ActiveSheet.Shapes("Menu ETO").Visible = False
         ActiveSheet.Shapes("Menu Conmutadores").Visible = False
+        ActiveSheet.Shapes("Menu Transformadores").Visible = False
+        ActiveSheet.Shapes("Menu Flange").Visible = False
     end If
 End Sub
 Public sub Seleccion_Menu_Transferencias()
@@ -428,6 +452,8 @@ Public sub Seleccion_Menu_Transferencias()
         ActiveSheet.Shapes("Menu Color").Visible = False
         ActiveSheet.Shapes("Menu ETO").Visible = False
         ActiveSheet.Shapes("Menu Conmutadores").Visible = False
+        ActiveSheet.Shapes("Menu Transformadores").Visible = False
+        ActiveSheet.Shapes("Menu Flange").Visible = False
     end If
 End Sub
 Public sub Seleccion_Menu_AccesoriosMTM()
@@ -461,6 +487,8 @@ Public sub Seleccion_Menu_AccesoriosMTM()
         ActiveSheet.Shapes("Menu Color").Visible = False
         ActiveSheet.Shapes("Menu ETO").Visible = False
         ActiveSheet.Shapes("Menu Conmutadores").Visible = False
+        ActiveSheet.Shapes("Menu Transformadores").Visible = False
+        ActiveSheet.Shapes("Menu Flange").Visible = False
     end If
 End Sub
 public sub Seleccion_Menu_Etiqueta()
@@ -494,6 +522,8 @@ public sub Seleccion_Menu_Etiqueta()
         ActiveSheet.Shapes("Menu Color").Visible = False
         ActiveSheet.Shapes("Menu ETO").Visible = False
         ActiveSheet.Shapes("Menu Conmutadores").Visible = False
+        ActiveSheet.Shapes("Menu Transformadores").Visible = False
+        ActiveSheet.Shapes("Menu Flange").Visible = False
     end If
 End sub
 public sub Seleccion_Menu_Acotar()
@@ -527,6 +557,8 @@ public sub Seleccion_Menu_Acotar()
         ActiveSheet.Shapes("Menu Color").Visible = False
         ActiveSheet.Shapes("Menu ETO").Visible = False
         ActiveSheet.Shapes("Menu Conmutadores").Visible = False
+        ActiveSheet.Shapes("Menu Transformadores").Visible = False
+        ActiveSheet.Shapes("Menu Flange").Visible = False
     end If
 End sub
 Public sub Seleccion_Menu_Color()
@@ -560,6 +592,8 @@ Public sub Seleccion_Menu_Color()
         activeSheet.Shapes("Menu Acotar").Visible = false
         ActiveSheet.Shapes("Menu ETO").Visible = False
         ActiveSheet.Shapes("Menu Conmutadores").Visible = False
+        ActiveSheet.Shapes("Menu Transformadores").Visible = False
+        ActiveSheet.Shapes("Menu Flange").Visible = False
     end If
 End sub
 Public Sub Seleccion_Menu_ETO()
@@ -593,6 +627,8 @@ Public Sub Seleccion_Menu_ETO()
         activeSheet.Shapes("Menu Acotar").Visible = false
         ActiveSheet.Shapes("Menu Color").Visible = False
         ActiveSheet.Shapes("Menu Conmutadores").Visible = False
+        ActiveSheet.Shapes("Menu Transformadores").Visible = False
+        ActiveSheet.Shapes("Menu Flange").Visible = False
     end If
 End Sub 
 public sub Seleccion_Menu_Conmutadores()
@@ -626,6 +662,78 @@ public sub Seleccion_Menu_Conmutadores()
         activeSheet.Shapes("Menu Acotar").Visible = false
         ActiveSheet.Shapes("Menu Color").Visible = False
         ActiveSheet.Shapes("Menu ETO").Visible = False
+        ActiveSheet.Shapes("Menu Transformadores").Visible = False
+        ActiveSheet.Shapes("Menu Flange").Visible = False
+    end If
+End sub
+Public Sub Seleccion_Menu_Transformadores()
+    Dim shp As Shape
+    Dim groupname As String
+    groupname = "Menu Transformadores"
+    
+    On Error Resume Next    
+    Set shp = ActiveSheet.Shapes(groupname)
+    On Error GoTo 0 
+    
+    If Not shp Is Nothing Then
+        ' Alterna la visibilidad del grupo seleccionado
+        shp.Visible = Not shp.Visible
+        ' Oculta los dem s grupos
+        ActiveSheet.Shapes("Menu Envolventes").Visible = False
+        ActiveSheet.Shapes("Menu UnidadFuncional").Visible = False
+        ActiveSheet.Shapes("Menu Lisas").Visible = False
+        ActiveSheet.Shapes("Menu Contactores").Visible = False
+        ActiveSheet.Shapes("Menu DPS").Visible = False
+        ActiveSheet.Shapes("Menu Equipo CTR").Visible = False
+        ActiveSheet.Shapes("Menu ACCESORIOS CTR").Visible = False
+        ActiveSheet.Shapes("Menu Equipos").Visible = False
+        ActiveSheet.Shapes("Menu Servicios").Visible = False
+        ActiveSheet.Shapes("Menu Placas de control").Visible = False
+        ActiveSheet.Shapes("Menu Compensacion").Visible = False
+        ActiveSheet.Shapes("Menu Barraje").Visible = False
+        ActiveSheet.Shapes("Menu Transferencias").Visible = False
+        ActiveSheet.Shapes("Menu AccesoriosMTM").Visible = False
+        ActiveSheet.Shapes("Menu Etiqueta").Visible = False
+        activeSheet.Shapes("Menu Acotar").Visible = false
+        ActiveSheet.Shapes("Menu Color").Visible = False
+        ActiveSheet.Shapes("Menu ETO").Visible = False
+        ActiveSheet.Shapes("Menu Conmutadores").Visible = False
+        ActiveSheet.Shapes("Menu Flange").Visible = False
+    end If
+End Sub
+public sub Seleccion_Menu_Flange()
+    Dim shp As Shape
+    Dim groupname As String
+    groupname = "Menu Flange"
+    
+    On Error Resume Next    
+    Set shp = ActiveSheet.Shapes(groupname)
+    On Error GoTo 0
+    
+    If Not shp Is Nothing Then
+        ' Alterna la visibilidad del grupo seleccionado 
+        shp.Visible = Not shp.Visible
+        ' Oculta los dem s grupos
+        ActiveSheet.Shapes("Menu Envolventes").Visible = False
+        ActiveSheet.Shapes("Menu UnidadFuncional").Visible = False
+        ActiveSheet.Shapes("Menu Lisas").Visible = False
+        ActiveSheet.Shapes("Menu Contactores").Visible = False
+        ActiveSheet.Shapes("Menu DPS").Visible = False
+        ActiveSheet.Shapes("Menu Equipo CTR").Visible = False
+        ActiveSheet.Shapes("Menu ACCESORIOS CTR").Visible = False
+        ActiveSheet.Shapes("Menu Equipos").Visible = False
+        ActiveSheet.Shapes("Menu Servicios").Visible = False
+        ActiveSheet.Shapes("Menu Placas de control").Visible = False
+        ActiveSheet.Shapes("Menu Compensacion").Visible = False
+        ActiveSheet.Shapes("Menu Barraje").Visible = False
+        ActiveSheet.Shapes("Menu Transferencias").Visible = False
+        ActiveSheet.Shapes("Menu AccesoriosMTM").Visible = False
+        ActiveSheet.Shapes("Menu Etiqueta").Visible = False
+        activeSheet.Shapes("Menu Acotar").Visible = false
+        ActiveSheet.Shapes("Menu Color").Visible = False
+        ActiveSheet.Shapes("Menu ETO").Visible = False
+        ActiveSheet.Shapes("Menu Conmutadores").Visible = False
+        ActiveSheet.Shapes("Menu Transformadores").Visible = False
     end If
 End sub
 Public Sub Limpiar_area_trabajo()

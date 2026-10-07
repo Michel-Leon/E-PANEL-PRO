@@ -99,7 +99,6 @@ Public IP as string, Color as string
                     .AddItem "EZC100"
                     .AddItem "EZC250"
                     .AddItem "EZC630"
-                    .AddItem "CVS100"
                     .AddItem "CVS250"
                     .AddItem "CVS630"
                     .AddItem "NSX100"
@@ -110,7 +109,6 @@ Public IP as string, Color as string
                     .AddItem "EZC100"
                     .AddItem "EZC250"
                     .AddItem "EZC630"
-                    .AddItem "CVS100"
                     .AddItem "CVS250"
                     .AddItem "CVS630"
                     .AddItem "NSX100"
@@ -125,7 +123,6 @@ Public IP as string, Color as string
                 ElseIf MenuUnidades = "Opcion2" Then
                     .AddItem "EZC250"
                     .AddItem "EZC630"
-                    .AddItem "CVS100"
                     .AddItem "CVS250"
                     .AddItem "CVS630"
                     .AddItem "NSX100"
@@ -333,54 +330,50 @@ Public IP as string, Color as string
                         .AddItem "Horizontal"
                     Case Else       'SFI - Frontal Interno / SFC - Frontal Compacto
                         Select Case sFrame
-                            '--- Solo Vertical -------------------------------------------------
+                            '--- Solo Vertical ------------------------------------------------------
                             Case "MiniBreaker", "Guardamotor", "NS800_1250", _
                                 "NWFIJO", "NWEXTRAIBLE", _
                                 "MTZFIJO", "MTZEXTRAIBLE", _
                                 "MVSFIJO", "MVSEXTRAIBLE"
                                 .AddItem "Vertical"
-
-                            '--- Vertical + V.Compacta -----------------------------------------
-                            Case "CVS100", "NSX100"
-                                .AddItem "Vertical"
-                                .AddItem "V.Compacta"
-
-                            '--- Vertical + Horizontal -----------------------------------------
+                            '--- Solo Horizontal ----------------------------------------------------
                             Case "EZC630", "GoPact800"
-                                .AddItem "Vertical"
                                 .AddItem "Horizontal"
 
-                            '--- Vertical + Horizontal + H.Compuesta ---------------------------
+                            '--- Horizontal + H.Compuesta -------------------------------------------
                             Case "GoPact400"
-                                .AddItem "Vertical"
                                 .AddItem "Horizontal"
                                 .AddItem "H.Compuesta"
 
-                            '--- Vertical + Horizontal + V.Extendida ---------------------------
-                            Case "CVS630", "NSX630"
-                                .AddItem "Vertical"
+                            '--- Horizontal + V.Extendida -------------------------------------------
+                            Case "CVS630", "NSX630", "NS800_1600"
                                 .AddItem "Horizontal"
                                 .AddItem "V.Extendida"
 
-                            '--- Horizontal + V.Extendida (sin Vertical) -----------------------
-                            Case "NS800_1600"
-                                .AddItem "Horizontal"
-                                .AddItem "V.Extendida"
-
-                            '--- Vertical + Horizontal + V.Compacta + H.Compuesta --------------
-                            Case "EZC100", "GoPact150"          'GoPact150 = filas "GoPact100" de la tabla
-                                .AddItem "Vertical"
+                            '--- Horizontal + V.Compacta + H.Compuesta ------------------------------
+                            Case "EZC100", "GoPact100", "GoPact150"   'GoPact150 = filas "GoPact100" de la tabla
                                 .AddItem "Horizontal"
                                 .AddItem "V.Compacta"
                                 .AddItem "H.Compuesta"
 
-                            '--- Vertical + Horizontal + V.Extendida + H.Compuesta -------------
-                            Case "EZC250", "CVS250", "NSX250", _
-                                "GoPact200", "GoPact250"
-                                .AddItem "Vertical"
+                            '--- Horizontal + V.Extendida + H.Compuesta -----------------------------
+                            Case "GoPact200", "GoPact250"
                                 .AddItem "Horizontal"
                                 .AddItem "V.Extendida"
                                 .AddItem "H.Compuesta"
+
+                            '--- Horizontal + V.Compacta + V.Extendida + H.Compuesta ----------------
+                            Case "EZC250", "CVS250", "NSX250"
+                                .AddItem "Horizontal"
+                                .AddItem "V.Compacta"
+                                .AddItem "V.Extendida"
+                                .AddItem "H.Compuesta"
+
+                            '--- Frames sin definición en la tabla ----------------------------------
+                            Case "CVS100", "NSX100"
+                                .AddItem "V.Compacta"
+                            Case Else
+                                'Frame no reconocido: no se agregan opciones
                         End Select
                 End Select
             End If
@@ -880,7 +873,9 @@ Public IP as string, Color as string
             select case dato
                 case "Horizontal Bus Bar"
                     .AddItem "400A"
+                    .AddItem "400_630A"
                     .AddItem "630_1250A"
+                    .AddItem "800_1250A"
                     .AddItem "1600_2500A"
                     .AddItem "3200A"
                     .AddItem "4000A"
@@ -906,12 +901,12 @@ Public IP as string, Color as string
             select case dato
                 case "Horizontal Bus Bar"
                     Select Case dato2
-                        Case "400A"
+                        Case "400A", "800_1250A"
                             .AddItem "400"
                         Case "630_1250A","1600_2500A"
                             .AddItem "400"
                             .AddItem "720"
-                        Case "3200A","4000A"
+                        Case "3200A","4000A", "400_630A"
                             .AddItem "720"
                     End Select
                 case "Horizontal Tierra Neutro"   
@@ -1199,7 +1194,22 @@ Public IP as string, Color as string
                     .AddItem "EZC100"
             End Select
         End With
-    End Sub          
+    End Sub     
+'Transformadores
+    Private Sub TallaTranf_Change()
+        Dim dato As String
+        dato = Me.OLEObjects("TallaTranf").Object.Value
+        With Me.OLEObjects("AnchoTRF").Object
+            .Clear
+            select case dato
+                Case "0.5_2kVA","3_5kVA"
+                    .Additem "400"
+                    .Additem "720"
+                Case "10_50kVA", "75kVA"   
+                    .Additem "720"
+            End Select
+        End With
+    End Sub         
 Public Sub Worksheet_Activate()
     Extraer_datos
     'ocultar menus emergentes
@@ -1221,6 +1231,10 @@ Public Sub Worksheet_Activate()
         ActiveSheet.Shapes("Menu Etiqueta").Visible = False
         activeSheet.Shapes("Menu Acotar").Visible = false
         ActiveSheet.Shapes("Menu Color").Visible = False
+        ActiveSheet.Shapes("Menu Transformadores").Visible = False
+        ActiveSheet.Shapes("Menu Flange").Visible = False
+        
+
     
     '============== Envolventes ============================
     '============== Unidades Funcionales ===================
@@ -1482,7 +1496,30 @@ Public Sub Worksheet_Activate()
         with Me.OLEObjects("OrientacionCOM").Object
             .Clear
             .AddItem "Vertical"
-    	 end with    
+        end with 
+    '============== TRANSFORMADORES ============================
+        With Me.OLEObjects("UnidadTRF").Object 
+            .Clear
+            .Additem "SFA - Fijo Atornillado"
+        End With 
+        With Me.OLEObjects("TallaTranf").Object
+            .Clear
+            .AddItem "0.5_2kVA"
+            .AddItem "3_5kVA"
+            .AddItem "10_50kVA"
+            .AddItem "75kVA"
+        End With   
+    '============== FLANGE =============================
+        With Me.OLEObjects("TipoUnidadFlange").Object 
+            .Clear
+            .AddItem "SFI - Frontal Interno"
+            .AddItem "SFA - Fijo Atornillado"
+        End With  
+        With Me.OLEObjects("AnchoFlange").Object
+            .Clear
+            .AddItem "400"
+            .AddItem "720"
+        End With       
 END Sub
 '--- Llena un ComboBox ActiveX a partir de una cadena separada por comas
 Private Sub LlenarCombo(cbo As Object, ByVal datos As String)
@@ -1804,6 +1841,26 @@ Public sub BARRAS()
     ResultadoBAR = dato1 & "X" & dato3 & "X" & dato2
     MoverBloque ResultadoBAR,"BARRAJE", wsActual, celda
 End sub
+Public Sub Flanges()
+    Dim wsActual As Worksheet, Celda As String
+    Dim dato1 As String, dato2 As String
+
+    '========================
+        celda = "NQ96"
+        thisWorkbook.Sheets("DISENO").Range("NP82:QJ182").Clear
+        Set wsActual = thisWorkbook.Sheets("DISENO")
+    '========================
+    dato1 = Me.OleObjects("TipoUnidadFlange").Object.Value
+    Select Case dato1
+        Case "SFI - Frontal Interno":  dato1 = "SFI"
+        Case "SFA - Fijo Atornillado": dato1 = "SFA"
+    End Select
+    dato2 = Me.OleObjects("AnchoFlange").Object.Value
+    
+    ResultadoFLG =  dato1 & "_FX" & dato2
+    MoverBloque ResultadoFLG, "Flange", wsActual, Celda
+    Application.ScreenUpdating = True
+End Sub
 Public sub Transferencia()
     '========================
         celda = "NU127"
@@ -1838,6 +1895,53 @@ Public sub Transferencia()
     MoverBloque ResultadoTRF,"ATS_SFI", wsActual, celda
 
 End sub
+Public sub Conmutadores()
+    '========================
+        celda = "NS113"
+        thisWorkbook.Sheets("DISENO").Range("NP82:QJ182").Clear
+        Set wsActual = thisWorkbook.Sheets("DISENO")
+    '========================
+    Dim dato1 As String, dato2 As String, dato3 As String, dato4 As String
+    dato1 = Me.OleObjects("TipoUNCOM").Object.Value
+    select case dato1
+        case "SFI - Frontal Interno": dato1 = "SFI"
+        case "SIA - Integral Abatible": dato1 = "SIA"
+        case "SFA - Fijo Atornillado": dato1 = "SFA"
+    end select
+    dato2 = Me.OleObjects("CorrienteCOM").Object.Value
+    select case dato2
+        case "25A": dato2 = "C25A"
+        case "63A": dato2 = "C63A"
+        case "125A": dato2 = "C125A"
+    End select
+    dato3 = Me.OleObjects("EquipoCOMT").Object.Value 
+    dato4 = Me.OleObjects("OrientacionCOM").Object.Value   
+    select case dato4
+        case "Vertical": dato4 = "V"
+    end select 
+    ResultadoCOMT= dato1 & "_" & dato2 & "_" & dato3 & "ToX720" & dato4
+    MoverBloque ResultadoCOMT,"Conmutadora", wsActual, celda
+End Sub
+
+Public Sub Transformadores()
+    Dim wsActual As Worksheet, Celda As String
+    Dim dato1 As String, dato2 As String, dato3 As String
+    '========================
+        celda = "NQ99"
+        thisWorkbook.Sheets("DISENO").Range("NP82:QJ182").Clear
+        Set wsActual = thisWorkbook.Sheets("DISENO")
+    '========================
+    dato1 =Me.OleObjects("UnidadTRF").Object.Value
+    select Case dato1
+        Case "SFA - Fijo Atornillado": dato1 = "SFA"
+    End Select
+    dato2 = Me.OleObjects("TallaTranf").Object.Value
+    dato3 = Me.OleObjects("AnchoTRF").Object.Value
+   
+    ResultadoTFM = dato1 & "_TR" & dato2 & "X" & dato3
+    MoverBloque ResultadoTFM, "TRAFO", wsActual, Celda
+    Application.ScreenUpdating = True
+End Sub  
 Public sub ACESORIOS_MTM()
     '========================
         celda = "NS104"
@@ -1989,30 +2093,4 @@ Public Sub Cambiodecolor() 'Vista frontal
     
     MSGBox "Proceso Finalizado con Exito", vbInformation, "Cambio de Color"
 End Sub
-Public sub Conmutadores()
-    '========================
-        celda = "NS113"
-        thisWorkbook.Sheets("DISENO").Range("NP82:QJ182").Clear
-        Set wsActual = thisWorkbook.Sheets("DISENO")
-    '========================
-    Dim dato1 As String, dato2 As String, dato3 As String, dato4 As String
-    dato1 = Me.OleObjects("TipoUNCOM").Object.Value
-    select case dato1
-        case "SFI - Frontal Interno": dato1 = "SFI"
-        case "SIA - Integral Abatible": dato1 = "SIA"
-        case "SFA - Fijo Atornillado": dato1 = "SFA"
-    end select
-    dato2 = Me.OleObjects("CorrienteCOM").Object.Value
-    select case dato2
-        case "25A": dato2 = "C25A"
-        case "63A": dato2 = "C63A"
-        case "125A": dato2 = "C125A"
-    End select
-    dato3 = Me.OleObjects("EquipoCOMT").Object.Value 
-    dato4 = Me.OleObjects("OrientacionCOM").Object.Value   
-    select case dato4
-        case "Vertical": dato4 = "V"
-    end select 
-    ResultadoCOMT= dato1 & "_" & dato2 & "_" & dato3 & "ToX720" & dato4
-    MoverBloque ResultadoCOMT,"Conmutadora", wsActual, celda
-End Sub
+
