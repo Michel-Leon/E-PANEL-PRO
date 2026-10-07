@@ -1,5 +1,3 @@
-Attribute VB_Name = "modImpresionPlanos"
-
 Option Explicit
 
 '==============================================================
@@ -94,7 +92,7 @@ Public Function TieneContenido(ByVal rng As Range) As Boolean
 
     If rng Is Nothing Then Exit Function
 
-    For Each a In rng.areas
+    For Each a In rng.Areas
         If a.CountLarge - Application.WorksheetFunction.CountBlank(a) > 0 Then
             TieneContenido = True
             Exit Function
@@ -176,7 +174,7 @@ Private Function NombrePDFSugerido() As String
 End Function
 
 '==============================================================
-'  FORMATO DE PaGINA DEL PAQUETE
+'  FORMATO DE PAGINA DEL PAQUETE
 '  Horizontal, margenes 0, centrado horizontal y vertical,
 '  cada zona ajustada a 1 pagina
 '==============================================================
@@ -267,12 +265,10 @@ Public Sub GenerarPaquete(ByVal areas As Collection, ByVal aPDF As Boolean, _
     On Error GoTo Restaurar
 
     'Formato temporal: zonas elegidas, horizontal, margenes 0, centrado, 1 pagina por zona
-    Application.PrintCommunication = False
     For Each k In direcciones.Keys
         originales(k) = GuardarFormato(ThisWorkbook.Worksheets(k))
         AplicarFormato ThisWorkbook.Worksheets(k), direcciones(k)
     Next k
-    Application.PrintCommunication = True
 
     'Seleccionar juntas todas las hojas involucradas -> un solo paquete
     i = 0
@@ -293,11 +289,9 @@ Restaurar:
     errNum = Err.Number
     errDesc = Err.Description
     On Error Resume Next
-    Application.PrintCommunication = False
     For Each k In originales.Keys
         RestaurarFormato ThisWorkbook.Worksheets(k), originales(k)
     Next k
-    Application.PrintCommunication = True
     hojaInicial.Select
     Application.ScreenUpdating = True
     On Error GoTo 0
@@ -311,5 +305,3 @@ Restaurar:
         MsgBox "Enviadas " & areas.Count & " zona(s) a la impresora.", vbInformation
     End If
 End Sub
-
-
