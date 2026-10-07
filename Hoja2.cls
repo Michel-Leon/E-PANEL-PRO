@@ -112,10 +112,8 @@ Private mbCargando As Boolean          'evita eventos en cascada
                     .AddItem "EZC100"
                     .AddItem "EZC250"
                     .AddItem "EZC630"
-                    .AddItem "CVS100"
                     .AddItem "CVS250"
                     .AddItem "CVS630"
-                    .AddItem "NSX100"
                     .AddItem "NSX250"
                     .AddItem "NSX630"
                     .AddItem "NS800_1250"
@@ -316,53 +314,50 @@ Private mbCargando As Boolean          'evita eventos en cascada
                         .AddItem "Horizontal"
                     Case Else       'SFI - Frontal Interno / SFC - Frontal Compacto
                         Select Case sFrame
-                            '--- Solo Vertical -------------------------------------------------
+                                '--- Solo Vertical ------------------------------------------------------
                             Case "MiniBreaker", "Guardamotor", "NS800_1250", _
                                 "NWFIJO", "NWEXTRAIBLE", _
                                 "MTZFIJO", "MTZEXTRAIBLE", _
                                 "MVSFIJO", "MVSEXTRAIBLE"
                                 .AddItem "Vertical"
+                            '--- Solo Horizontal ----------------------------------------------------
+                            Case "EZC630", "GoPact800"
+                                .AddItem "Horizontal"
 
-                            '--- Vertical + V.Compacta -----------------------------------------
+                            '--- Horizontal + H.Compuesta -------------------------------------------
+                            Case "GoPact400"
+                                .AddItem "Horizontal"
+                                .AddItem "H.Compuesta"
+
+                            '--- Horizontal + V.Extendida -------------------------------------------
+                            Case "CVS630", "NSX630", "NS800_1600"
+                                .AddItem "Horizontal"
+                                .AddItem "V.Extendida"
+
+                            '--- Horizontal + V.Compacta + H.Compuesta ------------------------------
+                            Case "EZC100", "GoPact100", "GoPact150"   'GoPact150 = filas "GoPact100" de la tabla
+                                .AddItem "Horizontal"
+                                .AddItem "V.Compacta"
+                                .AddItem "H.Compuesta"
+
+                            '--- Horizontal + V.Extendida + H.Compuesta -----------------------------
+                            Case "GoPact200", "GoPact250"
+                                .AddItem "Horizontal"
+                                .AddItem "V.Extendida"
+                                .AddItem "H.Compuesta"
+
+                            '--- Horizontal + V.Compacta + V.Extendida + H.Compuesta ----------------
+                            Case "EZC250", "CVS250", "NSX250"
+                                .AddItem "Horizontal"
+                                .AddItem "V.Compacta"
+                                .AddItem "V.Extendida"
+                                .AddItem "H.Compuesta"
+
+                            '--- Frames sin definición en la tabla ----------------------------------
                             Case "CVS100", "NSX100"
                                 .AddItem "V.Compacta"
-                            '--- Vertical + Horizontal -----------------------------------------
-                            Case "EZC630", "GoPact800"
-                                '.AddItem "Vertical"
-                                .AddItem "Horizontal"
-                            '--- Vertical + Horizontal + H.Compuesta ---------------------------
-                            Case "GoPact400"
-                                '.AddItem "Vertical"
-                                .AddItem "Horizontal"
-                                .AddItem "H.Compuesta"
-
-                            '--- Vertical + Horizontal + V.Extendida ---------------------------
-                            Case "CVS630", "NSX630"
-                                '.AddItem "Vertical"
-                                .AddItem "Horizontal"
-                                .AddItem "V.Extendida"
-
-                            '--- Horizontal + V.Extendida (sin Vertical) -----------------------
-                            Case "NS800_1600"
-                                .AddItem "Horizontal"
-                                .AddItem "V.Extendida"
-
-                            '--- Vertical + Horizontal + V.Compacta + H.Compuesta --------------
-                            Case "EZC100", "GoPact150"          'GoPact150 = filas "GoPact100" de la tabla
-                                '.AddItem "Vertical"
-                                .AddItem "Horizontal"
-                                .AddItem "V.Compacta"
-                                .AddItem "H.Compuesta"
-
-                            '--- Vertical + Horizontal + V.Extendida + H.Compuesta -------------
-                            Case "EZC250", "CVS250", "NSX250", _
-                                "GoPact200", "GoPact250"
-                                '.AddItem "Vertical"
-                                .AddItem "Horizontal"
-                                .AddItem "V.Extendida"
-                                .AddItem "H.Compuesta"
-
-                           
+                            Case Else
+                                .AddItem "Frame no reconocido"
                         End Select
                 End Select
             End If
