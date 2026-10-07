@@ -23,6 +23,8 @@ Public ResultadoVBB As String
 Public ResultadoNBB As String
 public ResultadoGBB As String
 Public ResultadoCOMT As String
+Public ResultadoFLG As String
+Public ResultadoTFM As String
 Public RefAdicional As String
 '============== Mover Bloque ===================
 Public Sub MoverBloque(ByVal ref As String, ByVal BD As String, _

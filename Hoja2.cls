@@ -111,10 +111,8 @@ Private mbCargando As Boolean          'evita eventos en cascada
                     .AddItem "EZC100"
                     .AddItem "EZC250"
                     .AddItem "EZC630"
-                    .AddItem "CVS100"
                     .AddItem "CVS250"
                     .AddItem "CVS630"
-                    .AddItem "NSX100"
                     .AddItem "NSX250"
                     .AddItem "NSX630"
                     .AddItem "NS800_1250"
@@ -288,54 +286,52 @@ Private mbCargando As Boolean          'evita eventos en cascada
                         .AddItem "Horizontal"
                     Case Else       'SFI - Frontal Interno / SFC - Frontal Compacto
                         Select Case sFrame
-                            '--- Solo Vertical -------------------------------------------------
-                            Case "MiniBreaker", "Guardamotor", "NS800_1250", _
-                                "NWFIJO", "NWEXTRAIBLE", _
-                                "MTZFIJO", "MTZEXTRAIBLE", _
-                                "MVSFIJO", "MVSEXTRAIBLE"
-                                .AddItem "Vertical"
+                        '--- Solo Vertical ------------------------------------------------------
+                        Case "MiniBreaker", "Guardamotor", "NS800_1250", _
+                            "NWFIJO", "NWEXTRAIBLE", _
+                            "MTZFIJO", "MTZEXTRAIBLE", _
+                            "MVSFIJO", "MVSEXTRAIBLE"
+                            .AddItem "Vertical"
+                        '--- Solo Horizontal ----------------------------------------------------
+                        Case "EZC630", "GoPact800"
+                            .AddItem "Horizontal"
 
-                            '--- Vertical + V.Compacta -----------------------------------------
-                            Case "CVS100", "NSX100"
-                                .AddItem "V.Compacta"
-                            '--- Vertical + Horizontal -----------------------------------------
-                            Case "EZC630", "GoPact800"
-                                '.AddItem "Vertical"
-                                .AddItem "Horizontal"
-                            '--- Vertical + Horizontal + H.Compuesta ---------------------------
-                            Case "GoPact400"
-                                '.AddItem "Vertical"
-                                .AddItem "Horizontal"
-                                .AddItem "H.Compuesta"
+                        '--- Horizontal + H.Compuesta -------------------------------------------
+                        Case "GoPact400"
+                            .AddItem "Horizontal"
+                            .AddItem "H.Compuesta"
 
-                            '--- Vertical + Horizontal + V.Extendida ---------------------------
-                            Case "CVS630", "NSX630"
-                                '.AddItem "Vertical"
-                                .AddItem "Horizontal"
-                                .AddItem "V.Extendida"
+                        '--- Horizontal + V.Extendida -------------------------------------------
+                        Case "CVS630", "NSX630", "NS800_1600"
+                            .AddItem "Horizontal"
+                            .AddItem "V.Extendida"
 
-                            '--- Horizontal + V.Extendida (sin Vertical) -----------------------
-                            Case "NS800_1600"
-                                .AddItem "Horizontal"
-                                .AddItem "V.Extendida"
+                        '--- Horizontal + V.Compacta + H.Compuesta ------------------------------
+                        Case "EZC100", "GoPact100", "GoPact150"   'GoPact150 = filas "GoPact100" de la tabla
+                            .AddItem "Horizontal"
+                            .AddItem "V.Compacta"
+                            .AddItem "H.Compuesta"
 
-                            '--- Vertical + Horizontal + V.Compacta + H.Compuesta --------------
-                            Case "EZC100", "GoPact150"          'GoPact150 = filas "GoPact100" de la tabla
-                                '.AddItem "Vertical"
-                                .AddItem "Horizontal"
-                                .AddItem "V.Compacta"
-                                .AddItem "H.Compuesta"
+                        '--- Horizontal + V.Extendida + H.Compuesta -----------------------------
+                        Case "GoPact200", "GoPact250"
+                            .AddItem "Horizontal"
+                            .AddItem "V.Extendida"
+                            .AddItem "H.Compuesta"
 
-                            '--- Vertical + Horizontal + V.Extendida + H.Compuesta -------------
-                            Case "EZC250", "CVS250", "NSX250", _
-                                "GoPact200", "GoPact250"
-                                '.AddItem "Vertical"
-                                .AddItem "Horizontal"
-                                .AddItem "V.Extendida"
-                                .AddItem "H.Compuesta"
+                        '--- Horizontal + V.Compacta + V.Extendida + H.Compuesta ----------------
+                        Case "EZC250", "CVS250", "NSX250"
+                            .AddItem "Horizontal"
+                            .AddItem "V.Compacta"
+                            .AddItem "V.Extendida"
+                            .AddItem "H.Compuesta"
 
-                           
-                        End Select
+                        '--- Frames sin definición en la tabla ----------------------------------
+                        Case "CVS100", "NSX100"
+                            .AddItem "V.Compacta"
+                        Case Else
+                            'Frame no reconocido: no se agregan opciones
+
+                    End Select
                 End Select
             End If
 
@@ -832,7 +828,9 @@ Private mbCargando As Boolean          'evita eventos en cascada
             Select Case dato
                 Case "Horizontal Bus Bar"
                     .AddItem "400A"
+                    .AddItem "400_630A"
                     .AddItem "630_1250A"
+                    .AddItem "800_1250A"
                     .AddItem "1600_2500A"
                     .AddItem "3200A"
                     .AddItem "4000A"
@@ -854,12 +852,12 @@ Private mbCargando As Boolean          'evita eventos en cascada
             Select Case dato
                 Case "Horizontal Bus Bar"
                     Select Case dato2
-                        Case "400A"
+                        Case "400A", "800_1250A"
                             .AddItem "400"
                         Case "630_1250A", "1600_2500A"
                             .AddItem "400"
                             .AddItem "720"
-                        Case "3200A", "4000A"
+                        Case "3200A", "4000A", "400_630A"
                             .AddItem "720"
                     End Select
                 Case "Horizontal Tierra Neutro"
@@ -1880,7 +1878,7 @@ End Sub
             Case "SFA - Fijo Atornillado": dato1 = "SFA"
         End Select
         dato2 = Txt("AnchoFlange")
-        If Vacio(dato1, dato2) Then AvisoFaltan "Equipo o Unidad": Exit Sub
+        If Vacio(dato1, dato2) Then AvisoFaltan "Tipo unidad o Ancho": Exit Sub
         ResultadoFLG =  dato1 & "_FX" & dato2
         MoverBloque ResultadoFLG, "Flange", wsActual, Celda
         Application.ScreenUpdating = True
@@ -2199,6 +2197,16 @@ public sub Buscar_datos_COMT()
     Celda_Cubiculo = "KS124"
     Funcion = ""
     Informe_Unidades ResultadoCOMT
+End sub
+Public sub Buscar_datos_TFM()
+    Celda_Cubiculo = "KQ127"
+    Funcion = ""
+    Informe_Unidades ResultadoTFM
+End sub
+Public sub Buscar_datos_FLG()
+    Celda_Cubiculo = "KT135"
+    Funcion = ""
+    Informe_Unidades ResultadoFLG
 End sub
 '============= Agregra referencia conjunto para ciertas unidades  y tranferencias
 Public Sub Buscar_datos_conjunto(ByVal codigo As String)
