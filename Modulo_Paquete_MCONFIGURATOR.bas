@@ -16,7 +16,7 @@ Public Sub Crear_paquete_MCONFIGURATOR()
     Dim wsOrigen As Worksheet, wsDestino As Worksheet
     Dim hojas As Variant, nombreHoja As Variant
     Dim destinatario As String
-    Dim primeraHoja As Boolean
+    Dim primeraHoja As Boolean 
     Dim omitidas As String
     Dim hojaActual As String
 

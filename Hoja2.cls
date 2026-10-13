@@ -117,6 +117,7 @@ Private mbCargando As Boolean          'evita eventos en cascada
                     .AddItem "NSX630"
                     .AddItem "NS800_1250"
                     .AddItem "NS800_1600"
+                    .AddItem "GoPact100"
                     .AddItem "GoPact150"
                     .AddItem "GoPact200"
                     .AddItem "GoPact250"
@@ -177,7 +178,14 @@ Private mbCargando As Boolean          'evita eventos en cascada
                             .AddItem "720"
                         End If
                     Case "SIA - Integral Abatible", "SFA - Fijo Atornillado"
-                        .AddItem "720"                 'siempre 720
+                        select case sFrame
+                            case "NWFIJO", "NWEXTRAIBLE", "MTZFIJO", "MTZEXTRAIBLE", _
+                                "MVSFIJO", "MVSEXTRAIBLE"
+                                    .AddItem "720"  
+                                    .AddItem "1120"  
+                            case else
+                                .AddItem "720"        
+                        end select'
                 End Select
                 If .ListCount = 1 Then .ListIndex = 0
             End With
@@ -208,7 +216,7 @@ Private mbCargando As Boolean          'evita eventos en cascada
                     .AddItem "1-63A"
                 Case "EZC100", "CVS100", "NSX100"
                     .AddItem "100A"
-                Case "GoPact150"
+                Case "GoPact150", "GoPact100"
                     .AddItem "100A"
                     .AddItem "125A"
                     .AddItem "150A"
@@ -439,7 +447,7 @@ Private mbCargando As Boolean          'evita eventos en cascada
                 Case "Vertical", "V.Extendida", "V.Compacta"
                     .AddItem "Superior"
 
-                Case "H.Compuesta"
+                Case "H.Compuesta" 
                     .AddItem "Derecha"
 
                 Case "Horizontal"
@@ -854,11 +862,18 @@ Private mbCargando As Boolean          'evita eventos en cascada
                     Select Case dato2
                         Case "400A", "800_1250A"
                             .AddItem "400"
-                        Case "630_1250A", "1600_2500A"
+                        Case "630_1250A"
                             .AddItem "400"
                             .AddItem "720"
-                        Case "3200A", "4000A", "400_630A"
+                        case  "1600_2500A"    
+                            .AddItem "400"
                             .AddItem "720"
+                            .AddItem "1120"
+                        Case "3200A", "4000A"
+                            .AddItem "720"
+                            .AddItem "1120"
+                        case "400_630A" 
+                            .AddItem "720"     
                     End Select
                 Case "Horizontal Tierra Neutro"
                     .AddItem "720"
@@ -1091,18 +1106,18 @@ Private mbCargando As Boolean          'evita eventos en cascada
         With Me.OLEObjects("Dato3ETQ").Object
             .Clear
             Select Case dato
-                Case "Codigo_QR", "Riesgo_electrico1", "Ventilaci�n", "Descarga", "Riesgo_electrico2", _
+                Case "Codigo_QR", "Riesgo_electrico1", "Ventilacion", "Descarga", "Riesgo_electrico2", _
                      "Voltaje_peligroso", "Voltaje_208", "Voltaje_220", "Voltaje_440", _
                      "Voltaje_460", "Voltaje_480", "Aviso_acometidas", "Programador_horario", "Equipo_medida", _
                      "Ajuste_higrostato", "Inspeccion_DPS", "No_manipular_Guaya", "Ajuste_corriente", "Mantenimiento_filtros", _
                      "Senales_extrernas_transferencia", "Parametrizacion_medidor", "Control_produccion", "Incumplimiento_instrucciones", _
                      "Mantenimiento", "Cableado", "Superficie caliente"
                     .AddItem "Pequeno"
-                Case "Ventilaci�n", "Descarga", "Riesgo_electrico2"
+                Case "Ventilacion", "Descarga", "Riesgo_electrico2"
                     .AddItem "Pequeno"
                     .AddItem "Mediano"
                     .AddItem "Grande"
-                Case "Placa_GR", "Ventilaci�n", "Descarga", "Riesgo_electrico2", "Riesgo_electricoV1", "Riesgo_electricoV2", _
+                Case "Placa_GR", "Ventilacion", "Descarga", "Riesgo_electrico2", "Riesgo_electricoV1", "Riesgo_electricoV2", _
                      "Riesgo_electricoV3", "Choque_electrico_1", "Choque_electrico_2", "Prohibido_paso", "Prohibido_acceso", "Respaldo", _
                      "Generador", "Red", "Transformador", "UPS"
                     .AddItem "Mediano"

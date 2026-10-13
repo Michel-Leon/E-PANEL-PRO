@@ -102,7 +102,7 @@ Sub MostrarTodasLasHojas()
         intentos = intentos + 1
         usuario = InputBox("Ingrese el usuario:", "Acceso restringido")
         If StrPtr(usuario) = 0 Then Exit Sub   ' Cancel�
-        clave = InputBox("Ingrese la contrase�a:", "Acceso restringido")
+        clave = InputBox("Ingrese la contraseña:", "Acceso restringido")
         If StrPtr(clave) = 0 Then Exit Sub     ' Cancel�
         If UCase(Trim(usuario)) = USUARIO_VALIDO And Trim(clave) = CLAVE_VALIDA Then
             Exit Do
@@ -111,7 +111,7 @@ Sub MostrarTodasLasHojas()
                 MsgBox "Acceso denegado. Se agotaron los intentos.", vbCritical, "Error"
                 Exit Sub
             End If
-            MsgBox "Usuario o contrase�a incorrectos." & vbNewLine & _
+            MsgBox "Usuario o contraseña incorrectos." & vbNewLine & _
                    "Intento " & intentos & " de " & MAX_INTENTOS, vbExclamation, "Error"
         End If
     Loop
@@ -124,7 +124,7 @@ Sub MostrarTodasLasHojas()
     Application.DisplayFormulaBar = True
     Application.ScreenUpdating = True
 
-    MsgBox "Acceso concedido. Todas las hojas est�n visibles.", vbInformation, "Listo"
+    MsgBox "Acceso concedido. Todas las hojas estan visibles.", vbInformation, "Listo"
 End Sub
 Sub abrir_formulario()
 
@@ -252,7 +252,7 @@ Sub CambiarZoomEnTodasLasHojas()
         MsgBox "Por favor ingrese un n�mero v�lido.", vbExclamation
         Exit Sub
     End If
-    zoomVal = CInt(zoomStr)
+    zoomVal = CInt(zoomStr) 
     ' Validar que el zoom est� dentro de un rango razonable
     If zoomVal < 10 Or zoomVal > 400 Then
         MsgBox "El nivel de zoom debe estar entre 10 y 400.", vbExclamation
