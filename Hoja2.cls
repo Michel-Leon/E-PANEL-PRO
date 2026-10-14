@@ -21,7 +21,6 @@ Public IP as string, Color as string
         On Error GoTo Fin
         mbCargando = True
         LlenarFrame
-        
     Fin:
         mbCargando = False
         RecargarDesdeFrame                 'reconstruye Medida, Corriente y Orientacion
@@ -96,6 +95,7 @@ Public IP as string, Color as string
             Case "SFI - Frontal Interno", "SFC - Frontal Compacto"
                 If MenuUnidades = "Opcion0" Then
                     .AddItem "MiniBreaker"
+                    .AddItem "MiniBreaker_ONKA"
                     .AddItem "EZC100"
                     .AddItem "EZC250"
                     .AddItem "EZC630"
@@ -106,6 +106,7 @@ Public IP as string, Color as string
                     .AddItem "NSX630"
                 elseIf MenuUnidades = "Opcion1" Then
                     .AddItem "MiniBreaker"
+                    .AddItem "MiniBreaker_ONKA"
                     .AddItem "EZC100"
                     .AddItem "EZC250"
                     .AddItem "EZC630"
@@ -225,7 +226,7 @@ Public IP as string, Color as string
     ' Unico lugar donde se define que frames caben en una UF de 400 mm.
     Private Function Admite400(ByVal sFrame As String) As Boolean
         Select Case sFrame
-            Case "MiniBreaker", _
+            Case "MiniBreaker","MiniBreaker_ONKA", _
                 "EZC100", "EZC250", "EZC630", _
                 "CVS100", "CVS250", "CVS630", _
                 "NSX100", "NSX250", "NSX630", _
@@ -245,7 +246,7 @@ Public IP as string, Color as string
             .Clear
             Select Case sFrame
 
-                Case "MiniBreaker"
+                Case "MiniBreaker", "MiniBreaker_ONKA"
                     .AddItem "1-63A"
 
                 Case "EZC100", "CVS100", "NSX100"
@@ -339,8 +340,8 @@ Public IP as string, Color as string
                     Case Else       'SFI - Frontal Interno / SFC - Frontal Compacto
                         Select Case sFrame
                             '--- Solo Vertical ------------------------------------------------------
-                            Case "MiniBreaker", "Guardamotor", "NS800_1250", _
-                                "NWFIJO", "NWEXTRAIBLE", _
+                            Case "MiniBreaker", "MiniBreaker_ONKA", "Guardamotor", "NS800_1250", _
+                                "NWFIJO", "NWEXTRAIBLE", _ 
                                 "MTZFIJO", "MTZEXTRAIBLE", _
                                 "MVSFIJO", "MVSEXTRAIBLE"
                                 .AddItem "Vertical"
