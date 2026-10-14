@@ -69,6 +69,21 @@ Public Ancho As String, ICC As String
             End Select
         End With
     End Sub
+' UNIDAD DE BARRAJE VERTICAL
+    Private sub CorrienteVBB_Change()
+        Dim dato As String
+        dato = Me.OLEObjects("CorrienteVBB").Object.Value
+        With Me.OLEObjects("ICCVBB").Object
+            .Clear
+            Select Case dato
+                Case "630"
+                    .AddItem "25"
+                    .AddItem "65"
+                Case else
+                    .AddItem "65" 
+            End Select
+        End With
+    End Sub    
 Public Sub Worksheet_Activate()
     Extraer_datos
     'Ocultar menus
@@ -128,10 +143,7 @@ Public Sub Worksheet_Activate()
             .AddItem "2000"
             .AddItem "2500"
         End With
-        With Me.OLEObjects("ICCVBB").Object
-            .Clear
-            .AddItem "65"
-        End With
+        
     '---------------------------- GBB
          With Me.OLEObjects("ICCGBB").Object
             .Clear
@@ -224,7 +236,7 @@ End Sub
         Dim dato1 As String, dato2 As String, dato3 As String
         Dim dato4 As String
         PrepararHoja wsActual, "KO125:NJ185"
-        Celda = "KS105"
+        Celda = "KS102"
 
         dato1 = Txt("AlturaVBB")
         dato2 = Txt("CorrienteVBB")
