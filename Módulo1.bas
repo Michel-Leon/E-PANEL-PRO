@@ -5,7 +5,7 @@ Sub BorrarCeldas()
     If MsgBox("¿Esta seguro de borrar el contenido?", vbYesNo + vbQuestion, "Confirmar borrado") = vbNo Then Exit Sub
 
     'Borrar contenido, color y bordes en una sola linea
-    ActiveSheet.Range("BW51:JG147,JY51:RI147").Clear
+    ActiveSheet.Range("BW51:JG147,KB51:RI147").Clear 
 
     'Desagrupar filas y columnas
     On Error Resume Next
