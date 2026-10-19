@@ -1250,8 +1250,6 @@ Public Sub Worksheet_Activate()
         ActiveSheet.Shapes("Menu Transformadores").Visible = False
         ActiveSheet.Shapes("Menu Flange").Visible = False
         
-
-    
     '============== Envolventes ============================
     '============== Unidades Funcionales ===================
         With  Me.OleObjects("TipoUF").Object
