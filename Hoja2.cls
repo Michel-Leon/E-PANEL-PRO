@@ -1936,7 +1936,6 @@ Public sub Conmutadores()
     ResultadoCOMT= dato1 & "_" & dato2 & "_" & dato3 & "ToX720" & dato4
     MoverBloque ResultadoCOMT,"Conmutadora", wsActual, celda
 End Sub
-
 Public Sub Transformadores()
     Dim wsActual As Worksheet, Celda As String
     Dim dato1 As String, dato2 As String, dato3 As String
