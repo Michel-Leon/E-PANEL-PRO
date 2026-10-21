@@ -197,7 +197,82 @@ Public IP as string, Color as string
                     .AddItem "720"    
             end select
         end with
-    end sub        
+    end sub 
+'Accesorios de control  
+    Private sub ElementoCTR_Change()
+        Dim dato As String
+        dato = Me.OleObjects("ElementoCTR").Object.Value
+        With Me.OleObjects("vistaACCCTR").Object
+            .Clear
+            select case dato
+                case "ClavijaRoja", "ClavijaAzul"
+                    .AddItem "Frontal"
+                    .AddItem "Derecha_Abierta"
+                    .AddItem "Derecha_Cerrada"
+                    .AddItem "Izquierda_Abierta"
+                    .AddItem "Izquierda_Cerrada"
+                case else
+                    .AddItem "NA"
+            end select
+        End With
+    End Sub 
+'TRANFERENCIAS
+    Private sub OrientacionTRF_Change()
+        DIM dato As String
+        dato = Me.OleObjects("OrientacionTRF").Object.Value
+        With Me.OleObjects("EquipoTRF").Object
+            .Clear
+            select case dato 
+                case "Vertical"
+                    .additem "EZC250"
+                    .additem "EZC630"
+                    .additem "CVS250"
+                    .additem "CVS630"
+                    .additem "NSX250"
+                    .additem "NSX630"
+                    .additem "GoPact250"
+                    .additem "GoPact400"
+                    .additem "NS800"
+                case "Horizontal"   
+                    .additem "EZC250X2"
+                    .additem "CVS250X2" 
+                    .additem "NSX250X2"
+                    .additem "GoPact250X2"
+            end select
+        end with
+    end sub
+    Private sub EquipoTRF_Change()
+        Dim dato As String
+        dato = Me.OleObjects("EquipoTRF").Object.Value
+        With Me.OleObjects("MandoTFF").Object
+            .Clear
+            select case dato 
+                case "CVS250","NSX250","NSX400","CVS400"
+                    .AddItem "Manual"
+                    .AddItem "Motorizado"
+                CASE "EZC250","EZC400","GoPact250","GoPact400"
+                    .AddItem "Manual" 
+            end select
+        end with
+    end sub
+    'Conmutadoras
+    private sub CorrienteCOM_Change()
+        Dim dato As String
+        dato = Me.OleObjects("CorrienteCOM").Object.Value
+        With Me.OleObjects("EquipoCOMT").Object
+            .Clear
+            Select Case dato      
+                Case "25A"   
+                    .AddItem "MiniBreaker"
+                Case "63A"
+                    .AddItem "MiniBreaker"
+                    .AddItem "EZC100"
+                Case "125A"
+                    .AddItem "CVS100"
+                    .AddItem "EZC100"
+            End Select
+        End With
+    End Sub           
 Public Sub Worksheet_Activate()
     Extraer_datos
     '============== ACC MTM ============================ 
@@ -291,8 +366,87 @@ Public Sub Worksheet_Activate()
             .AddItem "Toma Corriente"
             .AddItem "A_UnitBB_400"
         end with
-        
-End Sub
+    '============== ACCESORIOS DE CONTROL ===================
+        With Me.OleObjects("ElementoCTR").Object 
+            .Clear
+            .AddItem "ClavijaRoja"
+            .AddItem "ClavijaAzul"
+            .AddItem "Pilotos"
+            .AddItem "Parada_Emergencia"
+            .AddItem "Selector1"
+            .AddItem "Selector2"
+            .AddItem "Pulsador"
+            .AddItem "Piloto_Verde"
+            .AddItem "Piloto_Azul"
+            .AddItem "Piloto_Rojo"
+            .AddItem "Piloto_Amarillo"
+            .AddItem "Piloto_gris"
+            .AddItem "Piloto_grisX3"
+        End With  
+    '============== TRANSFERENCIA =============================
+        Me.OleObjects("TipoUnidadTRF").Object.value = "SFI - Frontal Interno"
+        Me.OleObjects("OrientacionTRF").Object.value = "Vertical"
+        Me.OleObjects("AnchoTFR").Object.value = "720"  
+        Me.OleObjects("ConexionTRF").Object.Value = "Superior"
+    '============== MENU ETOS =================
+        With Me.OleObjects("TipoU_ETO").Object   
+            .Clear
+            .AddItem "SFI - Frontal Interno"
+        End With
+        With Me.OleObjects("Ancho_ETO").Object
+            .Clear
+            .AddItem "400"
+            .AddItem "720"
+        End With
+        with Me.OleObjects("Unidades_ETO").Object
+            .Clear
+            .AddItem "4u"
+            .AddItem "5u"
+            .AddItem "6u"
+            .AddItem "7u"
+            .AddItem "8u"
+            .AddItem "9u"
+            .AddItem "10u"
+            .AddItem "11u"
+            .AddItem "12u"
+        End With   
+    '============== CONMUTADORES =======================
+        Me.OLEObjects("TipoUNCOM").Object.value = "SFI - Frontal Interno"
+        With Me.OLEObjects("CorrienteCOM").Object  
+            .Clear
+            .AddItem "25A"
+            .AddItem "63A"
+            .AddItem "125A"
+        End With
+        with Me.OLEObjects("OrientacionCOM").Object
+            .Clear
+            .AddItem "Vertical"
+        end with  
+    '============== COTAS  =============================
+        With Me.OleObjects("CotasDIBUJO").Object  
+            .Additem "Ancho: 520mm"
+            .Additem "Ancho: 620mm"
+            .Additem "Ancho: 720mm"
+            .Additem "Ancho: 1120mm"
+            .Additem "Altura: 900mm"
+            .Additem "Altura: 800mm"
+            .Additem "Altura: 700mm"
+            .Additem "Division Tabelero"
+            .Additem "Corte Tren"
+            .Additem "Continuacion Tren"
+        End With
+    '============== COLORES  =============================
+        With Me.OLEObjects("ColorConf").Object
+            .Clear
+            .AddItem ""
+            .AddItem "RAL 7035"
+            .AddItem "RAL 7032"
+            .AddItem "RAL 9003"
+            .AddItem "RAL 9004"
+            .AddItem "Naranja"
+            .AddItem "Amarillo"
+        End With
+end sub
 '--- Llena un ComboBox ActiveX a partir de una cadena separada por comas
 Private Sub LlenarCombo(cbo As Object, ByVal datos As String)
     Dim partes() As String
@@ -483,4 +637,193 @@ Public sub Servicios_Auxiliares()
     ResultadoSV= "GF"& dato1 & dato2
     MoverBloque ResultadoSV,"SERVICIOS", wsActual, celda 
 End sub
-   
+Public sub Accesorios_CTR()
+    '========================
+        celda = "LK116"
+        thisWorkbook.Sheets("DISENO_GF").Range("LJ89:QI182").Clear
+        Set wsActual = thisWorkbook.Sheets("DISENO_GF")
+    '========================
+    dim dato1 as string, dato2 as string
+    dato1 = Me.OleObjects("ElementoCTR").Object.Value
+    dato2 = Me.OleObjects("vistaACCCTR").Object.Value
+    Select case dato2
+        case "Derecha_Abierta": dato2 = "DA"
+        case "Derecha_Cerrada": dato2 = "DC"
+        case "Izquierda_Abierta": dato2 = "IA"
+        case "Izquierda_Cerrada": dato2 = "IC"
+    End Select
+
+    ResultadoACC = "GFAC_" & dato1 & "_" & dato2
+    MoverBloque ResultadoACC,"UCONTROL", wsActual, celda
+End sub
+Public sub Transferencia()
+    '========================
+        celda = "LK116"
+        thisWorkbook.Sheets("DISENO_GF").Range("LJ89:QI182").Clear
+        Set wsActual = thisWorkbook.Sheets("DISENO_GF")
+    '========================
+    Dim dato1 As String, dato2 As String, dato3 As String, dato4 As String, dato5 As String, dato6 As String
+    dato1 = Me.OleObjects("TipoUnidadTRF").Object.Value
+    Select case dato1
+        case "SFI - Frontal Interno": dato1 = "GFSFI"
+    End Select
+    dato2 = Me.OleObjects("OrientacionTRF").Object.Value
+    Select case dato2
+        Case "Vertical": dato2 = "V"
+    End Select
+    dato3 = Me.OleObjects("MandoTFF").Object.Value
+    select case dato3
+        case "Manual": dato3 = "MN"
+        case "Motorizado": dato3 = "M"
+    end select
+    dato4 = Me.OleObjects("AnchoTFR").Object.Value
+    dato5 = Me.OleObjects("ConexionTRF").Object.Value
+    select case dato5
+        case "Superior": dato5 = "SUP"
+    end select
+    dato6 = Me.OleObjects("EquipoTRF").Object.Value
+    ResultadoTRF = dato1 & "_UT_" & dato6 & dato3 & "X" & dato2 & "X" & dato4 & "X" & dato5
+    MoverBloque ResultadoTRF,"ATS_SFI", wsActual, celda
+End sub
+Public sub Unidades_ETO()
+    '========================
+        celda = "LK116"
+        thisWorkbook.Sheets("DISENO_GF").Range("LJ89:QI182").Clear
+        Set wsActual = thisWorkbook.Sheets("DISENO_GF")
+    '========================
+    dim dato1 as string, dato2 as string
+    dato1 = Me.OleObjects("Ancho_ETO").Object.Value
+    dato2 = Me.OleObjects("Unidades_ETO").Object.Value
+    ResultadoETO= "ETO" & dato1 & "X" & dato2 
+    MoverBloque ResultadoETO,"ETO_SFC_SFI", wsActual, celda
+End sub
+Public sub Conmutadores()
+    '========================
+        celda = "LK116"
+        thisWorkbook.Sheets("DISENO_GF").Range("LJ89:QI182").Clear
+        Set wsActual = thisWorkbook.Sheets("DISENO_GF")
+    '========================
+    Dim dato1 As String, dato2 As String, dato3 As String, dato4 As String
+    dato1 = Me.OleObjects("TipoUNCOM").Object.Value
+    select case dato1
+        case "SFI - Frontal Interno": dato1 = "GFSFI"
+    end select
+    dato2 = Me.OleObjects("CorrienteCOM").Object.Value
+    select case dato2
+        case "25A": dato2 = "C25A"
+        case "63A": dato2 = "C63A"
+        case "125A": dato2 = "C125A"
+    End select
+    dato3 = Me.OleObjects("EquipoCOMT").Object.Value 
+    dato4 = Me.OleObjects("OrientacionCOM").Object.Value   
+    select case dato4
+        case "Vertical": dato4 = "V"
+    end select 
+    ResultadoCOMT= dato1 & "_" & dato2 & "_" & dato3 & "ToX720" & dato4
+    MoverBloque ResultadoCOMT,"Conmutadora", wsActual, celda
+End Sub
+public sub COTAS()
+    '========================
+        celda = "LK116"
+        thisWorkbook.Sheets("DISENO_GF").Range("LJ89:QI182").Clear
+        Set wsActual = thisWorkbook.Sheets("DISENO_GF")
+    '========================
+    Dim dato1 As String
+    dato1 = Me.OleObjects("CotasDIBUJO").Object.Value
+    Select case dato1
+        case "Ancho: 520mm": dato1 = "CG_520"
+        case "Ancho: 620mm": dato1 = "CG_620"
+        case "Ancho: 720mm": dato1 = "CG_720"
+        case "Ancho: 1120mm": dato1 = "CG_1120"
+        case "Altura: 900mm": dato1 = "CG_900"
+        case "Altura: 800mm": dato1 = "CG_800"
+        case "Altura: 700mm": dato1 = "CG_700"
+        case "Division Tabelero": dato1 = "Division"
+        case "Corte Tren": dato1 = "Corte_Tren"
+        case "Continuacion Tren": dato1 = "Continuidad_Tren"
+    end select
+    ResultadoCOT = dato1
+    MoverBloque ResultadoCOT,"COTAS", wsActual, celda
+End sub
+Public Sub Cambiodecolor() 'Vista frontal
+    Dim ws As Worksheet
+    Dim celda As Range
+    Dim valorColor As String
+    Dim colorDestino As Long
+    
+    ' Obtener el valor del color desde la portada
+    valorColor = Me.OLEObjects("ColorConf").Object.Value
+    Set ws = ThisWorkbook.Sheets("DISENO_GF")
+    ' Definir color destino según el valor
+    Select Case valorColor
+        Case "RAL 7035": colorDestino = RGB(197, 199, 196)
+        Case "RAL 7032": colorDestino = RGB(181, 176, 161)
+        Case "RAL 9003": colorDestino = RGB(236, 236, 231)
+        Case "RAL 9004": colorDestino = RGB(43, 43, 44)
+        Case "Naranja" : colorDestino= RGB(201,133,12)
+        Case "Amarillo": colorDestino =RGB(235,198,21)
+    End Select
+    
+    ' Recorrer el rango y cambiar solo los colores específicos
+    For Each celda In ws.Range("BZ57:MY155")
+        Select Case valorColor
+            Case "RAL 7035"
+                If celda.Interior.Color = RGB(181, 176, 161) Or _
+                   celda.Interior.Color = RGB(43, 43, 44) Or _
+                   celda.Interior.Color = RGB(201, 133, 12) Or _
+                   celda.Interior.Color = RGB(235, 198, 21) Or _
+                   celda.Interior.Color = RGB(181, 184, 177) Or _
+                   celda.Interior.Color = RGB(244, 244, 244) Or _
+                   celda.Interior.Color = RGB(236, 236, 231) Then
+                    celda.Interior.Color = RGB(197, 199, 196)
+                End If
+            Case "RAL 7032"
+                If celda.Interior.Color = RGB(197, 199, 196) Or _
+                   celda.Interior.Color = RGB(43, 43, 44) Or _
+                   celda.Interior.Color = RGB(201, 133, 12) Or _
+                   celda.Interior.Color = RGB(235, 198, 21) Or _
+                   celda.Interior.Color = RGB(244, 244, 244) Or _
+                   celda.Interior.Color = RGB(236, 236, 231) Then
+                    celda.Interior.Color = RGB(181, 176, 161)
+                End If
+            Case "RAL 9003"
+                If celda.Interior.Color = RGB(197, 199, 196) Or _
+                   celda.Interior.Color = RGB(181, 176, 161) Or _
+                   celda.Interior.Color = RGB(43, 43, 44) Or _
+                   celda.Interior.Color = RGB(201, 133, 12) Or _
+                   celda.Interior.Color = RGB(235, 198, 21) Or _
+                   celda.Interior.Color = RGB(244, 244, 244) Then
+                    celda.Interior.Color = RGB(236, 236, 231)
+                End If
+            Case "RAL 9004"
+                If celda.Interior.Color = RGB(197, 199, 196) Or _
+                   celda.Interior.Color = RGB(181, 176, 161) Or _
+                   celda.Interior.Color = RGB(201, 133, 12) Or _
+                   celda.Interior.Color = RGB(235, 198, 21) Or _
+                   celda.Interior.Color = RGB(244, 244, 244) Or _
+                   celda.Interior.Color = RGB(236, 236, 231) Then
+                    celda.Interior.Color = RGB(43, 43, 44)
+                End If
+            Case "Naranja"
+                If celda.Interior.Color = RGB(197, 199, 196) Or _
+                   celda.Interior.Color = RGB(181, 176, 161) Or _
+                   celda.Interior.Color = RGB(43, 43, 44) Or _
+                   celda.Interior.Color = RGB(235, 198, 21) Or _
+                   celda.Interior.Color = RGB(244, 244, 244) Or _
+                   celda.Interior.Color = RGB(236, 236, 231) Then
+                    celda.Interior.Color = RGB(201, 133, 12)
+                End If
+            Case "Amarillo"
+                If celda.Interior.Color = RGB(197, 199, 196) Or _
+                   celda.Interior.Color = RGB(181, 176, 161) Or _
+                   celda.Interior.Color = RGB(43, 43, 44) Or _
+                   celda.Interior.Color = RGB(201, 133, 12) Or _
+                   celda.Interior.Color = RGB(244, 244, 244) Or _
+                   celda.Interior.Color = RGB(236, 236, 231) Then
+                    celda.Interior.Color = RGB(235, 198, 21)
+                End If
+        End Select
+    Next celda
+    
+    MSGBox "Proceso Finalizado con Exito", vbInformation, "Cambio de Color"
+End Sub

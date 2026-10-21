@@ -705,9 +705,9 @@ Public IP as string, Color as string
         end with    
     End sub 
     Private sub EquipoSV_Change()
-    dim dato as string
-    dato = Me.OleObjects("EquipoSV").Object.Value
-    with Me.oleobjects("UnidadesSV").Object
+        dim dato as string
+        dato = Me.OleObjects("EquipoSV").Object.Value
+        with Me.oleobjects("UnidadesSV").Object
         .clear
         select case dato
             case "BusBar","BusBar_MINI"
