@@ -117,25 +117,44 @@ Public IP as string, Color as string
             .Clear
             select case dato
                 case "400"
-                    .AddItem "1u"
-                    .AddItem "2u"
-                    .AddItem "3u"
-                    .AddItem "4u"
-                    .AddItem "5u"
-                    .AddItem "6u"
-                    .AddItem "7u"
-                    .AddItem "8u"
+                    IF Me.OleObjects("TipoLSS").Object.Value = "SFI - Frontal Interno" Then
+                        .AddItem "1u"
+                        .AddItem "2u"
+                        .AddItem "3u"
+                        .AddItem "4u"
+                        .AddItem "5u"
+                        .AddItem "6u"
+                        .AddItem "7u"
+                        .AddItem "8u"
+                    Else
+                        .AddItem "5u"
+                        .AddItem "6u"
+                        .AddItem "7u"
+                        .AddItem "8u"
+                    End If
+
                 case "720"
-                    .AddItem "1u"
-                    .AddItem "2u"
-                    .AddItem "3u"
-                    .AddItem "4u"
-                    .AddItem "5u"
-                    .AddItem "6u"
-                    .AddItem "7u"
-                    .AddItem "8u"
-                    .AddItem "9u"
-                    .AddItem "10u"
+                     IF Me.OleObjects("TipoLSS").Object.Value = "SFI - Frontal Interno" Then
+                        .AddItem "1u"
+                        .AddItem "2u"
+                        .AddItem "3u"
+                        .AddItem "4u"
+                        .AddItem "5u"
+                        .AddItem "6u"
+                        .AddItem "7u"
+                        .AddItem "8u"
+                        .AddItem "9u"
+                        .AddItem "10u"
+                    ELSE
+                        .AddItem "5u"
+                        .AddItem "6u"
+                        .AddItem "7u"
+                        .AddItem "8u"
+                        .AddItem "9u"
+                        .AddItem "10u"
+                        .AddItem "11u"
+                        .AddItem "12u"
+                    End If
                 end select
             end with
     end sub   
@@ -272,9 +291,206 @@ Public IP as string, Color as string
                     .AddItem "EZC100"
             End Select
         End With
-    End Sub           
+    End Sub  
+'ETIQUETAS
+    Private Sub ClaseETQ_Change()  
+        Clase_etiqueta
+        Dim dato As String
+        dato = Me.OleObjects("ClaseETQ").Object.Value
+        with Me.OleObjects("TipoETQ").Object  
+            .Clear
+            select case dato
+                case "Etiqueta" 
+                    .AddItem "Codigo_QR"   
+                    .AddItem "Placa_GR"   
+                    .AddItem "Riesgo_electrico1" 
+                    .AddItem "Ventilación"
+                    .AddItem "Descarga"
+                    .AddItem "Riesgo_electrico2"
+                    .AddItem "Advertencia_choque_electrico"
+                    .AddItem "Riesgo_electricoV1"
+                    .AddItem "Riesgo_electricoV2"
+                    .AddItem "Riesgo_electricoV3"
+                    .AddItem "Choque_electrico_1"
+                    .AddItem "Choque_electrico_2"
+                    .AddItem "Prohibido_paso"
+                    .AddItem "Prohibido_acceso"
+                    .AddItem "Respaldo"
+                    .AddItem "Peligro_advertencia"
+                    .AddItem "Voltaje_peligroso"
+                    .AddItem "Voltaje_208"
+                    .AddItem "Voltaje_220"
+                    .AddItem "Voltaje_440"
+                    .AddItem "Voltaje_460"
+                    .AddItem "Voltaje_480"
+                    .AddItem "Aviso_acometidas"
+                    .AddItem "Programador_horario_MedidaACC" 
+                    .AddItem "Equipo_medida"
+                    .AddItem "Ajuste_higrostato"
+                    .AddItem "Inspeccion_DPS"
+                    .AddItem "No_manipular_Guaya"
+                    .AddItem "Ajuste_corriente"
+                    .AddItem "Ajuste_tension"
+                    .AddItem "Mantenimiento_filtros"
+                    .additem "Senales_extrernas_transferencia"
+                    .additem "Parametrizacion_medidor"
+                    .additem "Control_produccion"
+                    .additem "Incumplimiento_instrucciones"
+                    .additem "Mantenimiento"
+                    .additem "Cableado"
+                    .additem "Superficie_caliente"
+                    .additem "Linea"
+                    .additem "Generador"
+                    .additem "Red"
+                    .additem "Transformador"
+                    .additem "UPS"
+                    .additem "Blindobarra"
+                    .additem "Blindobarra_Transformador"
+                    .additem "Blindobarra_Generador"
+                case "Linea de Producto"
+                    .AddItem "B_Rack"
+                    .AddItem "C_Rack"
+                    .AddItem "C_Box"
+                    .AddItem "D_Critical"
+                    .additem "E_Center"
+                    .additem "G_Flex"
+                    .additem "I_MCC"
+                    .additem "L_Meter"
+                    .additem "M_Board"
+                    .additem "P_Ats"
+                    .additem "Q_Bank"
+                    .additem "S_Energy"
+                    .additem "T_Meter"
+                    .additem "T_Power"
+                    .additem "V_Drive"
+                    .additem "X_Proof"
+                case "Logo de clientes"    
+                    .AddItem "Schneider_Electric"
+                    .AddItem "Ecopetrol"
+                    .AddItem "SierraCol"
+                    .AddItem "Geopark"
+                    .AddItem "Tryenergy"
+                    .AddItem "Copower"
+                    .AddItem "Terpel"
+                    .AddItem "La_Fazenda"
+                    .AddItem "Canaveral"
+                    .AddItem "Parque_Arauco"
+                    .AddItem "Parque_Caracoli"
+                    .AddItem "Babaria"
+                    .AddItem "Higuera_Escalante"
+                    .AddItem "ESSA"
+                    .AddItem "Postobon"
+                    .AddItem "Lycon"
+                    .AddItem "Alfrio"
+                    .AddItem "ANI"
+                    .AddItem "Cool"
+                    .AddItem "Delta"
+                    .AddItem "Devimar"
+                    .AddItem "Energymed"
+                    .AddItem "Gecolsa"
+                    .AddItem "JE_Jaimes"
+                    .AddItem "PQS_Energy"
+                    .AddItem "Ruta_Cacao"
+                    .AddItem "Telefonica"
+                    .AddItem "UTS"
+                    .AddItem "UIS"
+                    .AddItem "Friocol"
+                    .AddItem "2Kinse"
+                    .AddItem "EnerteK"
+                    .AddItem "Hacer_Ingenieria"
+                    .AddItem "MSS_Ingenieria"
+                    .AddItem "Kluger"
+                    .AddItem "Bimbo"
+            end select
+        End With
+    End Sub  
+    public sub Clase_etiqueta()
+        dim dato as string
+        dato = Me.OleObjects("ClaseETQ").Object.Value
+        select case dato
+            case "Etiqueta"
+                ActiveSheet.Shapes("Dato3titulo").TextFrame2.TextRange.Text = "Tamaño:"
+                Me.OleObjects("Dato3ETQ").Object.Enabled = true
+            case "Linea de Producto"  
+                ActiveSheet.Shapes("Dato3titulo").TextFrame2.TextRange.Text = "Color:"
+                Me.OleObjects("Dato3ETQ").Object.Enabled = true
+            case "Logo de clientes" 
+                ActiveSheet.Shapes("Dato3titulo").TextFrame2.TextRange.Text = "......"
+                Me.OleObjects("Dato3ETQ").Object.Enabled = false
+        end select
+    end sub   
+    Private sub TipoETQ_Change()
+        Dim dato As String, dato2 As String
+        dato2 = Me.OleObjects("ClaseETQ").Object.Value
+        dato = Me.OleObjects("TipoETQ").Object.Value
+        with Me.OleObjects("Dato3ETQ").Object
+            .clear
+            select case dato
+                case "Codigo_QR", "Riesgo_electrico1", "Ventilación", "Descarga", "Riesgo_electrico2", _
+                     "Voltaje_peligroso", "Voltaje_208", "Voltaje_220", "Voltaje_440", _
+                     "Voltaje_460", "Voltaje_480", "Aviso_acometidas", "Programador_horario", "Equipo_medida", _
+                     "Ajuste_higrostato", "Inspeccion_DPS", "No_manipular_Guaya", "Ajuste_corriente", "Mantenimiento_filtros", _
+                     "Senales_extrernas_transferencia", "Parametrizacion_medidor", "Control_produccion", "Incumplimiento_instrucciones", _
+                     "Mantenimiento", "Cableado", "Superficie caliente"
+                    .AddItem "Pequeno" 
+                case "Ventilación", "Descarga", "Riesgo_electrico2"
+                    .AddItem "Pequeno"
+                    .AddItem "Mediano"  
+                    .AddItem "Grande"
+                case "Placa_GR", "Ventilación", "Descarga", "Riesgo_electrico2", "Riesgo_electricoV1", "Riesgo_electricoV2", _
+                     "Riesgo_electricoV3", "Choque_electrico_1", "Choque_electrico_2", "Prohibido_paso", "Prohibido_acceso", "Respaldo", _
+                     "Generador", "Red", "Transformador", "UPS"  
+                    .AddItem "Mediano" 
+                case "Advertencia_choque_electrico"
+                    .AddItem "Grande" 
+                case "Voltaje_peligroso"   
+                    .AddItem "Pequeno"
+                    .AddItem "Mediano" 
+                case "Blindobarra","Blindobarra_Generador","Blindobarra_Transformador"
+                    .AddItem "NA"      
+            end select 
+            Select case dato2
+                case "Linea de Producto"
+                    .AddItem "Gris"
+                    .AddItem "Azul"
+            end select        
+        end with
+    end sub 
+'ARRANQUE MOTOR
+    Private sub  EquipoAM_Change()
+        Dim dato As String
+        dato = Me.OleObjects("EquipoAM").Object.Value
+        With Me.OleObjects("TallaAM").Object          
+            .Clear
+            select case dato
+                case "Contactores"  
+                    .Additem "Talla 1-2"
+                    .Additem "Talla 3"
+                case "Guardamotor"
+                    .Additem "Vertical"
+            end select
+        end with
+    End Sub
 Public Sub Worksheet_Activate()
     Extraer_datos
+    '---OCULTAR MENUS ------
+        ActiveSheet.Shapes("Menu EnvolventesGFL").Visible = False
+        ActiveSheet.Shapes("Menu UnidadFuncionalGFL").Visible = False
+        ActiveSheet.Shapes("Menu LisasGFL").Visible = False
+        ActiveSheet.Shapes("Menu DPSGFL").Visible = False
+        ActiveSheet.Shapes("Menu Equipo CTRGFL").Visible = False
+        ActiveSheet.Shapes("Menu ACCESORIOS CTRGFL").Visible = False
+        ActiveSheet.Shapes("Menu ETOGFL").Visible = False
+        ActiveSheet.Shapes("Menu CONMUTADORESGFL").Visible = False
+        ActiveSheet.Shapes("Menu AccesoriosMTMGFL").Visible = False
+        ActiveSheet.Shapes("Menu BarrajeGFL").Visible = False
+        ActiveSheet.Shapes("Menu TransferenciasGFL").Visible = False
+        ActiveSheet.Shapes("Menu ServiciosGFL").Visible = false
+        ActiveSheet.Shapes("Menu ColorGFL").Visible = False
+        ActiveSheet.Shapes("Menu AcotarGFL").Visible = False
+        ActiveSheet.Shapes("Menu EtiquetaGFL").Visible = False
+        ActiveSheet.Shapes("Menu ArranqueM GF").Visible = False
+
     '============== ACC MTM ============================ 
         with Me.OleObjects("TipoACC").Object
             .Clear
@@ -305,7 +521,10 @@ Public Sub Worksheet_Activate()
             .AddItem "Toggle"   
         End With
     '=============== UNIDADES LISAS =====================    
-        Me.OleObjects("TipoLSS").Object.value = "SFI - Frontal Interno"
+        With Me.OleObjects("TipoLSS").Object
+            .additem "SFI - Frontal Interno"
+            .additem "SIC - Placa de Control"
+        End With
         With  Me.OleObjects("AnchoLSS").Object
             .Clear
             .AddItem "400"
@@ -446,6 +665,25 @@ Public Sub Worksheet_Activate()
             .AddItem "Naranja"
             .AddItem "Amarillo"
         End With
+    '============== ETIQUETA  =============================    
+        With Me.OleObjects("ClaseETQ").Object
+            .Clear
+            .AddItem "Etiqueta"
+            .AddItem "Linea de Producto"
+            .AddItem "Logo de clientes"
+        End With  
+    '============== ARRANQUE MOTOR ===========================
+        With Me.OleObjects("TipoUnidadAM").Object  
+            .Clear
+            .AddItem "SFI - Frontal Interno"
+            .AddItem "SIC - Placa de Control"
+        End With 
+        With Me.OleObjects("EquipoAM").Object
+            .Clear
+            .AddItem "Contactores"
+            .AddItem "Guardamotor"
+        End With
+
 end sub
 '--- Llena un ComboBox ActiveX a partir de una cadena separada por comas
 Private Sub LlenarCombo(cbo As Object, ByVal datos As String)
@@ -471,11 +709,43 @@ Public sub Extraer_datos()
     Ancho = CStr(Me.Range("A2").Value)
     IP = CStr(Me.Range("A4").Value)
     AnchoLISAS= CStr(Me.Range("A5").Value)
+    Dim tipo As String
+    tipo = CStr(Me.Range("A6").Value)
 
     LlenarCombo Me.OLEObjects("AlturaENV").Object, Altura
     'LlenarCombo Me.OLEObjects("AnchoENV").Object, Ancho
     'LlenarCombo Me.OLEObjects("AnchoLSS").Object, AnchoLISAS
     'msgbox MenuUnidades
+    select case tipo
+        case "Basic"
+            ActiveSheet.shapes("Distribucion").Visible = False
+            ActiveSheet.shapes("lisas").Visible = False
+            ActiveSheet.shapes("DPS").Visible = False
+            ActiveSheet.shapes("Arranque motor").Visible = False
+            ActiveSheet.shapes("Barraje").Visible = False
+            ActiveSheet.shapes("Control").Visible = False
+            ActiveSheet.shapes("A-UNIT").Visible = False
+            ActiveSheet.shapes("Transferencia").Visible = False
+            ActiveSheet.shapes("ETOS").Visible = False
+            ActiveSheet.shapes("Conmutadores").Visible = False
+            ThisWorkbook.Sheets("DISENO_GF").Range("D61:D97").Font.Color = RGB(0, 101, 187)
+            ThisWorkbook.Sheets("DISENO_GF").Range("D109:D121").Font.Color = RGB(0, 101, 187)
+        case "Neo"
+            ActiveSheet.shapes("Distribucion").Visible = True
+            ActiveSheet.shapes("lisas").Visible = True
+            ActiveSheet.shapes("DPS").Visible = True
+            ActiveSheet.shapes("Arranque motor").Visible = True
+            ActiveSheet.shapes("Barraje").Visible = True
+            ActiveSheet.shapes("Control").Visible = True
+            ActiveSheet.shapes("A-UNIT").Visible = True
+            ActiveSheet.shapes("Transferencia").Visible = True
+            ActiveSheet.shapes("ETOS").Visible = True
+            ActiveSheet.shapes("Conmutadores").Visible = True
+            ThisWorkbook.Sheets("DISENO_GF").Range("D61:D97").Font.Color = RGB(255, 255, 255)
+            ThisWorkbook.Sheets("DISENO_GF").Range("D109:D121").Font.Color = RGB(255, 255, 255)
+
+    end select    
+
     
 End Sub
 Public sub Envolventes()
@@ -548,6 +818,7 @@ Public sub UNIDADES_LISAS()
 
     select case dato1
         case "SFI - Frontal Interno": dato1 = "SFI"
+        Case "SIC - Placa de Control": dato1 = "SIC"
     end select
 
     dato2 = Me.OleObjects("AnchoLSS").Object.Value   
@@ -722,6 +993,27 @@ Public sub Conmutadores()
     ResultadoCOMT= dato1 & "_" & dato2 & "_" & dato3 & "ToX720" & dato4
     MoverBloque ResultadoCOMT,"Conmutadora", wsActual, celda
 End Sub
+Public sub Arranque_Motor()
+    '========================
+        celda = "LK116"
+        thisWorkbook.Sheets("DISENO_GF").Range("LJ89:QI182").Clear
+        Set wsActual = thisWorkbook.Sheets("DISENO_GF")
+    '========================
+    Dim dato1 As String, dato2 As String, dato3 As String
+    dato1 = Me.OleObjects("TipoUnidadAM").Object.Value
+    select case dato1
+        case "SFI - Frontal Interno": dato1 = "GFSFI"
+        case "SIC - Placa de Control": dato1 = "GFSIC"
+    end select
+    dato2 = Me.OleObjects("EquipoAM").Object.Value
+    dato3 = Me.OleObjects("TallaAM").Object.Value
+    select case dato3
+        case "Talla 1-2","Vertical": dato3 = "T1"
+        Case "Talla 3": dato3 = "T3"
+    end select
+    ResultadoAM= dato1 & "_" & dato2 & dato3 & "X720" 
+    MoverBloque ResultadoAM,"Arranque_Motor", wsActual, celda
+End Sub
 public sub COTAS()
     '========================
         celda = "LK116"
@@ -765,7 +1057,7 @@ Public Sub Cambiodecolor() 'Vista frontal
     End Select
     
     ' Recorrer el rango y cambiar solo los colores específicos
-    For Each celda In ws.Range("BZ57:MY155")
+    For Each celda In ws.Range("BZ57:KI155")
         Select Case valorColor
             Case "RAL 7035"
                 If celda.Interior.Color = RGB(181, 176, 161) Or _
@@ -827,3 +1119,32 @@ Public Sub Cambiodecolor() 'Vista frontal
     
     MSGBox "Proceso Finalizado con Exito", vbInformation, "Cambio de Color"
 End Sub
+Public sub  ETIQUETAS()
+    '========================
+        celda = "LK116"
+        thisWorkbook.Sheets("DISENO_GF").Range("LJ89:QI182").Clear
+        Set wsActual = thisWorkbook.Sheets("DISENO_GF")
+    '========================
+    Dim dato1 As String, dato2 As String, dato3 As String
+    dato2 = Me.OleObjects("Dato3ETQ").Object.Value
+    select case dato2
+        case "Pequeno": dato2 = "1"
+        case "Mediano": dato2 = "2"
+        case "Grande": dato2 = "3"
+    end select
+    dato1 = Me.OleObjects("ClaseETQ").Object.Value
+    dato3 = Me.OleObjects("TipoETQ").Object.Value
+    Select case dato1
+        case "Etiqueta"
+            dato1 = "GFE_"
+            ResultadoETQ = dato1 & dato3 & "X" & dato2
+
+        case "Linea de Producto"
+            dato1 = "GFL_"
+            ResultadoETQ = dato1 & dato3 & "X" & dato2 
+
+        case "Logo de clientes": dato1 = "GFLC_"
+            ResultadoETQ = dato1  & dato3
+    End Select
+    MoverBloque ResultadoETQ,"ETIQUETAS", wsActual, celda
+End sub

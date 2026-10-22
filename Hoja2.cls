@@ -1632,7 +1632,8 @@ Public sub Unidades_funcionales_lisas()
     select case dato1
         case "SFI - Frontal Interno": dato1 = "SFI"
         Case "SFC - Frontal Compacto": dato1 = "SFC"
-        Case "SIA - Integral Abatible", "SFA - Fijo Atornillado": dato1 = "SFA"
+        Case "SIA - Integral Abatible" dato1 = "SIA"
+        case "SFA - Fijo Atornillado": dato1 = "SFA"
         case "SIC - Placa de Control": dato1 = "SIC_"
     End select
     dato3 = Me.OleObjects("UnidadesLSS").Object.Value
