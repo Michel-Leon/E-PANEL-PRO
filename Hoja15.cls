@@ -466,7 +466,7 @@ Public IP as string, Color as string
                 case "Contactores"  
                     .Additem "Talla 1-2"
                     .Additem "Talla 3"
-                case "Guardamotor"
+                case "Guardamotor", "GuardamotorXContactores"
                     .Additem "Vertical"
             end select
         end with
@@ -682,6 +682,7 @@ Public Sub Worksheet_Activate()
             .Clear
             .AddItem "Contactores"
             .AddItem "Guardamotor"
+            .AddItem "GuardamotorXContactores"
         End With
 
 end sub
