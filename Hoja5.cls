@@ -729,8 +729,8 @@ Public Sub Extraer_datos()
             ActiveSheet.Shapes("Transferencia").Visible = False
             ActiveSheet.Shapes("ETOS").Visible = False
             ActiveSheet.Shapes("Conmutadores").Visible = False
-            ThisWorkbook.Sheets("DISENO_GF").Range("D61:D97").Font.Color = RGB(0, 101, 187)
-            ThisWorkbook.Sheets("DISENO_GF").Range("D109:D121").Font.Color = RGB(0, 101, 187)
+            ThisWorkbook.Sheets("VistaFrontal").Range("D61:D97").Font.Color = RGB(0, 101, 187)
+            ThisWorkbook.Sheets("VistaFrontal").Range("D109:D121").Font.Color = RGB(0, 101, 187)
         Case "Neo"
             ActiveSheet.Shapes("Distribucion").Visible = True
             ActiveSheet.Shapes("lisas").Visible = True
@@ -742,8 +742,8 @@ Public Sub Extraer_datos()
             ActiveSheet.Shapes("Transferencia").Visible = True
             ActiveSheet.Shapes("ETOS").Visible = True
             ActiveSheet.Shapes("Conmutadores").Visible = True
-            ThisWorkbook.Sheets("DISENO_GF").Range("D61:D97").Font.Color = RGB(255, 255, 255)
-            ThisWorkbook.Sheets("DISENO_GF").Range("D109:D121").Font.Color = RGB(255, 255, 255)
+            ThisWorkbook.Sheets("VistaFrontal").Range("D61:D97").Font.Color = RGB(255, 255, 255)
+            ThisWorkbook.Sheets("VistaFrontal").Range("D109:D121").Font.Color = RGB(255, 255, 255)
 
     End Select
 
@@ -752,12 +752,12 @@ End Sub
 Public Sub Envolventes()
     '========================
         celda = "LM89"
-        ThisWorkbook.Sheets("DISENO_GF").Range("LJ89:QI182").Clear
-        Set wsActual = ThisWorkbook.Sheets("DISENO_GF")
+        ThisWorkbook.Sheets("VistaFrontal").Range("LJ89:QI182").Clear
+        Set wsActual = ThisWorkbook.Sheets("VistaFrontal")
     '========================
     Dim dato1 As String, dato2 As String, dato3 As String, ResultadoENV As String
     dato1 = Me.OLEObjects("AlturaENV").Object.Value
-    dato2 = ThisWorkbook.Sheets("DISENO_GF").Range("A6").Value
+    dato2 = ThisWorkbook.Sheets("VistaFrontal").Range("A6").Value
     dato3 = Me.OLEObjects("AnchoENV").Object.Value
     Select Case dato3
         Case "400+720": dato3 = "1120"
@@ -768,8 +768,8 @@ End Sub
 Public Sub ACESORIOS_MTM()
     '========================
         celda = "LN111"
-        ThisWorkbook.Sheets("DISENO_GF").Range("LJ89:QI182").Clear
-        Set wsActual = ThisWorkbook.Sheets("DISENO_GF")
+        ThisWorkbook.Sheets("VistaFrontal").Range("LJ89:QI182").Clear
+        Set wsActual = ThisWorkbook.Sheets("VistaFrontal")
     '========================
     Dim dato1 As String, dato2 As String
     dato1 = Me.OLEObjects("TipoACC").Object.Value
@@ -780,8 +780,8 @@ End Sub
 Public Sub UNIDADES_FUNCIONALES()
     '========================
         celda = "LN111"
-        ThisWorkbook.Sheets("DISENO_GF").Range("LJ89:QI182").Clear
-        Set wsActual = ThisWorkbook.Sheets("DISENO_GF")
+        ThisWorkbook.Sheets("VistaFrontal").Range("LJ89:QI182").Clear
+        Set wsActual = ThisWorkbook.Sheets("VistaFrontal")
     '========================
         Dim dato1 As String, dato2 As String, dato3 As String, dato4 As String
     Dim dato5 As String, dato6 As String
@@ -811,8 +811,8 @@ End Sub
 Public Sub UNIDADES_LISAS()
     '========================
         celda = "LN111"
-        ThisWorkbook.Sheets("DISENO_GF").Range("LJ89:QI182").Clear
-        Set wsActual = ThisWorkbook.Sheets("DISENO_GF")
+        ThisWorkbook.Sheets("VistaFrontal").Range("LJ89:QI182").Clear
+        Set wsActual = ThisWorkbook.Sheets("VistaFrontal")
     '========================
         Dim dato1 As String, dato2 As String, dato3 As String
     dato1 = Me.OLEObjects("TipoLSS").Object.Value
@@ -831,8 +831,8 @@ End Sub
 Public Sub BARRAJE()
     '========================
         celda = "LN101"
-        ThisWorkbook.Sheets("DISENO_GF").Range("LJ89:QI182").Clear
-        Set wsActual = ThisWorkbook.Sheets("DISENO_GF")
+        ThisWorkbook.Sheets("VistaFrontal").Range("LJ89:QI182").Clear
+        Set wsActual = ThisWorkbook.Sheets("VistaFrontal")
     '========================
         Dim dato1 As String, dato2 As String, dato3 As String
     dato1 = Me.OLEObjects("OrientacionBRR").Object.Value
@@ -850,8 +850,8 @@ End Sub
 Public Sub DPS()
     '========================
         celda = "LK116"
-        ThisWorkbook.Sheets("DISENO_GF").Range("LJ89:QI182").Clear
-        Set wsActual = ThisWorkbook.Sheets("DISENO_GF")
+        ThisWorkbook.Sheets("VistaFrontal").Range("LJ89:QI182").Clear
+        Set wsActual = ThisWorkbook.Sheets("VistaFrontal")
     '========================
     Dim dato1 As String, dato2 As String, dato3 As String, dato4 As String, dato5 As String
     dato1 = Me.OLEObjects("UnidadDPS").Object.Value
@@ -880,8 +880,8 @@ End Sub
 Public Sub Equipos_Control()
     '========================
         celda = "LK116"
-        ThisWorkbook.Sheets("DISENO_GF").Range("LJ89:QI182").Clear
-        Set wsActual = ThisWorkbook.Sheets("DISENO_GF")
+        ThisWorkbook.Sheets("VistaFrontal").Range("LJ89:QI182").Clear
+        Set wsActual = ThisWorkbook.Sheets("VistaFrontal")
     '========================
     Dim dato1 As String, dato2 As String
     dato1 = Me.OLEObjects("EquipoCTR").Object.Value
@@ -892,8 +892,8 @@ End Sub
 Public Sub Servicios_Auxiliares()
     '========================
         celda = "LK116"
-        ThisWorkbook.Sheets("DISENO_GF").Range("LJ89:QI182").Clear
-        Set wsActual = ThisWorkbook.Sheets("DISENO_GF")
+        ThisWorkbook.Sheets("VistaFrontal").Range("LJ89:QI182").Clear
+        Set wsActual = ThisWorkbook.Sheets("VistaFrontal")
     '========================
     Dim dato1 As String, dato2 As String, dato3 As String, dato4 As String
     dato1 = Me.OLEObjects("MontajeSV").Object.Value
@@ -912,8 +912,8 @@ End Sub
 Public Sub Accesorios_CTR()
     '========================
         celda = "LK116"
-        ThisWorkbook.Sheets("DISENO_GF").Range("LJ89:QI182").Clear
-        Set wsActual = ThisWorkbook.Sheets("DISENO_GF")
+        ThisWorkbook.Sheets("VistaFrontal").Range("LJ89:QI182").Clear
+        Set wsActual = ThisWorkbook.Sheets("VistaFrontal")
     '========================
     Dim dato1 As String, dato2 As String
     dato1 = Me.OLEObjects("ElementoCTR").Object.Value
@@ -931,8 +931,8 @@ End Sub
 Public Sub Transferencia()
     '========================
         celda = "LK116"
-        ThisWorkbook.Sheets("DISENO_GF").Range("LJ89:QI182").Clear
-        Set wsActual = ThisWorkbook.Sheets("DISENO_GF")
+        ThisWorkbook.Sheets("VistaFrontal").Range("LJ89:QI182").Clear
+        Set wsActual = ThisWorkbook.Sheets("VistaFrontal")
     '========================
     Dim dato1 As String, dato2 As String, dato3 As String, dato4 As String, dato5 As String, dato6 As String
     dato1 = Me.OLEObjects("TipoUnidadTRF").Object.Value
@@ -960,8 +960,8 @@ End Sub
 Public Sub Unidades_ETO()
     '========================
         celda = "LK116"
-        ThisWorkbook.Sheets("DISENO_GF").Range("LJ89:QI182").Clear
-        Set wsActual = ThisWorkbook.Sheets("DISENO_GF")
+        ThisWorkbook.Sheets("VistaFrontal").Range("LJ89:QI182").Clear
+        Set wsActual = ThisWorkbook.Sheets("VistaFrontal")
     '========================
     Dim dato1 As String, dato2 As String
     dato1 = Me.OLEObjects("Ancho_ETO").Object.Value
@@ -972,8 +972,8 @@ End Sub
 Public Sub Conmutadores()
     '========================
         celda = "LK116"
-        ThisWorkbook.Sheets("DISENO_GF").Range("LJ89:QI182").Clear
-        Set wsActual = ThisWorkbook.Sheets("DISENO_GF")
+        ThisWorkbook.Sheets("VistaFrontal").Range("LJ89:QI182").Clear
+        Set wsActual = ThisWorkbook.Sheets("VistaFrontal")
     '========================
     Dim dato1 As String, dato2 As String, dato3 As String, dato4 As String
     dato1 = Me.OLEObjects("TipoUNCOM").Object.Value
@@ -997,8 +997,8 @@ End Sub
 Public Sub Arranque_Motor()
     '========================
         celda = "LK116"
-        ThisWorkbook.Sheets("DISENO_GF").Range("LJ89:QI182").Clear
-        Set wsActual = ThisWorkbook.Sheets("DISENO_GF")
+        ThisWorkbook.Sheets("VistaFrontal").Range("LJ89:QI182").Clear
+        Set wsActual = ThisWorkbook.Sheets("VistaFrontal")
     '========================
     Dim dato1 As String, dato2 As String, dato3 As String
     dato1 = Me.OLEObjects("TipoUnidadAM").Object.Value
@@ -1018,8 +1018,8 @@ End Sub
 Public Sub COTAS()
     '========================
         celda = "LK116"
-        ThisWorkbook.Sheets("DISENO_GF").Range("LJ89:QI182").Clear
-        Set wsActual = ThisWorkbook.Sheets("DISENO_GF")
+        ThisWorkbook.Sheets("VistaFrontal").Range("LJ89:QI182").Clear
+        Set wsActual = ThisWorkbook.Sheets("VistaFrontal")
     '========================
     Dim dato1 As String
     dato1 = Me.OLEObjects("CotasDIBUJO").Object.Value
@@ -1046,7 +1046,7 @@ Public Sub Cambiodecolor() 'Vista frontal
     
     ' Obtener el valor del color desde la portada
     valorColor = Me.OLEObjects("ColorConf").Object.Value
-    Set ws = ThisWorkbook.Sheets("DISENO_GF")
+    Set ws = ThisWorkbook.Sheets("VistaFrontal")
     ' Definir color destino seg�n el valor
     Select Case valorColor
         Case "RAL 7035": colorDestino = RGB(197, 199, 196)
@@ -1123,8 +1123,8 @@ End Sub
 Public Sub ETIQUETAS()
     '========================
         celda = "LK116"
-        ThisWorkbook.Sheets("DISENO_GF").Range("LJ89:QI182").Clear
-        Set wsActual = ThisWorkbook.Sheets("DISENO_GF")
+        ThisWorkbook.Sheets("VistaFrontal").Range("LJ89:QI182").Clear
+        Set wsActual = ThisWorkbook.Sheets("VistaFrontal")
     '========================
     Dim dato1 As String, dato2 As String, dato3 As String
     dato2 = Me.OLEObjects("Dato3ETQ").Object.Value
