@@ -747,8 +747,6 @@ Public Sub Extraer_datos()
             ThisWorkbook.Sheets("VistaFrontal").Range("D109:D121").Font.Color = RGB(255, 255, 255)
 
     End Select
-
-    
 End Sub
 Public Sub Envolventes()
     '========================
