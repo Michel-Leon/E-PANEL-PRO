@@ -4,22 +4,22 @@ Public Ancho As String, AnchoLISAS As String
 Public Profundidad As String
 Public IP As String, Color As String
 'ENVOLVENTES
-    Private Sub AlturaENV_change()
-        Dim dato1 As String
-        dato1 = Me.OLEObjects("AlturaENV").Object.Value
-        With Me.OLEObjects("AnchoENV").Object
-            .Clear
-            Select Case dato1
-                Case "600": .AddItem "400" 'neo
-                Case "700": .AddItem "520" 'basic
-                Case "900": .AddItem "720" 'neo, basis
-                Case "800": .AddItem "620" 'basic
-                Case "1100" ' neo
-                .AddItem "720"
-                .AddItem "400+720"
-            End Select
-        End With
-    End Sub
+    'Private Sub AlturaENV_change()
+        'Dim dato1 As String
+        'dato1 = Me.OLEObjects("AlturaENV").Object.Value
+        'With Me.OLEObjects("AnchoENV").Object
+         '   .Clear
+         '   Select Case dato1
+          '      Case "600": .AddItem "400" 'neo
+          '      Case "700": .AddItem "520" 'basic
+          '      Case "900": .AddItem "720" 'neo, basis
+          '      Case "800": .AddItem "620" 'basic
+          '      Case "1100" ' neo
+          '      .AddItem "720"
+          '      .AddItem "400+720"
+          '  End Select
+       ' End With
+   ' End Sub
 'ACCESORIOS MTM
     Private Sub TipoACC_Change()
         Dim dato As String
@@ -662,6 +662,7 @@ Public Sub Worksheet_Activate()
             .AddItem "RAL 7032"
             .AddItem "RAL 9003"
             .AddItem "RAL 9004"
+            .AddItem "Inoxidable"
             .AddItem "Naranja"
             .AddItem "Amarillo"
         End With
@@ -714,7 +715,7 @@ Public Sub Extraer_datos()
     tipo = CStr(Me.Range("A6").Value)
 
     LlenarCombo Me.OLEObjects("AlturaENV").Object, Altura
-    'LlenarCombo Me.OLEObjects("AnchoENV").Object, Ancho
+    LlenarCombo Me.OLEObjects("AnchoENV").Object, Ancho
     'LlenarCombo Me.OLEObjects("AnchoLSS").Object, AnchoLISAS
     'msgbox MenuUnidades
     Select Case tipo
@@ -1053,6 +1054,7 @@ Public Sub Cambiodecolor() 'Vista frontal
         Case "RAL 7032": colorDestino = RGB(181, 176, 161)
         Case "RAL 9003": colorDestino = RGB(236, 236, 231)
         Case "RAL 9004": colorDestino = RGB(43, 43, 44)
+        case "Inoxidable": colorDestino = RGB(143;143;143)
         Case "Naranja": colorDestino = RGB(201, 133, 12)
         Case "Amarillo": colorDestino = RGB(235, 198, 21)
     End Select
@@ -1067,6 +1069,7 @@ Public Sub Cambiodecolor() 'Vista frontal
                    celda.Interior.Color = RGB(235, 198, 21) Or _
                    celda.Interior.Color = RGB(181, 184, 177) Or _
                    celda.Interior.Color = RGB(244, 244, 244) Or _
+                   celda.Interios.ColOr = RGB(143; 143; 143) Or _
                    celda.Interior.Color = RGB(236, 236, 231) Then
                     celda.Interior.Color = RGB(197, 199, 196)
                 End If
@@ -1076,6 +1079,7 @@ Public Sub Cambiodecolor() 'Vista frontal
                    celda.Interior.Color = RGB(201, 133, 12) Or _
                    celda.Interior.Color = RGB(235, 198, 21) Or _
                    celda.Interior.Color = RGB(244, 244, 244) Or _
+                   celda.Interios.ColOr = RGB(143; 143; 143) Or _
                    celda.Interior.Color = RGB(236, 236, 231) Then
                     celda.Interior.Color = RGB(181, 176, 161)
                 End If
@@ -1085,8 +1089,19 @@ Public Sub Cambiodecolor() 'Vista frontal
                    celda.Interior.Color = RGB(43, 43, 44) Or _
                    celda.Interior.Color = RGB(201, 133, 12) Or _
                    celda.Interior.Color = RGB(235, 198, 21) Or _
+                   celda.Interios.ColOr = RGB(143; 143; 143) Or _
                    celda.Interior.Color = RGB(244, 244, 244) Then
                     celda.Interior.Color = RGB(236, 236, 231)
+                End If
+            Case "Inoxidable"
+                If celda.Interior.Color = RGB(197, 199, 196) Or _
+                   celda.Interior.Color = RGB(181, 176, 161) Or _
+                   celda.Interior.Color = RGB(43, 43, 44) Or _
+                   celda.Interior.Color = RGB(201, 133, 12) Or _
+                   celda.Interior.Color = RGB(235, 198, 21) Or _
+                   celda.Interior.Color = RGB(244, 244, 244) Or _
+                   celda.Interior.Color = RGB(236, 236, 231) Then
+                    celda.Interior.Color = RGB(143; 143; 143)
                 End If
             Case "RAL 9004"
                 If celda.Interior.Color = RGB(197, 199, 196) Or _
@@ -1094,6 +1109,7 @@ Public Sub Cambiodecolor() 'Vista frontal
                    celda.Interior.Color = RGB(201, 133, 12) Or _
                    celda.Interior.Color = RGB(235, 198, 21) Or _
                    celda.Interior.Color = RGB(244, 244, 244) Or _
+                   celda.Interios.ColOr = RGB(143; 143; 143) Or _
                    celda.Interior.Color = RGB(236, 236, 231) Then
                     celda.Interior.Color = RGB(43, 43, 44)
                 End If
@@ -1103,6 +1119,7 @@ Public Sub Cambiodecolor() 'Vista frontal
                    celda.Interior.Color = RGB(43, 43, 44) Or _
                    celda.Interior.Color = RGB(235, 198, 21) Or _
                    celda.Interior.Color = RGB(244, 244, 244) Or _
+                   celda.Interios.ColOr = RGB(143; 143; 143) Or _
                    celda.Interior.Color = RGB(236, 236, 231) Then
                     celda.Interior.Color = RGB(201, 133, 12)
                 End If
@@ -1112,6 +1129,7 @@ Public Sub Cambiodecolor() 'Vista frontal
                    celda.Interior.Color = RGB(43, 43, 44) Or _
                    celda.Interior.Color = RGB(201, 133, 12) Or _
                    celda.Interior.Color = RGB(244, 244, 244) Or _
+                   celda.Interios.ColOr = RGB(143; 143; 143) Or _
                    celda.Interior.Color = RGB(236, 236, 231) Then
                     celda.Interior.Color = RGB(235, 198, 21)
                 End If

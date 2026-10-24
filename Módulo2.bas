@@ -1,4 +1,4 @@
-Attribute VB_Name = "Módulo2"
+Attribute VB_Name = "Mï¿½dulo2"
 Public Sub Seleccion_Menu_EnvolventesGFL()
     Dim shp As Shape
     Dim groupname As String
@@ -482,10 +482,10 @@ End Sub
 
 '================================================
 Public Sub Area_GFL_1()
-    ThisWorkbook.Sheets("DISENO_GF").Range("BZ39:KJ155").Clear
+    ThisWorkbook.Sheets("VistaFrontal").Range("CF46:GA146").Clear
 End Sub
 Public Sub Area_GFL_2()
-    ThisWorkbook.Sheets("DISENO_GF").Range("LJ89:QI182").Clear
+    ThisWorkbook.Sheets("VistaFrontal").Range("LJ89:QI182").Clear
 End Sub
 
 
