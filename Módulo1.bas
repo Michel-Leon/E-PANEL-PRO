@@ -4,6 +4,7 @@ Public Linea As String
 Public celda As String
 Public wsActual As Worksheet
 Public ResultadoENV As String
+Public ResultadoPES As String
 'Public ResultadoENVP As String
 'Public ResultadoENVL As String
 'Public ResultadoENVPS As String
@@ -25,26 +26,44 @@ Public ResultadoTFM As String
 Public Sub MoverBloque(ByVal ref As String, ByVal BD As String, _
                        ByVal wsDestino As Worksheet, ByVal celdaDestino As String)
 
-    Dim origen As Range, destino As Range, wsDatos As Worksheet
+    Dim origen As Range, destino As Range
+    Dim paso As String, nErr As Long, dErr As String
 
     On Error GoTo errHandler
+    Application.EnableEvents = False      'evita que Change/Activate interfieran
 
-    Set wsDatos = ThisWorkbook.Sheets(BD)
-    Set origen = wsDatos.Range(ref)
+    paso = "Buscar bloque"
+    On Error Resume Next
+    Set origen = ThisWorkbook.Sheets(BD).Range(ref)
+    On Error GoTo errHandler
+    If origen Is Nothing Then Set origen = ResolverBloque(ref)
+    If origen Is Nothing Then
+        Application.EnableEvents = True
+        MsgBox "No existe el bloque '" & ref & "'.", vbExclamation
+        Exit Sub
+    End If
+
+    paso = "Celda destino"
     Set destino = wsDestino.Range(celdaDestino)
 
+    paso = "Copiar"
     origen.Copy Destination:=destino
 
-    ' Seleccionar el bloque pegado
-    Application.Goto destino.Resize(origen.Rows.Count, origen.Columns.Count)
+    paso = "Seleccionar"
+    wsDestino.Activate
+    destino.Resize(origen.Rows.Count, origen.Columns.Count).Select
+
+    Application.EnableEvents = True
     Exit Sub
 
-    errHandler:
-        MsgBox "Fallo al mover el bloque." & vbCrLf & _
-            "Ref: " & ref & vbCrLf & _
-            "BD: " & BD & vbCrLf & _
-            "Destino: " & celdaDestino & vbCrLf & vbCrLf & _
-            "Error " & Err.Number & ": " & Err.Description, vbCritical
+errHandler:
+    nErr = Err.Number: dErr = Err.Description   'capturar ANTES de cualquier otra cosa
+    Application.EnableEvents = True
+    MsgBox "Fallo al mover el bloque." & vbCrLf & _
+        "Paso: " & paso & vbCrLf & _
+        "Ref: " & ref & vbCrLf & "BD: " & BD & vbCrLf & _
+        "Destino: " & celdaDestino & vbCrLf & vbCrLf & _
+        "Error " & nErr & ": " & dErr, vbCritical
 End Sub
 Private Function ResolverBloque(ByVal nombre As String) As Range
     Dim n As Name

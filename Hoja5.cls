@@ -3,6 +3,9 @@ Public Altura As String
 Public Ancho As String, AnchoLISAS As String
 Public Profundidad As String
 Public IP As String, Color As String
+Private mbCargando As Boolean          'evita eventos en cascada
+Private mBloq As Boolean
+Private Const O720 As String = "Horizontal,H.Compuesta,V.Compacta"   
 'ENVOLVENTES
     'Private Sub AlturaENV_change()
         'Dim dato1 As String
@@ -41,8 +44,7 @@ Public IP As String, Color As String
         End With
     End Sub
 'UNIDADES FUNCIONALES
-    Private mBloq As Boolean
-    Private Const O720 As String = "Horizontal,H.Compuesta,V.Compacta"
+   
     ' 1) FRAME ? llena Medida y Corriente
     Private Sub FrameUF_Change()
         If mBloq Then Exit Sub
@@ -304,7 +306,7 @@ Public IP As String, Color As String
                     .AddItem "Codigo_QR"
                     .AddItem "Placa_GR"
                     .AddItem "Riesgo_electrico1"
-                    .AddItem "Ventilaci�n"
+                    .AddItem "Ventilación"
                     .AddItem "Descarga"
                     .AddItem "Riesgo_electrico2"
                     .AddItem "Advertencia_choque_electrico"
@@ -426,18 +428,18 @@ Public IP As String, Color As String
         With Me.OLEObjects("Dato3ETQ").Object
             .Clear
             Select Case dato
-                Case "Codigo_QR", "Riesgo_electrico1", "Ventilaci�n", "Descarga", "Riesgo_electrico2", _
+                Case "Codigo_QR", "Riesgo_electrico1", "Ventilación", "Descarga", "Riesgo_electrico2", _
                      "Voltaje_peligroso", "Voltaje_208", "Voltaje_220", "Voltaje_440", _
                      "Voltaje_460", "Voltaje_480", "Aviso_acometidas", "Programador_horario", "Equipo_medida", _
                      "Ajuste_higrostato", "Inspeccion_DPS", "No_manipular_Guaya", "Ajuste_corriente", "Mantenimiento_filtros", _
                      "Senales_extrernas_transferencia", "Parametrizacion_medidor", "Control_produccion", "Incumplimiento_instrucciones", _
                      "Mantenimiento", "Cableado", "Superficie caliente"
                     .AddItem "Pequeno"
-                Case "Ventilaci�n", "Descarga", "Riesgo_electrico2"
+                Case "Ventilación", "Descarga", "Riesgo_electrico2"
                     .AddItem "Pequeno"
                     .AddItem "Mediano"
                     .AddItem "Grande"
-                Case "Placa_GR", "Ventilaci�n", "Descarga", "Riesgo_electrico2", "Riesgo_electricoV1", "Riesgo_electricoV2", _
+                Case "Placa_GR", "Ventilación", "Descarga", "Riesgo_electrico2", "Riesgo_electricoV1", "Riesgo_electricoV2", _
                      "Riesgo_electricoV3", "Choque_electrico_1", "Choque_electrico_2", "Prohibido_paso", "Prohibido_acceso", "Respaldo", _
                      "Generador", "Red", "Transformador", "UPS"
                     .AddItem "Mediano"
@@ -697,7 +699,7 @@ Private Sub LlenarCombo(cbo As Object, ByVal datos As String)
 
     If Len(Trim$(datos)) = 0 Then Exit Sub
 
-    partes = Split(datos, ",")
+    partes = Split(datos, ",") 
     For i = LBound(partes) To UBound(partes)
         item = Trim$(partes(i))
         If Len(item) > 0 Then cbo.AddItem item
@@ -750,8 +752,8 @@ Public Sub Extraer_datos()
 End Sub
 Public Sub Envolventes()
     '========================
-        celda = "LM89"
-        ThisWorkbook.Sheets("VistaFrontal").Range("LJ89:QI182").Clear
+        celda = "KP94"
+        ThisWorkbook.Sheets("VistaFrontal").Range("KO91:OJ185").Clear
         Set wsActual = ThisWorkbook.Sheets("VistaFrontal")
     '========================
     Dim dato1 As String, dato2 As String, dato3 As String, ResultadoENV As String
@@ -766,8 +768,8 @@ Public Sub Envolventes()
 End Sub
 Public Sub ACESORIOS_MTM()
     '========================
-        celda = "LN111"
-        ThisWorkbook.Sheets("VistaFrontal").Range("LJ89:QI182").Clear
+        celda = "KR113"
+        ThisWorkbook.Sheets("VistaFrontal").Range("KO91:OJ185").Clear
         Set wsActual = ThisWorkbook.Sheets("VistaFrontal")
     '========================
     Dim dato1 As String, dato2 As String
@@ -778,8 +780,8 @@ Public Sub ACESORIOS_MTM()
 End Sub
 Public Sub UNIDADES_FUNCIONALES()
     '========================
-        celda = "LN111"
-        ThisWorkbook.Sheets("VistaFrontal").Range("LJ89:QI182").Clear
+        celda = "KR113"
+        ThisWorkbook.Sheets("VistaFrontal").Range("KO91:OJ185").Clear
         Set wsActual = ThisWorkbook.Sheets("VistaFrontal")
     '========================
         Dim dato1 As String, dato2 As String, dato3 As String, dato4 As String
@@ -809,8 +811,8 @@ Public Sub UNIDADES_FUNCIONALES()
 End Sub
 Public Sub UNIDADES_LISAS()
     '========================
-        celda = "LN111"
-        ThisWorkbook.Sheets("VistaFrontal").Range("LJ89:QI182").Clear
+        celda = "KR113"
+        ThisWorkbook.Sheets("VistaFrontal").Range("KO91:OJ185").Clear
         Set wsActual = ThisWorkbook.Sheets("VistaFrontal")
     '========================
         Dim dato1 As String, dato2 As String, dato3 As String
@@ -829,8 +831,8 @@ Public Sub UNIDADES_LISAS()
 End Sub
 Public Sub BARRAJE()
     '========================
-        celda = "LN101"
-        ThisWorkbook.Sheets("VistaFrontal").Range("LJ89:QI182").Clear
+        celda = "KR101"
+        ThisWorkbook.Sheets("VistaFrontal").Range("KO91:OJ185").Clear
         Set wsActual = ThisWorkbook.Sheets("VistaFrontal")
     '========================
         Dim dato1 As String, dato2 As String, dato3 As String
@@ -848,8 +850,8 @@ Public Sub BARRAJE()
 End Sub
 Public Sub DPS()
     '========================
-        celda = "LK116"
-        ThisWorkbook.Sheets("VistaFrontal").Range("LJ89:QI182").Clear
+        celda = "KR116"
+        ThisWorkbook.Sheets("VistaFrontal").Range("KO91:OJ185").Clear
         Set wsActual = ThisWorkbook.Sheets("VistaFrontal")
     '========================
     Dim dato1 As String, dato2 As String, dato3 As String, dato4 As String, dato5 As String
@@ -878,8 +880,8 @@ Public Sub DPS()
 End Sub
 Public Sub Equipos_Control()
     '========================
-        celda = "LK116"
-        ThisWorkbook.Sheets("VistaFrontal").Range("LJ89:QI182").Clear
+        celda = "KR116"
+        ThisWorkbook.Sheets("VistaFrontal").Range("KO91:OJ185").Clear
         Set wsActual = ThisWorkbook.Sheets("VistaFrontal")
     '========================
     Dim dato1 As String, dato2 As String
@@ -890,8 +892,8 @@ Public Sub Equipos_Control()
 End Sub
 Public Sub Servicios_Auxiliares()
     '========================
-        celda = "LK116"
-        ThisWorkbook.Sheets("VistaFrontal").Range("LJ89:QI182").Clear
+        celda = "KR116"
+        ThisWorkbook.Sheets("VistaFrontal").Range("KO91:OJ185").Clear
         Set wsActual = ThisWorkbook.Sheets("VistaFrontal")
     '========================
     Dim dato1 As String, dato2 As String, dato3 As String, dato4 As String
@@ -910,8 +912,8 @@ Public Sub Servicios_Auxiliares()
 End Sub
 Public Sub Accesorios_CTR()
     '========================
-        celda = "LK116"
-        ThisWorkbook.Sheets("VistaFrontal").Range("LJ89:QI182").Clear
+        celda = "KR116"
+        ThisWorkbook.Sheets("VistaFrontal").Range("KO91:OJ185").Clear
         Set wsActual = ThisWorkbook.Sheets("VistaFrontal")
     '========================
     Dim dato1 As String, dato2 As String
@@ -929,8 +931,8 @@ Public Sub Accesorios_CTR()
 End Sub
 Public Sub Transferencia()
     '========================
-        celda = "LK116"
-        ThisWorkbook.Sheets("VistaFrontal").Range("LJ89:QI182").Clear
+        celda = "KR116"
+        ThisWorkbook.Sheets("VistaFrontal").Range("KO91:OJ185").Clear
         Set wsActual = ThisWorkbook.Sheets("VistaFrontal")
     '========================
     Dim dato1 As String, dato2 As String, dato3 As String, dato4 As String, dato5 As String, dato6 As String
@@ -958,8 +960,8 @@ Public Sub Transferencia()
 End Sub
 Public Sub Unidades_ETO()
     '========================
-        celda = "LK116"
-        ThisWorkbook.Sheets("VistaFrontal").Range("LJ89:QI182").Clear
+        celda = "KR116"
+        ThisWorkbook.Sheets("VistaFrontal").Range("KO91:OJ185").Clear
         Set wsActual = ThisWorkbook.Sheets("VistaFrontal")
     '========================
     Dim dato1 As String, dato2 As String
@@ -970,8 +972,8 @@ Public Sub Unidades_ETO()
 End Sub
 Public Sub Conmutadores()
     '========================
-        celda = "LK116"
-        ThisWorkbook.Sheets("VistaFrontal").Range("LJ89:QI182").Clear
+        celda = "KR116"
+        ThisWorkbook.Sheets("VistaFrontal").Range("KO91:OJ185").Clear
         Set wsActual = ThisWorkbook.Sheets("VistaFrontal")
     '========================
     Dim dato1 As String, dato2 As String, dato3 As String, dato4 As String
@@ -995,8 +997,8 @@ Public Sub Conmutadores()
 End Sub
 Public Sub Arranque_Motor()
     '========================
-        celda = "LK116"
-        ThisWorkbook.Sheets("VistaFrontal").Range("LJ89:QI182").Clear
+        celda = "KR116"
+        ThisWorkbook.Sheets("VistaFrontal").Range("KO91:OJ185").Clear
         Set wsActual = ThisWorkbook.Sheets("VistaFrontal")
     '========================
     Dim dato1 As String, dato2 As String, dato3 As String
@@ -1016,8 +1018,8 @@ Public Sub Arranque_Motor()
 End Sub
 Public Sub COTAS()
     '========================
-        celda = "LK116"
-        ThisWorkbook.Sheets("VistaFrontal").Range("LJ89:QI182").Clear
+        celda = "KR116"
+        ThisWorkbook.Sheets("VistaFrontal").Range("KO91:OJ185").Clear
         Set wsActual = ThisWorkbook.Sheets("VistaFrontal")
     '========================
     Dim dato1 As String
@@ -1138,8 +1140,8 @@ Public Sub Cambiodecolor() 'Vista frontal
 End Sub
 Public Sub ETIQUETAS()
     '========================
-        celda = "LK116"
-        ThisWorkbook.Sheets("VistaFrontal").Range("LJ89:QI182").Clear
+        celda = "KR116"
+        ThisWorkbook.Sheets("VistaFrontal").Range("KO91:OJ185").Clear
         Set wsActual = ThisWorkbook.Sheets("VistaFrontal")
     '========================
     Dim dato1 As String, dato2 As String, dato3 As String
