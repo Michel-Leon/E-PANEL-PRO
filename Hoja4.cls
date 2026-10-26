@@ -191,12 +191,12 @@ Public IP As String, Color As String
 Public Sub Worksheet_Activate()
     Extraer_datos
     '------- Ocultar menus ---------
-    ActiveSheet.Shapes("Menu EnvolventesGFL").Visible = False
-    ActiveSheet.Shapes("Menu ColorGFL").Visible = False
-    ActiveSheet.Shapes("Menu AcotarGFL").Visible = False
-    ActiveSheet.Shapes("Menu EtiquetaGFL").Visible = False
-    ActiveSheet.Shapes("Menu AccesoriosMTMGFL").Visible = False
-    ActiveSheet.Shapes("Menu Puertas").Visible = False
+        ActiveSheet.Shapes("Menu EnvolventesGFL").Visible = False
+        ActiveSheet.Shapes("Menu ColorGFL").Visible = False
+        ActiveSheet.Shapes("Menu AcotarGFL").Visible = False
+        ActiveSheet.Shapes("Menu EtiquetaGFL").Visible = False
+        ActiveSheet.Shapes("Menu AccesoriosMTMGFL").Visible = False
+        ActiveSheet.Shapes("Menu Puertas").Visible = False
     '============== ACC MTM ============================
         With Me.OLEObjects("TipoACC").Object
             .Clear
@@ -296,7 +296,7 @@ Public Sub Envolventes()
         ThisWorkbook.Sheets("FrontalPuerta").Range("KO91:OJ185").Clear
         Set wsActual = ThisWorkbook.Sheets("FrontalPuerta")
     '========================
-    Dim dato1 As String, dato2 As String, dato3 As String, ResultadoENV As String
+    Dim dato1 As String, dato2 As String, dato3 As String
     dato1 = Me.OLEObjects("AlturaENV").Object.Value
     dato2 = ThisWorkbook.Sheets("FrontalPuerta").Range("A6").Value
     dato3 = Me.OLEObjects("AnchoENV").Object.Value

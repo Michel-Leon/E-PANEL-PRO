@@ -614,3 +614,112 @@ End Sub
 Public Sub Area_GFL_2_VP()
     ThisWorkbook.Sheets("FrontalPuerta").Range("KO91:OJ185").Clear
 End Sub
+'======================= VISTA LATERAL ======================
+Public Sub Seleccion_Menu_Envolventes_L()
+    Dim shp As Shape
+    Dim groupname As String
+    groupname = "Menu EnvolventesGFL"
+    
+    On Error Resume Next
+    Set shp = ActiveSheet.Shapes(groupname)
+    On Error GoTo 0
+    
+    If Not shp Is Nothing Then
+        ' Alterna la visibilidad del grupo seleccionado
+        shp.Visible = Not shp.Visible
+        ' Oculta los dem s grupos
+        ActiveSheet.Shapes("Menu AccesoriosMTMGFL").Visible = False
+        ActiveSheet.Shapes("Menu ColorGFL").Visible = False
+        ActiveSheet.Shapes("Menu AcotarGFL").Visible = False
+        ActiveSheet.Shapes("Menu EtiquetaGFL").Visible = False
+    End If
+End Sub
+Public Sub seleccion_menu_ACCESORIOSMTM_L()
+    Dim shp As Shape
+    Dim groupname As String
+    groupname = "Menu AccesoriosMTMGFL"
+    
+    On Error Resume Next
+    Set shp = ActiveSheet.Shapes(groupname)
+    On Error GoTo 0
+    
+    If Not shp Is Nothing Then
+        ' Alterna la visibilidad del grupo seleccionado
+        shp.Visible = Not shp.Visible
+        ' Oculta los dem s grupos
+        ActiveSheet.Shapes("Menu EnvolventesGFL").Visible = False
+        ActiveSheet.Shapes("Menu ColorGFL").Visible = False
+        ActiveSheet.Shapes("Menu AcotarGFL").Visible = False
+        ActiveSheet.Shapes("Menu EtiquetaGFL").Visible = False
+    End If
+End Sub
+Public Sub seleccion_menu_Color_L()
+    Dim shp As Shape
+    Dim groupname As String
+    groupname = "Menu ColorGFL"
+    
+    On Error Resume Next
+    Set shp = ActiveSheet.Shapes(groupname)
+    On Error GoTo 0
+    
+    If Not shp Is Nothing Then
+        ' Alterna la visibilidad del grupo seleccionado
+        shp.Visible = Not shp.Visible
+        ' Oculta los dem s grupos
+        ActiveSheet.Shapes("Menu EnvolventesGFL").Visible = False
+        ActiveSheet.Shapes("Menu AccesoriosMTMGFL").Visible = False
+        ActiveSheet.Shapes("Menu AcotarGFL").Visible = False
+        ActiveSheet.Shapes("Menu EtiquetaGFL").Visible = False
+    End If
+End Sub
+Public Sub seleccion_menu_Acotar_L()
+    Dim shp As Shape
+    Dim groupname As String
+    groupname = "Menu AcotarGFL"
+    
+    On Error Resume Next
+    Set shp = ActiveSheet.Shapes(groupname)
+    On Error GoTo 0
+    
+    If Not shp Is Nothing Then
+        ' Alterna la visibilidad del grupo seleccionado
+        shp.Visible = Not shp.Visible
+        ' Oculta los dem s grupos
+        ActiveSheet.Shapes("Menu EnvolventesGFL").Visible = False
+        ActiveSheet.Shapes("Menu AccesoriosMTMGFL").Visible = False
+        ActiveSheet.Shapes("Menu ColorGFL").Visible = False
+        ActiveSheet.Shapes("Menu EtiquetaGFL").Visible = False
+    End If
+End Sub
+Public Sub seleccion_menu_Etiqueta_L()
+    Dim shp As Shape
+    Dim groupname As String
+    groupname = "Menu EtiquetaGFL"
+    
+    On Error Resume Next
+    Set shp = ActiveSheet.Shapes(groupname)
+    On Error GoTo 0
+    
+    If Not shp Is Nothing Then
+        ' Alterna la visibilidad del grupo seleccionado
+        shp.Visible = Not shp.Visible
+        ' Oculta los dem s grupos
+        ActiveSheet.Shapes("Menu EnvolventesGFL").Visible = False
+        ActiveSheet.Shapes("Menu AccesoriosMTMGFL").Visible = False
+        ActiveSheet.Shapes("Menu ColorGFL").Visible = False
+        ActiveSheet.Shapes("Menu AcotarGFL").Visible = False
+    End If
+End Sub
+Public Sub Area_GFL_1_L()
+    ThisWorkbook.Sheets("Lateral").Range("CP50:FD146").Clear
+End Sub
+Public Sub Area_GFL_2_L()
+    ThisWorkbook.Sheets("Lateral").Range("KO91:OJ185").Clear
+End Sub
+'======================= VISTA Posterior ======================
+Public Sub Area_GFL_1_P()
+    ThisWorkbook.Sheets("Posterior").Range("CE46:FS146").Clear
+End Sub
+Public Sub Area_GFL_2_P()
+    ThisWorkbook.Sheets("Posterior").Range("KO91:OJ185").Clear
+End Sub 
