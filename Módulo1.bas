@@ -14,6 +14,7 @@ Public ResultadoBAR As String
 Public ResultadoUF As String
 Public ResultadoAM As String
 public ResultadoLSS As String
+Public ResultadoSV As String
 Public ResultadoCT As String
 Public ResultadoEQ As String
 Public ResultadoACC As String
@@ -24,6 +25,12 @@ Public ResultadoETO As String
 Public ResultadoCOMT As String
 Public ResultadoFLG As String
 Public ResultadoTFM As String
+'---------------------------------------
+Public ResultadoVBB As String
+Public ResultadoHBB As String
+Public ResultadoGBB As String
+Public ResultadoNBB As String
+Public ResultadoMAIN As String
 '============== Mover Bloque ===================
 Public Sub MoverBloque(ByVal ref As String, ByVal BD As String, _
                        ByVal wsDestino As Worksheet, ByVal celdaDestino As String)

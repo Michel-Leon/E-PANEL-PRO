@@ -725,3 +725,105 @@ End Sub
 Public Sub Area_GFL_2_P()
     ThisWorkbook.Sheets("Posterior").Range("KO91:OJ185").Clear
 End Sub 
+'=================== BARRAJE ================================
+Public Sub Seleccion_Menu_Verticales()
+    Dim shp As Shape
+    Dim groupname As String
+    groupname = "Menu Barraje Vertical"
+    
+    On Error Resume Next
+    Set shp = ActiveSheet.Shapes(groupname)
+    On Error GoTo 0
+    
+    If Not shp Is Nothing Then
+        ' Alterna la visibilidad del grupo seleccionado
+        shp.Visible = Not shp.Visible
+        ' Oculta los dem s grupos
+        ActiveSheet.Shapes("Menu Barraje Horizontal").Visible = False
+        ActiveSheet.Shapes("Menu Barraje Tierra").Visible = False
+        ActiveSheet.Shapes("Menu Barraje Neutro").Visible = False
+        ActiveSheet.Shapes("Menu Main Horizontal").Visible = False
+    End If
+End Sub
+Public Sub Seleccion_Menu_Horizontales()
+    Dim shp As Shape
+    Dim groupname As String
+    groupname = "Menu Barraje Horizontal"
+    
+    On Error Resume Next
+    Set shp = ActiveSheet.Shapes(groupname)
+    On Error GoTo 0
+    
+    If Not shp Is Nothing Then
+        ' Alterna la visibilidad del grupo seleccionado
+        shp.Visible = Not shp.Visible
+        ' Oculta los dem s grupos
+        ActiveSheet.Shapes("Menu Barraje Vertical").Visible = False
+        ActiveSheet.Shapes("Menu Barraje Tierra").Visible = False
+        ActiveSheet.Shapes("Menu Barraje Neutro").Visible = False
+        ActiveSheet.Shapes("Menu Main Horizontal").Visible = False
+    End If
+End Sub
+public Sub Seleccion_Menu_Tierra()
+    Dim shp As Shape
+    Dim groupname As String
+    groupname = "Menu Barraje Tierra"
+    
+    On Error Resume Next
+    Set shp = ActiveSheet.Shapes(groupname)
+    On Error GoTo 0
+    
+    If Not shp Is Nothing Then
+        ' Alterna la visibilidad del grupo seleccionado
+        shp.Visible = Not shp.Visible
+        ' Oculta los dem s grupos
+        ActiveSheet.Shapes("Menu Barraje Vertical").Visible = False
+        ActiveSheet.Shapes("Menu Barraje Horizontal").Visible = False
+        ActiveSheet.Shapes("Menu Barraje Neutro").Visible = False
+        ActiveSheet.Shapes("Menu Main Horizontal").Visible = False
+    End If
+End Sub
+public Sub Seleccion_Menu_Neutro()
+    Dim shp As Shape
+    Dim groupname As String
+    groupname = "Menu Barraje Neutro"
+    
+    On Error Resume Next
+    Set shp = ActiveSheet.Shapes(groupname)
+    On Error GoTo 0    
+    
+    If Not shp Is Nothing Then
+        ' Alterna la visibilidad del grupo seleccionado
+        shp.Visible = Not shp.Visible
+        ' Oculta los dem s grupos
+        ActiveSheet.Shapes("Menu Barraje Vertical").Visible = False
+        ActiveSheet.Shapes("Menu Barraje Horizontal").Visible = False
+        ActiveSheet.Shapes("Menu Barraje Tierra").Visible = False
+        ActiveSheet.Shapes("Menu Main Horizontal").Visible = False
+    End If
+End Sub
+public Sub Seleccion_Menu_Main()
+    Dim shp As Shape
+    Dim groupname As String
+    groupname = "Menu Main Horizontal"
+    
+    On Error Resume Next
+    Set shp = ActiveSheet.Shapes(groupname)
+    On Error GoTo 0
+    
+    If Not shp Is Nothing Then
+        ' Alterna la visibilidad del grupo seleccionado
+        shp.Visible = Not shp.Visible
+        ' Oculta los dem s grupos
+        ActiveSheet.Shapes("Menu Barraje Vertical").Visible = False
+        ActiveSheet.Shapes("Menu Barraje Horizontal").Visible = False
+        ActiveSheet.Shapes("Menu Barraje Tierra").Visible = False
+        ActiveSheet.Shapes("Menu Barraje Neutro").Visible = False
+    End If
+End Sub
+Public Sub Area_GFL_1_B()
+    ThisWorkbook.Sheets("B_Conf").Range("CF51:FN146").Clear
+End Sub
+Public Sub Area_GFL_2_B()
+    ThisWorkbook.Sheets("B_Conf").Range("KP82:OJ184").Clear
+End Sub
