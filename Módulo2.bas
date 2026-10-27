@@ -483,6 +483,8 @@ End Sub
 '================================================
 Public Sub Area_GFL_1()
     ThisWorkbook.Sheets("VistaFrontal").Range("CF46:GA146").Clear
+    ThisWorkbook.Sheets("Vista_FM_Cliente").Range("CE150:FV155").Clear
+    ThisWorkbook.Sheets("VistaFrontal").Range("GG60:IP104").Value = ""
 End Sub
 Public Sub Area_GFL_2()
     ThisWorkbook.Sheets("VistaFrontal").Range("KO91:OJ185").Clear
@@ -718,8 +720,8 @@ Public Sub Area_GFL_2_L()
 End Sub
 '======================= VISTA Posterior ======================
 Public Sub Area_GFL_1_P()
-    ThisWorkbook.Sheets("Posterior").Range("CE46:FS146").Clear
-End Sub
+    ThisWorkbook.Sheets("Posterior").Range("CF49:GK146").Clear
+End Sub 
 Public Sub Area_GFL_2_P()
     ThisWorkbook.Sheets("Posterior").Range("KO91:OJ185").Clear
 End Sub 

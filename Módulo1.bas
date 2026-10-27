@@ -10,8 +10,10 @@ Public ResultadoPES As String
 'Public ResultadoENVPS As String
 Public ResultadoDPS As String
 Public ResultadoSERV As String
-Public ResultadoBRR As String
+Public ResultadoBAR As String
 Public ResultadoUF As String
+Public ResultadoAM As String
+public ResultadoLSS As String
 Public ResultadoCT As String
 Public ResultadoEQ As String
 Public ResultadoACC As String
@@ -56,7 +58,7 @@ Public Sub MoverBloque(ByVal ref As String, ByVal BD As String, _
     Application.EnableEvents = True
     Exit Sub
 
-errHandler:
+    errHandler:
     nErr = Err.Number: dErr = Err.Description   'capturar ANTES de cualquier otra cosa
     Application.EnableEvents = True
     MsgBox "Fallo al mover el bloque." & vbCrLf & _

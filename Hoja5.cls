@@ -578,7 +578,7 @@ Public Sub Worksheet_Activate()
         Me.OLEObjects("MontajeSV").Object.Value = "A_Unit"
         With Me.OLEObjects("EquipoSV").Object
             .Clear
-            .AddItem "Iluminaci�n"
+            .AddItem "Iluminación"
             .AddItem "Cambio Tension"
             .AddItem "Batery.ST"
             .AddItem "Pont I/O"
@@ -825,9 +825,9 @@ Public Sub UNIDADES_LISAS()
 
     dato2 = Me.OLEObjects("AnchoLSS").Object.Value
     dato3 = Me.OLEObjects("UnidadLSS").Object.Value
-    ResultadoUL = "GF_" & dato1 & dato2 & "X" & dato3
-    'msgbox ResultadoUL
-    MoverBloque ResultadoUL, "LISAS", wsActual, celda
+    ResultadoLSS = "GF_" & dato1 & dato2 & "X" & dato3
+    'msgbox ResultadoLSS
+    MoverBloque ResultadoLSS, "LISAS", wsActual, celda
 End Sub
 Public Sub BARRAJE()
     '========================
@@ -967,7 +967,7 @@ Public Sub Unidades_ETO()
     Dim dato1 As String, dato2 As String
     dato1 = Me.OLEObjects("Ancho_ETO").Object.Value
     dato2 = Me.OLEObjects("Unidades_ETO").Object.Value
-    ResultadoETO = "ETO" & dato1 & "X" & dato2
+    ResultadoETO = "GF_ETO" & dato1 & "X" & dato2
     MoverBloque ResultadoETO, "ETO_SFC_SFI", wsActual, celda
 End Sub
 Public Sub Conmutadores()
@@ -1167,6 +1167,69 @@ Public Sub ETIQUETAS()
     End Select
     MoverBloque ResultadoETQ, "ETIQUETAS", wsActual, celda
 End Sub
+'===================================================
+Public sub  Buscar_datos_Unidade()
+    Celda_Cubiculo = "KU113"
+    Informe_Unidades ResultadoUF
+    'Buscar_datos_conjunto ResultadoUF
+End Sub
+Public sub  Buscar_datos_Lisas()
+    Celda_Cubiculo = "KU113"
+    Informe_Unidades ResultadoLSS
+    
+End Sub
+Public sub  Buscar_datos_ArranqueM()
+    Celda_Cubiculo = "KS117"
+    Informe_Unidades ResultadoAM
+    
+End Sub
+Public sub Buscar_datos_BRR()
+    Celda_Cubiculo = "KU101"
+    Informe_Unidades ResultadoBAR
+    
+End sub
+Public Sub Buscar_datos_CT()
+    Celda_Cubiculo = "KU116"
+   
+    Informe_Unidades ResultadoCT
+    
+End Sub
+Public Sub Buscar_datos_DPS()
+    Celda_Cubiculo = "KU116"
+   
+    Informe_Unidades ResultadoDPS
+    
+End Sub
+Public sub Buscar_datos_SV()
+ 
+    Informe_Unidades ResultadoSV
+    
+End sub
+Public sub Buscar_datos_ETO()
+    Celda_Cubiculo = "KU116"
+  
+    Informe_Unidades ResultadoETO
+   
+End sub
+Public Sub Buscar_datos_TRF()
+    Dim msg As String
+ 
+        Celda_Cubiculo = "KU132"
 
+    Funcion = ""
+    Informe_Unidades ResultadoTRF            ' escribe en FrontalFM
+    'Buscar_datos_conjunto ResultadoTRF       ' adicionales sin escribir
 
+    'msg = "IMPORTANTE" & vbCrLf & _
+          String(30, "-") & vbCrLf & vbCrLf & _
+          Chr(149) & " Debe añadir al listado de materiales las unidades" & vbCrLf & _
+          "   que van con la transferencia de manera individual." & vbCrLf & vbCrLf & _
+          "(Solo si es el caso)"
+    'MsgBox msg, vbExclamation + vbOKOnly, "Aviso - Transferencia"
+End Sub
+public sub Buscar_datos_COMT()
+    Celda_Cubiculo = "KU116"
+    Funcion = ""
+    Informe_Unidades ResultadoCOMT
+End sub
 
