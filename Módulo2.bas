@@ -822,7 +822,14 @@ public Sub Seleccion_Menu_Main()
     End If
 End Sub
 Public Sub Area_GFL_1_B()
-    ThisWorkbook.Sheets("B_Conf").Range("CF51:FN146").Clear
+   WITH ThisWorkbook.Sheets("B_Conf")
+        .Range("CF51:FN146").Clear
+        .Range("GC64:IQ64").Value = ""
+        .Range("GC76:IQ76").Value = ""
+        .Range("GC88:IQ91").Value = ""
+        .Range("FX106:IQ145").Value = ""
+    END WITH
+
 End Sub
 Public Sub Area_GFL_2_B()
     ThisWorkbook.Sheets("B_Conf").Range("KP82:OJ184").Clear

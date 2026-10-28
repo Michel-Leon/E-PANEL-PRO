@@ -337,7 +337,7 @@ Public Sub Cambiodecolor() 'Vista frontal
         Case "RAL 7032": colorDestino = RGB(181, 176, 161)
         Case "RAL 9003": colorDestino = RGB(236, 236, 231)
         Case "RAL 9004": colorDestino = RGB(43, 43, 44)
-        case "Inoxidable": colorDestino = RGB(143;143;143)
+        case "Inoxidable": colorDestino = RGB(143,143,143)
         Case "Naranja": colorDestino = RGB(201, 133, 12)
         Case "Amarillo": colorDestino = RGB(235, 198, 21)
     End Select
@@ -352,7 +352,7 @@ Public Sub Cambiodecolor() 'Vista frontal
                    celda.Interior.Color = RGB(235, 198, 21) Or _
                    celda.Interior.Color = RGB(181, 184, 177) Or _
                    celda.Interior.Color = RGB(244, 244, 244) Or _
-                   celda.Interios.ColOr = RGB(143; 143; 143) Or _
+                   celda.Interios.ColOr = RGB(143, 143, 143) Or _
                    celda.Interior.Color = RGB(236, 236, 231) Then
                     celda.Interior.Color = RGB(197, 199, 196)
                 End If
@@ -362,7 +362,7 @@ Public Sub Cambiodecolor() 'Vista frontal
                    celda.Interior.Color = RGB(201, 133, 12) Or _
                    celda.Interior.Color = RGB(235, 198, 21) Or _
                    celda.Interior.Color = RGB(244, 244, 244) Or _
-                   celda.Interios.ColOr = RGB(143; 143; 143) Or _
+                   celda.Interios.ColOr = RGB(143, 143, 143) Or _
                    celda.Interior.Color = RGB(236, 236, 231) Then
                     celda.Interior.Color = RGB(181, 176, 161)
                 End If
@@ -372,7 +372,7 @@ Public Sub Cambiodecolor() 'Vista frontal
                    celda.Interior.Color = RGB(43, 43, 44) Or _
                    celda.Interior.Color = RGB(201, 133, 12) Or _
                    celda.Interior.Color = RGB(235, 198, 21) Or _
-                   celda.Interios.ColOr = RGB(143; 143; 143) Or _
+                   celda.Interios.ColOr = RGB(143, 143, 143) Or _
                    celda.Interior.Color = RGB(244, 244, 244) Then
                     celda.Interior.Color = RGB(236, 236, 231)
                 End If
@@ -384,7 +384,7 @@ Public Sub Cambiodecolor() 'Vista frontal
                    celda.Interior.Color = RGB(235, 198, 21) Or _
                    celda.Interior.Color = RGB(244, 244, 244) Or _
                    celda.Interior.Color = RGB(236, 236, 231) Then
-                    celda.Interior.Color = RGB(143; 143; 143)
+                    celda.Interior.Color = RGB(143, 143, 143)
                 End If
             Case "RAL 9004"
                 If celda.Interior.Color = RGB(197, 199, 196) Or _
@@ -392,7 +392,7 @@ Public Sub Cambiodecolor() 'Vista frontal
                    celda.Interior.Color = RGB(201, 133, 12) Or _
                    celda.Interior.Color = RGB(235, 198, 21) Or _
                    celda.Interior.Color = RGB(244, 244, 244) Or _
-                   celda.Interios.ColOr = RGB(143; 143; 143) Or _
+                   celda.Interios.ColOr = RGB(143, 143, 143) Or _
                    celda.Interior.Color = RGB(236, 236, 231) Then
                     celda.Interior.Color = RGB(43, 43, 44)
                 End If
@@ -402,7 +402,7 @@ Public Sub Cambiodecolor() 'Vista frontal
                    celda.Interior.Color = RGB(43, 43, 44) Or _
                    celda.Interior.Color = RGB(235, 198, 21) Or _
                    celda.Interior.Color = RGB(244, 244, 244) Or _
-                   celda.Interios.ColOr = RGB(143; 143; 143) Or _
+                   celda.Interios.ColOr = RGB(143, 143, 143) Or _
                    celda.Interior.Color = RGB(236, 236, 231) Then
                     celda.Interior.Color = RGB(201, 133, 12)
                 End If
@@ -412,7 +412,7 @@ Public Sub Cambiodecolor() 'Vista frontal
                    celda.Interior.Color = RGB(43, 43, 44) Or _
                    celda.Interior.Color = RGB(201, 133, 12) Or _
                    celda.Interior.Color = RGB(244, 244, 244) Or _
-                   celda.Interios.ColOr = RGB(143; 143; 143) Or _
+                   celda.Interios.ColOr = RGB(143, 143, 143) Or _
                    celda.Interior.Color = RGB(236, 236, 231) Then
                     celda.Interior.Color = RGB(235, 198, 21)
                 End If

@@ -1054,7 +1054,7 @@ Public Sub Cambiodecolor() 'Vista frontal
         Case "RAL 7032": colorDestino = RGB(181, 176, 161)
         Case "RAL 9003": colorDestino = RGB(236, 236, 231)
         Case "RAL 9004": colorDestino = RGB(43, 43, 44)
-        case "Inoxidable": colorDestino = RGB(143;143;143)
+        case "Inoxidable": colorDestino = RGB(143,143,143)
         Case "Naranja": colorDestino = RGB(201, 133, 12)
         Case "Amarillo": colorDestino = RGB(235, 198, 21)
     End Select
@@ -1069,7 +1069,7 @@ Public Sub Cambiodecolor() 'Vista frontal
                    celda.Interior.Color = RGB(235, 198, 21) Or _
                    celda.Interior.Color = RGB(181, 184, 177) Or _
                    celda.Interior.Color = RGB(244, 244, 244) Or _
-                   celda.Interios.ColOr = RGB(143; 143; 143) Or _
+                   celda.Interios.ColOr = RGB(143, 143, 143) Or _
                    celda.Interior.Color = RGB(236, 236, 231) Then
                     celda.Interior.Color = RGB(197, 199, 196)
                 End If
@@ -1079,7 +1079,7 @@ Public Sub Cambiodecolor() 'Vista frontal
                    celda.Interior.Color = RGB(201, 133, 12) Or _
                    celda.Interior.Color = RGB(235, 198, 21) Or _
                    celda.Interior.Color = RGB(244, 244, 244) Or _
-                   celda.Interios.ColOr = RGB(143; 143; 143) Or _
+                   celda.Interios.ColOr = RGB(143, 143, 143) Or _
                    celda.Interior.Color = RGB(236, 236, 231) Then
                     celda.Interior.Color = RGB(181, 176, 161)
                 End If
@@ -1089,7 +1089,7 @@ Public Sub Cambiodecolor() 'Vista frontal
                    celda.Interior.Color = RGB(43, 43, 44) Or _
                    celda.Interior.Color = RGB(201, 133, 12) Or _
                    celda.Interior.Color = RGB(235, 198, 21) Or _
-                   celda.Interios.ColOr = RGB(143; 143; 143) Or _
+                   celda.Interios.ColOr = RGB(143, 143, 143) Or _
                    celda.Interior.Color = RGB(244, 244, 244) Then
                     celda.Interior.Color = RGB(236, 236, 231)
                 End If
@@ -1101,7 +1101,7 @@ Public Sub Cambiodecolor() 'Vista frontal
                    celda.Interior.Color = RGB(235, 198, 21) Or _
                    celda.Interior.Color = RGB(244, 244, 244) Or _
                    celda.Interior.Color = RGB(236, 236, 231) Then
-                    celda.Interior.Color = RGB(143; 143; 143)
+                    celda.Interior.Color = RGB(143, 143, 143)
                 End If
             Case "RAL 9004"
                 If celda.Interior.Color = RGB(197, 199, 196) Or _
@@ -1109,7 +1109,7 @@ Public Sub Cambiodecolor() 'Vista frontal
                    celda.Interior.Color = RGB(201, 133, 12) Or _
                    celda.Interior.Color = RGB(235, 198, 21) Or _
                    celda.Interior.Color = RGB(244, 244, 244) Or _
-                   celda.Interios.ColOr = RGB(143; 143; 143) Or _
+                   celda.Interios.ColOr = RGB(143, 143, 143) Or _
                    celda.Interior.Color = RGB(236, 236, 231) Then
                     celda.Interior.Color = RGB(43, 43, 44)
                 End If
@@ -1119,7 +1119,7 @@ Public Sub Cambiodecolor() 'Vista frontal
                    celda.Interior.Color = RGB(43, 43, 44) Or _
                    celda.Interior.Color = RGB(235, 198, 21) Or _
                    celda.Interior.Color = RGB(244, 244, 244) Or _
-                   celda.Interios.ColOr = RGB(143; 143; 143) Or _
+                   celda.Interios.ColOr = RGB(143, 143, 143) Or _
                    celda.Interior.Color = RGB(236, 236, 231) Then
                     celda.Interior.Color = RGB(201, 133, 12)
                 End If
@@ -1129,7 +1129,7 @@ Public Sub Cambiodecolor() 'Vista frontal
                    celda.Interior.Color = RGB(43, 43, 44) Or _
                    celda.Interior.Color = RGB(201, 133, 12) Or _
                    celda.Interior.Color = RGB(244, 244, 244) Or _
-                   celda.Interios.ColOr = RGB(143; 143; 143) Or _
+                   celda.Interios.ColOr = RGB(143, 143, 143) Or _
                    celda.Interior.Color = RGB(236, 236, 231) Then
                     celda.Interior.Color = RGB(235, 198, 21)
                 End If
@@ -1218,7 +1218,7 @@ Public Sub Buscar_datos_TRF()
 
     Funcion = ""
     Informe_Unidades ResultadoTRF            ' escribe en FrontalFM
-    'Buscar_datos_conjunto ResultadoTRF       ' adicionales sin escribir
+    Buscar_datos_conjunto ResultadoTRF       ' adicionales sin escribir
 
     'msg = "IMPORTANTE" & vbCrLf & _
           String(30, "-") & vbCrLf & vbCrLf & _
@@ -1233,3 +1233,33 @@ public sub Buscar_datos_COMT()
     Informe_Unidades ResultadoCOMT
 End sub
 
+'============= Agregra referencia conjunto para ciertas unidades  y tranferencias
+Public Sub Buscar_datos_conjunto(ByVal codigo As String)
+    Select Case codigo
+     ' ---- Transferencias: 2 x SFI720X4u
+    Case "GFSFI_UT_EZC250MNXVX720XSUP", _
+            "GFSFI_UT_EZC400MNXVX720XSUP", _
+            "GFSFI_UT_CVS250MNXVX720XSUP", _
+            "GFSFI_UT_CVS400MNXVX720XSUP", _
+            "GFSFI_UT_NSX250MNXVX720XSUP", _
+            "GFSFI_UT_NSX400MNXVX720XSUP", _
+            "GFSFI_UT_GoPact250MNXVX720XSUP", _
+            "GFSFI_UT_GoPact400MNXVX720XSUP", _
+            "GFSFI_UT_CVS250MXVX720XSUP", _
+            "GFSFI_UT_CVS400MXVX720XSUP", _
+            "GFSFI_UT_NSX250MXVX720XSUP", _
+            "GFSFI_UT_NSX400MXVX720XSUP"
+
+            AgregarAdicional "GF_SFI720X4u", 2
+   
+    End Select
+End Sub
+'============= Agrega una referencia adicional N veces SIN escribir en FrontalFM
+Private Sub AgregarAdicional(ByVal referencia As String, ByVal cantidad As Long)
+    Dim i As Long
+    RefAdicional = referencia
+    Funcion = ""
+    For i = 1 To cantidad
+        Informe_Unidades RefAdicional, False   ' False = no tocar FrontalFM
+    Next i
+End Sub

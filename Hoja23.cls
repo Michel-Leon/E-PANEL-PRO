@@ -1,11 +1,25 @@
 '==== Diseno B-Configurator
-
+Sub Traercolumna()
+    ' Copia el rango A1:C10 y lo pega en E1
+    Sheets("VistaFrontal").Range("CE48:FV155").Copy
+    Sheets("B_Conf").Range("CE48").PasteSpecial xlPasteAll
+    
+    ' Limpia el portapapeles
+    Application.CutCopyMode = False
+End Sub
 Public Sub Worksheet_Activate()
+    'Olcultar menus
+        ActiveSheet.Shapes("Menu Barraje Vertical").Visible = False
+        ActiveSheet.Shapes("Menu Barraje Horizontal").Visible = False
+        ActiveSheet.Shapes("Menu Barraje Tierra").Visible = False
+        ActiveSheet.Shapes("Menu Barraje Neutro").Visible = False
+        ActiveSheet.Shapes("Menu Main Horizontal").Visible = False
     '====VBB
         With Me.OLEObjects("VBBInteruptor").Object
             .clear
             .AddItem "EZC400"
             .AddItem "CVS400"
+            .AddItem "NSX400"
         end With
     '====HBB
         With Me.OLEObjects("HBBAmperaje").Object
@@ -57,6 +71,7 @@ Public Sub Verticales()
     Dim Dato1 As String
     Dato1 = Me.OLEObjects("VBBInteruptor").Object.Value
     ResultadoVBB = "VBB_" & Dato1 & "X400"
+    'MSGBOX ResultadoVBB
     MoverBloque ResultadoVBB, "Barras", wsActual, celda
 End Sub
 Public Sub Horizontales()
@@ -81,6 +96,7 @@ public Sub GBB()
     Dato1 = Me.OLEObjects("GBBAncho").Object.Value
     Dato2 = Me.OLEObjects("GBB_ICC").Object.Value
     ResultadoGBB = "GBBX" & Dato1 & "X" & Dato2
+   ' MSGBOX ResultadoGBB
     MoverBloque ResultadoGBB, "Barras", wsActual, celda
 End Sub
 Public Sub NBB()
@@ -109,4 +125,33 @@ Public Sub MAIN()
     MoverBloque ResultadoMAIN, "Main", wsActual, celda
 End Sub
 '======================= CARGA DE DATOS
-
+    Public sub Bucar_datos_VBB()
+        N_INICIO = 64
+        N_FIN = 64
+        Celda_cubiculo ="KU91"
+        Informe_Barras ResultadoVBB
+    end sub
+    Public sub Bucar_datos_HBB()
+        N_INICIO = 76
+        N_FIN = 76
+        Celda_cubiculo ="KV91"
+        Informe_Barras ResultadoHBB
+    end sub
+    Public sub Bucar_datos_GBB()
+        N_INICIO = 88
+        N_FIN = 91
+        Celda_cubiculo ="KR102"
+        Informe_Barras_GBB ResultadoGBB
+    end sub
+    Public sub Bucar_datos_NBB()
+        N_INICIO = 88
+        N_FIN = 91
+        'Celda_cubiculo =""
+        Informe_Barras_GBB ResultadoNBB
+    end sub
+    Public sub Bucar_datos_MAIN()
+        N_INICIO = 106
+        N_FIN = 145
+        Celda_cubiculo ="KU99"
+        Informe_Barras_MAIN ResultadoMAIN
+    end sub
