@@ -113,7 +113,7 @@ Sub MostrarTodasLasHojas()
         usuario = InputBox("Ingrese el usuario:", "Acceso restringido")
         If StrPtr(usuario) = 0 Then Exit Sub   ' Cancel�
 
-        clave = InputBox("Ingrese la contrase�a:", "Acceso restringido")
+        clave = InputBox("Ingrese la contraseña:", "Acceso restringido")
         If StrPtr(clave) = 0 Then Exit Sub     ' Cancel�
 
         If UCase(Trim(usuario)) = USUARIO_VALIDO And Trim(clave) = CLAVE_VALIDA Then
@@ -123,7 +123,7 @@ Sub MostrarTodasLasHojas()
                 MsgBox "Acceso denegado. Se agotaron los intentos.", vbCritical, "Error"
                 Exit Sub
             End If
-            MsgBox "Usuario o contrase�a incorrectos." & vbNewLine & _
+            MsgBox "Usuario o contraseña incorrectos." & vbNewLine & _
                    "Intento " & intentos & " de " & MAX_INTENTOS, vbExclamation, "Error"
         End If
     Loop
@@ -164,8 +164,8 @@ Sub abrir_formulario()
     End If
 
     ' Leer usuario y clave ingresados
-    usuarioIngresado = Trim(wsLogin.Range("HX83").Value)
-    claveIngresada = Trim(wsLogin.Range("HX98").Value)
+    usuarioIngresado = Trim(wsLogin.Range("IJ83").Value)
+    claveIngresada = Trim(wsLogin.Range("IJ98").Value)
 
     If usuarioIngresado = "" Or claveIngresada = "" Then
         MsgBox "Debe ingresar usuario y contraseña.", vbExclamation, "Login"
@@ -201,8 +201,8 @@ Sub abrir_formulario()
         'wsLogin.Visible = xlSheetVeryHidden
 
         ' Limpiar los campos del login por seguridad
-        wsLogin.Range("HX83").Value = ""
-        wsLogin.Range("HX98").Value = ""
+        wsLogin.Range("IJ83").Value = ""
+        wsLogin.Range("IJ98").Value = ""
 
         Application.ScreenUpdating = True
 

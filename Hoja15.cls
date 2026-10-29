@@ -86,6 +86,7 @@ Public Sub Worksheet_Activate()
             .AddItem "Ancho: 980mm"
             .AddItem "Ancho: 1180mm"
             .AddItem "Ancho: 1380mm"
+            .AddItem "Profundidad: 400mm"
             .AddItem "Altura: 1600mm"
             .AddItem "Altura: 1800mm"
             .AddItem "Altura: 2000mm"
@@ -137,7 +138,7 @@ End Sub
 Public Sub Envolventes()
     '========================
         Celda = "KR90"
-        ThisWorkbook.Sheets("Vista_Lat_Post").Range("KR80:NJ185").Clear
+        ThisWorkbook.Sheets("Vista_Lat_Post").Range("KO80:NJ185").Clear
         Set wsActual = ThisWorkbook.Sheets("Vista_Lat_Post")
     '========================
     Dim dato1 As String, dato2 As String, dato3 As String
@@ -155,7 +156,7 @@ End Sub
 Public Sub ACESORIOS_MTM()
     '========================
         Celda = "KP104"
-        ThisWorkbook.Sheets("Vista_Lat_Post").Range("KR60:NJ185").Clear
+        ThisWorkbook.Sheets("Vista_Lat_Post").Range("KO60:NJ185").Clear
         Set wsActual = ThisWorkbook.Sheets("Vista_Lat_Post")
     '========================
     Dim dato1 As String, dato2 As String
@@ -167,7 +168,7 @@ End Sub
 Public Sub COTAS()
     '========================
         Celda = "KP104"
-        ThisWorkbook.Sheets("Vista_Lat_Post").Range("KR83:NJ185").Clear
+        ThisWorkbook.Sheets("Vista_Lat_Post").Range("KO83:NJ185").Clear
         Set wsActual = ThisWorkbook.Sheets("Vista_Lat_Post")
     '========================
     Dim dato1 As String
@@ -175,7 +176,7 @@ Public Sub COTAS()
     Select Case dato1
         Case "Ancho: 200mm": dato1 = "C_200"
         Case "Ancho: 230mm": dato1 = "C_230"
-        Case "Ancho: 400mm": dato1 = "C_400"
+        Case "Ancho: 400mm","Profundidad: 400mm": dato1 = "C_400"
         Case "Ancho: 430mm": dato1 = "C_430"
         Case "Ancho: 720mm": dato1 = "C_720"
         Case "Ancho: 750mm": dato1 = "C_750"
