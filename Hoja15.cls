@@ -86,6 +86,9 @@ Public Sub Worksheet_Activate()
             .AddItem "Ancho: 980mm"
             .AddItem "Ancho: 1180mm"
             .AddItem "Ancho: 1380mm"
+            .AddItem "Profundidad: 600mm"
+            .AddItem "Profundidad: 800mm"
+            .AddItem "Profundidad: 1000mm"
             .AddItem "Altura: 1600mm"
             .AddItem "Altura: 1800mm"
             .AddItem "Altura: 2000mm"
@@ -167,7 +170,7 @@ End Sub
 Public Sub COTAS()
     '========================
         Celda = "KP104"
-        ThisWorkbook.Sheets("Vista_Lat_Post").Range("KR83:NJ185").Clear
+        ThisWorkbook.Sheets("Vista_Lat_Post").Range("Ko83:NJ185").Clear
         Set wsActual = ThisWorkbook.Sheets("Vista_Lat_Post")
     '========================
     Dim dato1 As String
@@ -182,6 +185,9 @@ Public Sub COTAS()
         Case "Ancho: 980mm": dato1 = "C_980"
         Case "Ancho: 1180mm": dato1 = "C_1180"
         Case "Ancho: 1380mm": dato1 = "C_1380"
+        case "Profundidad: 600mm": dato1 = "C_600"
+        case "Profundidad: 800mm": dato1 = "C_800"
+        case "Profundidad: 1000mm": dato1 = "C_1000"
         Case "Altura: 1600mm": dato1 = "C_1600"
         Case "Altura: 1800mm": dato1 = "C_1800"
         Case "Altura: 2000mm": dato1 = "C_2000"
