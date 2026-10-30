@@ -42,8 +42,9 @@ Public Ancho As String, ICC As String
                     .AddItem "630"
                     .AddItem "1000"
                     .AddItem "1250"
+                    .AddItem "1600"
                 case "1120"
-                    .AddItem "1000"   
+                    .AddItem "1000" 
                 end select
         End With
     End sub 
@@ -63,7 +64,7 @@ Public Ancho As String, ICC As String
                         .AddItem "50"
                         .AddItem "100"
                     End If
-                Case "1250"
+                Case "1250", "1600"
                     .AddItem "50"
                     .AddItem "100"
             End Select
@@ -227,6 +228,7 @@ End Sub
         If Vacio(dato1, dato2, dato3) Then AvisoFaltan "Corriente, Ancho o ICC": Exit Sub
 
         ResultadoHBB = "HBB" & "X" & dato1 & "_" & dato2 & "X" & dato3
+        msgbox ResultadoHBB
         MoverBloque ResultadoHBB, "TM-TH", wsActual, Celda
         Application.ScreenUpdating = True
     End Sub
