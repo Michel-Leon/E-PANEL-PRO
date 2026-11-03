@@ -4,6 +4,81 @@ Public Ancho As String, AnchoLISAS As String
 Public Profundidad As String
 Public IP As String, Color As String
 
+' Paneles especiales
+  Private Sub TipoCorte_Change()
+    habilitar_controles_paneles
+    CargarCantidadPE
+    CargarTamanoPE
+End Sub
+
+Private Sub CortePE_Change()
+    CargarTamanoPE   ' se actualiza también cuando cambia CortePE
+End Sub
+
+Private Sub CargarCantidadPE()
+    Dim dato As String
+    dato = Trim(Me.OLEObjects("TipoCorte").Object.Value)
+
+    With Me.OLEObjects("CantidadPE").Object
+        .Clear
+        Select Case UCase(dato)
+            Case "CONTROL"
+                .AddItem "Uno"
+            Case "VENTILACION"
+                .AddItem "Uno"
+                .AddItem "Dos"
+        End Select
+    End With
+End Sub
+
+Private Sub CargarTamanoPE()
+    Dim dato As String, dato2 As String
+    dato = UCase(Trim(Me.OLEObjects("TipoCorte").Object.Value))
+    dato2 = UCase(Trim(Me.OLEObjects("CortePE").Object.Value))
+
+    With Me.OLEObjects("TamanoPE").Object
+        .Clear
+        Select Case dato
+            Case "CONTROL"
+                .AddItem "Pequeña"
+                .AddItem "Mediana"
+                .AddItem "Grande"
+            Case "VENTILACION"
+                Select Case dato2
+                    Case "NATURAL"
+                        .AddItem "Pequeña"
+                        .AddItem "Mediana"
+                        .AddItem "Grande"
+                    Case "SCHNEIDER", "SHNEIDER"
+                        .AddItem "NA"
+                End Select
+        End Select
+    End With
+End Sub
+    Public sub habilitar_controles_paneles()
+        Dim dato As String
+        dato = Me.OLEObjects("TipoCorte").Object.Value
+        select case dato 
+            case "Control" 
+                Me.OLEObjects("TamanoPE").Object.Enabled = True
+                Me.OLEObjects("CantidadPE").Object.Enabled = True
+                Me.OLEObjects("CortePE").Object.Enabled = false
+            case "Vidrio"
+                Me.OLEObjects("TamanoPE").Object.Enabled = False
+                Me.OLEObjects("CantidadPE").Object.Enabled = False
+                Me.OLEObjects("CortePE").Object.Enabled = False
+            case "Pilotos"
+                Me.OLEObjects("TamanoPE").Object.Enabled = False
+                Me.OLEObjects("CantidadPE").Object.Enabled = False
+                Me.OLEObjects("CortePE").Object.Enabled = False
+            case "Ventilacion"
+                Me.OLEObjects("TamanoPE").Object.Enabled = true
+                Me.OLEObjects("CantidadPE").Object.Enabled = true
+                Me.OLEObjects("CortePE").Object.Enabled = true
+        end select
+    End sub
+
+        
 'Accesorio MTM
     Private Sub TipoACC_Change()
         Dim dato As String
@@ -299,7 +374,20 @@ Public Sub Worksheet_Activate()
             .AddItem "Celosidas_Pequeña"
             .AddItem "Celosidas_Grande"
             .AddItem "Chapa_Antivandalica"
-        End With   
+        End With  
+    '============== PUERTAS ESPECIALES ========================
+        With Me.OLEObjects("TipoCorte").Object
+            .Clear
+            .AddItem "Control"
+            .AddItem "Vidrio"
+            .AddItem "Pilotos"
+            .AddItem "Ventilacion"
+        End With 
+        with Me.OLEObjects("CortePE").Object
+            .clear
+            .additem "Natural"
+            .additem "Shneider"
+        end with
     '============== COTAS  =============================
         With Me.OLEObjects("CotasDIBUJO").Object
             .Clear
@@ -359,6 +447,8 @@ Public Sub Extraer_datos()
 
     LlenarCombo Me.OLEObjects("AlturaENV").Object, Altura
     LlenarCombo Me.OLEObjects("AnchoENV").Object, Ancho
+    LlenarCombo Me.OLEObjects("AlturaPE").Object, Altura
+    LlenarCombo Me.OLEObjects("AnchoPE").Object, AnchoLISAS 
     'msgbox MenuUnidades
     
 End Sub
