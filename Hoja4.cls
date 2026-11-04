@@ -5,78 +5,76 @@ Public Profundidad As String
 Public IP As String, Color As String
 
 ' Paneles especiales
-  Private Sub TipoCorte_Change()
-    habilitar_controles_paneles
-    CargarCantidadPE
-    CargarTamanoPE
-End Sub
+    Private Sub TipoCorte_Change()
+        habilitar_controles_paneles
+        CargarCantidadPE
+        CargarTamanoPE
+    End Sub
 
-Private Sub CortePE_Change()
-    CargarTamanoPE   ' se actualiza también cuando cambia CortePE
-End Sub
+    Private Sub CortePE_Change()
+        CargarTamanoPE
+    End Sub
 
-Private Sub CargarCantidadPE()
-    Dim dato As String
-    dato = Trim(Me.OLEObjects("TipoCorte").Object.Value)
+    Private Sub CargarCantidadPE()
+        Dim dato As String
+        dato = UCase(Trim(Me.OLEObjects("TipoCorte").Object.Value))
 
-    With Me.OLEObjects("CantidadPE").Object
-        .Clear
-        Select Case UCase(dato)
-            Case "CONTROL"
-                .AddItem "Uno"
-            Case "VENTILACION"
-                .AddItem "Uno"
-                .AddItem "Dos"
-        End Select
-    End With
-End Sub
+        With Me.OLEObjects("CantidadPE").Object
+            .Clear
+            Select Case dato
+                Case "CONTROL"
+                    .AddItem "Uno"
+                Case "VENTILACION"
+                    .AddItem "Uno"
+                    .AddItem "Doble"
+            End Select
+        End With
+    End Sub
 
-Private Sub CargarTamanoPE()
-    Dim dato As String, dato2 As String
-    dato = UCase(Trim(Me.OLEObjects("TipoCorte").Object.Value))
-    dato2 = UCase(Trim(Me.OLEObjects("CortePE").Object.Value))
+    Private Sub CargarTamanoPE()
+        Dim dato As String, dato2 As String
+        dato = UCase(Trim(Me.OLEObjects("TipoCorte").Object.Value))
+        dato2 = UCase(Trim(Me.OLEObjects("CortePE").Object.Value))
 
-    With Me.OLEObjects("TamanoPE").Object
-        .Clear
+        With Me.OLEObjects("TamanoPE").Object
+            .Clear
+            Select Case dato
+                Case "CONTROL"
+                    .AddItem "Pequeña"
+                    .AddItem "Mediana"
+                    .AddItem "Grande"
+                Case "VENTILACION"
+                    Select Case dato2
+                        Case "NATURAL"
+                            .AddItem "Pequeña"
+                            .AddItem "Mediana"
+                            .AddItem "Grande"
+                        Case "SHNEIDER", "SCHNEIDER"
+                            .AddItem "NA"
+                    End Select
+            End Select
+        End With
+    End Sub
+
+    Public Sub habilitar_controles_paneles()
+        Dim dato As String
+        dato = UCase(Trim(Me.OLEObjects("TipoCorte").Object.Value))
+
         Select Case dato
             Case "CONTROL"
-                .AddItem "Pequeña"
-                .AddItem "Mediana"
-                .AddItem "Grande"
-            Case "VENTILACION"
-                Select Case dato2
-                    Case "NATURAL"
-                        .AddItem "Pequeña"
-                        .AddItem "Mediana"
-                        .AddItem "Grande"
-                    Case "SCHNEIDER", "SHNEIDER"
-                        .AddItem "NA"
-                End Select
-        End Select
-    End With
-End Sub
-    Public sub habilitar_controles_paneles()
-        Dim dato As String
-        dato = Me.OLEObjects("TipoCorte").Object.Value
-        select case dato 
-            case "Control" 
                 Me.OLEObjects("TamanoPE").Object.Enabled = True
                 Me.OLEObjects("CantidadPE").Object.Enabled = True
-                Me.OLEObjects("CortePE").Object.Enabled = false
-            case "Vidrio"
+                Me.OLEObjects("CortePE").Object.Enabled = False
+            Case "VENTILACION"
+                Me.OLEObjects("TamanoPE").Object.Enabled = True
+                Me.OLEObjects("CantidadPE").Object.Enabled = True
+                Me.OLEObjects("CortePE").Object.Enabled = True
+            Case Else   ' Vidrio, Pilotos, etc.
                 Me.OLEObjects("TamanoPE").Object.Enabled = False
                 Me.OLEObjects("CantidadPE").Object.Enabled = False
                 Me.OLEObjects("CortePE").Object.Enabled = False
-            case "Pilotos"
-                Me.OLEObjects("TamanoPE").Object.Enabled = False
-                Me.OLEObjects("CantidadPE").Object.Enabled = False
-                Me.OLEObjects("CortePE").Object.Enabled = False
-            case "Ventilacion"
-                Me.OLEObjects("TamanoPE").Object.Enabled = true
-                Me.OLEObjects("CantidadPE").Object.Enabled = true
-                Me.OLEObjects("CortePE").Object.Enabled = true
-        end select
-    End sub
+        End Select
+    End Sub
 'Accesorio MTM
     Private Sub TipoACC_Change()
         Dim dato As String
@@ -516,6 +514,45 @@ Public Sub Placas_Control()
     ResultadoPC = "PCTR_X" & dato1 & "X" & dato2 & "_" & dato3 & "X" & dato4
     MoverBloque ResultadoPC, "SERVICIOS", wsActual, Celda
 End Sub
+public sub Puertas_especiales()
+    '========================
+        Celda = "KS99"
+        ThisWorkbook.Sheets("FrontalPuerta").Range("KO83:NJ185").Clear
+        Set wsActual = ThisWorkbook.Sheets("FrontalPuerta")
+    '========================
+    Dim dato1 As String, dato2 As String, dato3 As String, dato4 As String, dato5 As String, dato6 As String
+    dato1 = Me.OLEObjects("AlturaPE").Object.Value
+    dato2 = Me.OLEObjects("AnchoPE").Object.Value
+    dato3 = Me.OLEObjects("TipoCorte").Object.Value
+    Select Case dato3
+        Case "Control": dato3 = "Co"
+        Case "Vidrio": dato3 = "Vi"
+        Case "Pilotos": dato3 = "Pi"
+        Case "Ventilacion": dato3 = "Ve"
+    End Select
+    dato4 = Me.OLEObjects("CortePE").Object.Value
+    Select Case dato4
+        Case "Natural": dato4 = "Nat"
+        Case "Schneider": dato4 = "Shn"
+    End Select
+    dato5 = Me.OLEObjects("TamanoPE").Object.Value
+    Select Case dato5
+        Case "Pequeña": dato5 = "Pe"
+        Case "Mediana": dato5 = "Me"
+        Case "Grande": dato5 = "Gr"
+    End Select
+    dato6 = Me.OLEObjects("CantidadPE").Object.Value
+    if dato3 = "Co" then
+        ResultadoPE = "PE_" & dato1 & "X" & dato2 & "X" & dato3  & dato5 &  dato6
+    Elseif dato3 = "Vi" then
+        ResultadoPE = "PE_" & dato1 & "X" & dato2 & "X" & dato3
+    Elseif dato3 = "Pi" then
+        ResultadoPE = "PE_" & dato1 & "X" & dato2 & "X" & dato3
+    Elseif dato3 = "Ve" then
+        ResultadoPE = "PE_" & dato1 & "X" & dato2 & "X" & dato3  & dato4 & "_" & dato5 &  dato6
+    End if
+    MoverBloque ResultadoPE, "Puertas_Especiales", wsActual, Celda
+End Sub
 Public Sub COTAS()
     '========================
         Celda = "KR104"
@@ -649,4 +686,10 @@ Public Sub ETIQUETAS()
             ResultadoETQ = dato1 & dato3
     End Select
     MoverBloque ResultadoETQ, "ETIQUETAS", wsActual, Celda
+End Sub
+
+Public sub Agrgar_Puertas()
+    N_INICIO = 156
+    N_FIN = 162
+    Informe_Puerta ResultadoPE
 End Sub
