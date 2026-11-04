@@ -689,7 +689,7 @@ Public Sub ETIQUETAS()
 End Sub
 
 Public sub Agrgar_Puertas()
-    N_INICIO = 156
-    N_FIN = 162
+    N_INICIO = 157
+    N_FIN = 163
     Informe_Puerta ResultadoPE
 End Sub

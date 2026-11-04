@@ -16,6 +16,44 @@ Public IP As String, Color As String
             LlenarCombo Me.OLEObjects("Profundidad_panel").Object, Ancho
         end if    
     End sub
+'PANELES
+    Private sub TipoPE_Change()
+     Extraer_datos
+        dim dato As String
+        dato = Me.OLEObjects("TipoPE").Object.Value
+        if dato = "Panel Lateral" then
+            ActiveSheet.Shapes("CuadroTexto PE").TextFrame2.TextRange.Text = "Profundidad:"
+            LlenarCombo Me.OLEObjects("AnchoPE").Object, Profundidad
+        else
+            ActiveSheet.Shapes("CuadroTexto PE").TextFrame2.TextRange.Text = "Ancho:"
+            LlenarCombo Me.OLEObjects("AnchoPE").Object, ANCHO_PE
+        end if   
+        with Me. OLEObjects("CantPE").Object
+            .Clear
+            select case dato
+                case "Panel Lateral"
+                    .AddItem "Uno"
+                case "Panel Posterior"
+                    .AddItem "Uno"
+                    .AddItem "Doble"
+            end select
+        End With
+    End sub
+    private sub CortePE_Change()
+        dim dato as string
+        dato = Me.OLEObjects("CortePE").Object.Value
+        with Me.OLEObjects("TamanoPE").Object
+            .clear
+            select case dato
+                case "Natural"
+                    .AddItem "Pequeña"
+                    .AddItem "Mediana"
+                    .AddItem "Grande"
+                case "Shneider"
+                    .AddItem "NA"
+            end select
+        end with
+    end sub
 'Accesorio MTM
     Private Sub TipoACC_Change()
         Dim dato As String
@@ -54,6 +92,17 @@ Public Sub Worksheet_Activate()
             .AddItem "Vista Lateral"
             .AddItem "Vista Posterior"
         end With
+     '============= PANELES ESPECIALES =====================
+        With Me. OLEObjects("TipoPE").Object
+            .Clear
+            .AddItem "Panel Lateral"
+            .AddItem "Panel Posterior"
+        End With 
+        With Me. OLEObjects("CortePE").Object
+            .Clear
+            .AddItem "Natural"
+            .AddItem "Shneider"
+        End With
     '============== Accesorios MTM  =============================
         With Me.OLEObjects("TipoACC").Object
             .Clear
@@ -153,6 +202,36 @@ Public Sub Envolventes()
     ResultadoL_P = dato1 & dato2 & "X" & dato3
     MoverBloque ResultadoL_P, "ENV_S_I_P_L", wsActual, Celda
 End Sub
+Public sub Paneles_Especiales()
+    '========================
+        Celda = "KR96"
+        ThisWorkbook.Sheets("Vista_Lat_Post").Range("KR80:NJ185").Clear
+        Set wsActual = ThisWorkbook.Sheets("Vista_Lat_Post")
+    '========================
+    Dim dato1 As String, dato2 As String, dato3 As String, dato4 As String, dato5 As String, dato6 As String
+    dato1 = Me.OLEObjects("TipoPE").Object.Value
+    select case dato1
+        case "Panel Lateral": dato1 = "PLE_"
+        case "Panel Posterior": dato1 = "POE_"
+    end select
+    dato2 = Me.OLEObjects("AlturaPE").Object.Value
+    dato3 = Me.OLEObjects("AnchoPE").Object.Value
+    dato4 = Me.OLEObjects("CortePE").Object.Value
+    select case dato4
+        case "Natural": dato4 = "Nat"
+        case "Shneider": dato4 = "Shn"
+    end select
+    dato5 = Me.OLEObjects("TamanoPE").Object.Value
+    select case dato5
+        case "Pequeña": dato5 = "Pe"
+        case "Mediana": dato5 = "Me"
+        case "Grande": dato5 = "Gr"
+        case "NA": dato5 = "NA"
+    end select
+    dato6 = Me.OLEObjects("CantPE").Object.Value
+    ResultadoPE_LP = dato1 & dato2 & "X" & dato3 &"XVe"  & dato4 & "_" & dato5 &  dato6
+    MoverBloque ResultadoPE_LP, "Paneles Lat_Pos", wsActual, Celda
+End sub
 Public Sub ACESORIOS_MTM()
     '========================
         Celda = "KP104"
@@ -274,4 +353,18 @@ Public Sub Cambiodecolor() 'Vista frontal
     Next Celda
     
     MsgBox "Proceso Finalizado con Exito", vbInformation, "Cambio de Color"
+End Sub
+'==============
+Public sub Agregar_Panel()
+    if Me.OLEObjects("TipoPE").Object.Value = "Panel Lateral" then
+        
+        N_INICIO = 3
+        N_FIN = 3
+        Informe_Paneles ResultadoPE_LP
+    elseif Me.OLEObjects("TipoPE").Object.Value = "Panel Posterior" then
+        
+        N_INICIO = 6
+        N_FIN = 12
+        Informe_Paneles ResultadoPE_LP
+    end if
 End Sub
