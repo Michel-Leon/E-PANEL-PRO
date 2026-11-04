@@ -100,9 +100,11 @@ End Sub
 '========================================= PUERTAS ESPECIALES ================================
 Public Sub ObtenerHojaYFilaDestino3(ByRef hojaDestino As Worksheet, ByRef filaDestino As Long)
 
-    Const FILA_INICIO As Long = 156
-    Const FILA_LIMITE As Long = 162
-   
+    Dim FILA_INICIO As Long
+    Dim FILA_LIMITE As Long
+    FILA_INICIO = N_INICIO
+    FILA_LIMITE = N_Fin
+    
     Dim hojas(1 To 1) As Worksheet
     Set hojas(1) = ThisWorkbook.Sheets("FrontalPuerta")
 
@@ -135,7 +137,11 @@ Private Function BuscarFilaLibre3(hoja As Worksheet, filaInicio As Long) As Long
     Do While hoja.Range("FO" & fila).Text <> "" Or _
              hoja.Range("FU" & fila).Text <> "" Or _
              hoja.Range("GP" & fila).Text <> "" Or _
-             hoja.Range("IH" & fila).Text <> "" 
+             hoja.Range("IH" & fila).Text <> "" Or _
+                hoja.Range("OE" & fila).Text <> "" Or _
+                hoja.Range("OF" & fila).Text <> "" Or _
+                hoja.Range("OG" & fila).Text <> "" 
+             
              
         fila = fila + 3
     Loop
@@ -174,5 +180,38 @@ Sub Informe_Puerta(ByVal codigoBuscado As String, Optional ByVal escribirFrontal
         .Range("FO" & filaDestino).Value = valorN
         .Range("GP" & filaDestino).Value = hojaDatos.Cells(filaCodigo, "L").Value  ' Descripcion
         .Range("IH" & filaDestino).Value = hojaDatos.Cells(filaCodigo, "K").Value  ' Codigo APM
+    End With
+End Sub
+Sub Informe_Paneles(ByVal codigoBuscado As String, Optional ByVal escribirFrontal As Boolean = True)
+    Dim hojaDestino As Worksheet, hojaDatos As Worksheet
+    Dim celdaCodigo As Range
+    Dim filaCodigo As Long, filaDestino As Long
+    Dim valorN As String, valorC As String 
+
+    If codigoBuscado = "" Then
+        MsgBox "No se ha generado ningún código de Unidad.", vbExclamation
+        Exit Sub
+    End If
+
+    Set hojaDatos = ThisWorkbook.Sheets("Codigos_paneles")
+    Set celdaCodigo = hojaDatos.Range("B:B").Find(What:=codigoBuscado, _
+                        LookIn:=xlValues, LookAt:=xlWhole)
+
+    If celdaCodigo Is Nothing Then
+        MsgBox "Código '" & codigoBuscado & "' no encontrado en las hojas de datos.", vbExclamation
+        Exit Sub
+    End If
+    filaCodigo = celdaCodigo.Row
+
+    valorN = InputBox("Ingrese el Tag de la Columna" & vbCrLf & "(" & codigoBuscado & ")", "Tag columna")
+
+    ' Obtener hoja y fila destino
+    Call ObtenerHojaYFilaDestino3(hojaDestino, filaDestino)
+    If hojaDestino Is Nothing Then Exit Sub
+
+    With hojaDestino
+        .Range("OE" & filaDestino).Value = valorN
+        .Range("OF" & filaDestino).Value = hojaDatos.Cells(filaCodigo, "L").Value  ' Descripcion
+        .Range("OG" & filaDestino).Value = hojaDatos.Cells(filaCodigo, "K").Value  ' Codigo APM
     End With
 End Sub

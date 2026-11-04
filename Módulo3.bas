@@ -127,6 +127,7 @@ Public Sub Puerta_area_trabajo1()
         .Range("CG48:FI146").Clear
         .Range("CF150:FI155").Clear
         .Range("FO156:IS162").value = ""
+        .Range("OE3:OG12").value = ""
     End With
 End Sub
 '=======================================================================
@@ -264,6 +265,7 @@ Public Sub Lateral_Posterior_Menu_Envolventes()
         ActiveSheet.Shapes("Menu AccesoriosMTM").Visible = False
         ActiveSheet.Shapes("Menu Acotar").Visible = False
         ActiveSheet.Shapes("Menu Color").Visible = False
+        ActiveSheet.Shapes("Paneles especiales").Visible = False
     End If
 End Sub
 Public Sub Lateral_Posterior_Menu_AccesoriosMTM()
@@ -282,8 +284,10 @@ Public Sub Lateral_Posterior_Menu_AccesoriosMTM()
         ActiveSheet.Shapes("Menu Envolventes").Visible = False
         ActiveSheet.Shapes("Menu Acotar").Visible = False
         ActiveSheet.Shapes("Menu Color").Visible = False
+        ActiveSheet.Shapes("Paneles especiales").Visible = False
     End If
 End Sub
+
 Public Sub Lateral_Posterior_Menu_Acotar()
     Dim shp As Shape
     Dim groupname As String
@@ -300,6 +304,7 @@ Public Sub Lateral_Posterior_Menu_Acotar()
         ActiveSheet.Shapes("Menu Envolventes").Visible = False
         ActiveSheet.Shapes("Menu AccesoriosMTM").Visible = False
         ActiveSheet.Shapes("Menu Color").Visible = False
+        ActiveSheet.Shapes("Paneles especiales").Visible = False
     End If
 End Sub
 Public Sub Lateral_Posterior_Menu_Color()
@@ -318,6 +323,26 @@ Public Sub Lateral_Posterior_Menu_Color()
         ActiveSheet.Shapes("Menu Envolventes").Visible = False
         ActiveSheet.Shapes("Menu AccesoriosMTM").Visible = False
         ActiveSheet.Shapes("Menu Acotar").Visible = False
+        ActiveSheet.Shapes("Paneles especiales").Visible = False
+    End If
+End Sub
+Public Sub Lateral_Posterior_Menu_PanelesEspeciales()
+    Dim shp As Shape
+    Dim groupname As String
+    groupname = "Paneles especiales"
+    
+    On Error Resume Next
+    Set shp = ActiveSheet.Shapes(groupname)
+    On Error GoTo 0
+    
+    If Not shp Is Nothing Then
+        ' Alterna la visibilidad del grupo seleccionado
+        shp.Visible = Not shp.Visible
+        ' Oculta los dem s grupos
+        ActiveSheet.Shapes("Menu Envolventes").Visible = False
+        ActiveSheet.Shapes("Menu AccesoriosMTM").Visible = False
+        ActiveSheet.Shapes("Menu Acotar").Visible = False
+        ActiveSheet.Shapes("Menu Color").Visible = False
     End If
 End Sub
 Public Sub Lateral_Posterior_area_trabajo2()

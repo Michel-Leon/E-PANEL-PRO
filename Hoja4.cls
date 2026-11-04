@@ -39,17 +39,17 @@ Private Sub CargarTamanoPE()
     With Me.OLEObjects("TamanoPE").Object
         .Clear
         Select Case dato
-            Case "CONTROL"
+            Case "Control"
                 .AddItem "Pequeña"
                 .AddItem "Mediana"
                 .AddItem "Grande"
-            Case "VENTILACION"
+            Case "Ventilacion"
                 Select Case dato2
                     Case "NATURAL"
                         .AddItem "Pequeña"
                         .AddItem "Mediana"
                         .AddItem "Grande"
-                    Case "SCHNEIDER", "SHNEIDER"
+                    Case "Shneider", "Shneider"
                         .AddItem "NA"
                 End Select
         End Select
@@ -696,5 +696,7 @@ Public Sub ETIQUETAS()
 End Sub
 '===========
 Public sub Agrgar_Puertas()
+    N_INICIO = 156
+    N_FIN = 162
     Informe_Puerta ResultadoPE
 End Sub

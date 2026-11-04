@@ -1,5 +1,5 @@
 Attribute VB_Name = "M�dulo5"
-Public N_INICIO As Long
+Public N_INICIO As Long 
 Public N_Fin As Long
 Public Sub ObtenerHojaYFilaDestino2(ByRef hojaDestino As Worksheet, ByRef filaDestino As Long)
 

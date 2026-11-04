@@ -27,6 +27,7 @@ Public ResultadoFLG As String
 Public ResultadoTFM As String
 Public RefAdicional As String
 Public ResultadoPE As String
+public ResultadoPE_LP As String
 '============== Mover Bloque ===================
 Public Sub MoverBloque(ByVal ref As String, ByVal BD As String, _
                        ByVal wsDestino As Worksheet, ByVal celdaDestino As String)
