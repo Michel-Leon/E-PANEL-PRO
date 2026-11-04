@@ -126,6 +126,7 @@ Public Sub Puerta_area_trabajo1()
     With ThisWorkbook.Sheets("FrontalPuerta")
         .Range("CG48:FI146").Clear
         .Range("CF150:FI155").Clear
+        .Range("FO156:IS162").value = ""
     End With
 End Sub
 '=======================================================================

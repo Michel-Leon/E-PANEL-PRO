@@ -26,6 +26,7 @@ Public ResultadoCOMT As String
 Public ResultadoFLG As String
 Public ResultadoTFM As String
 Public RefAdicional As String
+Public ResultadoPE As String
 '============== Mover Bloque ===================
 Public Sub MoverBloque(ByVal ref As String, ByVal BD As String, _
                        ByVal wsDestino As Worksheet, ByVal celdaDestino As String)
@@ -151,8 +152,8 @@ Sub abrir_formulario()
     End If
 
     ' Leer usuario y clave ingresados
-    usuarioIngresado = Trim(wsLogin.Range("HX83").Value)
-    claveIngresada = Trim(wsLogin.Range("HX98").Value)
+    usuarioIngresado = Trim(wsLogin.Range("IJ83").Value)
+    claveIngresada = Trim(wsLogin.Range("IJ98").Value)
 
     If usuarioIngresado = "" Or claveIngresada = "" Then
         MsgBox "Debe ingresar usuario y contraseña.", vbExclamation, "Login"
@@ -188,14 +189,14 @@ Sub abrir_formulario()
         'wsLogin.Visible = xlSheetVeryHidden
 
         ' Limpiar los campos del login por seguridad
-        wsLogin.Range("HX83").Value = ""
-        wsLogin.Range("HX98").Value = ""
+        wsLogin.Range("IJ83").Value = ""
+        wsLogin.Range("IJ98").Value = ""
 
         Application.ScreenUpdating = True
 
     Else
         MsgBox "Usuario o contraseña incorrectos.", vbCritical, "Login"
-        wsLogin.Range("HX98").Value = ""
+        wsLogin.Range("IJ98").Value = ""
     End If
 
 End Sub
@@ -210,7 +211,7 @@ Public Sub Cerrar_seccion()
 
     ' Verificar que la estructura del libro no est� protegida
     If ThisWorkbook.ProtectStructure Then
-        MsgBox "La estructura del libro est� protegida." & vbNewLine & _
+        MsgBox "La estructura del libro esta protegida." & vbNewLine & _
                "Desprot�jala en Revisar > Proteger libro.", vbCritical, "Error"
         Exit Sub
     End If
@@ -222,17 +223,17 @@ Public Sub Cerrar_seccion()
     wsLogin.Activate
 
     ' 2) Limpiar los campos del login
-    wsLogin.Range("HX83").Value = ""
-    wsLogin.Range("HX98").Value = ""
+    wsLogin.Range("IJ83").Value = ""
+    wsLogin.Range("IJ98").Value = ""
 
-    ' 3) Borrar el usuario de la sesi�n
+    ' 3) Borrar el usuario de la sesin
     wsConfig.Range("K193").ClearContents
 
-    ' 4) DESPU�S ocultar INICIO (ya hay otra hoja visible)
+    ' 4) DESPUS ocultar INICIO (ya hay otra hoja visible)
     wsConfig.Visible = xlSheetVeryHidden
 
     ' Dejar el cursor en el campo de usuario
-    wsLogin.Range("HX83").Select
+    wsLogin.Range("IJ83").Select
 
     Application.ScreenUpdating = True
 
@@ -249,7 +250,7 @@ Sub CambiarZoomEnTodasLasHojas()
 
     ' Validar que el valor ingresado sea num�rico
     If Not IsNumeric(zoomStr) Then
-        MsgBox "Por favor ingrese un n�mero v�lido.", vbExclamation
+        MsgBox "Por favor ingrese un numero valido.", vbExclamation
         Exit Sub
     End If
     zoomVal = CInt(zoomStr) 
