@@ -243,7 +243,7 @@ Public Sub Cambiodecolor() 'Vista frontal
                    Celda.Interior.Color = RGB(244, 244, 244) Then
                     Celda.Interior.Color = RGB(236, 236, 231)
                 End If
-            Case "RAL 9004"
+            Case "RAL 9004" 
                 If Celda.Interior.Color = RGB(197, 199, 196) Or _
                    Celda.Interior.Color = RGB(181, 176, 161) Or _
                    Celda.Interior.Color = RGB(201, 133, 12) Or _

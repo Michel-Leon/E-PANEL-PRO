@@ -203,7 +203,7 @@ Sub abrir_formulario()
         ' Limpiar los campos del login por seguridad
         wsLogin.Range("IJ83").Value = ""
         wsLogin.Range("IJ98").Value = "" 
-
+ 
         Application.ScreenUpdating = True
 
     Else
