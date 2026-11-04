@@ -322,7 +322,7 @@ Private mbCargando As Boolean          'evita eventos en cascada
                                 "MVSFIJO", "MVSEXTRAIBLE"
                                 .AddItem "Vertical"
                             '--- Solo Horizontal ----------------------------------------------------
-                            Case "EZC630", "GoPact800"
+                            Case  "GoPact800"
                                 .AddItem "Horizontal"
 
                             '--- Horizontal + H.Compuesta -------------------------------------------
@@ -331,7 +331,7 @@ Private mbCargando As Boolean          'evita eventos en cascada
                                 .AddItem "H.Compuesta"
 
                             '--- Horizontal + V.Extendida -------------------------------------------
-                            Case "CVS630", "NSX630", "NS800_1600"
+                            Case "CVS630", "NSX630", "NS800_1600", "EZC630"
                                 .AddItem "Horizontal"
                                 .AddItem "V.Extendida"
 
@@ -1180,7 +1180,37 @@ Private mbCargando As Boolean          'evita eventos en cascada
                     .Additem "720"
             End Select
         End With
-    End Sub         
+    End Sub  
+'ARRANQUE MOTOR
+    Private sub TipoUnidadARR_Change()
+        Dim dato As String
+        dato = Me.OleObjects("TipoUnidadARR").Object.Value
+        With Me.OleObjects("EquipoARR").Object
+            .Clear
+            Select Case dato
+               case "SFI - Frontal Interno"
+                    .AddItem "Contactores"
+                case "SIC - Placa de Control"
+                    .AddItem "Contactores"
+                    .AddItem "Guardamotor"
+                    .AddItem "Guardamotor_Contactores"
+            End Select
+        End With
+    End Sub  
+    Private sub EquipoARR_Change()
+        Dim dato As String
+        dato = Me.OLEObjects("EquipoARR").Object.Value
+        With Me.OLEObjects("TallaARR").Object
+            .Clear
+            Select Case dato
+                Case "Contactores"
+                    .AddItem "Talla 1-2"
+                    .AddItem "Talla 3"
+                Case "Guardamotor","Guardamotor_Contactores"
+                    .AddItem "Talla 3"
+            End Select
+        End With
+    End Sub      
 Public Sub Worksheet_Activate()
     Extraer_datos
     'ocultar menus emergentes
@@ -1247,6 +1277,12 @@ Public Sub Worksheet_Activate()
             '.AddItem "A-Unit (Barra + Mini)"
             .AddItem "Contactores"
         End With
+    '============== ARRANQUE MOTOR ====================
+        With Me.OLEObjects("TipoUnidadARR").Object 
+            .Clear
+            .AddItem "SFI - Frontal Interno"
+            .AddItem "SIC - Placa de Control"
+        End With 
     '============== DPS ===================
         With Me.OLEObjects("TipoUNDPS").Object
             .Clear
@@ -1583,6 +1619,30 @@ End Sub
         ResultadoUF = dato1 & dato2 & dato6 & "X" & dato3 & dato4 & dato5
         Debug.Print ResultadoUF          'F5 y mira la ventana Inmediato (Ctrl+G)
         MoverBloque ResultadoUF, "UF-SFI", wsActual, Celda
+        Application.ScreenUpdating = True
+    End Sub
+'=================================================================== ARRANQUE MOTOR
+    Public Sub Arranque_motor()
+        Dim wsActual As Worksheet, Celda As String
+        Dim dato1 As String, dato2 As String, dato3 As String
+        PrepararHoja wsActual, "KO125:NJ185"
+        Celda = "KP132"
+        dato1 = Txt("TipoUnidadARR")
+        Select Case dato1
+            Case "SFI - Frontal Interno":  dato1 = "SFI"
+            Case "SIC - Placa de Control": dato1 = "SIC"
+        End Select
+        dato2 = Txt("EquipoARR")
+        dato3 = Txt("TallaARR")
+        Select Case dato3
+            Case "Talla 1-2": dato3 = "T1"
+            Case "Talla 3":   dato3 = "T3"
+        End Select
+
+        If Vacio(dato1, dato2, dato3) Then AvisoFaltan "Tipo, Equipo o Talla": Exit Sub
+
+        ResultadoARR = dato1 & "_" & dato2 & "X" & dato3 & "X720"
+        MoverBloque ResultadoARR, "Arranque motor", wsActual, Celda
         Application.ScreenUpdating = True
     End Sub
 '==================================================================== LISAS
@@ -2165,7 +2225,6 @@ Public sub Buscar_datos_ETO()
     Celda_Cubiculo = "KQ132"
     Funcion = ""
     Informe_Unidades ResultadoETO
-   
 End sub
 Public Sub Buscar_datos_TRF()
     Dim msg As String
@@ -2190,9 +2249,14 @@ public sub Buscar_datos_COMT()
     Funcion = ""
     Informe_Unidades ResultadoCOMT
 End sub
+Public sub Buscar_datos_ARR()
+    Celda_Cubiculo = "KP132"
+    Funcion = ""
+    Informe_Unidades ResultadoARR
+End sub
 '============= Agregra referencia conjunto para ciertas unidades  y tranferencias
 Public Sub Buscar_datos_conjunto(ByVal codigo As String)
-    Select Case codigo
+    Select Case codigo 
     case "SFI_GoPact200ToX720VE_NA","SFC_GoPact200ToX720VE_NA", _
         "SFI_GoPact250ToX720VE_NA","SFC_GoPact250ToX720VE_NA", _
         "SFI_EZC250ToX720VE_NA","SFC_EZC250ToX720VE_NA", _
@@ -2202,7 +2266,8 @@ Public Sub Buscar_datos_conjunto(ByVal codigo As String)
         "SFI_NSX630ToX720VE_NA","SFC_NSX630ToX720VE_NA", _
         "SFI_NS800_1600ToX720VE_NA","SFC_NS800_1600ToX720VE_NA", _
         "SIA_CVS630PX720VE_NA","SIA_NSX630PX720VE_NA", _
-        "SIA_NS800_1600PX720VE_NA"
+        "SIA_NS800_1600PX720VE_NA", "SIA_GoPact200PX720VE_NA", "SIA_GoPact250PX720VE_NA"
+
         AgregarAdicional "SFI720X5u", 1
     Case "SFI_NWFIJOMX720V_NA","SFC_NWFIJOMX720V_NA", _
         "SFI_NWEXTRAIBLEMX720V_NA","SFC_NWEXTRAIBLEMX720V_NA", _
