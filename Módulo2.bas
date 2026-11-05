@@ -716,14 +716,14 @@ Public Sub Area_GFL_1_L()
     ThisWorkbook.Sheets("Lateral").Range("CP50:FD146").Clear
 End Sub
 Public Sub Area_GFL_2_L()
-    ThisWorkbook.Sheets("Lateral").Range("KO91:OJ185").Clear
+    ThisWorkbook.Sheets("Lateral").Range("KP74:OJ185").Clear
 End Sub
 '======================= VISTA Posterior ======================
 Public Sub Area_GFL_1_P()
     ThisWorkbook.Sheets("Posterior").Range("CF49:GK146").Clear
 End Sub 
 Public Sub Area_GFL_2_P()
-    ThisWorkbook.Sheets("Posterior").Range("KO91:OJ185").Clear
+    ThisWorkbook.Sheets("Posterior").Range("KO84:OJ185").Clear
 End Sub 
 '=================== BARRAJE ================================
 Public Sub Seleccion_Menu_Verticales()

@@ -215,6 +215,7 @@ Public Sub Worksheet_Activate()
             .AddItem "Altura: 900mm"
             .AddItem "Altura: 800mm"
             .AddItem "Altura: 700mm" 
+            .AddItem "Altura: 1120mm"
             .AddItem "Division Tabelero"
             .AddItem "Corte Tren"
             .AddItem "Continuacion Tren"
@@ -299,8 +300,8 @@ Public Sub ACESORIOS_MTM()
 End Sub
 Public Sub COTAS()
     '========================
-        celda = "KR116"
-        ThisWorkbook.Sheets("Lateral").Range("KO91:OJ185").Clear
+        celda = "KQ75"
+        ThisWorkbook.Sheets("Lateral").Range("KQ75:OJ185").Clear
         Set wsActual = ThisWorkbook.Sheets("Lateral")
     '========================
     Dim dato1 As String
@@ -315,6 +316,7 @@ Public Sub COTAS()
         Case "Altura: 900mm": dato1 = "CG_900"
         Case "Altura: 800mm": dato1 = "CG_800"
         Case "Altura: 700mm": dato1 = "CG_700"
+        Case "Altura: 1120mm": dato1 = "CG_1120"
         Case "Division Tabelero": dato1 = "Division"
         Case "Corte Tren": dato1 = "Corte_Tren"
         Case "Continuacion Tren": dato1 = "Continuidad_Tren"
