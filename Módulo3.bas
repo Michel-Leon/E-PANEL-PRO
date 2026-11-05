@@ -17,6 +17,7 @@ Public Sub Puerta_Menu_Envolventes()
         ActiveSheet.Shapes("Menu Etiqueta").Visible = False
         ActiveSheet.Shapes("Menu Acotar").Visible = False
         ActiveSheet.Shapes("Menu Color").Visible = False
+        ActiveSheet.Shapes("Menu Puertas especiales").Visible = False
     End If
 End Sub
 Public sub Puerta_Menu_Placas()
@@ -37,6 +38,7 @@ Public sub Puerta_Menu_Placas()
         ActiveSheet.Shapes("Menu Etiqueta").Visible = False
         ActiveSheet.Shapes("Menu Acotar").Visible = False
         ActiveSheet.Shapes("Menu Color").Visible = False
+        ActiveSheet.Shapes("Menu Puertas especiales").Visible = False
     End If
 End sub
 Public sub Puerta_Menu_AccesoriosMTM()
@@ -57,6 +59,7 @@ Public sub Puerta_Menu_AccesoriosMTM()
         ActiveSheet.Shapes("Menu Etiqueta").Visible = False
         ActiveSheet.Shapes("Menu Acotar").Visible = False
         ActiveSheet.Shapes("Menu Color").Visible = False
+        ActiveSheet.Shapes("Menu Puertas especiales").Visible = False
     End If
 End sub
 Public sub Puerta_Menu_Etiqueta()
@@ -77,6 +80,7 @@ Public sub Puerta_Menu_Etiqueta()
         ActiveSheet.Shapes("Menu AccesoriosMTM").Visible = False
         ActiveSheet.Shapes("Menu Acotar").Visible = False
         ActiveSheet.Shapes("Menu Color").Visible = False
+        ActiveSheet.Shapes("Menu Puertas especiales").Visible = False
     End If
 End sub
 public sub Puerta_Menu_Acotar()
@@ -97,6 +101,7 @@ public sub Puerta_Menu_Acotar()
         ActiveSheet.Shapes("Menu AccesoriosMTM").Visible = False
         ActiveSheet.Shapes("Menu Etiqueta").Visible = False
         ActiveSheet.Shapes("Menu Color").Visible = False
+        ActiveSheet.Shapes("Menu Puertas especiales").Visible = False
     End If
 End sub
 public sub Puerta_Menu_Color()
@@ -117,6 +122,28 @@ public sub Puerta_Menu_Color()
         ActiveSheet.Shapes("Menu AccesoriosMTM").Visible = False
         ActiveSheet.Shapes("Menu Etiqueta").Visible = False
         ActiveSheet.Shapes("Menu Acotar").Visible = False
+        ActiveSheet.Shapes("Menu Puertas especiales").Visible = False
+    End If
+End sub
+public sub Menu_Puertas_especiales()
+    Dim shp As Shape
+    Dim groupname As String
+    groupname = "Menu Puertas especiales"
+    
+    On Error Resume Next
+    Set shp = ActiveSheet.Shapes(groupname)
+    On Error GoTo 0
+    
+    If Not shp Is Nothing Then
+        ' Alterna la visibilidad del grupo seleccionado
+        shp.Visible = Not shp.Visible
+        ' Oculta los dem s grupos
+        ActiveSheet.Shapes("Menu Envolventes").Visible = False
+        ActiveSheet.Shapes("Menu Placas de control").Visible = False
+        ActiveSheet.Shapes("Menu AccesoriosMTM").Visible = False
+        ActiveSheet.Shapes("Menu Etiqueta").Visible = False
+        ActiveSheet.Shapes("Menu Acotar").Visible = False
+        ActiveSheet.Shapes("Menu Color").Visible = False
     End If
 End sub
 Public Sub Puerta_area_trabajo2()
@@ -126,7 +153,8 @@ Public Sub Puerta_area_trabajo1()
     With ThisWorkbook.Sheets("FrontalPuerta")
         .Range("CG48:FI146").Clear
         .Range("CF150:FI155").Clear
-        .Range("FO156:IS162").value = ""
+        .Range("GP156:IS162").value = ""
+        .Range("FO156:FO162").value = ""
         .Range("OE3:OG12").value = ""
     End With
 End Sub
