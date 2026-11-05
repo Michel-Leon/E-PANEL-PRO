@@ -238,30 +238,7 @@ Private Const O720 As String = "Horizontal,H.Compuesta,V.Compacta"
         End With
     End Sub
 'TRANFERENCIAS
-    Private Sub OrientacionTRF_Change()
-        Dim dato As String
-        dato = Me.OLEObjects("OrientacionTRF").Object.Value
-        With Me.OLEObjects("EquipoTRF").Object
-            .Clear
-            Select Case dato
-                Case "Vertical"
-                    .AddItem "EZC250"
-                    .AddItem "EZC630"
-                    .AddItem "CVS250"
-                    .AddItem "CVS630"
-                    .AddItem "NSX250"
-                    .AddItem "NSX630"
-                    .AddItem "GoPact250"
-                    .AddItem "GoPact400"
-                    .AddItem "NS800"
-                Case "Horizontal"
-                    .AddItem "EZC250X2"
-                    .AddItem "CVS250X2"
-                    .AddItem "NSX250X2"
-                    .AddItem "GoPact250X2"
-            End Select
-        End With
-    End Sub
+   
     Private Sub EquipoTRF_Change()
         Dim dato As String
         dato = Me.OLEObjects("EquipoTRF").Object.Value
@@ -276,7 +253,7 @@ Private Const O720 As String = "Horizontal,H.Compuesta,V.Compacta"
             End Select
         End With
     End Sub
-    'Conmutadoras
+'Conmutadoras
     Private Sub CorrienteCOM_Change()
         Dim dato As String
         dato = Me.OLEObjects("CorrienteCOM").Object.Value
@@ -609,6 +586,19 @@ Public Sub Worksheet_Activate()
         Me.OLEObjects("OrientacionTRF").Object.Value = "Vertical"
         Me.OLEObjects("AnchoTFR").Object.Value = "720"
         Me.OLEObjects("ConexionTRF").Object.Value = "Superior"
+        
+        With Me.OLEObjects("EquipoTRF").Object
+            .Clear
+            .AddItem "EZC250"
+            .AddItem "EZC400"
+            .AddItem "CVS250" 
+            .AddItem "CVS400"
+            .AddItem "NSX250"
+            .AddItem "NSX400"
+            .AddItem "GoPact250"
+            .AddItem "GoPact400"
+        End With
+
     '============== MENU ETOS =================
         With Me.OLEObjects("TipoU_ETO").Object
             .Clear
