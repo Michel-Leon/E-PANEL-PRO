@@ -1,6 +1,6 @@
 '=========== Vista_Lat_Post =============
 Public Altura As String
-Public Ancho As String, Profundidad As String
+Public Ancho As String, Profundidad As String, ANCHO_PE As String
 Public IP As String, Color As String 
 
 ''ENVOLVENTES
@@ -16,7 +16,7 @@ Public IP As String, Color As String
             LlenarCombo Me.OLEObjects("Profundidad_panel").Object, Ancho
         end if    
     End sub
-'PANELES
+'PANELES 
     Private sub TipoPE_Change()
      Extraer_datos
         dim dato As String
@@ -24,7 +24,7 @@ Public IP As String, Color As String
         if dato = "Panel Lateral" then
             ActiveSheet.Shapes("CuadroTexto PE").TextFrame2.TextRange.Text = "Profundidad:"
             LlenarCombo Me.OLEObjects("AnchoPE").Object, Profundidad
-        else
+        elseIF dato = "Panel Posterior" then
             ActiveSheet.Shapes("CuadroTexto PE").TextFrame2.TextRange.Text = "Ancho:"
             LlenarCombo Me.OLEObjects("AnchoPE").Object, ANCHO_PE
         end if   
@@ -179,9 +179,11 @@ Public Sub Extraer_datos()
     Ancho = CStr(Me.Range("A2").Value)
     IP = CStr(Me.Range("A4").Value)
     Profundidad = CStr(Me.Range("A3").Value)
+    ANCHO_PE = CStr(Me.Range("A5").Value)
 
     LlenarCombo Me.OLEObjects("Altura_Panel").Object, Altura
-    
+    LlenarCombo Me.OLEObjects("AlturaPE").Object, Altura
+
     'msgbox MenuUnidades
 End Sub
 Public Sub Envolventes()
