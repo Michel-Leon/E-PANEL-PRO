@@ -3,6 +3,9 @@ Public Altura as string
 Public Ancho as string, AnchoLISAS as string
 Public Profundidad as string
 Public IP as string, Color as string 
+'UNIDADES
+Private mBloq As Boolean
+Private Const O720 As String = "Horizontal,H.Compuesta,V.Compacta"
 'ENVOLVENTES
     Private sub AlturaENV_change()
         dim dato1 as string
@@ -26,7 +29,7 @@ Public IP as string, Color as string
         dato = Me.OleObjects("TipoACC").Object.Value
         with Me.OleObjects("MedidaACC").Object
             .Clear
-            select case dato
+            select case dato 
                 case "Fijacion_muro"
                     .AddItem "Frontal"
                     '.AddItem "Lateral"
@@ -41,8 +44,7 @@ Public IP as string, Color as string
         end with
     end sub
 'UNIDADES FUNCIONALES
-    Private mBloq As Boolean
-    Private Const O720 As String = "Horizontal,H.Compuesta,V.Compacta"
+   
     ' 1) FRAME → llena Medida y Corriente
     Private Sub FrameUF_Change()
         If mBloq Then Exit Sub
@@ -236,30 +238,7 @@ Public IP as string, Color as string
         End With
     End Sub 
 'TRANFERENCIAS
-    Private sub OrientacionTRF_Change()
-        DIM dato As String
-        dato = Me.OleObjects("OrientacionTRF").Object.Value
-        With Me.OleObjects("EquipoTRF").Object
-            .Clear
-            select case dato 
-                case "Vertical"
-                    .additem "EZC250"
-                    .additem "EZC630"
-                    .additem "CVS250"
-                    .additem "CVS630"
-                    .additem "NSX250"
-                    .additem "NSX630"
-                    .additem "GoPact250"
-                    .additem "GoPact400"
-                    .additem "NS800"
-                case "Horizontal"   
-                    .additem "EZC250X2"
-                    .additem "CVS250X2" 
-                    .additem "NSX250X2"
-                    .additem "GoPact250X2"
-            end select
-        end with
-    end sub
+    
     Private sub EquipoTRF_Change()
         Dim dato As String
         dato = Me.OleObjects("EquipoTRF").Object.Value
@@ -522,6 +501,7 @@ Public Sub Worksheet_Activate()
         End With
     '=============== UNIDADES LISAS =====================    
         With Me.OleObjects("TipoLSS").Object
+            .Clear
             .additem "SFI - Frontal Interno"
             .additem "SIC - Placa de Control"
         End With
@@ -607,6 +587,17 @@ Public Sub Worksheet_Activate()
         Me.OleObjects("OrientacionTRF").Object.value = "Vertical"
         Me.OleObjects("AnchoTFR").Object.value = "720"  
         Me.OleObjects("ConexionTRF").Object.Value = "Superior"
+        With Me.OleObjects("EquipoTRF").Object
+            .Clear
+                .additem "EZC250"
+                .additem "EZC400"
+                .additem "CVS250"
+                .additem "CVS400"
+                .additem "NSX250"
+                .additem "NSX400"
+                .additem "GoPact250"
+                .additem "GoPact400"
+        end with
     '============== MENU ETOS =================
         With Me.OleObjects("TipoU_ETO").Object   
             .Clear
