@@ -39,17 +39,17 @@ Private Sub CargarTamanoPE()
     With Me.OLEObjects("TamanoPE").Object
         .Clear
         Select Case dato
-            Case "Control"
+            Case "CONTROL"
                 .AddItem "Pequeña"
                 .AddItem "Mediana"
                 .AddItem "Grande"
-            Case "Ventilacion"
+            Case "VENTILACION"
                 Select Case dato2
                     Case "NATURAL"
                         .AddItem "Pequeña"
                         .AddItem "Mediana"
                         .AddItem "Grande"
-                    Case "Shneider", "Shneider"
+                    Case "SHNEIDER", "SCHNEIDER"
                         .AddItem "NA"
                 End Select
         End Select
