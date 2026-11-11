@@ -48,7 +48,7 @@ Private Sub CargarTamanoPE()
                     Case "NATURAL"
                         .AddItem "Pequeña"
                         .AddItem "Mediana"
-                        .AddItem "Grande"
+                        .AddItem "Grande" 
                     Case "Shneider", "Shneider"
                         .AddItem "NA"
                 End Select
