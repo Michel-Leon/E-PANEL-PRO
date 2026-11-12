@@ -105,10 +105,11 @@ Private mbCargando As Boolean          'evita eventos en cascada
 
         With cbo("FrameUF")
         .Clear
-        Select Case sTipo
+        Select Case sTipo 
             Case "SFI - Frontal Interno", "SFC - Frontal Compacto"
                 'If MenuUnidades = "Opcion1" Then
-                    .AddItem "MiniBreaker","MiniBreaker_ONKA"
+                    .AddItem "MiniBreaker"
+                    .AddItem "MiniBreaker_ONKA"
                     .AddItem "EZC100"
                     .AddItem "EZC250"
                     .AddItem "EZC630"
