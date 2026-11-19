@@ -1311,19 +1311,19 @@ Public Sub Worksheet_Activate()
     '============== ACCESORIOS DE CONTROL ===================
         With Me.OLEObjects("ElementoCTR").Object
             .Clear
-        .AddItem "ClavijaRoja"
-        .AddItem "ClavijaAzul"
-        .AddItem "Pilotos"
-        .AddItem "Parada_Emergencia"
-        .AddItem "Selector1"
-        .AddItem "Selector2"
-        .AddItem "Pulsador"
-        .AddItem "Piloto_Verde"
-        .AddItem "Piloto_Azul"
-        .AddItem "Piloto_Rojo"
-        .AddItem "Piloto_Amarillo"
-        .AddItem "Piloto_gris"
-        .AddItem "Piloto_grisX3"
+            .AddItem "ClavijaRoja"
+            .AddItem "ClavijaAzul"
+            .AddItem "Pilotos"
+            .AddItem "Parada_Emergencia"
+            .AddItem "Selector1"
+            .AddItem "Selector2"
+            .AddItem "Pulsador"
+            .AddItem "Piloto_Verde"
+            .AddItem "Piloto_Azul"
+            .AddItem "Piloto_Rojo"
+            .AddItem "Piloto_Amarillo"
+            .AddItem "Piloto_gris"
+            .AddItem "Piloto_grisX3"
         End With
     '============== MENU ETOS =================
         With Me.OLEObjects("TipoU_ETO").Object

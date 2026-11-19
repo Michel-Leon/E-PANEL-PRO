@@ -522,5 +522,5 @@ Public Sub B_Conf_zona_1()
     ThisWorkbook.Sheets("B_Conf").Range("GB56:IP59").Value = ""
     ThisWorkbook.Sheets("B_Conf").Range("GB68:IP71").Value = ""
     ThisWorkbook.Sheets("B_Conf").Range("GB80:IP86").Value = ""
-    ThisWorkbook.Sheets("B_Conf").Range("GB95:IW152").Value = ""
+    ThisWorkbook.Sheets("B_Conf").Range("FX100:IQ152").Value = "" 
 End Sub

@@ -39,17 +39,17 @@ Private Sub CargarTamanoPE()
     With Me.OLEObjects("TamanoPE").Object
         .Clear
         Select Case dato
-            Case "Control"
+            Case "CONTROL"
                 .AddItem "Pequeña"
                 .AddItem "Mediana"
                 .AddItem "Grande"
-            Case "Ventilacion"
+            Case "VENTILACION"
                 Select Case dato2
                     Case "NATURAL"
                         .AddItem "Pequeña"
                         .AddItem "Mediana"
                         .AddItem "Grande" 
-                    Case "Shneider", "Shneider"
+                    Case "SHNEIDER", "SHNEIDER"
                         .AddItem "NA"
                 End Select
         End Select
@@ -100,6 +100,24 @@ End Sub
                 Case Else
                     .AddItem "No se reconoce" 
                 End Select
+        End With
+    End Sub
+'Accesorios de control
+    Private Sub ElementoCTR_Change()
+        Dim dato As String
+        dato = Me.OLEObjects("ElementoCTR").Object.Value
+        With Me.OLEObjects("vistaACCCTR").Object
+            .Clear
+            Select Case dato
+                Case "ClavijaRoja", "ClavijaAzul"
+                    .AddItem "Frontal"
+                    .AddItem "Derecha_Abierta"
+                    .AddItem "Derecha_Cerrada"
+                    .AddItem "Izquierda_Abierta"
+                    .AddItem "Izquierda_Cerrada"
+                Case Else
+                    .AddItem "NA"
+            End Select
         End With
     End Sub
 'Placas de Control
@@ -374,7 +392,24 @@ Public Sub Worksheet_Activate()
             .AddItem "Celosidas_Pequeña"
             .AddItem "Celosidas_Grande"
             .AddItem "Chapa_Antivandalica"
-        End With  
+        End With 
+     '============== ACCESORIOS DE CONTROL ===================
+        With Me.OLEObjects("ElementoCTR").Object
+            .Clear
+            .AddItem "ClavijaRoja"
+            .AddItem "ClavijaAzul"
+            .AddItem "Pilotos"
+            .AddItem "Parada_Emergencia"
+            .AddItem "Selector1"
+            .AddItem "Selector2"
+            .AddItem "Pulsador"
+            .AddItem "Piloto_Verde"
+            .AddItem "Piloto_Azul"
+            .AddItem "Piloto_Rojo"
+            .AddItem "Piloto_Amarillo"
+            .AddItem "Piloto_gris"
+            .AddItem "Piloto_grisX3"
+        End With 
     '============== PUERTAS ESPECIALES ========================
         With Me.OLEObjects("TipoCorte").Object
             .Clear
@@ -557,9 +592,31 @@ public sub Puertas_especiales()
     End if
     MoverBloque ResultadoPE, "Puertas_Especiales", wsActual, Celda
 End Sub
-    
+Public Sub Accesorios_CTR()
+    Dim wsActual As Worksheet, Celda As String
+    Dim dato1 As String, dato2 As String
 
+   '========================
+        Celda = "KS99"
+        ThisWorkbook.Sheets("FrontalPuerta").Range("KO83:NJ185").Clear
+        Set wsActual = ThisWorkbook.Sheets("FrontalPuerta")
+    '========================
 
+    dato1 =  Me.OLEObjects("ElementoCTR").Object.Value
+    dato2 =  Me.OLEObjects("vistaACCCTR").Object.Value
+    Select Case dato2
+        Case "Derecha_Abierta":   dato2 = "DA"
+        Case "Derecha_Cerrada":   dato2 = "DC"
+        Case "Izquierda_Abierta": dato2 = "IA"
+        Case "Izquierda_Cerrada": dato2 = "IC"
+    End Select
+
+    'If Vacio(dato1, dato2) Then AvisoFaltan "Elemento o Vista": Exit Sub
+
+    ResultadoACC = "AC_" & dato1 & "_" & dato2
+    MoverBloque ResultadoACC, "UCONTROL", wsActual, Celda
+    Application.ScreenUpdating = True
+End Sub     
 Public Sub COTAS()
     '========================
         Celda = "KR104"
