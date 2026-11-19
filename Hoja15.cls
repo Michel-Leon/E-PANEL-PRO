@@ -70,10 +70,10 @@ Public IP As String, Color As String
                     .AddItem "600"
                 Case "Cancamo_Frontal", "Cancamo_Lateral", "Celosidas_Grande", "Celosidas_Pequeña", _
                         "Chapa_Antivandalica", "Hablador_Lateral", "Angulo_Frontal", "Angulo Lateral", _
-                        "Cubierta Frontal","Techo_Frontal", "Ventilador_Frontal"
+                        "Cubierta_Frontal","Techo_Frontal", "Ventilador_Frontal"
                     .AddItem "NA"
                 Case Else
-                    .AddItem "No se reconoce" 
+                    .AddItem "NA" 
                 End Select
         End With
     End Sub    

@@ -330,6 +330,24 @@ Public IP As String, Color As String
             End Select
         End With
     End Sub
+'Accesorios de control
+    Private Sub ElementoCTR_Change()
+        Dim dato As String
+        dato = Me.OLEObjects("ElementoCTR").Object.Value
+        With Me.OLEObjects("vistaACCCTR").Object
+            .Clear
+            Select Case dato
+                Case "ClavijaRoja", "ClavijaAzul"
+                    .AddItem "Frontal"
+                    .AddItem "Derecha_Abierta"
+                    .AddItem "Derecha_Cerrada"
+                    .AddItem "Izquierda_Abierta"
+                    .AddItem "Izquierda_Cerrada"
+                Case Else
+                    .AddItem "NA"
+            End Select
+        End With
+    End Sub
 Public Sub Worksheet_Activate()
     Extraer_datos
     'Ocultar menus
@@ -414,7 +432,24 @@ Public Sub Worksheet_Activate()
             .AddItem "RAL 9004"
             .AddItem "Naranja"
             .AddItem "Amarillo"
-        End With        
+        End With   
+    '============== ACCESORIOS DE CONTROL ===================
+        With Me.OLEObjects("ElementoCTR").Object
+            .Clear
+            .AddItem "ClavijaRoja"
+            .AddItem "ClavijaAzul"
+            .AddItem "Pilotos"
+            .AddItem "Parada_Emergencia"
+            .AddItem "Selector1"
+            .AddItem "Selector2"
+            .AddItem "Pulsador"
+            .AddItem "Piloto_Verde"
+            .AddItem "Piloto_Azul"
+            .AddItem "Piloto_Rojo"
+            .AddItem "Piloto_Amarillo"
+            .AddItem "Piloto_gris"
+            .AddItem "Piloto_grisX3"
+        End With     
 End Sub
 '--- Llena un ComboBox ActiveX a partir de una cadena separada por comas
 Private Sub LlenarCombo(cbo As Object, ByVal datos As String)
@@ -472,6 +507,31 @@ Public Sub ACESORIOS_MTM()
     ResultadoACM = "ACC_" & dato1 & "X" & dato2
     MoverBloque ResultadoACM, "ACCESOSRIOS MTM", wsActual, Celda
 End Sub
+'============================================================ ACCESORIOS CTR
+    Public Sub Accesorios_CTR()
+        Dim wsActual As Worksheet, Celda As String
+        Dim dato1 As String, dato2 As String
+
+        '========================
+        Celda = "KR104"
+        ThisWorkbook.Sheets("FrontalPuerta").Range("KR83:NJ185").Clear
+        Set wsActual = ThisWorkbook.Sheets("FrontalPuerta")
+        '========================
+        dato1 =  Me.OLEObjects("ElementoCTR").Object.Value
+        dato2 =  Me.OLEObjects("vistaACCCTR").Object.Value
+        Select Case dato2
+            Case "Derecha_Abierta":   dato2 = "DA"
+            Case "Derecha_Cerrada":   dato2 = "DC"
+            Case "Izquierda_Abierta": dato2 = "IA"
+            Case "Izquierda_Cerrada": dato2 = "IC"
+        End Select
+
+        'If Vacio(dato1, dato2) Then AvisoFaltan "Elemento o Vista": Exit Sub
+
+        ResultadoACC = "AC_" & dato1 & "_" & dato2
+        MoverBloque ResultadoACC, "UCONTROL", wsActual, Celda
+        Application.ScreenUpdating = True
+    End Sub
 Public Sub Placas_Control()
     '========================
         Celda = "KR132"

@@ -18,6 +18,7 @@ Public Sub Puerta_Menu_Envolventes()
         ActiveSheet.Shapes("Menu Acotar").Visible = False
         ActiveSheet.Shapes("Menu Color").Visible = False
         ActiveSheet.Shapes("Menu Puertas especiales").Visible = False
+        ActiveSheet.Shapes("Menu ACCESORIOS CTR").Visible = False
     End If
 End Sub
 Public sub Puerta_Menu_Placas()
@@ -39,6 +40,7 @@ Public sub Puerta_Menu_Placas()
         ActiveSheet.Shapes("Menu Acotar").Visible = False
         ActiveSheet.Shapes("Menu Color").Visible = False
         ActiveSheet.Shapes("Menu Puertas especiales").Visible = False
+        ActiveSheet.Shapes("Menu ACCESORIOS CTR").Visible = False
     End If
 End sub
 Public sub Puerta_Menu_AccesoriosMTM()
@@ -60,6 +62,7 @@ Public sub Puerta_Menu_AccesoriosMTM()
         ActiveSheet.Shapes("Menu Acotar").Visible = False
         ActiveSheet.Shapes("Menu Color").Visible = False
         ActiveSheet.Shapes("Menu Puertas especiales").Visible = False
+        ActiveSheet.Shapes("Menu ACCESORIOS CTR").Visible = False
     End If
 End sub
 Public sub Puerta_Menu_Etiqueta()
@@ -81,6 +84,7 @@ Public sub Puerta_Menu_Etiqueta()
         ActiveSheet.Shapes("Menu Acotar").Visible = False
         ActiveSheet.Shapes("Menu Color").Visible = False
         ActiveSheet.Shapes("Menu Puertas especiales").Visible = False
+        ActiveSheet.Shapes("Menu ACCESORIOS CTR").Visible = False
     End If
 End sub
 public sub Puerta_Menu_Acotar()
@@ -102,6 +106,7 @@ public sub Puerta_Menu_Acotar()
         ActiveSheet.Shapes("Menu Etiqueta").Visible = False
         ActiveSheet.Shapes("Menu Color").Visible = False
         ActiveSheet.Shapes("Menu Puertas especiales").Visible = False
+        ActiveSheet.Shapes("Menu ACCESORIOS CTR").Visible = False
     End If
 End sub
 public sub Puerta_Menu_Color()
@@ -123,6 +128,7 @@ public sub Puerta_Menu_Color()
         ActiveSheet.Shapes("Menu Etiqueta").Visible = False
         ActiveSheet.Shapes("Menu Acotar").Visible = False
         ActiveSheet.Shapes("Menu Puertas especiales").Visible = False
+        ActiveSheet.Shapes("Menu ACCESORIOS CTR").Visible = False
     End If
 End sub
 public sub Menu_Puertas_especiales()
@@ -144,6 +150,7 @@ public sub Menu_Puertas_especiales()
         ActiveSheet.Shapes("Menu Etiqueta").Visible = False
         ActiveSheet.Shapes("Menu Acotar").Visible = False
         ActiveSheet.Shapes("Menu Color").Visible = False
+        ActiveSheet.Shapes("Menu ACCESORIOS CTR").Visible = False
     End If
 End sub
 Public Sub Puerta_area_trabajo2()
@@ -498,5 +505,5 @@ Public Sub B_Conf_zona_1()
     ThisWorkbook.Sheets("B_Conf").Range("GB56:IP59").Value = ""
     ThisWorkbook.Sheets("B_Conf").Range("GB68:IP71").Value = ""
     Thisworkbook.Sheets("B_Conf").Range("GB80:IP86").Value = ""
-    Thisworkbook.Sheets("B_Conf").Range("GB95:IW152").Value = ""
-End Sub
+    Thisworkbook.Sheets("B_Conf").Range("FX101:IQ153").Value = ""
+End Sub 
