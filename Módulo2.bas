@@ -487,7 +487,7 @@ Public Sub Area_GFL_1()
     ThisWorkbook.Sheets("VistaFrontal").Range("GG60:IP104").Value = ""
 End Sub
 Public Sub Area_GFL_2()
-    ThisWorkbook.Sheets("VistaFrontal").Range("KO91:OJ185").Clear
+    ThisWorkbook.Sheets("VistaFrontal").Range("KO85:OJ185").Clear
 End Sub
 '======================= VISTA PUERTA ======================
 Public Sub Seleccion_Menu_Envolventes_VP()
@@ -614,7 +614,7 @@ Public Sub Area_GFL_1_VP()
     ThisWorkbook.Sheets("FrontalPuerta").Range("CE46:FS146").Clear
 End Sub
 Public Sub Area_GFL_2_VP()
-    ThisWorkbook.Sheets("FrontalPuerta").Range("KO91:OJ185").Clear
+    ThisWorkbook.Sheets("FrontalPuerta").Range("KO85:OJ185").Clear
 End Sub
 '======================= VISTA LATERAL ======================
 Public Sub Seleccion_Menu_Envolventes_L()

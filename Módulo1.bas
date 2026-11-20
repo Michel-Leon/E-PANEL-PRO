@@ -198,7 +198,7 @@ Sub abrir_formulario()
     For i = 1 To ultimaFila
         If Trim(wsUsuarios.Cells(i, "E").Value) = usuarioIngresado Then
             If Trim(wsUsuarios.Cells(i, "F").Value) = claveIngresada Then
-                encontrado = True
+                encontrado = True 
                 nombreUsuario = Trim(wsUsuarios.Cells(i, "D").Value)
                 Exit For
             End If
@@ -214,19 +214,19 @@ Sub abrir_formulario()
         wsConfig.Activate
 
         ' 2) Escribir el nombre del usuario
-        wsConfig.Range("K193").Value = nombreUsuario
+        wsConfig.Range("L185").Value = nombreUsuario
 
         ' 3) DESPU�S ocultar el login (ya hay otra hoja visible)
         'wsLogin.Visible = xlSheetVeryHidden
 
         ' Limpiar los campos del login por seguridad
-        wsLogin.Range("HX83").Value = ""
-        wsLogin.Range("HX98").Value = ""
+        wsLogin.Range("IU83").Value = ""
+        wsLogin.Range("IU98").Value = ""
 
         Application.ScreenUpdating = True
 
     Else
-        MsgBox "Usuario o contrase�a incorrectos.", vbCritical, "Login"
+        MsgBox "Usuario o contraseña incorrectos.", vbCritical, "Login"
         wsLogin.Range("HX98").Value = ""
     End If
 
@@ -258,7 +258,7 @@ Public Sub Cerrar_seccion()
     wsLogin.Range("HX98").Value = ""
 
     ' 3) Borrar el usuario de la sesi�n
-    wsConfig.Range("K193").ClearContents
+    wsConfig.Range("L185").ClearContents
 
     ' 4) DESPU�S ocultar INICIO (ya hay otra hoja visible)
     wsConfig.Visible = xlSheetVeryHidden

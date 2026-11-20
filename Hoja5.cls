@@ -638,11 +638,11 @@ Public Sub Worksheet_Activate()
             .AddItem "Ancho: 520mm"
             .AddItem "Ancho: 620mm"
             .AddItem "Ancho: 720mm"
-            .AddItem "Ancho: 1100mm"
+            .AddItem "Ancho: 1120mm"
             .AddItem "Altura: 900mm"
             .AddItem "Altura: 800mm"
             .AddItem "Altura: 700mm"
-            .AddItem "Altura: 1120mm"
+            .AddItem "Altura: 1100mm"
             .AddItem "Division Tabelero"
             .AddItem "Corte Tren"
             .AddItem "Continuacion Tren"
@@ -1009,7 +1009,7 @@ Public Sub Arranque_Motor()
 End Sub
 Public Sub COTAS()
     '========================
-        celda = "KR116"
+        celda = "KR86"
         ThisWorkbook.Sheets("VistaFrontal").Range("KO91:OJ185").Clear
         Set wsActual = ThisWorkbook.Sheets("VistaFrontal")
     '========================
@@ -1019,11 +1019,11 @@ Public Sub COTAS()
         Case "Ancho: 520mm": dato1 = "CG_520"
         Case "Ancho: 620mm": dato1 = "CG_620"
         Case "Ancho: 720mm": dato1 = "CG_720"
-        Case "Ancho: 1100mm": dato1 = "CG_1100"
+        Case "Ancho: 1120mm": dato1 = "CG_1120"
         Case "Altura: 900mm": dato1 = "CG_900"
         Case "Altura: 800mm": dato1 = "CG_800"
         Case "Altura: 700mm": dato1 = "CG_700"
-        Case "Altura: 1120mm": dato1 = "CG_1120"
+        Case "Altura: 1100mm": dato1 = "CG_1100"
         Case "Division Tabelero": dato1 = "Division"
         Case "Corte Tren": dato1 = "Corte_Tren"
         Case "Continuacion Tren": dato1 = "Continuidad_Tren"
